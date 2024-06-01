@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { GroupManager, TargetList } from "@moveable/helper";
+import { GroupManager } from "@moveable/helper";
 import { defaultBreakpoints, sizeFormat } from "./utils";
 import { useSchemaComponentContext } from "../../hooks";
 import { useFieldSchema } from "@formily/react";
@@ -66,10 +66,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     ...otherProps
   } = props;
   const { designable: defaultDesignable } = useSchemaComponentContext();
-  const { isKeydown: isCommand } = useKeycon({ keys: "meta" });
-  const { isKeydown: isShift } = useKeycon({ keys: "shift" });
 
-  const groupManager = useMemo<GroupManager>(() => new GroupManager([]), []);
   const [targets, setTargets] = useState<MoveableTargetGroupsType>([]);
   const moveableRef = useRef<Moveable>(null);
   const selectoRef = useRef<Selecto>(null);
@@ -112,18 +109,6 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     themeProvider,
     isDarkTheme,
   });
-
-  const setSelectedTargets = useCallback(
-    (nextTargetes: MoveableTargetGroupsType) => {
-      selectoRef.current!.setSelectedTargets(deepFlat(nextTargetes));
-      setTargets(nextTargetes as any);
-    },
-    []
-  );
-  useEffect(() => {
-    const elements = selectoRef.current!.getSelectableElements();
-    groupManager.set([], elements);
-  }, []);
 
   return (
     <DashboardRootContext.Provider
@@ -173,6 +158,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
           rotationPosition={"top"}
           originDraggable={true}
           originRelative={true}
+          bounds={{ left: 0, top: 0, right: 0, bottom: 0, position: "css" }}
           snapDirections={{
             top: true,
             left: true,
@@ -204,14 +190,20 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
           onResizeEnd={(e) => {
             requestAnimationFrame(() => {
               const rect = e.moveable.getRect();
-              console.log(rect);
+              console.log(rect, "onResizeEnd");
             });
           }}
           onRender={(e) => {
+            console.log(e.cssText);
             e.target.style.transform = e.transform;
           }}
           onDrag={(e) => {
             e.target.style.transform = e.transform;
+          }}
+          onDragGroup={(e) => {
+            e.events.forEach((ev) => {
+              ev.target.style.transform = ev.transform;
+            });
           }}
           onRenderGroup={(e) => {
             e.events.forEach((ev) => {
@@ -222,33 +214,19 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
             console.log(e, "onDragEnd");
           }}
           onClickGroup={(e) => {
-            if (!e.moveableTarget) {
-              setSelectedTargets([]);
-              return;
-            }
-            if (e.isDouble) {
-              const childs = groupManager.selectSubChilds(
-                targets,
-                e.moveableTarget
-              );
-
-              setSelectedTargets(childs.targets());
-              return;
-            }
-            if (e.isTrusted) {
-              selectoRef.current!.clickTarget(e.inputEvent, e.moveableTarget);
-            }
+            selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);
           }}
           onClick={(e) => {
-            // if (e.isDouble) {
-            //   const inputTarget = e.inputTarget as HTMLElement;
-            //   const selectableElements =
-            //     selectoRef.current!.getSelectableElements();
-            //   if (selectableElements.includes(inputTarget)) {
-            //     selectoRef.current!.setSelectedTargets([inputTarget]);
-            //     setTargets([inputTarget]);
-            //   }
-            // }
+            if (e.isDouble) {
+              const inputTarget = e.inputTarget as HTMLElement;
+              const selectableElements =
+                selectoRef.current!.getSelectableElements();
+
+              if (selectableElements.includes(inputTarget)) {
+                selectoRef.current!.setSelectedTargets([inputTarget]);
+                setTargets([inputTarget]);
+              }
+            }
           }}
         />
         <Selecto

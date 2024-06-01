@@ -1,14 +1,11 @@
 import { PropsWithChildren, useMemo, useRef } from "react";
 
-import { DragOutlined } from "@ant-design/icons";
-import { Rnd } from "react-rnd";
 import { useField, useFieldSchema } from "@formily/react";
 import { createStyles } from "antd-style";
 import { PositionDecoratorOptions, SchemaToolbarProps } from "./types";
 import { useDashboardRoot } from "../DashboardRoot";
 import { sizeFormat } from "../DashboardRoot/utils";
 import { cn } from "../../../utils";
-import Moveable from "react-moveable";
 
 const resizeHandleStyles1: React.CSSProperties = {
   height: "7px",
@@ -31,18 +28,7 @@ const resizeHandleStyles2: React.CSSProperties = {
 
 const useRndStyle = createStyles(
   ({ css }, { toolbarActive }: { toolbarActive?: boolean }) => {
-    return css`
-      border-width: 1px;
-      border-style: solid;
-      border-color: ${toolbarActive
-        ? "var( --colorBorderSettingsHover )"
-        : "transparent"};
-      &:hover {
-        ${toolbarActive
-          ? ""
-          : " border-radius:5px; border-style:dashed; border-color:var( --colorBorderSettingsHover )"};
-      }
-    `;
+    return css``;
   }
 );
 // TODO 编辑++
@@ -67,13 +53,6 @@ export const PositionDecoratorHandle = (
   const field = useField();
   const fieldSchema = useFieldSchema();
   const eid = field.address.toString();
-  const dragHandleClassName = `dragHandle-${eid}`.replace(/\./g, "-");
-
-  const { draggable = true, resizable = true } = {
-    ...props,
-    ...(fieldSchema["x-toolbar-props"] || {}),
-  } as SchemaToolbarProps;
-
   const width = sizeFormat(colWidth * w);
   const height = sizeFormat(rowHeight * h);
   const rndStyle = useRndStyle({
@@ -106,8 +85,11 @@ export const PositionDecoratorHandle = (
         height,
         zIndex,
         padding: styleMemo.padding,
-        left: sizeFormat(x * colWidth),
-        top: sizeFormat(y * rowHeight),
+        left: 0,
+        top: 0,
+        transform: `translate( ${sizeFormat(x * colWidth)}px,  ${sizeFormat(
+          y * rowHeight
+        )}px )`,
       }}
     >
       {children}
