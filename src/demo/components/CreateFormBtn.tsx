@@ -1,11 +1,10 @@
 import { Button } from "antd";
 import { useApp } from "../../application/hooks";
 import { useNavigate } from "react-router-dom";
-import { FormDialog } from "@formily/antd-v5";
 
 import { ISchema } from "@formily/react";
 
-import { useFormDialog } from "../../schema-component/antd/FormDialog/FormDialog";
+import { FormDialogPortal, useFormDialog } from "../../schema-component";
 import { APiWrap } from "../../api-client";
 import { dashboardRootWrap } from "../../schema-component";
 import { get } from "lodash-es";
@@ -50,7 +49,7 @@ export const CreateFormBtn = () => {
 
   const { getFormDialog } = useFormDialog();
   return (
-    <FormDialog.Portal>
+    <FormDialogPortal>
       <Button
         type="primary"
         onClick={() => {
@@ -110,6 +109,6 @@ export const CreateFormBtn = () => {
       >
         新建
       </Button>
-    </FormDialog.Portal>
+    </FormDialogPortal>
   );
 };
