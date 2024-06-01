@@ -269,6 +269,20 @@
   dependencies:
     "@egjs/component" "^3.0.2"
 
+"@cfcs/core@~0.0.6":
+  version "0.0.26"
+  resolved "https://registry.npmmirror.com/@cfcs/core/-/core-0.0.26.tgz#ef49c9c39288747be5a996a74f53d4f6f7f01ca1"
+  integrity sha512-bqbNKLNIjiNZ29WX3+TPdw98YusWXwQkcRcpS8vCPf6+2FRPhHFg+AXSfmTsDzbcrR48ZY7NrxY2w52M/P1SpA==
+  dependencies:
+    "@egjs/component" "^3.0.4"
+
+"@cfcs/react@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.npmmirror.com/@cfcs/react/-/react-0.0.6.tgz#0e88a71b09c39bcd7cdf45fa81bb5c48566c0ce5"
+  integrity sha512-PfMS9BGiGWVY+YVB7iIj/YxBUtklwV1ArH+rRYLIqqonwRLyKfvmXJQUAIapGFymdjNR3C4z9ZA9sF3kIONxKQ==
+  dependencies:
+    "@cfcs/core" "~0.0.6"
+
 "@ctrl/tinycolor@^3.6.1":
   version "3.6.1"
   resolved "https://registry.npmjs.org/@ctrl/tinycolor/-/tinycolor-3.6.1.tgz#b6c75a56a1947cc916ea058772d666a2c8932f31"
@@ -322,7 +336,7 @@
   dependencies:
     "@egjs/list-differ" "^1.0.0"
 
-"@egjs/component@^3.0.2":
+"@egjs/component@^3.0.2", "@egjs/component@^3.0.4":
   version "3.0.5"
   resolved "https://registry.npmmirror.com/@egjs/component/-/component-3.0.5.tgz#2dc86e835d5dc5055cdf46c7cd794eb45330e1b6"
   integrity sha512-cLcGizTrrUNA2EYE3MBmEDt2tQv1joVP1Q3oDisZ5nw0MZDx2kcgEXM+/kZpfa/PAkFvYVhRUZwytIQWoN3V/w==
@@ -749,6 +763,13 @@
   version "3.4.0"
   resolved "https://registry.npmjs.org/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
+
+"@moveable/helper@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.npmmirror.com/@moveable/helper/-/helper-0.1.3.tgz#35bef6ea64d9ec870a03790c75044cc26f5305b5"
+  integrity sha512-hSSyPkU7/cZuJys79rG0/xMs2Py09a8RUvBtpi/AftLYeSS8JAmMNwiw9lL19nddsVNB9cb2UON+U6uyFNS8Zw==
+  dependencies:
+    "@daybrush/utils" "^1.13.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -2127,7 +2148,7 @@ keycode@^2.2.0:
   resolved "https://registry.npmmirror.com/keycode/-/keycode-2.2.1.tgz#09c23b2be0611d26117ea2501c2c391a01f39eff"
   integrity sha512-Rdgz9Hl9Iv4QKi8b0OlCRQEzp4AgVxyCtz5S/+VIHezDmrDhkp2N2TqBWOLz0/gbeREXOOiI9/4b8BY9uw2vFg==
 
-keycon@^1.2.0:
+keycon@^1.2.0, keycon@~1.4.0:
   version "1.4.0"
   resolved "https://registry.npmmirror.com/keycon/-/keycon-1.4.0.tgz#bf2a633f3c3b659ea564045938cff33e584cebd5"
   integrity sha512-p1NAIxiRMH3jYfTeXRs2uWbVJ1WpEjpi8ktzUyBJsX7/wn2qu2VRXktneBLNtKNxJmlUYxRi9gOJt1DuthXR7A==
@@ -2859,6 +2880,14 @@ react-is@^18.2.0:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.3.1.tgz#e83557dc12eae63a99e003a46388b1dcbb44db7e"
   integrity sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==
+
+react-keycon@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmmirror.com/react-keycon/-/react-keycon-0.3.0.tgz#7baf142a1455b629b995611f00eeb4ecc93ce54a"
+  integrity sha512-F5fzotY2U892HQYIAnLflkaac3uKC+Gutl6PRu9VXermxnibDLX+lj/6ltoTHdLfrC75OKOPZTgdrvOgRd1WVQ==
+  dependencies:
+    "@cfcs/react" "^0.0.6"
+    keycon "~1.4.0"
 
 react-moveable@^0.56.0:
   version "0.56.0"
