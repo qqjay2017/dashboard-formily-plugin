@@ -9,8 +9,8 @@ import React, {
 } from "react";
 import { GroupManager } from "@moveable/helper";
 import { defaultBreakpoints, sizeFormat } from "./utils";
-import { useSchemaComponentContext } from "../../hooks";
-import { useFieldSchema } from "@formily/react";
+import { useDesignable, useSchemaComponentContext } from "../../hooks";
+import { useField, useFieldSchema, useForm } from "@formily/react";
 import { useKeycon } from "react-keycon";
 import { useUpdate } from "ahooks";
 import { useBreakpoints } from "./hooks";
@@ -22,6 +22,9 @@ import { cn } from "../../../utils";
 import Moveable, { MoveableTargetGroupsType } from "react-moveable";
 import { diff } from "@egjs/children-differ";
 import { deepFlat } from "@daybrush/utils";
+import { set } from "lodash-es";
+import { useAPIClient } from "../../../api-client";
+import { useParams } from "react-router-dom";
 
 declare module "react-keycon" {
   export interface ReactKeyControllerResult {
@@ -65,8 +68,9 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     isDarkTheme,
     ...otherProps
   } = props;
+  const aPIClient = useAPIClient();
   const { designable: defaultDesignable } = useSchemaComponentContext();
-
+  const { id } = useParams();
   const [targets, setTargets] = useState<MoveableTargetGroupsType>([]);
   const moveableRef = useRef<Moveable>(null);
   const selectoRef = useRef<Selecto>(null);
@@ -109,6 +113,12 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     themeProvider,
     isDarkTheme,
   });
+
+  const { patch } = useDesignable();
+  const field = useField();
+
+  const fieldSchema = useFieldSchema();
+  const form = useForm();
 
   return (
     <DashboardRootContext.Provider
@@ -194,7 +204,6 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
             });
           }}
           onRender={(e) => {
-            console.log(e.cssText);
             e.target.style.transform = e.transform;
           }}
           onDrag={(e) => {
@@ -210,9 +219,6 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               ev.target.style.cssText += ev.cssText;
             });
           }}
-          onDragEnd={(e) => {
-            console.log(e, "onDragEnd");
-          }}
           onClickGroup={(e) => {
             selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);
           }}
@@ -227,6 +233,80 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                 setTargets([inputTarget]);
               }
             }
+          }}
+          onDragEnd={(e) => {
+            const [left, top] = e.lastEvent?.translate || [];
+            if (!left && !top) {
+              return false;
+            }
+            const eid = e.target.id;
+            form.setFieldState(eid, (state) => {
+              console.log(state, "state");
+              state.decoratorProps = {
+                ...state.decoratorProps,
+                x: sizeFormat(left / colWidth),
+                y: sizeFormat(top / rowHeight),
+              };
+              const setAddress =
+                eid
+                  .split(".")
+                  .map((key, index) => {
+                    if (index == 0) {
+                      return "";
+                    } else {
+                      return "properties." + key;
+                    }
+                  })
+                  .filter(Boolean)
+                  .join(".") + ".x-decorator-props";
+
+              set(fieldSchema, setAddress, state.decoratorProps);
+            });
+            aPIClient.request({
+              url: "/huang-api/dashboard/" + id,
+              method: "put",
+              data: {
+                content: JSON.stringify(fieldSchema.toJSON()),
+              },
+            });
+          }}
+          onDragGroupEnd={(e) => {
+            e.events.forEach((ev) => {
+              const [left, top] = ev.lastEvent?.translate || [];
+              if (!left && !top) {
+                return false;
+              }
+              const eid = ev.target.id;
+              form.setFieldState(eid, (state) => {
+                console.log(state, "state");
+                state.decoratorProps = {
+                  ...state.decoratorProps,
+                  x: sizeFormat(left / colWidth),
+                  y: sizeFormat(top / rowHeight),
+                };
+                const setAddress =
+                  eid
+                    .split(".")
+                    .map((key, index) => {
+                      if (index == 0) {
+                        return "";
+                      } else {
+                        return "properties." + key;
+                      }
+                    })
+                    .filter(Boolean)
+                    .join(".") + ".x-decorator-props";
+
+                set(fieldSchema, setAddress, state.decoratorProps);
+              });
+            });
+            aPIClient.request({
+              url: "/huang-api/dashboard/" + id,
+              method: "put",
+              data: {
+                content: JSON.stringify(fieldSchema.toJSON()),
+              },
+            });
           }}
         />
         <Selecto

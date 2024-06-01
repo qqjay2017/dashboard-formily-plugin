@@ -47,11 +47,12 @@ export const PositionDecoratorHandle = (
     padding = 12,
     className,
   } = props;
+  console.log(x, y);
   const targetRef = useRef<HTMLDivElement>(null);
   const { colWidth, rowHeight } = useDashboardRoot();
 
   const field = useField();
-  const fieldSchema = useFieldSchema();
+
   const eid = field.address.toString();
   const width = sizeFormat(colWidth * w);
   const height = sizeFormat(rowHeight * h);
@@ -78,6 +79,7 @@ export const PositionDecoratorHandle = (
   return (
     <div
       ref={targetRef}
+      id={eid}
       className={cn("positionDecoratorHandle", rndStyle.styles, className)}
       style={{
         position: "absolute",
