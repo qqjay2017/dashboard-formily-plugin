@@ -1,5 +1,5 @@
 export * from './DashboardRoot'
-
+export * from './hooks'
 
 export const dashboardRootWrap = (inject: any) => ({
     name: "root",

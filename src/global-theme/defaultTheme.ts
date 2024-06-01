@@ -19,9 +19,11 @@ const defaultTheme: ThemeConfig = {
     colorBgSettingsHover: 'rgba(241, 139, 98, 0.06)',
     colorBorderSettingsHover: 'rgba(241, 139, 98, 0.3)',
 
+
     // 动画相关
     motionUnit: 0.03,
     motion: true,
+
   },
 };
 

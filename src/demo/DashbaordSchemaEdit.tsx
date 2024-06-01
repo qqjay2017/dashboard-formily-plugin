@@ -8,7 +8,7 @@ import { AntdV5Plugin, DashboardDesignerPlugin } from "../plugins";
 export const application = new Application({
   providers: [],
   plugins: [AntdV5Plugin, DashboardDesignerPlugin],
-  // designable: true,
+  designable: true,
   components: {
     Hello,
   },

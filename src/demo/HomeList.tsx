@@ -25,7 +25,12 @@ export const HomeList = () => {
   const list = get(data, "data.data", []);
 
   return (
-    <div className="container">
+    <div
+      className={css`
+        width: 100vw;
+        height: 100vh;
+      `}
+    >
       <div
         className={css`
           width: 100%;

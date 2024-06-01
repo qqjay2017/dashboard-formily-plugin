@@ -1,5 +1,11 @@
+import { PropsWithChildren } from "react";
 import { Plugin } from "../../application";
 import { IsDarkThemeSelect } from "../../demo/components";
+import {
+  DashboardRoot,
+  ClassicFrame,
+  PositionDecorator,
+} from "../../schema-component";
 import { ColorTypeSelect } from "../../schema-settings";
 
 /**
@@ -10,6 +16,9 @@ export class DashboardDesignerPlugin extends Plugin {
     this.app.addComponents({
       ColorTypeSelect,
       IsDarkThemeSelect,
+      DashboardRoot,
+      PositionDecorator,
+      ClassicFrame,
     });
   }
 }

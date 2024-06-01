@@ -1,12 +1,16 @@
 import { ComponentType, FC, ReactElement, ReactNode } from "react";
-import { ComponentTypeAndString, RouterManager } from "./RouterManager";
+import {
+  ComponentTypeAndString,
+  RouterManager,
+  RouterOptions,
+} from "./RouterManager";
 import { APIClient, APIClientProvider } from "../api-client";
 import {
   AppComponent,
   BlankComponent,
   defaultAppComponents,
 } from "./components";
-import { PluginManager } from "./PluginManager";
+import { PluginManager, PluginType } from "./PluginManager";
 import { define, observable } from "@formily/reactive";
 import { get, merge, set } from "lodash-es";
 import { AntdAppProvider, GlobalThemeProvider } from "../global-theme";
@@ -17,7 +21,21 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { AppSchemaComponentProvider } from "./AppSchemaComponentProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { APIClientOptions } from "../sdk";
 export type ComponentAndProps<T = any> = [ComponentType, T];
+
+export interface ApplicationOptions {
+  designable?: boolean;
+  name?: string;
+  publicPath?: string;
+  apiClient?: APIClientOptions | APIClient;
+
+  providers?: (ComponentType | ComponentAndProps)[];
+  plugins?: PluginType[];
+  components?: Record<string, ComponentType>;
+  scopes?: Record<string, any>;
+  router?: RouterOptions;
+}
 
 export class Application {
   providers: ComponentAndProps[] = [];
@@ -39,7 +57,7 @@ export class Application {
   get pm() {
     return this.pluginManager;
   }
-  constructor(protected options) {
+  constructor(protected options: ApplicationOptions) {
     define(this, {
       maintained: observable.ref,
       loading: observable.ref,
@@ -55,11 +73,7 @@ export class Application {
     this.apiClient.app = this;
     this.router = new RouterManager(options.router, this);
 
-    this.pluginManager = new PluginManager(
-      options.plugins,
-      options.loadRemotePlugins,
-      this
-    );
+    this.pluginManager = new PluginManager(options.plugins, false, this);
 
     this.addDefaultProviders();
     this.addReactRouterComponents();
