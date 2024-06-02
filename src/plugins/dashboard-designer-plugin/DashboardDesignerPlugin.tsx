@@ -1,12 +1,11 @@
-import { PropsWithChildren } from "react";
 import { Plugin } from "../../application";
-import { IsDarkThemeSelect } from "../../demo/components";
+
 import {
   DashboardRoot,
   ClassicFrame,
   PositionDecorator,
 } from "../../schema-component";
-import { ColorTypeSelect } from "../../schema-settings";
+import { ColorTypeSelect, IsDarkThemeSelect } from "../../schema-settings";
 
 /**
  * 设计器相关的插件,浏览的时候不需要用到

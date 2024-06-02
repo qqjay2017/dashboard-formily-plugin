@@ -23,6 +23,7 @@ import { diff } from "@egjs/children-differ";
 import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
 import { ConfigProvider } from "antd";
 import { ThemeCSSVariableProvider } from "../../../css-variable";
+import { DashboardSettings } from "./DashboardSettings";
 
 interface DashboardRootProps extends PropsWithChildren, HTMLAttributes<any> {
   cols?: number;
@@ -153,6 +154,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               ...style,
             }}
           >
+            {designable && <DashboardSettings />}
             {designable && (
               <>
                 <Moveable
