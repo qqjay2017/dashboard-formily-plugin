@@ -9,7 +9,6 @@ export const FormDialogPortal = AntdFormDialog.Portal;
 export const useFormDialog = () => {
   const options = useContext(SchemaOptionsContext);
   const { locale } = useContext(ConfigProvider.ConfigContext);
-  console.log(locale, "locale");
   const getFormDialog = (title = "", schema: ISchema) =>
     AntdFormDialog(title, () => {
       return (

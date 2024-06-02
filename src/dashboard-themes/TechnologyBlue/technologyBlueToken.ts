@@ -2,8 +2,7 @@
 import { TinyColor } from '@ctrl/tinycolor';
 
 const primary = new TinyColor("#c3d4e5")
-// .setAlpha(0.5).toRgbString()
-console.log(primary.toRgb(), 'primary.toRgb()')
+
 
 export const technologyBlueToken = {
 

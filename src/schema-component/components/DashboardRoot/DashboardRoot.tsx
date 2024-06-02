@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 import { defaultBreakpoints, sizeFormat } from "./utils";
-import { useSchemaComponentContext } from "../../hooks";
+import { useDesignable, useSchemaComponentContext } from "../../hooks";
 import { useFieldSchema } from "@formily/react";
 
 import { useUpdate } from "ahooks";
@@ -61,7 +61,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     ...otherProps
   } = props;
 
-  const { designable: defaultDesignable } = useSchemaComponentContext();
+  const { designable } = useSchemaComponentContext();
 
   const [targets, setTargets] = useState<MoveableTargetGroupsType>([]);
   const moveableRef = useRef<Moveable>(null);
@@ -153,217 +153,229 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               ...style,
             }}
           >
-            <Moveable
-              ref={moveableRef}
-              draggable={true}
-              origin={false}
-              originDraggable={false}
-              originRelative={false}
-              resizable={true}
-              rotatable={false}
-              // 内容是否支持缩放
-              scalable={false}
-              throttleResize={1}
-              target={targets}
-              throttleDrag={1}
-              edgeDraggable={false}
-              startDragRotate={0}
-              throttleDragRotate={0}
-              keepRatio={false}
-              throttleScale={0}
-              renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
-              throttleRotate={0}
-              rotationPosition={"top"}
-              isDisplayGridGuidelines
-              bounds={{
-                left: 0,
-                top: 0,
-                right: 0,
-                bottom: 0,
-                position: "css",
-                ...bounds,
-              }}
-              isDisplayInnerSnapDigit={false}
-              snappable={true}
-              // snapContainer={"#DashboardRoot"}
-              snapDirections={{
-                top: true,
-                left: true,
-                bottom: true,
-                right: true,
-                center: true,
-                middle: true,
-              }}
-              elementSnapDirections={{
-                top: true,
-                left: true,
-                bottom: true,
-                right: true,
-                center: true,
-                middle: true,
-              }}
-              maxSnapElementGuidelineDistance={200}
-              elementGuidelines={[
-                ".positionDecoratorHandle",
-                ".nodeContentRenderer",
-              ]}
-              onDragOrigin={(e) => {
-                e.target.style.transformOrigin = e.transformOrigin;
-              }}
-              onResize={(e) => {
-                const id = e.target.id;
+            {designable && (
+              <>
+                <Moveable
+                  ref={moveableRef}
+                  draggable={true}
+                  origin={false}
+                  originDraggable={false}
+                  originRelative={false}
+                  resizable={true}
+                  rotatable={false}
+                  // 内容是否支持缩放
+                  scalable={false}
+                  throttleResize={1}
+                  target={targets}
+                  throttleDrag={1}
+                  edgeDraggable={false}
+                  startDragRotate={0}
+                  throttleDragRotate={0}
+                  keepRatio={false}
+                  throttleScale={0}
+                  renderDirections={[
+                    "nw",
+                    "n",
+                    "ne",
+                    "w",
+                    "e",
+                    "sw",
+                    "s",
+                    "se",
+                  ]}
+                  throttleRotate={0}
+                  rotationPosition={"top"}
+                  isDisplayGridGuidelines
+                  bounds={{
+                    left: 0,
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    position: "css",
+                    ...bounds,
+                  }}
+                  isDisplayInnerSnapDigit={false}
+                  snappable={true}
+                  // snapContainer={"#DashboardRoot"}
+                  snapDirections={{
+                    top: true,
+                    left: true,
+                    bottom: true,
+                    right: true,
+                    center: true,
+                    middle: true,
+                  }}
+                  elementSnapDirections={{
+                    top: true,
+                    left: true,
+                    bottom: true,
+                    right: true,
+                    center: true,
+                    middle: true,
+                  }}
+                  maxSnapElementGuidelineDistance={200}
+                  elementGuidelines={[
+                    ".positionDecoratorHandle",
+                    ".nodeContentRenderer",
+                  ]}
+                  onDragOrigin={(e) => {
+                    e.target.style.transformOrigin = e.transformOrigin;
+                  }}
+                  onResize={(e) => {
+                    const id = e.target.id;
 
-                e.target.style.width = `${e.width}px`;
-                e.target.style.height = `${e.height}px`;
-                // e.target.style.transform = e.drag.transform;
-              }}
-              onResizeEnd={(e) => {
-                requestAnimationFrame(() => {
-                  // const rect = e.moveable.getRect();
-                  // console.log(rect, "onResizeEnd");
-                });
-              }}
-              onRender={(e) => {
-                e.target.style.transform = e.transform;
-              }}
-              onDragStart={(e) => {
-                const parentNode = e.target.parentElement;
-                const rect = parentNode?.getBoundingClientRect();
-                const {
-                  left,
-                  top,
-                  width: rectWidth,
-                  height: rectHeight,
-                } = rect;
-                if (rect) {
-                  console.log(
-                    height - top - rectHeight,
-                    top,
-                    rectHeight,
-                    height,
-                    "top height"
-                  );
-                  setBounds({
-                    left: left,
-                    top: top - 50,
-                    right: width - left - rectWidth,
-                    bottom: height - top - rectHeight + 50,
-                  });
-                }
-              }}
-              onDrag={(e) => {
-                e.target.style.transform = e.transform;
-              }}
-              onDragGroup={(e) => {
-                e.events.forEach((ev) => {
-                  ev.target.style.transform = ev.transform;
-                });
-              }}
-              onRenderGroup={(e) => {
-                e.events.forEach((ev) => {
-                  ev.target.style.cssText += ev.cssText;
-                });
-              }}
-              onClickGroup={(e) => {
-                selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);
-              }}
-              onClick={(e) => {
-                if (e.isDouble) {
-                  const inputTarget = e.inputTarget as HTMLElement;
-                  const selectableElements =
-                    selectoRef.current!.getSelectableElements();
+                    e.target.style.width = `${e.width}px`;
+                    e.target.style.height = `${e.height}px`;
+                    // e.target.style.transform = e.drag.transform;
+                  }}
+                  onResizeEnd={(e) => {
+                    requestAnimationFrame(() => {
+                      // const rect = e.moveable.getRect();
+                      // console.log(rect, "onResizeEnd");
+                    });
+                  }}
+                  onRender={(e) => {
+                    e.target.style.transform = e.transform;
+                  }}
+                  onDragStart={(e) => {
+                    const parentNode = e.target.parentElement;
+                    const rect = parentNode?.getBoundingClientRect();
+                    const {
+                      left,
+                      top,
+                      width: rectWidth,
+                      height: rectHeight,
+                    } = rect;
+                    if (rect) {
+                      setBounds({
+                        left: left,
+                        top: top - 50,
+                        right: width - left - rectWidth,
+                        bottom: height - top - rectHeight + 50,
+                      });
+                    }
+                  }}
+                  onDrag={(e) => {
+                    e.target.style.transform = e.transform;
+                  }}
+                  onDragGroup={(e) => {
+                    e.events.forEach((ev) => {
+                      ev.target.style.transform = ev.transform;
+                    });
+                  }}
+                  onRenderGroup={(e) => {
+                    e.events.forEach((ev) => {
+                      ev.target.style.cssText += ev.cssText;
+                    });
+                  }}
+                  onClickGroup={(e) => {
+                    selectoRef.current!.clickTarget(
+                      e.inputEvent,
+                      e.inputTarget
+                    );
+                  }}
+                  onClick={(e) => {
+                    if (e.isDouble) {
+                      const inputTarget = e.inputTarget as HTMLElement;
+                      const selectableElements =
+                        selectoRef.current!.getSelectableElements();
 
-                  if (selectableElements.includes(inputTarget)) {
-                    selectoRef.current!.setSelectedTargets([inputTarget]);
-                    setTargets([inputTarget]);
-                  }
-                }
-              }}
-              onDragEnd={(e) => {
-                const [left, top] = e.lastEvent?.translate || [];
-                if (!left && !top) {
-                  return false;
-                }
-                const eid = e.target.id;
-                saveLocalFieldState({
-                  address: eid,
-                  schema: {
-                    "x-decorator-props": {
-                      x: sizeFormat(left / colWidth),
-                      y: sizeFormat(top / rowHeight),
-                    },
-                  },
-                });
-
-                saveRemoteFieldSchema();
-              }}
-              onDragGroupEnd={(e) => {
-                e.events.forEach((ev) => {
-                  const [left, top] = ev.lastEvent?.translate || [];
-                  if (!left && !top) {
-                    return false;
-                  }
-                  const eid = ev.target.id;
-                  saveLocalFieldState({
-                    address: eid,
-                    schema: {
-                      "x-decorator-props": {
-                        x: sizeFormat(left / colWidth),
-                        y: sizeFormat(top / rowHeight),
+                      if (selectableElements.includes(inputTarget)) {
+                        selectoRef.current!.setSelectedTargets([inputTarget]);
+                        setTargets([inputTarget]);
+                      }
+                    }
+                  }}
+                  onDragEnd={(e) => {
+                    const [left, top] = e.lastEvent?.translate || [];
+                    if (!left && !top) {
+                      return false;
+                    }
+                    const eid = e.target.id;
+                    saveLocalFieldState({
+                      address: eid,
+                      schema: {
+                        "x-decorator-props": {
+                          x: sizeFormat(left / colWidth),
+                          y: sizeFormat(top / rowHeight),
+                        },
                       },
-                    },
-                  });
-                });
-                saveRemoteFieldSchema();
-              }}
-            />
-            <Selecto
-              ref={selectoRef}
-              dragContainer={"#DashboardRoot"}
-              selectableTargets={[".positionDecoratorHandle"]}
-              hitRate={0}
-              selectByClick={true}
-              selectFromInside={false}
-              toggleContinueSelect={["shift"]}
-              ratio={0}
-              onDragStart={(e) => {
-                const moveable = moveableRef.current!;
-                const target = e.inputEvent.target;
-                if (
-                  moveable.isMoveableElement(target) ||
-                  targets.some((t: any) => t === target || t.contains(target))
-                ) {
-                  e.stop();
-                }
-              }}
-              onSelectEnd={(e) => {
-                const moveable = moveableRef.current!;
-                let selected = e.selected;
+                    });
 
-                // excludes child elements.
-                selected = selected.filter((target) => {
-                  return selected.every((target2) => {
-                    return target === target2 || !target2.contains(target);
-                  });
-                });
+                    saveRemoteFieldSchema();
+                  }}
+                  onDragGroupEnd={(e) => {
+                    e.events.forEach((ev) => {
+                      const [left, top] = ev.lastEvent?.translate || [];
+                      if (!left && !top) {
+                        return false;
+                      }
+                      const eid = ev.target.id;
+                      saveLocalFieldState({
+                        address: eid,
+                        schema: {
+                          "x-decorator-props": {
+                            x: sizeFormat(left / colWidth),
+                            y: sizeFormat(top / rowHeight),
+                          },
+                        },
+                      });
+                    });
+                    saveRemoteFieldSchema();
+                  }}
+                />
+                <Selecto
+                  ref={selectoRef}
+                  dragContainer={"#DashboardRoot"}
+                  selectableTargets={[".positionDecoratorHandle"]}
+                  hitRate={0}
+                  selectByClick={true}
+                  selectFromInside={false}
+                  toggleContinueSelect={["shift"]}
+                  ratio={0}
+                  onDragStart={(e) => {
+                    const moveable = moveableRef.current!;
+                    const target = e.inputEvent.target;
+                    if (
+                      moveable.isMoveableElement(target) ||
+                      targets.some(
+                        (t: any) => t === target || t.contains(target)
+                      )
+                    ) {
+                      e.stop();
+                    }
+                  }}
+                  onSelectEnd={(e) => {
+                    const moveable = moveableRef.current!;
+                    let selected = e.selected;
 
-                const result = diff(e.startSelected, selected);
+                    // excludes child elements.
+                    selected = selected.filter((target) => {
+                      return selected.every((target2) => {
+                        return target === target2 || !target2.contains(target);
+                      });
+                    });
 
-                e.currentTarget.setSelectedTargets(selected);
+                    const result = diff(e.startSelected, selected);
 
-                if (!result.added.length && !result.removed.length) {
-                  return;
-                }
-                if (e.isDragStartEnd) {
-                  e.inputEvent.preventDefault();
+                    e.currentTarget.setSelectedTargets(selected);
 
-                  moveable.waitToChangeTarget().then(() => {
-                    moveable.dragStart(e.inputEvent);
-                  });
-                }
-                setTargets(selected);
-              }}
-            />
+                    if (!result.added.length && !result.removed.length) {
+                      return;
+                    }
+                    if (e.isDragStartEnd) {
+                      e.inputEvent.preventDefault();
+
+                      moveable.waitToChangeTarget().then(() => {
+                        moveable.dragStart(e.inputEvent);
+                      });
+                    }
+                    setTargets(selected);
+                  }}
+                />
+              </>
+            )}
+
             {children}
           </div>
         </DashboardRootContext.Provider>

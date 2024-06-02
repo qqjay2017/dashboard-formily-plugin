@@ -2,7 +2,7 @@ import { createStyles } from "antd-style";
 import { rs } from "../../../../utils/resolveStatic";
 
 export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: { hasTitle?: boolean }) => {
-  console.log(token, 'token')
+
   return css`
     &.nodeContentRenderer {
       width: 100%;

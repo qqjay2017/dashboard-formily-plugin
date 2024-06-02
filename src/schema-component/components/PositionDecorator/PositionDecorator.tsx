@@ -47,7 +47,7 @@ export const PositionDecoratorHandle = (
     padding = 12,
     className,
   } = props;
-  console.log(x, y);
+
   const targetRef = useRef<HTMLDivElement>(null);
   const { colWidth, rowHeight } = useDashboardRoot();
 
