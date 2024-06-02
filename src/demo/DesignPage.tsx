@@ -7,6 +7,8 @@ import { useContext } from "react";
 import { SchemaOptionsContext } from "@formily/react";
 import { SchemaComponent } from "../schema-component/core";
 import { useAppSpin } from "../application";
+import InfiniteViewer from "react-infinite-viewer";
+import { cn } from "../utils";
 
 export const DesignPage = () => {
   const { id } = useParams();
@@ -62,23 +64,33 @@ export const DesignPage = () => {
         >
           可视化大屏搭建
         </div>
-        <div></div>
+        <div>保存</div>
       </div>
-      <div
-        className={css`
-          height: calc(100vh - 50px);
-          width: 100vw;
-          display: flex;
-          min-height: 700px;
-        `}
-      >
-        <div
-          className={css`
+      <InfiniteViewer
+        className={cn(
+          css`
+            left: 0;
+            top: 50px;
+            position: absolute !important;
+            overscroll-behavior: none;
             height: calc(100vh - 50px);
             width: calc(100vw);
-            display: flex;
-            min-height: 700px;
-          `}
+          `,
+          "viewer"
+        )}
+        margin={0}
+        threshold={0}
+        // rangeX={[-200, 200]}
+        // rangeY={[-200, 200]}
+      >
+        <div
+          className={cn(
+            css`
+              width: 1920px;
+              height: 1080px;
+            `,
+            "viewport"
+          )}
         >
           <SchemaComponent
             components={options.components}
@@ -86,7 +98,7 @@ export const DesignPage = () => {
             schema={JSON.parse(schema)}
           />
         </div>
-      </div>
+      </InfiniteViewer>
     </div>
   );
 };
