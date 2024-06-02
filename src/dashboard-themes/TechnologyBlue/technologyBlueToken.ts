@@ -1,22 +1,29 @@
 
+import { TinyColor } from '@ctrl/tinycolor';
+
+const primary = new TinyColor("#c3d4e5")
+// .setAlpha(0.5).toRgbString()
+console.log(primary.toRgb(), 'primary.toRgb()')
 
 export const technologyBlueToken = {
 
     textWhite: "#fff",
     textCommon: "#c3d4e5",
     textLight: "#34daff",
-    textPrimary: "#3b78ef",
-    // textNoselect: "fade( #3b78ef , 50)",
-    textSelect: "#c3d4e5",
-    // textTag: "fade( #3b78ef , 80)",
+    textPrimary: primary.toRgbString(),
+    textNoselect: primary.setAlpha(0.5).toRgbString(),
+    textSelect: primary.toRgbString(),
+    textTag: primary.setAlpha(0.8).toRgbString(),
     textNum: "#ffdc2f",
     textNumLight: "#f4a52e",
     thumbColor: "rgba(59, 120, 239, 0.5)",
 }
 
 export const technologyBlueDarkToken = {
-    nodeContentBgColor: 'rgba(0, 26, 58, 0.8)',
+    nodeContentForeground: "#C3D4E5",
+    nodeContentBg: 'rgba(0, 26, 58, 0.8)',
 }
 export const technologyBlueLightToken = {
-    nodeContentBgColor: "rgba(234, 243, 255, 0.8)"
+    nodeContentForeground: "#333333",
+    nodeContentBg: "rgba(234, 243, 255, 0.8)"
 }

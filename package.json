@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@ctrl/tinycolor": "^4.1.0",
     "@daybrush/utils": "^1.13.0",
     "@egjs/children-differ": "^1.0.1",
     "@emotion/css": "^11.11.2",
@@ -32,7 +33,6 @@
     "react-error-boundary": "^4.0.13",
     "react-keycon": "^0.3.0",
     "react-moveable": "^0.56.0",
-    "react-rnd": "^10.4.11",
     "react-router-dom": "^6.23.1",
     "react-selecto": "^1.26.3",
     "use-resize-observer": "^9.1.0"

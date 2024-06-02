@@ -2,13 +2,13 @@ import { createStyles } from "antd-style";
 import { rs } from "../../../../utils/resolveStatic";
 
 export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: { hasTitle?: boolean }) => {
-
-    return css`
+  console.log(token, 'token')
+  return css`
     &.nodeContentRenderer {
       width: 100%;
       height: 100%;
-      background: var(--nodeContentBgColor);
-      overflow: hidden;
+      background: var(--nodeContentBg);
+      /* overflow: hidden; */
     }
 
     .nodeContentRendererTitle {
@@ -37,6 +37,7 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
     }
     .nrtTitle {
       font-size: 16px;
+      color:var(--nodeContentForeground)
     }
     .nrtSubTitle {
       font-size: 12px;
@@ -51,6 +52,7 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
 
     .nodeContentRendererContent {
       height:${hasTitle ? " calc(100% - 46px)" : "100%"};
+      position:relative;
     }
 
     .nodeContentRendererTitleBg {
