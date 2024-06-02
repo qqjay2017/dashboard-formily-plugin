@@ -219,8 +219,8 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               }}
               onResizeEnd={(e) => {
                 requestAnimationFrame(() => {
-                  const rect = e.moveable.getRect();
-                  console.log(rect, "onResizeEnd");
+                  // const rect = e.moveable.getRect();
+                  // console.log(rect, "onResizeEnd");
                 });
               }}
               onRender={(e) => {
@@ -229,13 +229,25 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               onDragStart={(e) => {
                 const parentNode = e.target.parentElement;
                 const rect = parentNode?.getBoundingClientRect();
-                console.log(rect, "rect");
+                const {
+                  left,
+                  top,
+                  width: rectWidth,
+                  height: rectHeight,
+                } = rect;
                 if (rect) {
+                  console.log(
+                    height - top - rectHeight,
+                    top,
+                    rectHeight,
+                    height,
+                    "top height"
+                  );
                   setBounds({
-                    left: rect.left,
-                    top: rect.top - 50,
-                    right: rect.right,
-                    bottom: rect.bottom - 50,
+                    left: left,
+                    top: top - 50,
+                    right: width - left - rectWidth,
+                    bottom: height - top - rectHeight + 50,
                   });
                 }
               }}
