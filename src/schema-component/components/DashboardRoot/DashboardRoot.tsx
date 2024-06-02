@@ -110,6 +110,13 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
 
   const fieldSchema = useFieldSchema();
 
+  const [bounds, setBounds] = useState({
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  });
+
   return (
     <ConfigProvider
       theme={{
@@ -168,7 +175,14 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               throttleRotate={0}
               rotationPosition={"top"}
               isDisplayGridGuidelines
-              bounds={{ left: 0, top: 0, right: 0, bottom: 0, position: "css" }}
+              bounds={{
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 0,
+                position: "css",
+                ...bounds,
+              }}
               isDisplayInnerSnapDigit={false}
               snappable={true}
               // snapContainer={"#DashboardRoot"}
@@ -212,14 +226,21 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               onRender={(e) => {
                 e.target.style.transform = e.transform;
               }}
-              onDrag={(e) => {
-                console.log(e, "e");
-                const [left, top] = e.translate;
-                if (left < 0 || top < 0) {
-                  e.stopDrag();
-                } else {
-                  e.target.style.transform = e.transform;
+              onDragStart={(e) => {
+                const parentNode = e.target.parentElement;
+                const rect = parentNode?.getBoundingClientRect();
+                console.log(rect, "rect");
+                if (rect) {
+                  setBounds({
+                    left: rect.left,
+                    top: rect.top - 50,
+                    right: rect.right,
+                    bottom: rect.bottom - 50,
+                  });
                 }
+              }}
+              onDrag={(e) => {
+                e.target.style.transform = e.transform;
               }}
               onDragGroup={(e) => {
                 e.events.forEach((ev) => {
