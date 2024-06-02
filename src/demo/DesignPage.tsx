@@ -75,7 +75,7 @@ export const DesignPage = () => {
         <div
           className={css`
             height: calc(100vh - 50px);
-            width: calc(100vw - 300px);
+            width: calc(100vw);
             display: flex;
             min-height: 700px;
           `}
@@ -85,17 +85,6 @@ export const DesignPage = () => {
             scope={options.scope}
             schema={JSON.parse(schema)}
           />
-        </div>
-        <div
-          className={css`
-            height: calc(100vh - 50px);
-            width: 300px;
-            display: flex;
-            min-height: 700px;
-            border-left: 1px solid #d9d9d9;
-          `}
-        >
-          2
         </div>
       </div>
     </div>

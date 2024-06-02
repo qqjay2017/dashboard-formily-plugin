@@ -118,6 +118,21 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     bottom: 0,
   });
 
+  const onMoveEnd = (eid, e) => {
+    const { left, top, width, height } = e.moveable.getRect();
+    saveLocalFieldState({
+      address: eid,
+      schema: {
+        "x-decorator-props": {
+          x: sizeFormat(left / colWidth),
+          w: sizeFormat(width / colWidth),
+          y: sizeFormat(top / rowHeight),
+          h: sizeFormat(height / rowHeight),
+        },
+      },
+    });
+  };
+
   return (
     <ConfigProvider
       theme={{
@@ -224,16 +239,15 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     e.target.style.transformOrigin = e.transformOrigin;
                   }}
                   onResize={(e) => {
-                    const id = e.target.id;
-
                     e.target.style.width = `${e.width}px`;
                     e.target.style.height = `${e.height}px`;
-                    // e.target.style.transform = e.drag.transform;
                   }}
                   onResizeEnd={(e) => {
                     requestAnimationFrame(() => {
-                      // const rect = e.moveable.getRect();
-                      // console.log(rect, "onResizeEnd");
+                      const eid = e.target.id;
+                      onMoveEnd(eid, e);
+
+                      saveRemoteFieldSchema();
                     });
                   }}
                   onRender={(e) => {
@@ -269,6 +283,13 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     e.events.forEach((ev) => {
                       ev.target.style.cssText += ev.cssText;
                     });
+                  }}
+                  onResizeGroupEnd={(e) => {
+                    e.events.forEach((ev) => {
+                      const eid = ev.target.id;
+                      onMoveEnd(eid, ev);
+                    });
+                    saveRemoteFieldSchema();
                   }}
                   onClickGroup={(e) => {
                     selectoRef.current!.clickTarget(
@@ -313,15 +334,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                         return false;
                       }
                       const eid = ev.target.id;
-                      saveLocalFieldState({
-                        address: eid,
-                        schema: {
-                          "x-decorator-props": {
-                            x: sizeFormat(left / colWidth),
-                            y: sizeFormat(top / rowHeight),
-                          },
-                        },
-                      });
+                      onMoveEnd(eid, ev);
                     });
                     saveRemoteFieldSchema();
                   }}
