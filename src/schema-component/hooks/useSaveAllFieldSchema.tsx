@@ -42,40 +42,52 @@ export const useSaveAllFieldSchema = () => {
   }) => {
     form.setFieldState(address, (state) => {
       Object.keys(schema).forEach((k) => {
+        if (!k) {
+          return false;
+        }
+
         const val = schema[k];
         const replaceKey = replaceKeys[k] || k;
         if (!state[replaceKey]) {
           state[replaceKey] = {};
         }
+
         Object.keys(val).forEach((i) => {
-          state[replaceKey][i] = val[i];
+          if (i) {
+            state[replaceKey][i] = val[i];
+          }
         });
-        const setAddress =
-          address
-            .split(".")
-            .map((key, index) => {
-              if (index == 0) {
-                return "";
-              } else {
-                return "properties." + key;
-              }
-            })
-            .filter(Boolean)
-            .join(".") +
-          "." +
-          k;
-        set(fieldSchema, setAddress, state[replaceKey]);
+        const setAddressBefore = address
+          .split(".")
+          .map((key, index) => {
+            if (index == 0) {
+              return "";
+            } else {
+              return "properties." + key;
+            }
+          })
+          .filter(Boolean)
+          .join(".");
+        const setAddress = setAddressBefore ? `${setAddressBefore}.${k}` : k;
+        console.log(setAddress, "setAddress");
+
+        setAddress && set(fieldSchema, setAddress, state[replaceKey]);
       });
     });
   };
 
   const saveRemoteFieldSchema = () => {
-    apiClient.request({
+    return apiClient.request({
       url: "/huang-api/dashboard/" + id,
       method: "put",
       data: {
         // id,
-        content: JSON.stringify(fieldSchema.toJSON()),
+        content: JSON.stringify({
+          type: "void",
+          properties: {
+            dashboardRoot: fieldSchema.toJSON(),
+          },
+        }),
       },
     });
   };

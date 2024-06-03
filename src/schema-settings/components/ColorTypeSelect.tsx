@@ -25,7 +25,7 @@ export const ColorTypeSelect = ({ value, onChange }: ColorTypeSelectProps) => {
               padding: 12px 24px;
               margin-bottom: 16px;
               width: 100%;
-              min-width: 330px;
+              min-width: 230px;
               height: 40px;
               display: flex;
               align-items: center;

@@ -12,6 +12,7 @@ export const useDashboardRootStyle = createStyles(
             isDarkTheme: boolean;
         }
     ) => {
+        console.log(themeProvider, 'themeProvider')
         if (themeProvider === "technologyBlue") {
             if (!isDarkTheme) {
                 return css`
@@ -31,6 +32,19 @@ export const useDashboardRootStyle = createStyles(
         font-size: 14px;
         color: #c3d4e5;
       `;
+        }
+        if (themeProvider === 'romanRed') {
+            if (!isDarkTheme) {
+                return css`
+          background-image: url(${rs("/assets/romaRed/export_ziiyve.png")});
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          font-size: 14px;
+          color: #000;
+        `;
+
+            }
         }
     }
 );

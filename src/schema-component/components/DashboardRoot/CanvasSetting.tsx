@@ -1,7 +1,8 @@
 import React from "react";
-import { useDesignPageConext } from "./context";
+
 import { ConfigProvider, Select, Slider } from "antd";
 import { css } from "@emotion/css";
+import { useDesignPageConext } from "../../../design-page";
 
 export const CanvasSetting = () => {
   const { designZoom, setDesignZoom } = useDesignPageConext();

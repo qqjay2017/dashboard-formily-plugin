@@ -5,6 +5,7 @@ export const dashboardRootWrap = (inject: any) => ({
     type: "void",
     properties: {
         dashboardRoot: {
+            name: "dashboardRoot",
             type: "void",
             "x-component": "DashboardRoot",
             "x-settings": "settings:root",
