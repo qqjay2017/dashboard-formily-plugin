@@ -74,25 +74,25 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
   const isPc = breakpoint === "desktop" || breakpoint === "showroom";
   const rowHeight = sizeFormat(height / rows);
   const colWidth = cols && width ? sizeFormat(width / cols) : 0;
-  const scale = useMemo(() => {
-    let scale = 1;
-    if (!width || !height) {
-      return scale;
-    }
+  // const scale = useMemo(() => {
+  //   let scale = 1;
+  //   if (!width || !height) {
+  //     return scale;
+  //   }
 
-    if (width / height < designWidth / designHeight) {
-      scale = width / designWidth;
-    } else {
-      scale = height / designHeight;
-    }
-    if (scale < 0.2) {
-      return 0.2;
-    }
-    if (scale > 1.2) {
-      return 1.2;
-    }
-    return scale;
-  }, [designWidth, designHeight, width, height]);
+  //   if (width / height < designWidth / designHeight) {
+  //     scale = width / designWidth;
+  //   } else {
+  //     scale = height / designHeight;
+  //   }
+  //   if (scale < 0.2) {
+  //     return 0.2;
+  //   }
+  //   if (scale > 1.2) {
+  //     return 1.2;
+  //   }
+  //   return scale;
+  // }, [designWidth, designHeight, width, height]);
   const themeConfig = allThemeNameMap[themeProvider] || {};
   const themeToken = themeConfig?.token || {};
   const themeDarkOrLightToken = themeConfig?.[isDarkTheme ? "dark" : "light"];
@@ -120,12 +120,17 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     );
   }, [blockItems?.length]);
 
-  useEffect(() => {
+  const handleViewPortFit = () => {
     if (!scrollAreaRef.current) {
       return;
     }
-    scrollAreaRef.current.scrollTop = 650;
-    scrollAreaRef.current.scrollLeft = 1900;
+
+    scrollAreaRef.current.scrollLeft = designWidth;
+    scrollAreaRef.current.scrollTop = designHeight / 2 + 160;
+  };
+
+  useEffect(() => {
+    handleViewPortFit();
   }, []);
 
   return (
@@ -153,7 +158,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               designWidth,
               designHeight,
               themeProvider,
-              scale,
+              scale: 1,
               rootFieldSchema: fieldSchema,
               mobileRowHeight,
             }}
@@ -186,6 +191,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                 </div>
 
                 <div
+                  id="viewPort"
                   className={css`
                     height: calc(100%);
                     width: calc(100% - 600px);
@@ -246,14 +252,14 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                             className={css`
                               overflow: hidden;
                               box-shadow: 0 8px 10px #1e1e1e1f;
-                              width: ${1920 * designZoom}px;
-                              height: ${1080 * designZoom}px;
+                              width: ${designWidth * designZoom}px;
+                              height: ${designHeight * designZoom}px;
                             `}
                           >
                             <div
                               className={css`
-                                width: 1920px;
-                                height: 1080px;
+                                width: ${designWidth}px;
+                                height: ${designHeight}px;
                                 transform: scale(${designZoom});
                                 border-color: #373739;
                                 transition: all 0.4s;
@@ -288,7 +294,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                       </div>
                     </div>
                   </div>
-                  <CanvasSetting />
+                  <CanvasSetting handleViewPortFit={handleViewPortFit} />
                 </div>
                 {/* 右边 */}
                 <div

@@ -31,9 +31,9 @@ export const DesignPageHeader = () => {
           max-width: 230px;
         `}
       >
-        {/* 可视化大屏搭建 */}
+        可视化大屏搭建
       </div>
-      <div>保存</div>
+      {/* <div>保存</div> */}
     </div>
   );
 };

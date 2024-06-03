@@ -1,9 +1,14 @@
-import { Form, FormLayout } from "@formily/antd-v5";
-import { SchemaOptionsContext, useFieldSchema, useForm } from "@formily/react";
-import { memo, useContext, useEffect, useMemo } from "react";
+import {
+  Form,
+  FormButtonGroup,
+  FormLayout,
+  Reset,
+  Submit,
+} from "@formily/antd-v5";
+import { SchemaOptionsContext, useForm } from "@formily/react";
+import { memo, useContext, useMemo } from "react";
 import { SchemaComponent } from "../../core";
 import { ConfigProvider } from "antd";
-import { observable, autorun } from "@formily/reactive";
 
 import { css } from "@emotion/css";
 
@@ -13,9 +18,29 @@ import { ISchema } from "@formily/react";
 import { createForm, onFormValuesChange } from "@formily/core";
 import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
 
-export const dashboardRootFormSchema: ISchema = {
+const dashboardRootFormSchema: ISchema = {
   type: "object",
   properties: {
+    designWidth: {
+      type: "number",
+      title: "设计稿尺寸-宽度",
+      required: true,
+      "x-decorator": "FormItem",
+      "x-component": "NumberPicker",
+      "x-component-props": {
+        addonAfter: "px",
+      },
+    },
+    designHeight: {
+      type: "number",
+      title: "设计稿尺寸-高度",
+      required: true,
+      "x-decorator": "FormItem",
+      "x-component": "NumberPicker",
+      "x-component-props": {
+        addonAfter: "px",
+      },
+    },
     themeProvider: {
       type: "string",
       title: "主题颜色",
@@ -39,7 +64,6 @@ export const RootComponentSetting = memo(() => {
   const outForm = useForm();
   const dashboardRootConfig = outForm.query(address).take();
 
-  const fi = useFieldSchema();
   const { saveLocalFieldState, saveRemoteFieldSchema } =
     useSaveAllFieldSchema();
 
@@ -48,48 +72,76 @@ export const RootComponentSetting = memo(() => {
       initialValues: {
         ...dashboardRootConfig.componentProps,
       },
-
-      effects() {
-        onFormValuesChange((form) => {
-          const { themeProvider, isDarkTheme } = form.values;
-          saveLocalFieldState({
-            address,
-            schema: {
-              "x-component-props": {
-                themeProvider,
-                isDarkTheme,
-              },
-            },
-          });
-
-          saveRemoteFieldSchema();
-        });
-      },
     });
   }, []);
 
   return (
     <div
       className={css`
-        padding: 24px 16px;
         width: 100%;
+        height: 100%;
       `}
     >
       <ConfigProvider locale={locale}>
         <Form
           form={form}
           layout="vertical"
-          style={{
-            maxWidth: "100%",
-          }}
+          className={css`
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            padding: 16px;
+            position: relative;
+          `}
         >
-          <FormLayout layout={"vertical"} labelCol={4} wrapperCol={20}>
+          <FormLayout
+            layout={"vertical"}
+            labelCol={4}
+            wrapperCol={20}
+            className={css`
+              width: 100%;
+              height: calc(100% - 40px);
+              padding: 16px;
+            `}
+          >
             <SchemaComponent
               components={options.components}
               scope={options.scope}
               schema={dashboardRootFormSchema}
             />
           </FormLayout>
+          <div
+            className={css`
+              padding-right: 16px;
+              height: 40px;
+              width: 100%;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              /* display: flex; */
+              /* align-items: center; */
+              /* justify-content: flex-end; */
+            `}
+          >
+            <FormButtonGroup gutter={24} align="right">
+              <Reset>重置</Reset>
+              <Submit
+                onSubmit={async (values) => {
+                  saveLocalFieldState({
+                    address,
+                    schema: {
+                      "x-component-props": {
+                        ...values,
+                      },
+                    },
+                  });
+                  saveRemoteFieldSchema();
+                }}
+              >
+                应用
+              </Submit>
+            </FormButtonGroup>
+          </div>
         </Form>
       </ConfigProvider>
     </div>

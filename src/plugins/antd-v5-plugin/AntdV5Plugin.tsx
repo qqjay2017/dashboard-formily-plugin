@@ -1,6 +1,6 @@
 import { ConfigProvider } from "antd";
 import { Plugin } from "../../application";
-import { FormItem, FormLayout, Input } from "@formily/antd-v5";
+import { FormItem, FormLayout, Input, NumberPicker } from "@formily/antd-v5";
 import zh_CN from "antd/locale/zh_CN";
 export class AntdV5Plugin extends Plugin {
   async load() {
@@ -11,6 +11,7 @@ export class AntdV5Plugin extends Plugin {
       FormItem,
       FormLayout,
       Input,
+      NumberPicker,
     });
   }
 }

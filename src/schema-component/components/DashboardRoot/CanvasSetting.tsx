@@ -3,8 +3,14 @@ import React from "react";
 import { ConfigProvider, Select, Slider } from "antd";
 import { css } from "@emotion/css";
 import { useDesignPageConext } from "../../../design-page";
+import { useDashboardRoot } from "./hooks";
 
-export const CanvasSetting = () => {
+export const CanvasSetting = ({
+  handleViewPortFit,
+}: {
+  handleViewPortFit: () => void;
+}) => {
+  const { designWidth } = useDashboardRoot();
   const { designZoom, setDesignZoom } = useDesignPageConext();
   const zoomFormatter = (designZoom) => `${(designZoom * 100).toFixed(0)}%`;
   return (
@@ -49,6 +55,23 @@ export const CanvasSetting = () => {
           >
             <Select
               onSelect={(e) => {
+                if (e === "fit") {
+                  const viewPort = document.getElementById("viewPort");
+                  if (!viewPort) {
+                    return false;
+                  }
+
+                  setDesignZoom(
+                    Math.min(
+                      viewPort.getBoundingClientRect().width / designWidth,
+                      1
+                    )
+                  );
+                  setTimeout(() => {
+                    handleViewPortFit();
+                  }, 0);
+                  return;
+                }
                 if (typeof e === "number") {
                   setDesignZoom(e);
                 }
@@ -66,6 +89,10 @@ export const CanvasSetting = () => {
                 {
                   label: "50%",
                   value: 0.5,
+                },
+                {
+                  label: "自适应",
+                  value: "fit",
                 },
               ]}
             ></Select>
