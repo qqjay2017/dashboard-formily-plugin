@@ -12,7 +12,6 @@ import { useDashboardRootStyle } from "./styles";
 import { DashboardRootContext } from "./context";
 import { cn } from "../../../utils";
 
-import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
 import { ConfigProvider } from "antd";
 import { ThemeCSSVariableProvider } from "../../../css-variable";
 
@@ -132,9 +131,8 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
               ...style,
             }}
           >
-            {designable && <MoveableManage />}
-
             {children}
+            {designable && <MoveableManage />}
           </div>
         </DashboardRootContext.Provider>
       </ThemeCSSVariableProvider>

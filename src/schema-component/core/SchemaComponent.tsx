@@ -4,7 +4,7 @@ import {
   RecursionField,
   Schema,
 } from "@formily/react";
-import React, { useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { SchemaComponentContext } from "../context";
 import { SchemaComponentOptions } from "./SchemaComponentOptions";
 import { useUpdate } from "ahooks";
@@ -64,6 +64,35 @@ const RecursionSchemaComponent = (
     >
       <SchemaComponentOptions inherit components={components} scope={scope}>
         <RecursionField {...others} schema={s} />
+      </SchemaComponentOptions>
+    </SchemaComponentContext.Provider>
+  );
+};
+
+export const RecursionSchemaComponentWrap = (
+  props: ISchemaFieldProps & SchemaComponentOnChange & DistributedProps
+) => {
+  const { components, scope, schema, distributed } = props;
+  const ctx = useContext(SchemaComponentContext);
+  const s = useMemo(() => toSchema(schema), [schema]);
+  const refresh = useUpdate();
+
+  return (
+    <SchemaComponentContext.Provider
+      value={{
+        ...ctx,
+        distributed: ctx.distributed == false ? false : distributed,
+        refresh: () => {
+          refresh();
+          if (ctx.distributed === false || distributed === false) {
+            ctx.refresh?.();
+          }
+          props.onChange?.(s);
+        },
+      }}
+    >
+      <SchemaComponentOptions inherit components={components} scope={scope}>
+        {props.children}
       </SchemaComponentOptions>
     </SchemaComponentContext.Provider>
   );

@@ -15,7 +15,7 @@ export class DashboardDesignerPlugin extends Plugin {
     this.app.addComponents({
       ColorTypeSelect,
       IsDarkThemeSelect,
-      DashboardRoot,
+      // DashboardRoot,
       PositionDecorator,
       ClassicFrame,
     });

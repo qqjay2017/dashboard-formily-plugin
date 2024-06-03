@@ -18,6 +18,7 @@ export const MoveableManage = observer(() => {
   const { designZoom } = useDesignPageConext();
 
   const form = useForm();
+
   const { saveRemoteFieldSchema, saveLocalFieldState } =
     useSaveAllFieldSchema();
   const onMoveEnd = (eid, e) => {

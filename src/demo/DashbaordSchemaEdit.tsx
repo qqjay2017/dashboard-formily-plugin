@@ -4,6 +4,7 @@ import { DesignPage } from "../design-page/DesignPage";
 import { Hello } from "./Hello";
 import { Application } from "../application/Application";
 import { AntdV5Plugin, DashboardDesignerPlugin } from "../plugins";
+import { DashboardRoot } from "../schema-component";
 
 export const application = new Application({
   providers: [],
@@ -11,6 +12,7 @@ export const application = new Application({
   designable: true,
   components: {
     Hello,
+    DashboardRoot,
   },
 
   router: {

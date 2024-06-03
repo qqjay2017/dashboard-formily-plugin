@@ -1,30 +1,13 @@
-import { PropsWithChildren, useMemo, useRef } from "react";
+import { PropsWithChildren, useContext, useMemo, useRef } from "react";
 
-import { useField, useFieldSchema } from "@formily/react";
+import { useField } from "@formily/react";
 import { createStyles } from "antd-style";
-import { PositionDecoratorOptions, SchemaToolbarProps } from "./types";
-import { useDashboardRoot } from "../DashboardRoot";
+import { PositionDecoratorOptions } from "./types";
+
 import { sizeFormat } from "../DashboardRoot/utils";
 import { cn, eidToElementId } from "../../../utils";
-
-const resizeHandleStyles1: React.CSSProperties = {
-  height: "7px",
-  width: "30px",
-  left: "50%",
-  transform: "translate(-50%, -1px )",
-  backgroundColor: "#fff",
-  border: "3px solid var(--colorSettings)",
-  borderRadius: "5px",
-};
-const resizeHandleStyles2: React.CSSProperties = {
-  height: "30px",
-  width: "7px",
-  transform: `translate( -1px , -50% )`,
-  top: "50%",
-  backgroundColor: "#fff",
-  border: "3px solid var(--colorSettings)",
-  borderRadius: "5px",
-};
+import { DashboardRootContext } from "../DashboardRoot/context";
+import { useDashboardRoot } from "../DashboardRoot";
 
 const useRndStyle = createStyles(
   ({ css }, { toolbarActive }: { toolbarActive?: boolean }) => {
@@ -49,6 +32,11 @@ export const PositionDecoratorHandle = (
   } = props;
 
   const targetRef = useRef<HTMLDivElement>(null);
+  // const colWidth = 10;
+  // const rowHeight = 10;
+
+  // const rootCtx = useContext(DashboardRootContext);
+
   const { colWidth, rowHeight } = useDashboardRoot();
 
   const field = useField();
