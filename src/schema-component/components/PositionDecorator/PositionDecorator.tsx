@@ -5,7 +5,7 @@ import { createStyles } from "antd-style";
 import { PositionDecoratorOptions, SchemaToolbarProps } from "./types";
 import { useDashboardRoot } from "../DashboardRoot";
 import { sizeFormat } from "../DashboardRoot/utils";
-import { cn } from "../../../utils";
+import { cn, eidToElementId } from "../../../utils";
 
 const resizeHandleStyles1: React.CSSProperties = {
   height: "7px",
@@ -79,7 +79,7 @@ export const PositionDecoratorHandle = (
   return (
     <div
       ref={targetRef}
-      id={eid}
+      id={eidToElementId(eid)}
       className={cn("positionDecoratorHandle", rndStyle.styles, className)}
       style={{
         position: "absolute",

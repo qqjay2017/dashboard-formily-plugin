@@ -8,7 +8,7 @@ import React, {
 
 import { defaultBreakpoints, sizeFormat } from "./utils";
 import { useDesignable, useSchemaComponentContext } from "../../hooks";
-import { useFieldSchema } from "@formily/react";
+import { useFieldSchema, useForm } from "@formily/react";
 
 import { useUpdate } from "ahooks";
 import { useBreakpoints } from "./hooks";
@@ -16,7 +16,7 @@ import { allThemeNameMap } from "../../../dashboard-themes";
 import { useDashboardRootStyle } from "./styles";
 import Selecto from "react-selecto";
 import { DashboardRootContext } from "./context";
-import { cn } from "../../../utils";
+import { cn, eidToElementId, elementIdToEid } from "../../../utils";
 import Moveable, { MoveableTargetGroupsType } from "react-moveable";
 import { diff } from "@egjs/children-differ";
 
@@ -62,6 +62,8 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     isDarkTheme,
     ...otherProps
   } = props;
+  const form = useForm();
+
   const { designZoom } = useDesignPageConext();
   const { designable } = useSchemaComponentContext();
 
@@ -122,7 +124,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
   const onMoveEnd = (eid, e) => {
     const { left, top, width, height } = e.moveable.getRect();
     saveLocalFieldState({
-      address: eid,
+      address: elementIdToEid(eid),
       schema: {
         "x-decorator-props": {
           x: sizeFormat(left / colWidth),
@@ -213,9 +215,10 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     position: "css",
                     // ...bounds,
                   }}
+                  isDisplaySnapDigit
                   isDisplayInnerSnapDigit={false}
                   snappable={true}
-                  // snapContainer={"#DashboardRoot"}
+                  snapGap={true}
                   snapDirections={{
                     top: true,
                     left: true,
@@ -232,10 +235,13 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     center: true,
                     middle: true,
                   }}
-                  maxSnapElementGuidelineDistance={200}
+                  maxSnapElementGuidelineDistance={100}
                   elementGuidelines={[
-                    ".positionDecoratorHandle",
-                    ".nodeContentRenderer",
+                    // ".positionDecoratorHandle",
+                    // ".nodeContentRenderer",
+                    ...Object.keys(form.getFormGraph())
+                      .filter(Boolean)
+                      .map((k) => "#" + eidToElementId(k)),
                   ]}
                   onDragOrigin={(e) => {
                     e.target.style.transformOrigin = e.transformOrigin;
@@ -255,24 +261,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                   onRender={(e) => {
                     e.target.style.transform = e.transform;
                   }}
-                  onDragStart={(e) => {
-                    // const parentNode = e.target.parentElement;
-                    // const rect = parentNode?.getBoundingClientRect();
-                    // const {
-                    //   left,
-                    //   top,
-                    //   width: rectWidth,
-                    //   height: rectHeight,
-                    // } = rect;
-                    // if (rect) {
-                    //   setBounds({
-                    //     left: left,
-                    //     top: top - 50,
-                    //     right: width - left - rectWidth,
-                    //     bottom: height - top - rectHeight + 50,
-                    //   });
-                    // }
-                  }}
+                  onDragStart={(e) => {}}
                   onDrag={(e) => {
                     e.target.style.transform = e.transform;
                   }}
@@ -318,7 +307,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     }
                     const eid = e.target.id;
                     saveLocalFieldState({
-                      address: eid,
+                      address: elementIdToEid(eid),
                       schema: {
                         "x-decorator-props": {
                           x: sizeFormat(left / colWidth),
@@ -343,12 +332,14 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                 />
                 <Selecto
                   ref={selectoRef}
+                  rootContainer={document.body}
                   dragContainer={"#DashboardRoot"}
                   selectableTargets={[".positionDecoratorHandle"]}
                   hitRate={0}
                   selectByClick={true}
-                  selectFromInside={false}
-                  toggleContinueSelect={["shift"]}
+                  selectFromInside={true}
+                  // toggleContinueSelect={["shift"]}
+                  continueSelect={false}
                   ratio={0}
                   onDragStart={(e) => {
                     const moveable = moveableRef.current!;
