@@ -27,6 +27,7 @@ import { css } from "@emotion/css";
 import { DesignPageHeader } from "./DesignPageHeader";
 import { CanvasSetting } from "./CanvasSetting";
 import { SchemaComponentSetting } from "./SchemaComponentSetting";
+import { ContentMenu } from "./ContentMenu";
 
 const MemorizedRecursionField = React.memo(RecursionField);
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
@@ -187,7 +188,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     overflow: hidden;
                   `}
                 >
-                  左边
+                  <ContentMenu />
                 </div>
 
                 <div

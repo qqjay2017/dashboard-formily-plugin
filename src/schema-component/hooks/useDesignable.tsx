@@ -781,7 +781,7 @@ export function useFindComponent() {
     }
     const res = get(components, component);
     if (!res) {
-      console.error(`[nocobase]: Component "${component}" not found`);
+      console.error(`[大屏低代码]: Component "${component}" not found`);
     }
     return res;
   };

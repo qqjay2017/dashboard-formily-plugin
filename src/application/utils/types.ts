@@ -1,21 +1,3 @@
-/**
- * This file is part of the NocoBase (R) project.
- * Copyright (c) 2020-2024 NocoBase Co., Ltd.
- * Authors: NocoBase Team.
- *
- * This project is dual-licensed under AGPL-3.0 and NocoBase Commercial License.
- * For more information, please refer to: https://www.nocobase.com/agreement.
- */
-
-/* istanbul ignore file */
-/** vim: et:ts=4:sw=4:sts=4
- * @license RequireJS 2.3.6 Copyright jQuery Foundation and other contributors.
- * Released under MIT license, https://github.com/requirejs/requirejs/blob/master/LICENSE
- */
-//Not using strict: uneven strict support in browsers, #392, and causes
-//problems with requirejs.exec()/transpiler plugins that may not be strict.
-/*jslint regexp: true, nomen: true, sloppy: true */
-/*global window, navigator, document, importScripts, setTimeout, opera */
 
 interface RequireModule {
   /** */
@@ -117,12 +99,12 @@ interface RequireConfig {
    * });
    */
   map?:
-    | {
-        [id: string]: {
-          [id: string]: string;
-        };
-      }
-    | undefined;
+  | {
+    [id: string]: {
+      [id: string]: string;
+    };
+  }
+  | undefined;
 
   /**
    * Allows pointing multiple module IDs to a module ID that contains a bundle of modules.
@@ -239,8 +221,8 @@ interface RequireConfig {
    * (SRI).
    */
   onNodeCreated?:
-    | ((node: HTMLScriptElement, config: RequireConfig, moduleName: string, url: string) => void)
-    | undefined;
+  | ((node: HTMLScriptElement, config: RequireConfig, moduleName: string, url: string) => void)
+  | undefined;
 }
 
 export interface Require {
