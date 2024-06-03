@@ -9,6 +9,7 @@ import { SchemaComponent } from "../schema-component/core";
 import { useAppSpin } from "../application";
 import { DesignPageConext } from "./context";
 import { CanvasSetting } from "./CanvasSetting";
+import { SchemaComponentSetting } from "./SchemaComponentSetting";
 
 export const DesignPage = () => {
   const { id } = useParams();
@@ -197,7 +198,9 @@ export const DesignPage = () => {
               position: relative;
               overflow: hidden;
             `}
-          ></div>
+          >
+            <SchemaComponentSetting />
+          </div>
         </div>
       </div>
     </DesignPageConext.Provider>
