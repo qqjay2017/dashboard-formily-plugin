@@ -69,7 +69,6 @@ export const useSaveAllFieldSchema = () => {
           .filter(Boolean)
           .join(".");
         const setAddress = setAddressBefore ? `${setAddressBefore}.${k}` : k;
-        console.log(setAddress, "setAddress");
 
         setAddress && set(fieldSchema, setAddress, state[replaceKey]);
       });

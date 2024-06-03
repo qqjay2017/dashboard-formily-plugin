@@ -22,8 +22,6 @@ export const DesignPage = () => {
   );
   const schema = get(data, "data.data.content", "");
 
-  console.log(JSON.parse(schema || "{}"));
-
   return (
     <RecursionSchemaComponentWrap
       components={options.components}

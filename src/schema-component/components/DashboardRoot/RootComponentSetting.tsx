@@ -38,15 +38,11 @@ export const RootComponentSetting = memo(() => {
   const { locale } = useContext(ConfigProvider.ConfigContext);
   const outForm = useForm();
   const dashboardRootConfig = outForm.query(address).take();
-  console.log(
-    dashboardRootConfig,
 
-    "form root setting"
-  );
   const fi = useFieldSchema();
   const { saveLocalFieldState, saveRemoteFieldSchema } =
     useSaveAllFieldSchema();
-  console.log(fi, fi.toJSON(), "jjjj");
+
   const form = useMemo(() => {
     return createForm({
       initialValues: {
@@ -65,7 +61,7 @@ export const RootComponentSetting = memo(() => {
               },
             },
           });
-          console.log(fi, fi.toJSON());
+
           saveRemoteFieldSchema();
         });
       },

@@ -103,12 +103,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
 
   const fieldSchema = useFieldSchema();
 
-  // const form = useForm();
-
-  // console.log(form.getFormGraph());
-
   const blockItems = useRowProperties();
-  console.log(blockItems, "blockItems");
 
   const RenderBlockItems = useMemo(() => {
     return (
