@@ -1,6 +1,6 @@
 import React from "react";
 import { HomeList } from "./HomeList";
-import { DesignPage } from "./DesignPage";
+import { DesignPage } from "../design-page/DesignPage";
 import { Hello } from "./Hello";
 import { Application } from "../application/Application";
 import { AntdV5Plugin, DashboardDesignerPlugin } from "../plugins";

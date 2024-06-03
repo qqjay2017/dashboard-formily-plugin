@@ -24,6 +24,7 @@ import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
 import { ConfigProvider } from "antd";
 import { ThemeCSSVariableProvider } from "../../../css-variable";
 import { DashboardSettings } from "./DashboardSettings";
+import { useDesignPageConext } from "../../../design-page";
 
 interface DashboardRootProps extends PropsWithChildren, HTMLAttributes<any> {
   cols?: number;
@@ -61,7 +62,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     isDarkTheme,
     ...otherProps
   } = props;
-
+  const { designZoom } = useDesignPageConext();
   const { designable } = useSchemaComponentContext();
 
   const [targets, setTargets] = useState<MoveableTargetGroupsType>([]);
@@ -111,12 +112,12 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
 
   const fieldSchema = useFieldSchema();
 
-  const [bounds, setBounds] = useState({
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-  });
+  // const [bounds, setBounds] = useState({
+  //   left: 0,
+  //   top: 0,
+  //   right: 0,
+  //   bottom: 0,
+  // });
 
   const onMoveEnd = (eid, e) => {
     const { left, top, width, height } = e.moveable.getRect();
@@ -173,6 +174,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
             {designable && (
               <>
                 <Moveable
+                  zoom={designZoom}
                   ref={moveableRef}
                   draggable={true}
                   origin={false}
@@ -209,7 +211,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     right: 0,
                     bottom: 0,
                     position: "css",
-                    ...bounds,
+                    // ...bounds,
                   }}
                   isDisplayInnerSnapDigit={false}
                   snappable={true}
@@ -254,22 +256,22 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                     e.target.style.transform = e.transform;
                   }}
                   onDragStart={(e) => {
-                    const parentNode = e.target.parentElement;
-                    const rect = parentNode?.getBoundingClientRect();
-                    const {
-                      left,
-                      top,
-                      width: rectWidth,
-                      height: rectHeight,
-                    } = rect;
-                    if (rect) {
-                      setBounds({
-                        left: left,
-                        top: top - 50,
-                        right: width - left - rectWidth,
-                        bottom: height - top - rectHeight + 50,
-                      });
-                    }
+                    // const parentNode = e.target.parentElement;
+                    // const rect = parentNode?.getBoundingClientRect();
+                    // const {
+                    //   left,
+                    //   top,
+                    //   width: rectWidth,
+                    //   height: rectHeight,
+                    // } = rect;
+                    // if (rect) {
+                    //   setBounds({
+                    //     left: left,
+                    //     top: top - 50,
+                    //     right: width - left - rectWidth,
+                    //     bottom: height - top - rectHeight + 50,
+                    //   });
+                    // }
                   }}
                   onDrag={(e) => {
                     e.target.style.transform = e.transform;
