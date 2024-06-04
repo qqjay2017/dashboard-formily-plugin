@@ -142,6 +142,7 @@ export const MoveableManage = observer(() => {
           selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);
         }}
         onClick={(e) => {
+          console.log(e, "ee");
           if (e.isDouble) {
             const inputTarget = e.inputTarget as HTMLElement;
             const selectableElements =
@@ -195,6 +196,7 @@ export const MoveableManage = observer(() => {
         continueSelect={false}
         ratio={0}
         onDragStart={(e) => {
+          console.log(e, "e");
           const moveable = moveableRef.current!;
           const target = e.inputEvent.target;
           if (

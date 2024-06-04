@@ -50,8 +50,6 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { useInsertSchemaComponent } from "../../hooks/useSaveAllFieldSchema";
-import { createForm } from "@formily/core";
-import { SchemaComponentOptions } from "../../core";
 
 const MemorizedRecursionField = RecursionField;
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
@@ -202,8 +200,8 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
         const clientX = mousePosition.current.clientX;
         const clientY = mousePosition.current.clientY;
 
-        const w = sizeFormat(178 / colWidth);
-        const h = sizeFormat(100 / rowHeight);
+        const w = 3;
+        const h = 2;
         const x = sizeFormat(
           (clientX - over.rect.left) / colWidth / designZoom
         );
@@ -338,7 +336,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                       >
                         <div
                           className={css`
-                            pointer-events: none;
+                            pointer-events: auto;
                             list-style: none;
                           `}
                         >
@@ -435,19 +433,6 @@ export function DashboardRoot(props: DashboardRootProps) {
     },
   });
   const sensors = useSensors(mouseSensor, touchSensor);
-  //,
-  // useSensor(MouseSensor, {
-  //   activationConstraint: {
-  //     distance: 10,
-  //   },
-  // })
-  // useSensor(TouchSensor, {
-  //   activationConstraint: {
-  //     delay: 100,
-  //     distance: 10, // 10px
-  //   },
-  // })
-  //
 
   return (
     <DndContext sensors={sensors}>

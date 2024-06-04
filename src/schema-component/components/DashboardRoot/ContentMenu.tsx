@@ -48,8 +48,8 @@ const useContentMenuStyles = createStyles(({ css, token }) => {
     background-color: none;
     color: #fff;
     &.menuItemActive {
-      background-color: ${token.colorPrimaryBg};
-      color: ${token.colorPrimaryActive};
+      background-color: ${token.colorPrimaryActive};
+      color: #fff;
     }
   `;
 });
@@ -91,6 +91,7 @@ export const ContentMenu = () => {
                     cursor: pointer;
                     padding: 0;
                     font-size: 14px;
+                    line-height: 24px;
                     text-align: center;
                     height: 24px;
                     white-space: nowrap;
@@ -118,6 +119,7 @@ export const ContentMenu = () => {
           padding: 10px;
           display: flex;
           flex-direction: column;
+          align-items: center;
         `}
       >
         {(subMenuItems[activeMenuItem] || []).map(

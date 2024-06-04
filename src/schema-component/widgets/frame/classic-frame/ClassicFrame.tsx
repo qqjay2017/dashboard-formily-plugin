@@ -53,6 +53,13 @@ export function ClassicFrame({
       ) : null}
 
       <div className={cn("nodeContentRendererContent", contentClassName)}>
+        <div
+          onClick={(e) => {
+            console.log(e, "ee");
+          }}
+        >
+          123
+        </div>
         {children}
       </div>
     </div>
