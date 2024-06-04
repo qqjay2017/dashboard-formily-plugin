@@ -215,7 +215,7 @@ export function SidebarBtnElementDragOverlay({
   previewBg?: string;
 }) {
   return (
-    <div>
+    <div id="SidebarBtnElementDragOverlay">
       <img
         className={css`
           width: 178px;

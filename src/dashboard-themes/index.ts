@@ -17,7 +17,7 @@ import walden from './themes/walden.json'
 import westeros from './themes/westeros.json'
 import wonderland from './themes/wonderland.json'
 import { technologyBlueDarkToken, technologyBlueLightToken, technologyBlueToken } from './TechnologyBlue'
-import { romanRedToken } from './RomanRed'
+import { romaDarkToken, romaLightToken, romanRedToken } from './RomanRed'
 
 
 
@@ -35,8 +35,8 @@ export const allThemes = [
         name: "romanRed",
         zhName: "罗马红",
         token: romanRedToken,
-        dark: {},
-        light: {},
+        dark: romaDarkToken,
+        light: romaLightToken,
         colors: roma.color,
 
     },

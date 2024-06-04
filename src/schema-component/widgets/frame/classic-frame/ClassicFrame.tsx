@@ -2,6 +2,8 @@ import React, { PropsWithChildren } from "react";
 import { cn } from "../../../../utils";
 import { useClassicFrameStyle } from "./styles";
 
+import { Schema } from "@formily/react";
+
 interface ClassicFramePropw extends PropsWithChildren {
   title?: string;
   subTitle?: string;
@@ -65,11 +67,18 @@ export function ClassicFrame({
     </div>
   );
 }
-
-ClassicFrame.schema = {
-  _isJSONSchemaObject: true,
-  type: "void",
-  "x-component": "ClassicFrame",
-  "x-settings": "settings:block",
-  "x-decorator": "PositionDecorator",
-};
+export function ClassicFrameSchemeWrap(inject: any = {}) {
+  return new Schema({
+    _isJSONSchemaObject: true,
+    version: "2.0",
+    type: "void",
+    "x-component": "ClassicFrame",
+    "x-settings": "settings:block",
+    "x-decorator": "PositionDecorator",
+    "x-component-props": {
+      title: "默认标题",
+    },
+    ...inject,
+  });
+}
+ClassicFrame.schema = ClassicFrameSchemeWrap();

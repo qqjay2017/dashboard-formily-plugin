@@ -10,13 +10,7 @@ import React, {
 
 import { defaultBreakpoints, sizeFormat } from "./utils";
 import { useSchemaComponentContext } from "../../hooks";
-import {
-  FormProvider,
-  RecursionField,
-  observer,
-  useField,
-  useFieldSchema,
-} from "@formily/react";
+import { RecursionField, useField, useFieldSchema } from "@formily/react";
 import { useBreakpoints, useRowProperties } from "./hooks";
 import { allThemeNameMap } from "../../../dashboard-themes";
 import { useDashboardRootStyle } from "./styles";
@@ -131,7 +125,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   const fieldSchema = useFieldSchema();
 
   const blockItems = useRowProperties();
-  console.log(blockItems.length, "blockItems.length;");
+
   const RenderBlockItems = useMemo(() => {
     return (
       <>
@@ -160,19 +154,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   useEffect(() => {
     handleViewPortFit();
   }, []);
-
-  useEffect(() => {
-    function mouseUpFunction(event) {
-      mousePosition.current = {
-        clientX: event.clientX,
-        clientY: event.clientY,
-      };
-    }
-    document.body.addEventListener("mouseup", mouseUpFunction);
-    return () => {
-      document.body.removeEventListener("mouseup", mouseUpFunction);
-    };
-  }, []);
   const field = useField();
   const { insertSchemaComponent } = useInsertSchemaComponent();
   const droppable = useDroppable({
@@ -188,7 +169,21 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
     onDragStart(event) {
       console.log(event, "event");
     },
+    onDragMove: () => {
+      const SidebarBtnElementDragOverlay = document.getElementById(
+        "SidebarBtnElementDragOverlay"
+      );
+      if (!SidebarBtnElementDragOverlay) {
+        return false;
+      }
+      const { left, top } =
+        SidebarBtnElementDragOverlay.getBoundingClientRect();
+      console.log(left, top, "left, top");
+      mousePosition.current.clientX = left;
+      mousePosition.current.clientY = top;
+    },
     onDragEnd: ({ over, active }) => {
+      console.log(SidebarBtnElementDragOverlay, "SidebarBtnElementDragOverlay");
       const activeData = active.data.current;
       console.log(activeData, "activeData");
       if (!activeData || !activeData.type || !activeData.isDesignerBtnElement) {
