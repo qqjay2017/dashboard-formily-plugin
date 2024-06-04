@@ -10,7 +10,13 @@ import React, {
 
 import { defaultBreakpoints, sizeFormat } from "./utils";
 import { useSchemaComponentContext } from "../../hooks";
-import { RecursionField, useField, useFieldSchema } from "@formily/react";
+import {
+  FormProvider,
+  RecursionField,
+  observer,
+  useField,
+  useFieldSchema,
+} from "@formily/react";
 import { useBreakpoints, useRowProperties } from "./hooks";
 import { allThemeNameMap } from "../../../dashboard-themes";
 import { useDashboardRootStyle } from "./styles";
@@ -37,15 +43,17 @@ import {
   DndContext,
   DragOverlay,
   MouseSensor,
-  PointerSensor,
+  TouchSensor,
   useDndMonitor,
   useDroppable,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import { useInsertSchemaComponent } from "../../hooks/useSaveAllFieldSchema";
+import { createForm } from "@formily/core";
+import { SchemaComponentOptions } from "../../core";
 
-const MemorizedRecursionField = React.memo(RecursionField);
+const MemorizedRecursionField = RecursionField;
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
 
 interface DashboardRootProps extends PropsWithChildren, HTMLAttributes<any> {
@@ -90,7 +98,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   });
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [designZoom, setDesignZoom] = useState(0.5);
-  const { designable } = useSchemaComponentContext();
+  const { designable, formId } = useSchemaComponentContext();
   const { breakpoint, width, height, ref } = useBreakpoints(breakpoints, 800);
   const isPc = breakpoint === "desktop" || breakpoint === "showroom";
   const rowHeight = sizeFormat(height / rows);
@@ -125,13 +133,14 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   const fieldSchema = useFieldSchema();
 
   const blockItems = useRowProperties();
-
+  console.log(blockItems.length, "blockItems.length;");
   const RenderBlockItems = useMemo(() => {
     return (
       <>
         {blockItems.map((schema, index) => {
+          console.log(schema, "schema", index);
           return (
-            <Fragment key={index}>
+            <Fragment key={schema.name + index}>
               {/* TODO 有的时候可能不能用memo */}
               <MemorizedRecursionField name={schema.name} schema={schema} />
             </Fragment>
@@ -178,7 +187,9 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   });
 
   useDndMonitor({
-    onDragStart(event) {},
+    onDragStart(event) {
+      console.log(event, "event");
+    },
     onDragEnd: ({ over, active }) => {
       const activeData = active.data.current;
       console.log(activeData, "activeData");
@@ -190,7 +201,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
         const overData = over.data.current;
         const clientX = mousePosition.current.clientX;
         const clientY = mousePosition.current.clientY;
-        console.log(mousePosition.current, "  mousePosition.current");
 
         const w = sizeFormat(178 / colWidth);
         const h = sizeFormat(100 / rowHeight);
@@ -212,8 +222,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
             y,
           },
         });
-
-        console.log(w, h, x, y, "whxy");
       }, 100);
     },
   });
@@ -366,6 +374,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                               >
                                 <div
                                   {...otherProps}
+                                  key={formId}
                                   id="DashboardRoot"
                                   ref={ref}
                                   className={cn(
@@ -413,20 +422,32 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
 };
 
 export function DashboardRoot(props: DashboardRootProps) {
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
-        delay: 10,
-        tolerance: 5,
-      },
-    }),
-    useSensor(MouseSensor, {
-      activationConstraint: {
-        distance: 1, // 10px
-      },
-    })
-  );
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10, // 10px
+    },
+  });
+
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 300,
+      tolerance: 5,
+    },
+  });
+  const sensors = useSensors(mouseSensor, touchSensor);
+  //,
+  // useSensor(MouseSensor, {
+  //   activationConstraint: {
+  //     distance: 10,
+  //   },
+  // })
+  // useSensor(TouchSensor, {
+  //   activationConstraint: {
+  //     delay: 100,
+  //     distance: 10, // 10px
+  //   },
+  // })
+  //
 
   return (
     <DndContext sensors={sensors}>

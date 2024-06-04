@@ -55,9 +55,9 @@ const RecursionSchemaComponent = (
         distributed: ctx.distributed == false ? false : distributed,
         refresh: () => {
           refresh();
-          if (ctx.distributed === false || distributed === false) {
-            ctx.refresh?.();
-          }
+
+          ctx.refresh?.();
+
           props.onChange?.(s);
         },
       }}
@@ -84,9 +84,11 @@ export const RecursionSchemaComponentWrap = (
         distributed: ctx.distributed == false ? false : distributed,
         refresh: () => {
           refresh();
-          if (ctx.distributed === false || distributed === false) {
-            ctx.refresh?.();
-          }
+
+          ctx.refresh?.();
+          // if (ctx.distributed === false || distributed === false) {
+
+          // }
           props.onChange?.(s);
         },
       }}

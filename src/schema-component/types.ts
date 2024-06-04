@@ -5,6 +5,7 @@ import { IRecursionFieldProps, ISchemaFieldProps, SchemaReactComponents } from '
 import React, { PropsWithChildren } from 'react';
 
 export interface ISchemaComponentContext {
+  formId?: string;
   scope?: any;
   components?: SchemaReactComponents;
   refresh?: () => void;

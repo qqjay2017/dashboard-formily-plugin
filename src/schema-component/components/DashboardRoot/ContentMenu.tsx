@@ -122,7 +122,12 @@ export const ContentMenu = () => {
       >
         {(subMenuItems[activeMenuItem] || []).map(
           (subMenuItem: SubMenuItems) => {
-            return <SubMenuItemCom subMenuItem={subMenuItem} />;
+            return (
+              <SubMenuItemCom
+                key={subMenuItem.id + subMenuItem.type}
+                subMenuItem={subMenuItem}
+              />
+            );
           }
         )}
       </div>
@@ -139,7 +144,7 @@ const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
       isDesignerBtnElement: true,
     },
   });
-  console.log(draggable, "draggable");
+
   return (
     <button
       ref={draggable.setNodeRef}
@@ -171,7 +176,6 @@ const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
           padding: 2px 15px;
           color: rgba(255, 255, 255, 0.52);
           font-size: 12px;
-          user-select: none;
         `}
       >
         {subMenuItem.label}

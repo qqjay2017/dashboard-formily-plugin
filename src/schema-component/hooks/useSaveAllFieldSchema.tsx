@@ -6,6 +6,7 @@ import { set } from "lodash-es";
 import { ElementsType } from "../components/DashboardRoot/ContentMenu";
 import { uid } from "@formily/shared";
 import { ClassicFrame, ClassicFrameSchemeWrap } from "../widgets";
+import { useSchemaComponentContext } from "./useSchemaComponentContext";
 const replaceKeys = {
   title: "title",
   description: "description",
@@ -99,6 +100,7 @@ export const useSaveAllFieldSchema = () => {
 };
 
 export const useInsertSchemaComponent = () => {
+  const { reset, refresh } = useSchemaComponentContext();
   const apiClient = useAPIClient();
 
   const { id } = useParams();
@@ -141,23 +143,23 @@ export const useInsertSchemaComponent = () => {
     }
 
     const newId = uid();
-    const setAddressBefore = address
-      .split(".")
-      .map((key, index) => {
-        if (index == 0) {
-          return "";
-        } else {
-          return "properties." + key;
-        }
-      })
-      .filter(Boolean)
-      .join(".");
-    const setAddress = setAddressBefore
-      ? `${setAddressBefore}.${newId}`
-      : `properties.${newId}`;
-    set(
-      fieldSchema,
-      setAddress,
+    // const setAddressBefore = address
+    //   .split(".")
+    //   .map((key, index) => {
+    //     if (index == 0) {
+    //       return "";
+    //     } else {
+    //       return "properties." + key;
+    //     }
+    //   })
+    //   .filter(Boolean)
+    //   .join(".");
+    // const setAddress = setAddressBefore
+    //   ? `${setAddressBefore}.${newId}`
+    //   : `properties.${newId}`;
+    // 添加儿子
+    fieldSchema.addProperty(
+      newId,
       ClassicFrameSchemeWrap({
         "x-decorator-props": {
           ...position,
@@ -165,7 +167,22 @@ export const useInsertSchemaComponent = () => {
         },
       })
     );
-    saveRemoteFieldSchema();
+    console.log(fieldSchema, "fieldSchema");
+    // refresh && refresh();
+    saveRemoteFieldSchema().then(() => {
+      reset && reset();
+    });
+    // reset && reset();
+    // set(
+    //   fieldSchema,
+    //   setAddress,
+    //   ClassicFrameSchemeWrap({
+    //     "x-decorator-props": {
+    //       ...position,
+    //       zIndex: 4,
+    //     },
+    //   })
+    // );
 
     // console.log(fieldSchema, "fieldSchema");
 

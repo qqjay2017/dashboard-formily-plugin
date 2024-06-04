@@ -1,7 +1,13 @@
 import { createForm } from "@formily/core";
 import { FormProvider, Schema } from "@formily/react";
 import { uid } from "@formily/shared";
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { useUpdate } from "ahooks";
 import { SchemaComponentContext } from "../context";
@@ -10,6 +16,7 @@ import {
   SchemaComponentOptions,
   useSchemaOptionsContext,
 } from "./SchemaComponentOptions";
+import { useLocation } from "react-router-dom";
 
 const randomString = (prefix = "") => {
   return `${prefix}${uid()}`;
@@ -54,6 +61,7 @@ Schema.registerCompiler(Registry.compile);
 export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
   props
 ) => {
+  const { pathname } = useLocation();
   const { designable, onDesignableChange, components, children } = props;
   const ctx = useContext(SchemaComponentContext);
   const ctxOptions = useSchemaOptionsContext();
@@ -84,9 +92,14 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
     setFormId(uid());
   }, []);
 
+  useEffect(() => {
+    reset();
+  }, [pathname]);
+
   return (
     <SchemaComponentContext.Provider
       value={{
+        formId,
         scope,
         components,
         reset,
