@@ -118,61 +118,65 @@ export const ContentMenu = () => {
       >
         {(subMenuItems[activeMenuItem] || []).map(
           (subMenuItem: SubMenuItems) => {
-            return (
-              <div
-                key={subMenuItem.id}
-                className={css`
-                  user-select: none;
-                  width: 180px;
-                  height: 140px;
-                  overflow: hidden;
-                  border-radius: 6px;
-                  cursor: pointer;
-                  border: 1px solid rgba(0, 0, 0, 0);
-                  position: relative;
-                  margin: 0;
-                  background-color: #232324;
-                  transition: all 0.4s;
-                `}
-              >
-                <div
-                  className={css`
-                    user-select: none;
-                    width: 100%;
-                    height: 24px;
-                    background-color: #2a2a2b;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 2px 15px;
-                    color: rgba(255, 255, 255, 0.52);
-                    font-size: 12px;
-                  `}
-                >
-                  {subMenuItem.label}
-                </div>
-                <div
-                  className={css`
-                    user-select: none;
-                    height: calc(100% - 24px);
-                    width: 100%;
-                    padding: 6px 0;
-                    overflow: hidden;
-                  `}
-                >
-                  <img
-                    className={css`
-                      user-select: none;
-                      width: 100%;
-                      height: 100%;
-                    `}
-                    src={subMenuItem.previewBg}
-                  />
-                </div>
-              </div>
-            );
+            return <SubMenuItemCom subMenuItem={subMenuItem} />;
           }
         )}
+      </div>
+    </div>
+  );
+};
+
+const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
+  return (
+    <div
+      key={subMenuItem.id}
+      className={css`
+        user-select: none;
+        width: 180px;
+        height: 140px;
+        overflow: hidden;
+        border-radius: 6px;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0);
+        position: relative;
+        margin: 0;
+        background-color: #232324;
+        transition: all 0.4s;
+      `}
+    >
+      <div
+        className={css`
+          user-select: none;
+          width: 100%;
+          height: 24px;
+          background-color: #2a2a2b;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2px 15px;
+          color: rgba(255, 255, 255, 0.52);
+          font-size: 12px;
+        `}
+      >
+        {subMenuItem.label}
+      </div>
+      <div
+        className={css`
+          user-select: none;
+          height: calc(100% - 24px);
+          width: 100%;
+          padding: 6px 0;
+          overflow: hidden;
+        `}
+      >
+        <img
+          className={css`
+            user-select: none;
+            width: 100%;
+            height: 100%;
+          `}
+          src={subMenuItem.previewBg}
+        />
       </div>
     </div>
   );

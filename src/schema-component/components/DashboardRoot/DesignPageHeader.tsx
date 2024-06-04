@@ -7,8 +7,8 @@ export const DesignPageHeader = () => {
       className={css`
         width: 100%;
         height: 50px;
-        background-color: #fff;
-        border-bottom: 1px solid #e4e4e5;
+        background-color: rgb(24, 24, 28);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
         box-sizing: border-box;
         padding: 0 24px;
         display: flex;
@@ -23,7 +23,7 @@ export const DesignPageHeader = () => {
           font-size: 16px;
           font-style: normal;
           font-weight: 500;
-          color: #2f2e3f;
+          color: #fff;
           line-height: 40px;
           word-wrap: break-word;
           overflow: hidden;

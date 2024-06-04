@@ -18,7 +18,7 @@ import { useDashboardRootStyle } from "./styles";
 import { DashboardRootContext, DesignPageConext } from "./context";
 import { cn } from "../../../utils";
 
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import { ThemeCSSVariableProvider } from "../../../css-variable";
 
 import { MoveableManage } from "./MoveableManage";
@@ -143,6 +143,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     >
       <ConfigProvider
         theme={{
+          algorithm: theme.darkAlgorithm,
           token: {
             ...themeToken,
             ...themeDarkOrLightToken,

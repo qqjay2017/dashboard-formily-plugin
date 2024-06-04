@@ -1,11 +1,14 @@
 import { css } from "@emotion/css";
 import { allThemes } from "../../dashboard-themes";
+import { theme } from "antd";
 
 interface ColorTypeSelectProps {
   value?: string;
   onChange?: (str?: string) => string;
 }
 export const ColorTypeSelect = ({ value, onChange }: ColorTypeSelectProps) => {
+  const { token } = theme.useToken();
+  console.log(token, "token");
   return (
     <div
       className={css`
@@ -13,6 +16,7 @@ export const ColorTypeSelect = ({ value, onChange }: ColorTypeSelectProps) => {
       `}
     >
       {allThemes.map((theme) => {
+        const isActive = value === theme.name;
         return (
           <div
             onClick={() => {
@@ -22,7 +26,7 @@ export const ColorTypeSelect = ({ value, onChange }: ColorTypeSelectProps) => {
             className={css`
               border-radius: 4px;
               cursor: pointer;
-              padding: 12px 24px;
+              padding: 12px 12px;
               margin-bottom: 16px;
               width: 100%;
               min-width: 230px;
@@ -30,24 +34,24 @@ export const ColorTypeSelect = ({ value, onChange }: ColorTypeSelectProps) => {
               display: flex;
               align-items: center;
               justify-content: center;
-              border: 1px solid
-                ${value === theme.name ? theme.colors[0] : "#ccc"};
+              border: 1px solid ${isActive ? theme.colors[0] : "#ccc"};
             `}
           >
             <div
               className={css`
-                width: 60px;
+                width: 50px;
                 text-align: left;
                 white-space: nowrap;
                 max-width: 100%;
                 overflow: hidden;
+                color: ${isActive ? theme.colors[0] : token.colorText};
               `}
             >
               {theme.zhName}
             </div>
             <div
               className={css`
-                width: calc(100% - 60px);
+                width: calc(100% - 50px);
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
