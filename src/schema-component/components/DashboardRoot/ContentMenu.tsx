@@ -4,6 +4,9 @@ import { cn } from "../../../utils";
 import { useState } from "react";
 import { ClassicFrame } from "../../widgets";
 
+import { useDraggable } from "@dnd-kit/core";
+
+export type ElementsType = "ClassicFrame";
 const menuItems = [
   {
     id: "1",
@@ -27,6 +30,7 @@ const subMenuItems0 = [
   {
     id: "0-jcbk",
     label: "基础边框",
+    type: "ClassicFrame",
     component: ClassicFrame,
     previewBg: "/assets/schema-component/ClassicFrame/WX20240603-234022@2x.png",
   },
@@ -127,26 +131,37 @@ export const ContentMenu = () => {
 };
 
 const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
+  const draggable = useDraggable({
+    id: `designer-btn-${subMenuItem.type}`,
+    data: {
+      ...subMenuItem,
+      type: subMenuItem.type,
+      isDesignerBtnElement: true,
+    },
+  });
+  console.log(draggable, "draggable");
   return (
-    <div
+    <button
+      ref={draggable.setNodeRef}
       key={subMenuItem.id}
       className={css`
-        user-select: none;
+        reset: all;
         width: 180px;
         height: 140px;
         overflow: hidden;
         border-radius: 6px;
-        cursor: pointer;
+        cursor: grab;
         border: 1px solid rgba(0, 0, 0, 0);
         position: relative;
         margin: 0;
         background-color: #232324;
-        transition: all 0.4s;
+        touch-action: none;
       `}
+      {...draggable.listeners}
+      {...draggable.attributes}
     >
       <div
         className={css`
-          user-select: none;
           width: 100%;
           height: 24px;
           background-color: #2a2a2b;
@@ -156,28 +171,52 @@ const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
           padding: 2px 15px;
           color: rgba(255, 255, 255, 0.52);
           font-size: 12px;
+          user-select: none;
         `}
       >
         {subMenuItem.label}
       </div>
       <div
         className={css`
-          user-select: none;
           height: calc(100% - 24px);
           width: 100%;
           padding: 6px 0;
           overflow: hidden;
         `}
       >
-        <img
+        <div
+          style={{
+            backgroundImage: `url( ${subMenuItem.previewBg} )`,
+          }}
           className={css`
-            user-select: none;
+            background-position: center center;
+            background-size: contain;
+            background-repeat: no-repeat;
             width: 100%;
             height: 100%;
           `}
-          src={subMenuItem.previewBg}
-        />
+        ></div>
       </div>
-    </div>
+    </button>
   );
 };
+
+export function SidebarBtnElementDragOverlay({
+  elementType,
+  previewBg,
+}: {
+  elementType: ElementsType;
+  previewBg?: string;
+}) {
+  return (
+    <div>
+      <img
+        className={css`
+          width: 178px;
+          height: 102px;
+        `}
+        src={previewBg}
+      />
+    </div>
+  );
+}

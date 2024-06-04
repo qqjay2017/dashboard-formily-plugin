@@ -10,7 +10,7 @@ import React, {
 
 import { defaultBreakpoints, sizeFormat } from "./utils";
 import { useSchemaComponentContext } from "../../hooks";
-import { RecursionField, useFieldSchema } from "@formily/react";
+import { RecursionField, useField, useFieldSchema } from "@formily/react";
 import { useBreakpoints, useRowProperties } from "./hooks";
 import { allThemeNameMap } from "../../../dashboard-themes";
 import { useDashboardRootStyle } from "./styles";
@@ -27,7 +27,23 @@ import { css } from "@emotion/css";
 import { DesignPageHeader } from "./DesignPageHeader";
 import { CanvasSetting } from "./CanvasSetting";
 import { SchemaComponentSetting } from "./SchemaComponentSetting";
-import { ContentMenu } from "./ContentMenu";
+import {
+  ContentMenu,
+  ElementsType,
+  SidebarBtnElementDragOverlay,
+} from "./ContentMenu";
+import {
+  Active,
+  DndContext,
+  DragOverlay,
+  MouseSensor,
+  PointerSensor,
+  useDndMonitor,
+  useDroppable,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { useInsertSchemaComponent } from "../../hooks/useSaveAllFieldSchema";
 
 const MemorizedRecursionField = React.memo(RecursionField);
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
@@ -53,7 +69,7 @@ interface DashboardRootProps extends PropsWithChildren, HTMLAttributes<any> {
   isDarkTheme?: boolean;
 }
 
-export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
+const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   const {
     breakpoints = defaultBreakpoints,
     designWidth = 1920,
@@ -68,6 +84,10 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     isDarkTheme,
     ...otherProps
   } = props;
+  const mousePosition = useRef({
+    clientX: 0,
+    clientY: 0,
+  });
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [designZoom, setDesignZoom] = useState(0.5);
   const { designable } = useSchemaComponentContext();
@@ -133,6 +153,70 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
   useEffect(() => {
     handleViewPortFit();
   }, []);
+
+  useEffect(() => {
+    function mouseUpFunction(event) {
+      mousePosition.current = {
+        clientX: event.clientX,
+        clientY: event.clientY,
+      };
+    }
+    document.body.addEventListener("mouseup", mouseUpFunction);
+    return () => {
+      document.body.removeEventListener("mouseup", mouseUpFunction);
+    };
+  }, []);
+  const field = useField();
+  const { insertSchemaComponent } = useInsertSchemaComponent();
+  const droppable = useDroppable({
+    id: "designer-drop-area",
+
+    data: {
+      address: field.address.toString(),
+      isDesignerDropArea: true,
+    },
+  });
+
+  useDndMonitor({
+    onDragStart(event) {},
+    onDragEnd: ({ over, active }) => {
+      const activeData = active.data.current;
+      console.log(activeData, "activeData");
+      if (!activeData || !activeData.type || !activeData.isDesignerBtnElement) {
+        return false;
+      }
+
+      setTimeout(() => {
+        const overData = over.data.current;
+        const clientX = mousePosition.current.clientX;
+        const clientY = mousePosition.current.clientY;
+        console.log(mousePosition.current, "  mousePosition.current");
+
+        const w = sizeFormat(178 / colWidth);
+        const h = sizeFormat(100 / rowHeight);
+        const x = sizeFormat(
+          (clientX - over.rect.left) / colWidth / designZoom
+        );
+
+        const y = sizeFormat(
+          (clientY - over.rect.top) / rowHeight / designZoom
+        );
+
+        insertSchemaComponent({
+          address: overData.address,
+          type: activeData.type,
+          position: {
+            w,
+            h,
+            x,
+            y,
+          },
+        });
+
+        console.log(w, h, x, y, "whxy");
+      }, 100);
+    },
+  });
 
   return (
     <DesignPageConext.Provider
@@ -246,7 +330,7 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                       >
                         <div
                           className={css`
-                            pointer-events: auto;
+                            pointer-events: none;
                             list-style: none;
                           `}
                         >
@@ -256,9 +340,11 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                               box-shadow: 0 8px 10px #1e1e1e1f;
                               width: ${designWidth * designZoom}px;
                               height: ${designHeight * designZoom}px;
+                              opacity: ${droppable.isOver ? 0.6 : 1};
                             `}
                           >
                             <div
+                              ref={droppable.setNodeRef}
                               className={css`
                                 width: ${designWidth}px;
                                 height: ${designHeight}px;
@@ -271,24 +357,32 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
                                 overflow: hidden;
                               `}
                             >
+                              {/* droppable area */}
                               <div
-                                {...otherProps}
-                                id="DashboardRoot"
-                                ref={ref}
-                                className={cn(
-                                  rootStyle.styles,
-                                  className,
-                                  themeProvider
-                                )}
-                                style={{
-                                  width: "100%",
-                                  height: "100%",
-                                  position: "relative",
-                                  ...style,
-                                }}
+                                className={css`
+                                  width: ${designWidth}px;
+                                  height: ${designHeight}px;
+                                `}
                               >
-                                {RenderBlockItems}
-                                {designable && <MoveableManage />}
+                                <div
+                                  {...otherProps}
+                                  id="DashboardRoot"
+                                  ref={ref}
+                                  className={cn(
+                                    rootStyle.styles,
+                                    className,
+                                    themeProvider
+                                  )}
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    position: "relative",
+                                    ...style,
+                                  }}
+                                >
+                                  {RenderBlockItems}
+                                  {designable && <MoveableManage />}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -317,3 +411,66 @@ export const DashboardRoot = ({ children, ...props }: DashboardRootProps) => {
     </DesignPageConext.Provider>
   );
 };
+
+export function DashboardRoot(props: DashboardRootProps) {
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
+        delay: 10,
+        tolerance: 5,
+      },
+    }),
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 1, // 10px
+      },
+    })
+  );
+
+  return (
+    <DndContext sensors={sensors}>
+      <DashboardRootMain {...props} />
+      <DragOverlayWrapper />
+    </DndContext>
+  );
+}
+
+function DragOverlayWrapper() {
+  const [draggedItem, setDraggedItem] = useState<Active | null>(null);
+  useDndMonitor({
+    onDragStart(event) {
+      setDraggedItem(event.active);
+    },
+    onDragCancel(event) {
+      setDraggedItem(null);
+    },
+    onDragEnd() {
+      setDraggedItem(null);
+    },
+  });
+  if (!draggedItem) {
+    return null;
+  }
+  let node = <div>No drag overlay</div>;
+  const isDesignerBtnElement = draggedItem?.data?.current?.isDesignerBtnElement;
+  if (isDesignerBtnElement) {
+    const type = draggedItem?.data?.current?.type as ElementsType;
+    node = (
+      <SidebarBtnElementDragOverlay
+        elementType={type}
+        {...draggedItem?.data?.current}
+      />
+    );
+  }
+  return (
+    <DragOverlay
+      className={css`
+        width: 178px;
+        height: 102px;
+      `}
+    >
+      {node}
+    </DragOverlay>
+  );
+}

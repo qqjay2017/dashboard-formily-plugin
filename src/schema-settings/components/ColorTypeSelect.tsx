@@ -8,7 +8,7 @@ interface ColorTypeSelectProps {
 }
 export const ColorTypeSelect = ({ value, onChange }: ColorTypeSelectProps) => {
   const { token } = theme.useToken();
-  console.log(token, "token");
+
   return (
     <div
       className={css`

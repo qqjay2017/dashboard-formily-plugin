@@ -14,4 +14,5 @@ export const romanRedToken = {
     textNum: "#ffdc2f",
     textNumLight: "#f4a52e",
     thumbColor: "rgba(59, 120, 239, 0.5)",
+    nodeContentBg: 'rgba(0, 26, 58, 0.8)',
 }

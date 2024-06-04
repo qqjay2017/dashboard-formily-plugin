@@ -1,9 +1,11 @@
 import React from "react";
 import { useAPIClient } from "../../api-client";
-import { ISchema, useFieldSchema, useForm } from "@formily/react";
+import { ISchema, useField, useFieldSchema, useForm } from "@formily/react";
 import { useParams } from "react-router-dom";
 import { set } from "lodash-es";
-
+import { ElementsType } from "../components/DashboardRoot/ContentMenu";
+import { uid } from "@formily/shared";
+import { ClassicFrame, ClassicFrameSchemeWrap } from "../widgets";
 const replaceKeys = {
   title: "title",
   description: "description",
@@ -93,5 +95,87 @@ export const useSaveAllFieldSchema = () => {
   return {
     saveRemoteFieldSchema,
     saveLocalFieldState,
+  };
+};
+
+export const useInsertSchemaComponent = () => {
+  const apiClient = useAPIClient();
+
+  const { id } = useParams();
+  // const form = useForm();
+  // const field = useField();
+  const fieldSchema = useFieldSchema();
+  const saveRemoteFieldSchema = () => {
+    console.log(fieldSchema, fieldSchema.toJSON());
+
+    return apiClient.request({
+      url: "/huang-api/dashboard/" + id,
+      method: "put",
+      data: {
+        // id,
+        content: JSON.stringify({
+          type: "void",
+          properties: {
+            dashboardRoot: fieldSchema.toJSON(),
+          },
+        }),
+      },
+    });
+  };
+  const insertSchemaComponent = ({
+    address,
+    type,
+    position,
+  }: {
+    address: string;
+    type: ElementsType;
+    position: {
+      x?: number;
+      y?: number;
+      w?: number;
+      h?: number;
+    };
+  }) => {
+    if (!address || !type) {
+      return false;
+    }
+
+    const newId = uid();
+    const setAddressBefore = address
+      .split(".")
+      .map((key, index) => {
+        if (index == 0) {
+          return "";
+        } else {
+          return "properties." + key;
+        }
+      })
+      .filter(Boolean)
+      .join(".");
+    const setAddress = setAddressBefore
+      ? `${setAddressBefore}.${newId}`
+      : `properties.${newId}`;
+    set(
+      fieldSchema,
+      setAddress,
+      ClassicFrameSchemeWrap({
+        "x-decorator-props": {
+          ...position,
+          zIndex: 4,
+        },
+      })
+    );
+    saveRemoteFieldSchema();
+
+    // console.log(fieldSchema, "fieldSchema");
+
+    // fieldSchema;
+
+    // form.setFieldState(address, (state) => {
+    //   console.log(state, "state");
+    // });
+  };
+  return {
+    insertSchemaComponent,
   };
 };
