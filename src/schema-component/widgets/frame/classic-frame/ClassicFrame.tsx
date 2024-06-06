@@ -2,7 +2,9 @@ import React, { PropsWithChildren } from "react";
 import { cn } from "../../../../utils";
 import { useClassicFrameStyle } from "./styles";
 
-import { Schema } from "@formily/react";
+import { Schema, useField, useFieldSchema } from "@formily/react";
+import { css } from "@emotion/css";
+import { useDroppable } from "@dnd-kit/core";
 
 interface ClassicFramePropw extends PropsWithChildren {
   title?: string;
@@ -27,8 +29,20 @@ export function ClassicFrame({
   titleClassName,
   contentClassName,
 }: ClassicFramePropw) {
+  const field = useField();
+  const fieldSchema = useFieldSchema();
   const hasTitle = title || extra;
   const classicFrameStyle = useClassicFrameStyle({ hasTitle: !!hasTitle });
+
+  const droppable = useDroppable({
+    id: `ClassicFrame-${field.address.toString()}`,
+    data: {
+      address: field.address.toString(),
+      field,
+      fieldSchema,
+      type: "insert",
+    },
+  });
 
   //
   return (
@@ -54,15 +68,25 @@ export function ClassicFrame({
         </div>
       ) : null}
 
-      <div className={cn("nodeContentRendererContent", contentClassName)}>
+      <div
+        className={cn(
+          "nodeContentRendererContent",
+          contentClassName,
+          css`
+            border-width: ${droppable.isOver ? "1px" : "0px"}!important;
+          `
+        )}
+        ref={droppable.setNodeRef}
+      >
         <div
-          onClick={(e) => {
-            console.log(e, "ee");
-          }}
+          className={css`
+            width: 100%;
+            height: 100%;
+            position: relative;
+          `}
         >
-          123
+          {children}
         </div>
-        {children}
       </div>
     </div>
   );

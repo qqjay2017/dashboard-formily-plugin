@@ -6,7 +6,7 @@ import { ClassicFrame } from "../../widgets";
 
 import { useDraggable } from "@dnd-kit/core";
 
-export type ElementsType = "ClassicFrame";
+export type ElementsType = "ClassicFrame" | "Statistic";
 const menuItems = [
   {
     id: "1",
@@ -31,8 +31,16 @@ const subMenuItems0 = [
     id: "0-jcbk",
     label: "基础边框",
     type: "ClassicFrame",
-    component: ClassicFrame,
     previewBg: "/assets/schema-component/ClassicFrame/WX20240603-234022@2x.png",
+  },
+];
+
+const subMenuItems2 = [
+  {
+    id: "2-tj",
+    label: "统计",
+    type: "Statistic",
+    previewBg: "/assets/schema-component/Statistics/WX20240606-163117.png",
   },
 ];
 
@@ -40,6 +48,7 @@ type SubMenuItems = (typeof subMenuItems0)[0];
 
 const subMenuItems = {
   0: subMenuItems0,
+  2: subMenuItems2,
 };
 
 const useContentMenuStyles = createStyles(({ css, token }) => {

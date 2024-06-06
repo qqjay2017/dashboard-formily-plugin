@@ -19,6 +19,6 @@ export const SchemaComponentSetting = observer(() => {
   if (!id) {
     return null;
   }
-  console.log(selectedTargets, "selectedTargets");
+
   return <DesignComponentSetting address={elementIdToEid(id)} />;
 });

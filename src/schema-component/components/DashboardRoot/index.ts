@@ -1,5 +1,7 @@
 export * from './DashboardRoot'
 export * from './hooks'
+export * from './allComponentTypeSettingSchema'
+export * from './allComponentTypInitSchema'
 
 export const dashboardRootWrap = (inject: any) => ({
     type: "void",

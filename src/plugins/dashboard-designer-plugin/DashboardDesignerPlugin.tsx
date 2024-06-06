@@ -1,7 +1,7 @@
 import { Plugin } from "../../application";
 
 import {
-  DashboardRoot,
+  Statistic,
   ClassicFrame,
   PositionDecorator,
 } from "../../schema-component";
@@ -18,6 +18,7 @@ export class DashboardDesignerPlugin extends Plugin {
       // DashboardRoot,
       PositionDecorator,
       ClassicFrame,
+      Statistic,
     });
   }
 }

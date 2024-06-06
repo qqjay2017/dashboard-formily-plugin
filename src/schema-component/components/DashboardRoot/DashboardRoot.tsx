@@ -22,7 +22,7 @@ import { ConfigProvider, theme } from "antd";
 import { ThemeCSSVariableProvider } from "../../../css-variable";
 
 import { MoveableManage } from "./MoveableManage";
-
+import { uid } from "@formily/shared";
 import { css } from "@emotion/css";
 import { DesignPageHeader } from "./DesignPageHeader";
 import { CanvasSetting } from "./CanvasSetting";
@@ -95,6 +95,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   const isPc = breakpoint === "desktop" || breakpoint === "showroom";
   const rowHeight = sizeFormat(height / rows);
   const colWidth = cols && width ? sizeFormat(width / cols) : 0;
+  const [renderKey, setRenderKey] = useState(uid());
   // const scale = useMemo(() => {
   //   let scale = 1;
   //   if (!width || !height) {
@@ -130,7 +131,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
     return (
       <>
         {blockItems.map((schema, index) => {
-          console.log(schema, "schema", index);
           return (
             <Fragment key={schema.name + index}>
               {/* TODO 有的时候可能不能用memo */}
@@ -166,9 +166,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   });
 
   useDndMonitor({
-    onDragStart(event) {
-      console.log(event, "event");
-    },
+    onDragStart(event) {},
     onDragMove: () => {
       const SidebarBtnElementDragOverlay = document.getElementById(
         "SidebarBtnElementDragOverlay"
@@ -178,14 +176,13 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
       }
       const { left, top } =
         SidebarBtnElementDragOverlay.getBoundingClientRect();
-      console.log(left, top, "left, top");
+
       mousePosition.current.clientX = left;
       mousePosition.current.clientY = top;
     },
     onDragEnd: ({ over, active }) => {
-      console.log(SidebarBtnElementDragOverlay, "SidebarBtnElementDragOverlay");
       const activeData = active.data.current;
-      console.log(activeData, "activeData");
+
       if (!activeData || !activeData.type || !activeData.isDesignerBtnElement) {
         return false;
       }
@@ -205,6 +202,11 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
           (clientY - over.rect.top) / rowHeight / designZoom
         );
 
+        console.log(overData, activeData);
+        console.log(x, y, "x");
+
+        // debugger;
+
         insertSchemaComponent({
           address: overData.address,
           type: activeData.type,
@@ -218,6 +220,16 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
       }, 100);
     },
   });
+
+  useEffect(() => {
+    function onInsert() {
+      setRenderKey(uid());
+    }
+    document.addEventListener("onInsert", onInsert);
+    return () => {
+      document.removeEventListener("onInsert", onInsert);
+    };
+  }, []);
 
   return (
     <DesignPageConext.Provider
@@ -386,7 +398,11 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                                 </div>
                               </div>
                             </div>
-                            {designable && <MoveableManage />}
+                            {designable && (
+                              <MoveableManage
+                                key={`MoveableManage-${blockItems?.length}-${designZoom}${renderKey}`}
+                              />
+                            )}
                           </div>
                         </div>
                       </div>

@@ -2,11 +2,12 @@ import React from "react";
 import { useAPIClient } from "../../api-client";
 import { ISchema, useField, useFieldSchema, useForm } from "@formily/react";
 import { useParams } from "react-router-dom";
-import { set } from "lodash-es";
+import { get, set } from "lodash-es";
 import { ElementsType } from "../components/DashboardRoot/ContentMenu";
 import { uid } from "@formily/shared";
 import { ClassicFrame, ClassicFrameSchemeWrap } from "../widgets";
 import { useSchemaComponentContext } from "./useSchemaComponentContext";
+import { allComponentTypInitSchema } from "../components";
 const replaceKeys = {
   title: "title",
   description: "description",
@@ -142,6 +143,11 @@ export const useInsertSchemaComponent = () => {
       return false;
     }
 
+    const initFn = allComponentTypInitSchema[type];
+    if (!initFn) {
+      return false;
+    }
+
     const newId = uid();
     // const setAddressBefore = address
     //   .split(".")
@@ -158,19 +164,37 @@ export const useInsertSchemaComponent = () => {
     //   ? `${setAddressBefore}.${newId}`
     //   : `properties.${newId}`;
     // 添加儿子
-    fieldSchema.addProperty(
+    const curFieldSchema =
+      address.indexOf(".") > -1
+        ? get(
+            fieldSchema,
+            address
+              .split(".")
+              .map((key, index) => {
+                if (index == 0) {
+                  return "";
+                } else {
+                  return "properties." + key;
+                }
+              })
+              .filter(Boolean)
+              .join(".")
+          )
+        : fieldSchema;
+
+    curFieldSchema.addProperty(
       newId,
-      ClassicFrameSchemeWrap({
+      initFn({
         "x-decorator-props": {
           ...position,
           zIndex: 4,
         },
       })
     );
-    console.log(fieldSchema, "fieldSchema");
     // refresh && refresh();
     saveRemoteFieldSchema().then(() => {
       reset && reset();
+      document.dispatchEvent(new CustomEvent("onInsert"));
     });
     // reset && reset();
     // set(

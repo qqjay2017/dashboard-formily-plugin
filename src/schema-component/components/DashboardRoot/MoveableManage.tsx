@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Moveable from "react-moveable";
 import Selecto from "react-selecto";
 import { useDesignPageConext } from "../../../design-page";
@@ -23,7 +23,6 @@ export const MoveableManage = observer(() => {
     useSaveAllFieldSchema();
   const onMoveEnd = (eid, e, zoom = 1) => {
     const { left, top, width, height } = e.moveable.getRect();
-    console.log(colWidth, width);
 
     saveLocalFieldState({
       address: elementIdToEid(eid),
@@ -40,6 +39,10 @@ export const MoveableManage = observer(() => {
   const setTargets = (targets) => {
     selectedTargetsStore.value = targets;
   };
+
+  useEffect(() => {
+    setTargets([]);
+  }, [designZoom]);
   return (
     <>
       <Moveable
@@ -144,7 +147,6 @@ export const MoveableManage = observer(() => {
           selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);
         }}
         onClick={(e) => {
-          console.log(e, "ee");
           if (e.isDouble) {
             const inputTarget = e.inputTarget as HTMLElement;
             const selectableElements =
@@ -198,7 +200,6 @@ export const MoveableManage = observer(() => {
         continueSelect={false}
         ratio={0}
         onDragStart={(e) => {
-          console.log(e, "e");
           const moveable = moveableRef.current!;
           const target = e.inputEvent.target;
           if (

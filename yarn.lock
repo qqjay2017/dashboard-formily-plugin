@@ -670,6 +670,11 @@
     "@formily/reactive" "2.3.1"
     "@formily/shared" "2.3.1"
 
+"@formily/path@2.3.0":
+  version "2.3.0"
+  resolved "http://bscs.d3ata.com:8081/repository/npm-l/@formily/path/-/path-2.3.0.tgz#be9187d2b28e742d349a825a0976d5811e2efada"
+  integrity sha512-g4BgE7JVWua15t1tVN2XCgPWoEkl6EFjgXRF1c+tNI7Ke22lIHczNTtEK8miYcmK91iGUiI70N/Q/Z0cA4UjJQ==
+
 "@formily/path@2.3.1":
   version "2.3.1"
   resolved "https://registry.npmjs.org/@formily/path/-/path-2.3.1.tgz#b7adb91f7d3bb0f2efc90672dda466a0590dcb1b"
@@ -707,6 +712,19 @@
   integrity sha512-qnlh6jnnIbUjcK0rWF9bm6AxgyxuBgURrzU5vMSxTNAN86P7K9+mSc/28qPsdNP9flEA2/clSexP5WEJAGYVgw==
   dependencies:
     "@formily/path" "2.3.1"
+    camel-case "^4.1.1"
+    lower-case "^2.0.1"
+    no-case "^3.0.4"
+    param-case "^3.0.4"
+    pascal-case "^3.1.1"
+    upper-case "^2.0.1"
+
+"@formily/shared@^2.3.0":
+  version "2.3.0"
+  resolved "http://bscs.d3ata.com:8081/repository/npm-l/@formily/shared/-/shared-2.3.0.tgz#c2639a346166995fc1a5557cb6e9695ed5edf08a"
+  integrity sha512-v4sgKnrHi1sPPskJVdsrCf3OUXmVrp4eX6RiniMPKuGQaueyFQgN/Yt6nUx2Oz7KUO1tii/5gZzvi8x5pWk25A==
+  dependencies:
+    "@formily/path" "2.3.0"
     camel-case "^4.1.1"
     lower-case "^2.0.1"
     no-case "^3.0.4"

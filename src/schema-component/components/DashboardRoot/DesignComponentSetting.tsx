@@ -17,7 +17,7 @@ import { allComponentTypeSettingSchema } from "./allComponentTypeSettingSchema";
 export const DesignComponentSetting = ({ address }: { address: string }) => {
   const globalForm = useForm();
   const { componentType } = globalForm.query(address).take();
-  console.log(componentType, "componentType");
+
   const dashboardRootFormSchema =
     allComponentTypeSettingSchema[componentType] ||
     allComponentTypeSettingSchema[address] ||
@@ -27,8 +27,6 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
   const { locale } = useContext(ConfigProvider.ConfigContext);
 
   const dashboardRootConfig = globalForm.query(address).take();
-
-  console.log(dashboardRootConfig, "dashboardRootConfig");
 
   const { saveLocalFieldState, saveRemoteFieldSchema } =
     useSaveAllFieldSchema();
