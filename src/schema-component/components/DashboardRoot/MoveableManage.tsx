@@ -21,16 +21,18 @@ export const MoveableManage = observer(() => {
 
   const { saveRemoteFieldSchema, saveLocalFieldState } =
     useSaveAllFieldSchema();
-  const onMoveEnd = (eid, e) => {
+  const onMoveEnd = (eid, e, zoom = 1) => {
     const { left, top, width, height } = e.moveable.getRect();
+    console.log(colWidth, width);
+
     saveLocalFieldState({
       address: elementIdToEid(eid),
       schema: {
         "x-decorator-props": {
-          x: sizeFormat(left / colWidth),
-          w: sizeFormat(width / colWidth),
-          y: sizeFormat(top / rowHeight),
-          h: sizeFormat(height / rowHeight),
+          x: sizeFormat(left / colWidth / zoom),
+          w: sizeFormat(width / colWidth / zoom),
+          y: sizeFormat(top / rowHeight / zoom),
+          h: sizeFormat(height / rowHeight / zoom),
         },
       },
     });
@@ -41,7 +43,7 @@ export const MoveableManage = observer(() => {
   return (
     <>
       <Moveable
-        zoom={designZoom}
+        zoom={1}
         ref={moveableRef}
         draggable={true}
         origin={false}
@@ -109,7 +111,7 @@ export const MoveableManage = observer(() => {
         onResizeEnd={(e) => {
           requestAnimationFrame(() => {
             const eid = e.target.id;
-            onMoveEnd(eid, e);
+            onMoveEnd(eid, e, designZoom || 1);
 
             saveRemoteFieldSchema();
           });
@@ -156,7 +158,7 @@ export const MoveableManage = observer(() => {
         }}
         onDragEnd={(e) => {
           const [left, top] = e.lastEvent?.translate || [];
-          if (!left && !top) {
+          if (left === undefined || top === undefined) {
             return false;
           }
           const eid = e.target.id;

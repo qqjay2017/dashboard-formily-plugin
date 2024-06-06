@@ -383,10 +383,10 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                                   }}
                                 >
                                   {RenderBlockItems}
-                                  {designable && <MoveableManage />}
                                 </div>
                               </div>
                             </div>
+                            {designable && <MoveableManage />}
                           </div>
                         </div>
                       </div>
