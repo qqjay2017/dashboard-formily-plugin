@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import Moveable from "react-moveable";
 import Selecto from "react-selecto";
-import { useDesignPageConext } from "../../../design-page";
+
 import { useForm } from "@formily/react";
 import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
 import { eidToElementId, elementIdToEid } from "../../../utils";
@@ -10,6 +10,7 @@ import { useDashboardRoot } from "./hooks";
 import { diff } from "@egjs/children-differ";
 import { observer } from "@formily/reactive-react";
 import { selectedTargetsStore } from "./selectedTargetsStore";
+import { useDesignPageConext } from "./context";
 
 export const MoveableManage = observer(() => {
   const { colWidth, rowHeight } = useDashboardRoot();

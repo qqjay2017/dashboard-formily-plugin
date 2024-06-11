@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import { APiWrap, useRequest } from "../api-client";
-import { DashboardItem } from "../demo/types";
+import { APiWrap, useRequest } from "../../api-client";
+import { DashboardItem } from "../../demo/types";
 import { get } from "lodash-es";
 
 import { useContext } from "react";
@@ -8,8 +8,8 @@ import { RecursionField, SchemaOptionsContext } from "@formily/react";
 import {
   RecursionSchemaComponentWrap,
   SchemaComponentProvider,
-} from "../schema-component/core";
-import { useAppSpin } from "../application";
+} from "../../schema-component/core";
+import { useAppSpin } from "../../application";
 
 export const DesignPage = () => {
   const { id } = useParams();

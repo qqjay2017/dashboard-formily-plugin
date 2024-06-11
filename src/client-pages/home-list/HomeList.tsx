@@ -1,20 +1,22 @@
-import { APiWrap, useRequest } from "../api-client/hooks";
+import { APiWrap, useAPIClient, useRequest } from "../../api-client/hooks";
 import { get } from "lodash-es";
-import { CreateFormBtn } from "./components/CreateFormBtn";
-import { DashboardItem } from "./types";
+import { CreateFormBtn } from "../../demo/components/CreateFormBtn";
+import { DashboardItem } from "../../demo/types";
 import { Col, Dropdown, Row } from "antd";
 import { css } from "@emotion/css";
 import { DashOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
-import { useApp } from "../application/hooks";
-import { showConfirmPromisify } from "../schema-component/antd";
+import { useApp } from "../../application/hooks";
+import { showConfirmPromisify } from "../../schema-component/antd";
+import { HomeMenu, homeMenu } from "./home-menu";
 
 // const useHomeListStyle = createStyles({}=> {
 //   return css``
 // })
 
 export const HomeList = () => {
+  console.log(Link, "Link");
   const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
     "/huang-api/dashboard",
     {
@@ -25,54 +27,14 @@ export const HomeList = () => {
   const list = get(data, "data.data", []);
 
   return (
-    <div
-      className={css`
-        width: 100vw;
-        height: 100vh;
-      `}
-    >
-      <div
-        className={css`
-          width: 100%;
-          height: 50px;
-          background-color: #fff;
-          border-bottom: 1px solid #e4e4e5;
-          box-sizing: border-box;
-          padding: 0 24px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        `}
-      >
-        <div
-          className={css`
-            cursor: pointer;
-            height: 40px;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            color: #2f2e3f;
-            line-height: 40px;
-            word-wrap: break-word;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 230px;
-          `}
-        >
-          可视化大屏搭建
-        </div>
-        <CreateFormBtn />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Row gutter={16}>
-          {list.map((dashboard) => (
-            <Col className="gutter-row" key={dashboard.id} span={6}>
-              <FormCard dashboard={dashboard} refetch={refetch}></FormCard>
-            </Col>
-          ))}
-        </Row>
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Row gutter={16}>
+        {list.map((dashboard) => (
+          <Col className="gutter-row" key={dashboard.id} span={6}>
+            <FormCard dashboard={dashboard} refetch={refetch}></FormCard>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 };
@@ -85,7 +47,7 @@ function FormCard({
   refetch: Function;
 }) {
   const navigate = useNavigate();
-  const { apiClient } = useApp();
+  const apiClient = useAPIClient();
   return (
     <div
       className={css`

@@ -1,10 +1,12 @@
-import React from "react";
-import { HomeList } from "./HomeList";
-import { DesignPage } from "../design-page/DesignPage";
+import { DesignPage } from "../client-pages/design-page";
 import { Hello } from "./Hello";
 import { Application } from "../application/Application";
 import { AntdV5Plugin, DashboardDesignerPlugin } from "../plugins";
 import { DashboardRoot } from "../schema-component";
+import { DashboardLayout } from "../client-pages/DashboardLayout";
+import { HomeList } from "../client-pages/home-list";
+import { DataSourceCenter } from "../client-pages/data-source-center";
+import { NavigateHome } from "../client-pages/home-list/NavigateHome";
 
 export const application = new Application({
   providers: [],
@@ -18,9 +20,21 @@ export const application = new Application({
   router: {
     type: "browser",
     routes: {
-      home: {
+      root: {
         path: "/",
+        Component: NavigateHome,
+      },
+      dashboard: {
+        path: "/dashboard",
+        Component: DashboardLayout,
+      },
+      "dashboard.home": {
+        path: "/dashboard/home",
         Component: HomeList,
+      },
+      "dashboard.api": {
+        path: "/dashboard/api",
+        Component: DataSourceCenter,
       },
       design: {
         path: "/design/:id",
