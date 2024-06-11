@@ -68,10 +68,9 @@ export const CreateFormBtn = () => {
               const id = get(res, "data.data.id");
               if (id) {
                 navigate(`/design/${id}`);
-                next(payload);
               }
+              next(payload);
             })
-
             .open();
         }}
       >

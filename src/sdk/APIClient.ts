@@ -35,6 +35,7 @@ export class APIClientSdk {
 
     }
     request<T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R> {
+
         return this.axios.request<T, R, D>(config);
     }
 }
