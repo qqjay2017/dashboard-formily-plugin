@@ -1,7 +1,11 @@
 import { DesignPage } from "../client-pages/design-page";
 import { Hello } from "./Hello";
 import { Application } from "../application/Application";
-import { AntdV5Plugin, DashboardDesignerPlugin } from "../plugins";
+import {
+  AntdV5Plugin,
+  DashboardDesignerPlugin,
+  KxgcAuthPlugin,
+} from "../plugins";
 import { DashboardRoot } from "../schema-component";
 import { DashboardLayout } from "../client-pages/DashboardLayout";
 import { HomeList } from "../client-pages/home-list";
@@ -11,7 +15,7 @@ import { ApiEdit } from "../client-pages/data-source-center/ApiEdit";
 
 export const application = new Application({
   providers: [],
-  plugins: [AntdV5Plugin, DashboardDesignerPlugin],
+  plugins: [AntdV5Plugin, DashboardDesignerPlugin, KxgcAuthPlugin],
   designable: true,
   components: {
     Hello,

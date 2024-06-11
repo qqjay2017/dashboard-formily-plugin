@@ -11,6 +11,22 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/huang-api/, ''),
       },
+      "/api/": {
+        target: "https://uat.kxgcc.com",
+        changeOrigin: true,
+      },
+      "/public/": {
+        target: "https://uat.kxgcc.com",
+        changeOrigin: true,
+      },
+      "/cms-static/": {
+        target: "https://uat.kxgcc.com",
+        changeOrigin: true,
+      },
+      "/component-shared-center/": {
+        target: "https://uat.kxgcc.com",
+        changeOrigin: true,
+      },
 
     }
   }
