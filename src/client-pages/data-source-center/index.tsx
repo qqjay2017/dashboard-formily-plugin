@@ -1,9 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 import React from "react";
 import { useAPIClient } from "../../api-client";
 import { get } from "lodash-es";
 import { Space, Table } from "antd";
 import { useNavigate } from "react-router-dom";
+import { FormDialog } from "@formily/antd-v5";
+import { ApiTest } from "./ApiTest";
 
 export const DataSourceCenter = () => {
   const navigate = useNavigate();
@@ -17,6 +23,20 @@ export const DataSourceCenter = () => {
       }),
   });
   const dataSource = get(data, "data.data", []);
+
+  const handleTestApi = ({ apiId }: { apiId: string }) => {
+    if (!apiId) {
+      return false;
+    }
+    const dialog = FormDialog("测试API", () => {
+      return (
+        <QueryClientProvider client={new QueryClient()}>
+          <ApiTest apiId={apiId} />
+        </QueryClientProvider>
+      );
+    });
+    dialog.open();
+  };
 
   return (
     <Table
@@ -65,7 +85,13 @@ export const DataSourceCenter = () => {
           render: (_, row) => {
             return (
               <Space>
-                <a>测试</a>
+                <a
+                  onClick={() => {
+                    handleTestApi({ apiId: row.id });
+                  }}
+                >
+                  测试
+                </a>
                 <a
                   onClick={() => {
                     navigate(`/dashboard/api/edit?id=${row.id}`);

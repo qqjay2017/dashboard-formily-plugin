@@ -86,7 +86,7 @@ export const ApiBaseNameFormItem = ({
                   url: `/huang-api/api-manage/baseName`,
                   method: "POST",
                   data: {
-                    baseName,
+                    baseName: (baseName || "").trim(),
                   },
                 });
 

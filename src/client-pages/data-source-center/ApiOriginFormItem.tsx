@@ -86,7 +86,7 @@ export const ApiOriginFormItem = ({
                   url: `/huang-api/api-manage/origin`,
                   method: "POST",
                   data: {
-                    origin,
+                    origin: (origin || "").trim(),
                   },
                 });
 

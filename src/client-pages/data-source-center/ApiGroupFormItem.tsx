@@ -80,7 +80,7 @@ export const ApiGroupFormItem = ({
                   url: `/huang-api/api-manage/group`,
                   method: "POST",
                   data: {
-                    name,
+                    name: (name || "").trim(),
                   },
                 });
 
