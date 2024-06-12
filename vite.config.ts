@@ -11,7 +11,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/huang-api/, ''),
       },
-      "/api/": {
+      "/api": {
         target: "https://uat.kxgcc.com",
         changeOrigin: true,
       },

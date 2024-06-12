@@ -24,6 +24,15 @@ export class APIClientSdk {
     interceptors() {
         // 基础拦截
         this.axios.interceptors.request.use((config) => {
+            config.headers.set('fp', localStorage.getItem('fp') || '')
+            config.headers.set('pt', sessionStorage.getItem('pt') || '1')
+            config.headers.set('ct', localStorage.getItem('ct') || '1')
+            if (sessionStorage.getItem('ACCESS_TOKEN')) {
+                config.headers.set(
+                    'Authorization',
+                    `Bearer ${sessionStorage.getItem('ACCESS_TOKEN')}`,
+                )
+            }
             config.paramsSerializer = (params) => {
                 return qs.stringify(params, {
                     strictNullHandling: true,

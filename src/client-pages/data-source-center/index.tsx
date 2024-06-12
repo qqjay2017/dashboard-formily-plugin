@@ -80,6 +80,10 @@ export const DataSourceCenter = () => {
           dataIndex: "url",
         },
         {
+          title: "请求方式",
+          dataIndex: "method",
+        },
+        {
           title: "操作",
           dataIndex: "options",
           render: (_, row) => {

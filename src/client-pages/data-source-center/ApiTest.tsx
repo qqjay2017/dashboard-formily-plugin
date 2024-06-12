@@ -9,6 +9,9 @@ export const ApiTest = ({ apiId }: { apiId: string }) => {
     queryFn: () =>
       request({
         apiId,
+        headers: {
+          "system-id": "167096554103328853",
+        },
       }),
   });
   return (

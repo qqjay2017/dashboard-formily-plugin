@@ -3,9 +3,10 @@ import { useAPIClient } from './useAPIClient'
 
 export const useReqApiProxy = () => {
     const apiClient = useAPIClient()
-    const request = ({ apiId, data = {} }: {
+    const request = ({ apiId, data = {}, headers = {} }: {
         apiId: string;
-        data?: any
+        data?: any;
+        headers?: any
     }) => {
         return apiClient.request({
             method: 'post',
@@ -13,8 +14,10 @@ export const useReqApiProxy = () => {
             data: {
                 apiId,
                 data,
-                origin: location.origin
-            }
+                origin: location.origin,
+                headers
+            },
+
         })
     }
     return {
