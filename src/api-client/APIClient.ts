@@ -40,6 +40,31 @@ export class APIClient extends APIClientSdk {
     interceptors() {
         // 基础拦截
         this.axios.interceptors.response.use((res) => {
+            console.log(res, 'res')
+            const code = get(res, 'data.code', '')
+            if (code === 401) {
+                sessionStorage.clear();
+                window.location.reload()
+            }
+
+            if (res && res.headers && res.headers["access_token"]) {
+                const access_token = res.headers["access_token"];
+                const data = JSON.parse(decodeURIComponent(access_token));
+
+                sessionStorage.setItem("ACCESS_TOKEN", data.access_token);
+                sessionStorage.setItem("USER_INFO", JSON.stringify(data.user_info));
+                sessionStorage.setItem("USER_NAME", data.user_info.name);
+                sessionStorage.setItem("EXPIRES_IN", data.expires_in);
+                sessionStorage.setItem("REFRESH_TOKEN", data.refresh_token);
+                sessionStorage.setItem("sessionId", data.refresh_token);
+                localStorage.setItem(
+                    "storeSessionData",
+                    JSON.stringify({
+                        userInfo: data.user_info,
+                        token: data.access_token,
+                    })
+                );
+            }
             return res;
         }, (error) => {
 

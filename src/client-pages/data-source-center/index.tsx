@@ -28,13 +28,19 @@ export const DataSourceCenter = () => {
     if (!apiId) {
       return false;
     }
-    const dialog = FormDialog("测试API", () => {
-      return (
-        <QueryClientProvider client={new QueryClient()}>
-          <ApiTest apiId={apiId} />
-        </QueryClientProvider>
-      );
-    });
+    const dialog = FormDialog(
+      {
+        title: "测试API",
+        width: "80vw",
+      },
+      () => {
+        return (
+          <QueryClientProvider client={new QueryClient()}>
+            <ApiTest apiId={apiId} />
+          </QueryClientProvider>
+        );
+      }
+    );
     dialog.open();
   };
 
