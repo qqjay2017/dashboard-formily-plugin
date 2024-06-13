@@ -5,7 +5,7 @@ import {
 } from "../../schema-component/core";
 import { SchemaOptionsContext } from "@formily/react";
 import { ConfigProvider } from "antd";
-import { Form, FormButtonGroup, Submit } from "@formily/antd-v5";
+import { Form, FormButtonGroup, FormDialog, Submit } from "@formily/antd-v5";
 import { editApiFormSchema } from "./editApiFormSchema";
 import { createForm } from "@formily/core";
 import { css } from "@emotion/css";
@@ -13,6 +13,9 @@ import { useAPIClient, useQuery } from "../../api-client";
 import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 import { useEditId } from "../../hooks";
+import { FormButtonGroupWrap } from "../../schema-component";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ApiTest } from "./ApiTest";
 
 export const ApiEdit = () => {
   const id = useEditId();
@@ -31,7 +34,7 @@ export const ApiEdit = () => {
     queryKey: [id, "apiDt"],
   });
   const dtData = get(data, "data.data", {});
-  console.log(dtData, "dtData");
+
   const form = useMemo(() => {
     if (!id) {
       return createForm({
@@ -44,6 +47,45 @@ export const ApiEdit = () => {
       },
     });
   }, [dtData, id]);
+
+  const onSubmit = async (values) => {
+    console.log(values, "values");
+    const res = await apiClient.request({
+      method: id ? "put" : "post",
+      url: id
+        ? `/huang-api/api-manage/edit/${id}`
+        : `/huang-api/api-manage/create`,
+      data: {
+        ...values,
+        url: (values.url || "").trim(),
+        baseName: undefined,
+        group: undefined,
+        origin: undefined,
+      },
+    });
+    const resId = get(res, "data.data.id", "");
+    if (resId) {
+      navigate("/dashboard/api");
+    }
+  };
+
+  const onTest = async (values) => {
+    console.log(values, "values");
+    const dialog = FormDialog(
+      {
+        title: "测试API",
+        width: "80vw",
+      },
+      () => {
+        return (
+          <QueryClientProvider client={new QueryClient()}>
+            <ApiTest formValues={values} />
+          </QueryClientProvider>
+        );
+      }
+    );
+    dialog.open();
+  };
 
   return (
     <div
@@ -66,35 +108,14 @@ export const ApiEdit = () => {
               schema={editApiFormSchema}
             />
 
-            <FormButtonGroup.Sticky>
-              <FormButtonGroup.FormItem>
-                <Submit
-                  onSubmit={async (values) => {
-                    console.log(values, "values");
-                    const res = await apiClient.request({
-                      method: id ? "put" : "post",
-                      url: id
-                        ? `/huang-api/api-manage/edit/${id}`
-                        : `/huang-api/api-manage/create`,
-                      data: {
-                        ...values,
-                        url: (values.url || "").trim(),
-                        baseName: undefined,
-                        group: undefined,
-                        origin: undefined,
-                      },
-                    });
-                    console.log(res, "res");
-                    const resId = get(res, "data.data.id", "");
-                    if (resId) {
-                      navigate("/dashboard/api");
-                    }
-                  }}
-                >
-                  提交
+            <FormButtonGroupWrap>
+              <FormButtonGroup gutter={24} align="right">
+                <Submit onSubmit={onTest} type="default">
+                  测试
                 </Submit>
-              </FormButtonGroup.FormItem>
-            </FormButtonGroup.Sticky>
+                <Submit onSubmit={onSubmit}>提交</Submit>
+              </FormButtonGroup>
+            </FormButtonGroupWrap>
           </Form>
         </ConfigProvider>
       </SchemaComponentOptions>

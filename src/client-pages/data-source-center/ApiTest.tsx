@@ -22,17 +22,21 @@ function ApiTestItemWrap({ children }: PropsWithChildren) {
   );
 }
 
-export const ApiTest = ({ apiId }: { apiId: string }) => {
+export const ApiTest = ({
+  apiId,
+  formValues,
+}: {
+  apiId?: string;
+  formValues?: any;
+}) => {
   const { request } = useReqApiProxy();
   const { data, refetch, error, isError, isLoading } = useQuery({
-    queryKey: ["apiTest", apiId],
-    enabled: !!apiId,
+    queryKey: ["apiTest", apiId, ...Object.keys(formValues || {})],
     queryFn: () =>
       request({
+        formValues,
         apiId,
-        headers: {
-          "system-id": "167096554103328853",
-        },
+        headers: {},
       }),
   });
 

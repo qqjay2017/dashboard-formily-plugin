@@ -2,6 +2,7 @@ import { ISchema } from '@formily/react';
 import { ApiGroupFormItem } from './ApiGroupFormItem';
 import { ApiBaseNameFormItem } from './ApiBaseNameFormItem';
 import { ApiOriginFormItem } from './ApiOriginFormItem';
+import { ApiHeadersFormItem } from './ApiHeadersFormItem';
 
 
 export const editApiFormSchema: ISchema = {
@@ -79,6 +80,26 @@ export const editApiFormSchema: ISchema = {
                 },
             ]
         },
+        headers: {
+            type: "array",
+            title: "自定义请求头",
+            required: false,
+            "x-decorator": "FormItem",
+            "x-component": ApiHeadersFormItem,
+            "x-validator": {
+                type: 'array',
+                validator: (value: any) => {
+
+                    if (value.find(v => !v.headerKey || !v.headerKey)) {
+                        return Promise.reject("请输入字段名和值")
+                    }
+
+
+                }
+
+            },
+
+        }
 
     },
 };

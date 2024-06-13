@@ -119,9 +119,6 @@ export const RootComponentSetting = memo(() => {
               position: absolute;
               left: 0;
               bottom: 0;
-              /* display: flex; */
-              /* align-items: center; */
-              /* justify-content: flex-end; */
             `}
           >
             <FormButtonGroup gutter={24} align="right">
