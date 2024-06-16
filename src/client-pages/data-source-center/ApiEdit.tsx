@@ -93,6 +93,7 @@ export const ApiEdit = () => {
         padding: 24px;
         width: 100%;
         height: 100%;
+        overflow: hidden scroll;
       `}
     >
       <SchemaComponentOptions

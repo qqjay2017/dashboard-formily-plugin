@@ -93,11 +93,31 @@ export const editApiFormSchema: ISchema = {
                     if (value.find(v => !v.headerKey || !v.headerKey)) {
                         return Promise.reject("请输入字段名和值")
                     }
-
-
+                }
+            },
+        },
+        isMock: {
+            type: "boolean",
+            title: "mock模式",
+            required: false,
+            "x-decorator": "FormItem",
+            "x-component": "Switch",
+            "x-reactions": {
+                "target": "mockJson",
+                "fulfill": {
+                    "state": {
+                        "visible": "{{$self.value === true}}"
+                    }
                 }
 
-            },
+            }
+        },
+        mockJson: {
+            type: "string",
+            title: "mock数据",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "Input",
 
         }
 

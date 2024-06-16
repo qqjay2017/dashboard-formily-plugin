@@ -7,6 +7,7 @@ import {
   NumberPicker,
   Select,
   Radio,
+  Switch,
 } from "@formily/antd-v5";
 import zh_CN from "antd/locale/zh_CN";
 export class AntdV5Plugin extends Plugin {
@@ -21,6 +22,7 @@ export class AntdV5Plugin extends Plugin {
       NumberPicker,
       Select,
       Radio,
+      Switch,
     });
   }
 }

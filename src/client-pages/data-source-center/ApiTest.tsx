@@ -2,7 +2,10 @@ import React, { PropsWithChildren } from "react";
 import { useQuery, useReqApiProxy } from "../../api-client";
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
-import ReactJson from "react-json-view";
+
+import JSONInput from "react-json-editor-ajrm";
+import locale from "react-json-editor-ajrm/locale/zh-cn";
+
 import { Tabs } from "antd";
 import { AxiosHeaders } from "axios";
 
@@ -21,6 +24,13 @@ function ApiTestItemWrap({ children }: PropsWithChildren) {
     </div>
   );
 }
+
+const jsonViewOnlyProps = {
+  viewOnly: true,
+  width: "100%",
+  height: "100%",
+  locale,
+};
 
 export const ApiTest = ({
   apiId,
@@ -62,7 +72,11 @@ export const ApiTest = ({
             label: "Body",
             children: (
               <ApiTestItemWrap>
-                <ReactJson src={resData} />
+                <JSONInput
+                  {...jsonViewOnlyProps}
+                  id="body-apitest"
+                  placeholder={resData}
+                />
               </ApiTestItemWrap>
             ),
           },
@@ -72,8 +86,10 @@ export const ApiTest = ({
             label: "Headers",
             children: (
               <ApiTestItemWrap>
-                <ReactJson
-                  src={
+                <JSONInput
+                  {...jsonViewOnlyProps}
+                  id="headers-apitest"
+                  placeholder={
                     headers && headers.toJSON
                       ? JSON.parse(JSON.stringify(headers.toJSON()))
                       : {}
@@ -88,8 +104,10 @@ export const ApiTest = ({
             label: "Status",
             children: (
               <ApiTestItemWrap>
-                <ReactJson
-                  src={{
+                <JSONInput
+                  {...jsonViewOnlyProps}
+                  id="status-apitest"
+                  placeholder={{
                     status: data?.status,
                     statusText: data?.statusText,
                   }}

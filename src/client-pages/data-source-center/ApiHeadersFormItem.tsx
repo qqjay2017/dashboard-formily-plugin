@@ -21,6 +21,7 @@ export const ApiHeadersFormItem = ({
               className={css`
                 display: flex;
                 align-items: center;
+                margin-bottom: 12px;
               `}
             >
               <Input
