@@ -3,6 +3,7 @@ import { ApiGroupFormItem } from './ApiGroupFormItem';
 import { ApiBaseNameFormItem } from './ApiBaseNameFormItem';
 import { ApiOriginFormItem } from './ApiOriginFormItem';
 import { ApiHeadersFormItem } from './ApiHeadersFormItem';
+import { JsonInput } from './JsonInput';
 
 
 export const editApiFormSchema: ISchema = {
@@ -113,11 +114,11 @@ export const editApiFormSchema: ISchema = {
             }
         },
         mockJson: {
-            type: "string",
+            type: "object",
             title: "mock数据",
             required: true,
             "x-decorator": "FormItem",
-            "x-component": "Input",
+            "x-component": JsonInput,
 
         }
 

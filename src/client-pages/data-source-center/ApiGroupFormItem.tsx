@@ -54,6 +54,7 @@ export const ApiGroupFormItem = ({
         `}
       >
         <Select
+          allowClear
           options={options}
           value={value}
           onChange={onChange}

@@ -60,6 +60,7 @@ export const ApiOriginFormItem = ({
         `}
       >
         <Select
+          allowClear
           options={options}
           value={value}
           onChange={onChange}

@@ -44,6 +44,7 @@ export const ApiEdit = () => {
     return createForm({
       initialValues: {
         ...dtData,
+        mockJson: JSON.parse(dtData?.mockJson || "{}"),
       },
     });
   }, [dtData, id]);
@@ -61,6 +62,7 @@ export const ApiEdit = () => {
         baseName: undefined,
         group: undefined,
         origin: undefined,
+        mockJson: JSON.stringify(values.mockJson || {}),
       },
     });
     const resId = get(res, "data.data.id", "");

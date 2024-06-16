@@ -60,6 +60,7 @@ export const ApiBaseNameFormItem = ({
         `}
       >
         <Select
+          allowClear
           options={options}
           value={value}
           onChange={onChange}
