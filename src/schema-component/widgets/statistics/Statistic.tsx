@@ -1,13 +1,51 @@
 import { css } from "@emotion/css";
-import React from "react";
-import { Schema, useField, useFieldSchema } from "@formily/react";
+import React, { useMemo } from "react";
+import { Schema } from "@formily/react";
+import { DataSourceBind } from "../../types";
+import { useQuery } from "@tanstack/react-query";
+import { useReqApiProxy } from "../../../api-client";
+import { get } from "lodash-es";
 export const Statistic = ({
   title = "",
   amount,
+  dataSource,
 }: {
   title?: React.ReactNode;
   amount?: string | number | React.ReactNode;
+  dataSource?: DataSourceBind;
 }) => {
+  const { request } = useReqApiProxy();
+  const { data } = useQuery({
+    queryKey: ["dataSourceQuery", dataSource?.dataSourceId],
+    enabled: !!dataSource?.dataSourceId,
+    queryFn: () =>
+      request({
+        apiId: dataSource?.dataSourceId,
+      }),
+  });
+
+  const dataMemo = useMemo(() => {
+    if (!data || !dataSource?.dataSourceId || !dataSource?.afterScript) {
+      return amount;
+    }
+    console.log(dataSource.afterScript, "dataSource?.afterScript");
+    try {
+      const testHandle = new Function(
+        "apiRes",
+        "context",
+        dataSource.afterScript
+      );
+      const r = testHandle(data, { get });
+      if (typeof r === "object") {
+        return JSON.stringify(r);
+      }
+      return r;
+    } catch (error) {
+      console.log(error, "函数执行报错");
+      return amount;
+    }
+  }, [data, amount, dataSource?.dataSourceId, dataSource?.afterScript]);
+
   return (
     <div>
       <div
@@ -30,7 +68,7 @@ export const Statistic = ({
           text-align: left;
         `}
       >
-        {amount}
+        {dataMemo}
       </div>
     </div>
   );

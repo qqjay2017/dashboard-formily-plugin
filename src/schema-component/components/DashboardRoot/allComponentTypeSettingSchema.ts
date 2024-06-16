@@ -1,5 +1,6 @@
 import { ISchema } from '@formily/react'
 import React from 'react'
+import { DataSourceBind } from '../DataSourceBind/DataSourceBind';
 
 const ClassicFrame: ISchema = {
     type: "object",
@@ -33,48 +34,55 @@ const Statistic: ISchema = {
             required: true,
             "x-decorator": "FormItem",
             "x-component": "Input",
-
         },
-        busType: {
-            type: "string",
-            title: "绑定业务",
-            required: true,
+        dataSource: {
+            type: "object",
+            title: "数据源",
+            required: false,
             "x-decorator": "FormItem",
-            "x-component": "Select",
-            'x-component-props': {
-                options: [
-                    {
-                        label: '安全',
-                        value: 'aq'
-                    },
-                    {
-                        label: '项目',
-                        value: 'xm'
-                    },
-                ]
-            }
+            "x-component": DataSourceBind,
+        }
 
-        },
-        busField: {
-            type: "string",
-            title: "绑定字段",
-            required: true,
-            "x-decorator": "FormItem",
-            "x-component": "Select",
-            'x-component-props': {
-                options: [
-                    {
-                        label: '工程造价',
-                        value: 'gczj'
-                    },
-                    {
-                        label: '剩余工期',
-                        value: 'gq'
-                    },
-                ]
-            }
+        // busType: {
+        //     type: "string",
+        //     title: "绑定业务",
+        //     required: true,
+        //     "x-decorator": "FormItem",
+        //     "x-component": "Select",
+        //     'x-component-props': {
+        //         options: [
+        //             {
+        //                 label: '安全',
+        //                 value: 'aq'
+        //             },
+        //             {
+        //                 label: '项目',
+        //                 value: 'xm'
+        //             },
+        //         ]
+        //     }
 
-        },
+        // },
+        // busField: {
+        //     type: "string",
+        //     title: "绑定字段",
+        //     required: true,
+        //     "x-decorator": "FormItem",
+        //     "x-component": "Select",
+        //     'x-component-props': {
+        //         options: [
+        //             {
+        //                 label: '工程造价',
+        //                 value: 'gczj'
+        //             },
+        //             {
+        //                 label: '剩余工期',
+        //                 value: 'gq'
+        //             },
+        //         ]
+        //     }
+
+        // },
 
     },
 };

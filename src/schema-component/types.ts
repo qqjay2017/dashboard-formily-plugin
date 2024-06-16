@@ -35,3 +35,10 @@ export interface ISchemaComponentOptionsProps extends PropsWithChildren {
   components?: SchemaReactComponents;
   inherit?: boolean;
 }
+
+
+export interface DataSourceBind {
+  dataSourceId?: string;
+  afterScript?: string;
+  beforeScript?: string;
+}
