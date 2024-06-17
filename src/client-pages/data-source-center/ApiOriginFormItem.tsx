@@ -63,7 +63,9 @@ export const ApiOriginFormItem = ({
           allowClear
           options={options}
           value={value}
-          onChange={onChange}
+          onChange={(e) => {
+            onChange && onChange(e || null);
+          }}
           onBlur={onBlur}
         />
       </div>

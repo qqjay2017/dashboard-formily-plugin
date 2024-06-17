@@ -58,7 +58,7 @@ export const editApiFormSchema: ISchema = {
         },
         method: {
             type: "string",
-            title: "请求地址",
+            title: "请求方式",
             required: true,
             "x-decorator": "FormItem",
             "x-component": "Radio.Group",
@@ -103,15 +103,53 @@ export const editApiFormSchema: ISchema = {
             required: false,
             "x-decorator": "FormItem",
             "x-component": "Switch",
-            "x-reactions": {
-                "target": "mockJson",
-                "fulfill": {
-                    "state": {
-                        "visible": "{{$self.value === true}}"
+            "x-reactions": [
+                {
+                    "target": "mockJson",
+                    "fulfill": {
+                        "state": {
+                            "visible": "{{$self.value === true}}"
+                        }
                     }
-                }
 
-            }
+                },
+                // {
+                //     "target": "url",
+                //     "fulfill": {
+                //         "state": {
+                //             "visible": "{{$self.value !== true}}"
+                //         }
+                //     }
+
+                // },
+                // {
+                //     "target": "method",
+                //     "fulfill": {
+                //         "state": {
+                //             "visible": "{{$self.value !== true}}"
+                //         }
+                //     }
+
+                // },
+                // {
+                //     "target": "baseNameId",
+                //     "fulfill": {
+                //         "state": {
+                //             "visible": "{{$self.value !== true}}"
+                //         }
+                //     }
+
+                // },
+                // {
+                //     "target": "originId",
+                //     "fulfill": {
+                //         "state": {
+                //             "visible": "{{$self.value !== true}}"
+                //         }
+                //     }
+
+                // },
+            ]
         },
         mockJson: {
             type: "object",

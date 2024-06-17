@@ -63,8 +63,10 @@ export const ApiBaseNameFormItem = ({
           allowClear
           options={options}
           value={value}
-          onChange={onChange}
           onBlur={onBlur}
+          onChange={(e) => {
+            onChange && onChange(e || null);
+          }}
         />
       </div>
       <div>

@@ -3,13 +3,14 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import React from "react";
+
 import { useAPIClient } from "../../api-client";
 import { get } from "lodash-es";
 import { Space, Table } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FormDialog } from "@formily/antd-v5";
 import { ApiTest } from "./ApiTest";
+import dayjs from "dayjs";
 
 export const DataSourceCenter = () => {
   const navigate = useNavigate();
@@ -46,6 +47,10 @@ export const DataSourceCenter = () => {
 
   return (
     <Table
+      scroll={{
+        x: 1500,
+        y: 600,
+      }}
       pagination={false}
       dataSource={dataSource}
       rowKey={"id"}
@@ -90,8 +95,23 @@ export const DataSourceCenter = () => {
           dataIndex: "method",
         },
         {
+          title: "创建时间",
+          dataIndex: "createdAt",
+          render: (_, record) => {
+            return dayjs(record.createdAt).format("YYYY-MM-DD HH:mm:ss");
+          },
+        },
+        {
+          title: "修改时间",
+          dataIndex: "updateAt",
+          render: (_, record) => {
+            return dayjs(record.updateAt).format("YYYY-MM-DD HH:mm:ss");
+          },
+        },
+        {
           title: "操作",
           dataIndex: "options",
+          fixed: "right",
           render: (_, row) => {
             return (
               <Space>

@@ -57,6 +57,10 @@ export const ApiEdit = () => {
         ? `/huang-api/api-manage/edit/${id}`
         : `/huang-api/api-manage/create`,
       data: {
+        originId: null,
+        baseNameId: null,
+        groupId: null,
+
         ...values,
         url: (values.url || "").trim(),
         baseName: undefined,
