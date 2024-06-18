@@ -6,7 +6,7 @@ import {
 
 import { useAPIClient } from "../../api-client";
 import { get } from "lodash-es";
-import { Space, Table } from "antd";
+import { Space, Table, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FormDialog } from "@formily/antd-v5";
 import { ApiTest } from "./ApiTest";
@@ -64,6 +64,15 @@ export const DataSourceCenter = () => {
         {
           title: "名称",
           dataIndex: "name",
+          width: 200,
+          render: (_, record) => {
+            return (
+              <Space>
+                <div>{record.name}</div>
+                {record.isMock ? <Tag color="green">MOCK</Tag> : null}
+              </Space>
+            );
+          },
         },
         {
           title: "分组",

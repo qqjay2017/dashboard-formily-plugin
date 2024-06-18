@@ -1,26 +1,15 @@
-import JSONInput from "react-json-editor-ajrm";
-import locale from "react-json-editor-ajrm/locale/zh-cn";
 import { FormItemComponentProps } from "../../types";
-import { message } from "antd";
+
+import { MonacoEditor } from "../../schema-component/components/DataSourceBind/MyEditorComponent";
 
 export const JsonInput = ({ value, onChange }: FormItemComponentProps) => {
   return (
-    <JSONInput
-      width="100%"
-      height="350px"
-      locale={locale}
-      placeholder={value}
+    <MonacoEditor
+      theme="vs-dark"
+      language="json"
+      value={value || ""}
       onChange={(e) => {
-        console.log(e, "eee");
-        if (!e) {
-          return false;
-        }
-        const { error, jsObject = {} } = e;
-        if (error) {
-          message.warning("line" + error.line + ": " + error.reason);
-          return false;
-        }
-        onChange && onChange(jsObject);
+        onChange && onChange(e);
       }}
     />
   );

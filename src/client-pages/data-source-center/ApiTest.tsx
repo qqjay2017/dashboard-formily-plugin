@@ -3,11 +3,9 @@ import { useQuery, useReqApiProxy } from "../../api-client";
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
 
-import JSONInput from "react-json-editor-ajrm";
-import locale from "react-json-editor-ajrm/locale/zh-cn";
-
 import { Tabs } from "antd";
 import { AxiosHeaders } from "axios";
+import { MonacoEditor } from "../../schema-component";
 
 function ApiTestItemWrap({ children }: PropsWithChildren) {
   return (
@@ -25,11 +23,12 @@ function ApiTestItemWrap({ children }: PropsWithChildren) {
   );
 }
 
-const jsonViewOnlyProps = {
-  viewOnly: true,
-  width: "100%",
-  height: "100%",
-  locale,
+const jsonEditProps: any = {
+  scrollBeyondLastLine: true,
+  height: "490px",
+  theme: "vs-dark",
+  language: "json",
+  readOnly: false,
 };
 
 export const ApiTest = ({
@@ -53,7 +52,9 @@ export const ApiTest = ({
   const resData = get(data, "data", {});
 
   const headers: AxiosHeaders = data?.headers as any as AxiosHeaders;
-
+  if (isLoading) {
+    return null;
+  }
   return (
     <div
       className={css`
@@ -72,10 +73,9 @@ export const ApiTest = ({
             label: "Body",
             children: (
               <ApiTestItemWrap>
-                <JSONInput
-                  {...jsonViewOnlyProps}
-                  id="body-apitest"
-                  placeholder={resData}
+                <MonacoEditor
+                  {...jsonEditProps}
+                  defaultValue={JSON.stringify(resData)}
                 />
               </ApiTestItemWrap>
             ),
@@ -86,14 +86,13 @@ export const ApiTest = ({
             label: "Headers",
             children: (
               <ApiTestItemWrap>
-                <JSONInput
-                  {...jsonViewOnlyProps}
-                  id="headers-apitest"
-                  placeholder={
+                <MonacoEditor
+                  {...jsonEditProps}
+                  defaultValue={JSON.stringify(
                     headers && headers.toJSON
                       ? JSON.parse(JSON.stringify(headers.toJSON()))
                       : {}
-                  }
+                  )}
                 />
               </ApiTestItemWrap>
             ),
@@ -104,13 +103,12 @@ export const ApiTest = ({
             label: "Status",
             children: (
               <ApiTestItemWrap>
-                <JSONInput
-                  {...jsonViewOnlyProps}
-                  id="status-apitest"
-                  placeholder={{
+                <MonacoEditor
+                  {...jsonEditProps}
+                  defaultValue={JSON.stringify({
                     status: data?.status,
                     statusText: data?.statusText,
-                  }}
+                  })}
                 />
               </ApiTestItemWrap>
             ),

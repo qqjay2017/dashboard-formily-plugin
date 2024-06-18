@@ -152,7 +152,7 @@ export const editApiFormSchema: ISchema = {
             ]
         },
         mockJson: {
-            type: "object",
+            type: "string",
             title: "mock数据",
             required: true,
             "x-decorator": "FormItem",
