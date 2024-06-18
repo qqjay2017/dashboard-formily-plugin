@@ -1,19 +1,13 @@
 import { APiWrap, useAPIClient, useRequest } from "../../api-client/hooks";
 import { get } from "lodash-es";
-import { CreateFormBtn } from "../../demo/components/CreateFormBtn";
+
 import { DashboardItem } from "../../demo/types";
 import { Col, Dropdown, Row } from "antd";
 import { css } from "@emotion/css";
 import { DashOutlined } from "@ant-design/icons";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useApp } from "../../application/hooks";
 import { showConfirmPromisify } from "../../schema-component/antd";
-import { HomeMenu, homeMenu } from "./home-menu";
-
-// const useHomeListStyle = createStyles({}=> {
-//   return css``
-// })
 
 export const HomeList = () => {
   console.log(Link, "Link");

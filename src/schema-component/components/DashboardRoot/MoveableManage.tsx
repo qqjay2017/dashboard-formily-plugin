@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Moveable from "react-moveable";
 import Selecto from "react-selecto";
 
@@ -11,8 +11,10 @@ import { diff } from "@egjs/children-differ";
 import { observer } from "@formily/reactive-react";
 import { selectedTargetsStore } from "./selectedTargetsStore";
 import { useDesignPageConext } from "./context";
+import { uid } from "@formily/shared";
 
 export const MoveableManage = observer(() => {
+  const [renderKey, setRenderKey] = useState(uid());
   const { colWidth, rowHeight } = useDashboardRoot();
   const moveableRef = useRef<Moveable>(null);
   const selectoRef = useRef<Selecto>(null);
@@ -44,9 +46,20 @@ export const MoveableManage = observer(() => {
   useEffect(() => {
     setTargets([]);
   }, [designZoom]);
+
+  useEffect(() => {
+    function onInsert() {
+      setRenderKey(uid());
+    }
+    document.addEventListener("onInsert", onInsert);
+    return () => {
+      document.removeEventListener("onInsert", onInsert);
+    };
+  }, []);
   return (
     <>
       <Moveable
+        key={`Moveable-${renderKey}`}
         zoom={1}
         ref={moveableRef}
         draggable={true}

@@ -1,5 +1,5 @@
 import { ISchema } from '@formily/react'
-import React from 'react'
+
 import { DataSourceBind } from '../DataSourceBind/DataSourceBind';
 
 const ClassicFrame: ISchema = {
@@ -130,6 +130,7 @@ const dashboardRootFormSchema: ISchema = {
 export const allComponentTypeSettingSchema: Record<string, ISchema> = {
     "ClassicFrame": ClassicFrame,
     "DashboardRoot": dashboardRootFormSchema,
-    Statistic
+    Statistic,
+    Header1: dashboardRootFormSchema
 
 }

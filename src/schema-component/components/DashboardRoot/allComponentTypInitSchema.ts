@@ -1,6 +1,8 @@
+import { Header1SchemeWrap } from "../../banner";
 import { ClassicFrameSchemeWrap, StatisticSchemeWrap } from "../../widgets";
 import { ISchema } from '@formily/react'
 export const allComponentTypInitSchema: Record<string, (inject?: any) => ISchema> = {
     "ClassicFrame": ClassicFrameSchemeWrap,
-    Statistic: StatisticSchemeWrap
+    Statistic: StatisticSchemeWrap,
+    Header1: Header1SchemeWrap,
 }

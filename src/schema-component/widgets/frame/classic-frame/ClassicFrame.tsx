@@ -29,20 +29,20 @@ export function ClassicFrame({
   titleClassName,
   contentClassName,
 }: ClassicFramePropw) {
-  const field = useField();
-  const fieldSchema = useFieldSchema();
+  // const field = useField();
+  // const fieldSchema = useFieldSchema();
   const hasTitle = title || extra;
   const classicFrameStyle = useClassicFrameStyle({ hasTitle: !!hasTitle });
 
-  const droppable = useDroppable({
-    id: `ClassicFrame-${field.address.toString()}`,
-    data: {
-      address: field.address.toString(),
-      field,
-      fieldSchema,
-      type: "insert",
-    },
-  });
+  // const droppable = useDroppable({
+  //   id: `ClassicFrame-${field.address.toString()}`,
+  //   data: {
+  //     address: field.address.toString(),
+  //     field,
+  //     fieldSchema,
+  //     type: "insert",
+  //   },
+  // });
 
   //
   return (
@@ -71,12 +71,12 @@ export function ClassicFrame({
       <div
         className={cn(
           "nodeContentRendererContent",
-          contentClassName,
-          css`
-            border-width: ${droppable.isOver ? "1px" : "0px"}!important;
-          `
+          contentClassName
+          // css`
+          //   border-width: ${droppable.isOver ? "1px" : "0px"}!important;
+          // `
         )}
-        ref={droppable.setNodeRef}
+        // ref={droppable.setNodeRef}
       >
         <div
           className={css`

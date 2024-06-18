@@ -53,7 +53,7 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
     .nodeContentRendererContent {
       height:${hasTitle ? " calc(100% - 46px)" : "100%"};
       position:relative;
-      border:1px solid red;
+     
     }
 
     .nodeContentRendererTitleBg {

@@ -57,9 +57,19 @@ export interface CustomToken extends AliasToken {
   textNum: string;
   textNumLight: string;
   thumbColor: string;
+  themeProvider: string;
+  isDarkTheme?: boolean;
 }
+
+type CustomToken1 = CustomToken;
 
 export interface ThemeConfig extends _ThemeConfig {
   name?: string;
   token?: Partial<CustomToken>;
+}
+
+
+declare module 'antd-style' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface CustomToken extends CustomToken1 { }
 }

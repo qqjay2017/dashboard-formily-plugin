@@ -2,7 +2,6 @@ import { css } from "@emotion/css";
 import { createStyles } from "antd-style";
 import { cn } from "../../../utils";
 import { useState } from "react";
-import { ClassicFrame } from "../../widgets";
 
 import { useDraggable } from "@dnd-kit/core";
 
@@ -22,6 +21,10 @@ const menuItems = [
   },
   {
     id: "4",
+    label: "导航",
+  },
+  {
+    id: "5",
     label: "业务",
   },
 ];
@@ -44,11 +47,21 @@ const subMenuItems2 = [
   },
 ];
 
+const subMenuItems3 = [
+  {
+    id: "3-toubu1",
+    label: "头部",
+    type: "Header1",
+    previewBg: "/assets/schema-component/Header1/header1.png",
+  },
+];
+
 type SubMenuItems = (typeof subMenuItems0)[0];
 
 const subMenuItems = {
   0: subMenuItems0,
   2: subMenuItems2,
+  3: subMenuItems3,
 };
 
 const useContentMenuStyles = createStyles(({ css, token }) => {

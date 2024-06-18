@@ -95,7 +95,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   const isPc = breakpoint === "desktop" || breakpoint === "showroom";
   const rowHeight = sizeFormat(height / rows);
   const colWidth = cols && width ? sizeFormat(width / cols) : 0;
-  const [renderKey, setRenderKey] = useState(uid());
+
   // const scale = useMemo(() => {
   //   let scale = 1;
   //   if (!width || !height) {
@@ -221,16 +221,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
     },
   });
 
-  useEffect(() => {
-    function onInsert() {
-      setRenderKey(uid());
-    }
-    document.addEventListener("onInsert", onInsert);
-    return () => {
-      document.removeEventListener("onInsert", onInsert);
-    };
-  }, []);
-
   return (
     <DesignPageConext.Provider
       value={{
@@ -242,6 +232,8 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
         theme={{
           algorithm: theme.darkAlgorithm,
           token: {
+            isDarkTheme,
+            themeProvider,
             ...themeToken,
             ...themeDarkOrLightToken,
           },
@@ -400,7 +392,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                             </div>
                             {designable && (
                               <MoveableManage
-                                key={`MoveableManage-${blockItems?.length}-${designZoom}${renderKey}`}
+                                key={`MoveableManage-${blockItems?.length}-${designZoom}`}
                               />
                             )}
                           </div>
