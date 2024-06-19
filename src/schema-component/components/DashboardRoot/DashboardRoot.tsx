@@ -117,6 +117,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
   // }, [designWidth, designHeight, width, height]);
   const themeConfig = allThemeNameMap[themeProvider] || {};
   const themeToken = themeConfig?.token || {};
+
   const themeDarkOrLightToken = themeConfig?.[isDarkTheme ? "dark" : "light"];
   const rootStyle = useDashboardRootStyle({
     themeProvider,
@@ -234,6 +235,9 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
           token: {
             isDarkTheme,
             themeProvider,
+            themeAssetsPath: `${themeProvider}-${
+              isDarkTheme ? "dark" : "light"
+            }`,
             ...themeToken,
             ...themeDarkOrLightToken,
           },

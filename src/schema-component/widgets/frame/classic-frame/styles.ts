@@ -2,12 +2,14 @@ import { createStyles } from "antd-style";
 import { rs } from "../../../../utils/resolveStatic";
 
 export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: { hasTitle?: boolean }) => {
-
+  const { themeProvider, isDarkTheme } = token
+  console.log(token, 'token')
+  const url = rs(`/assets/classic-frame/${themeProvider}-${isDarkTheme ? 'dark' : "light"}/bg1.png`)
   return css`
     &.nodeContentRenderer {
       width: 100%;
       height: 100%;
-      background: var(--nodeContentBg);
+      background: var(--node-content-bg);
       /* overflow: hidden; */
     }
 
@@ -36,8 +38,11 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
       }
     }
     .nrtTitle {
-      font-size: 16px;
-      color:var(--nodeContentForeground)
+      font-size: 18px;
+      line-height:20px;
+      font-family:YouSheBiaoTiHei;
+      letter-spacing:2px;
+      color:var(--node-content-foreground)
     }
     .nrtSubTitle {
       font-size: 12px;
@@ -63,7 +68,7 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
       z-index: 2;
       bottom: 0;
       left: 10px;
-      background-image: url(${rs("/assets/jfDarkTheme/nodeContentTitleBg1.png")});
+      background-image: url(${url});
       background-repeat: no-repeat;
       background-size: cover;
     }

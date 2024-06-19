@@ -7,7 +7,7 @@ export const ThemeCSSVariableProvider = ({ children }) => {
   const { token } = useToken();
 
   useEffect(() => {
-    document.body.style.setProperty("--nodeContentBg", token.nodeContentBg);
+    document.body.style.setProperty("--node-content-bg", token.nodeContentBg);
 
     document.body.style.setProperty("--text-white", token.textWhite);
     document.body.style.setProperty("--text-common", token.textCommon);

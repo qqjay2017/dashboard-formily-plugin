@@ -16,6 +16,10 @@ export const technologyBlueToken = {
     textNum: "#ffdc2f",
     textNumLight: "#f4a52e",
     thumbColor: "rgba(59, 120, 239, 0.5)",
+    frame: {
+        startColor: "#154c8d",
+        endColor: "rgba(21, 76, 141, 0.14)"
+    }
 }
 
 export const technologyBlueDarkToken = {

@@ -1,14 +1,14 @@
 
 import { TinyColor } from '@ctrl/tinycolor';
 
-const primary = new TinyColor("#c3d4e5")
+const primary = new TinyColor("#007350")
 
 
 export const greenToken = {
 
     textWhite: "#fff",
     textCommon: "#c3d4e5",
-    textLight: "#34daff",
+    textLight: "#333",
     textPrimary: primary.toRgbString(),
     textNoselect: primary.setAlpha(0.5).toRgbString(),
     textSelect: primary.toRgbString(),
@@ -16,13 +16,17 @@ export const greenToken = {
     textNum: "#ffdc2f",
     textNumLight: "#f4a52e",
     thumbColor: "rgba(59, 120, 239, 0.5)",
+    frame: {
+        startColor: "#154c8d",
+        endColor: "rgba(21, 76, 141, 0.14)"
+    }
 }
 
 export const greenDarkToken = {
-    nodeContentForeground: "#C3D4E5",
-    nodeContentBg: 'rgba(0, 26, 58, 0.8)',
+    nodeContentForeground: "#96CDFF",
+    nodeContentBg: 'rgba(4, 73, 73, 0.60)',
 }
 export const greenLightToken = {
-    nodeContentForeground: "#333333",
-    nodeContentBg: "rgba(234, 243, 255, 0.8)"
+    nodeContentForeground: "#007350",
+    nodeContentBg: "rgba(255, 255, 255, 0.2)"
 }

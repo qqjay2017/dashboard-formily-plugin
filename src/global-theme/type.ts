@@ -59,6 +59,7 @@ export interface CustomToken extends AliasToken {
   thumbColor: string;
   themeProvider: string;
   isDarkTheme?: boolean;
+  themeAssetsPath: string;
 }
 
 type CustomToken1 = CustomToken;

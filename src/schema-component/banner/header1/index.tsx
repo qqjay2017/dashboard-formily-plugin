@@ -5,19 +5,11 @@ import { css } from "@emotion/css";
 import { PropsWithChildren, useMemo } from "react";
 
 const useHeader1Styles = createStyles(({ css, token }) => {
-  const { themeProvider, isDarkTheme } = token;
-
-  if (isDarkTheme) {
-    const url = rs("/assets/header1/" + themeProvider + "-dark/bg.png");
-    return css`
-      background-image: url(${url});
-    `;
-  } else {
-    const url = rs("/assets/header1/" + themeProvider + "-light/bg.png");
-    return css`
-      background-image: url(${url});
-    `;
-  }
+  const { themeAssetsPath } = token;
+  const url = rs("/assets/header1/" + themeAssetsPath + "/bg.png");
+  return css`
+    background-image: url(${url});
+  `;
 });
 
 interface Header1Props extends PropsWithChildren {
@@ -46,6 +38,12 @@ export const Header1 = ({ title }: Header1Props) => {
         return "#fff";
       }
       return "#1760A4";
+    }
+    if (themeProvider === "green") {
+      if (isDarkTheme) {
+        return "#fff";
+      }
+      return "#007350";
     }
     return "#fff";
   }, [isDarkTheme, themeProvider]);
@@ -122,7 +120,7 @@ export const Header1 = ({ title }: Header1Props) => {
               fill="url(#text-gradient)"
               fontSize={"38px"}
               fontFamily="YouSheBiaoTiHei"
-              letterSpacing={"5px"}
+              letterSpacing={"6px"}
             >
               {title}
             </text>
