@@ -375,6 +375,22 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                                   id="DashboardRoot"
                                   ref={ref}
                                   className={cn(
+                                    css`
+                                      @font-face {
+                                        font-family: "YouSheBiaoTiHei";
+                                        src: url("/assets/fonts/youshe.ttf")
+                                          format("truetype");
+                                        font-weight: normal;
+                                        font-style: normal;
+                                      }
+                                    `,
+                                    css`
+                                      background-size: cover;
+                                      background-position: center;
+                                      background-repeat: no-repeat;
+                                      font-size: 14px;
+                                      color: #ccc;
+                                    `,
                                     rootStyle.styles,
                                     className,
                                     themeProvider

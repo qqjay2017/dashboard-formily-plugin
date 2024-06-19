@@ -13,47 +13,18 @@ export const useDashboardRootStyle = createStyles(
         }
     ) => {
 
-        if (themeProvider === "technologyBlue") {
-            if (!isDarkTheme) {
-                return css`
-          background-image: url(${rs("/assets/jfLightTheme/main-bg.jpg")});
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          font-size: 14px;
-          color: #000;
-        `;
-            }
+        if (isDarkTheme) {
+            const darkColor = themeProvider === 'technologyBlue' ? "#c3d4e5" : "#fff"
             return css`
-        background-image: url(${rs("/assets/jfDarkTheme/main-bg.jpg")});
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        font-size: 14px;
-        color: #c3d4e5;
-      `;
-        } else
-            if (themeProvider === 'romanRed') {
-                if (isDarkTheme) {
-                    return css`
-          background-image: url(${rs("/assets/romaRed/export_ziiyve.png")});
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          font-size: 14px;
+          background-image: url(${rs("/assets/dashboardRoot/" + themeProvider + "-dark/main-bg.jpg")});
+          color:  ${darkColor};
+        `;
+        } else {
+            return css`
+          background-image: url(${rs("/assets/dashboardRoot/" + themeProvider + "-light/main-bg.jpg")});
           color: #000;
         `;
+        }
 
-                } else {
-                    return css`
-          background-image: url(${rs("/assets/romaRed/c630f87f-89be-4dcc-9c69-7b9dc15b3487.png")});
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          font-size: 14px;
-          color: #000;
-        `;
-                }
-            }
     }
 );

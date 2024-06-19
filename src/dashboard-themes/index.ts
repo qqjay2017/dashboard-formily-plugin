@@ -18,6 +18,7 @@ import westeros from './themes/westeros.json'
 import wonderland from './themes/wonderland.json'
 import { technologyBlueDarkToken, technologyBlueLightToken, technologyBlueToken } from './TechnologyBlue'
 import { romaDarkToken, romaLightToken, romanRedToken } from './RomanRed'
+import { greenDarkToken, greenLightToken, greenToken } from './green'
 
 
 
@@ -31,13 +32,22 @@ export const allThemes = [
         colors: dark.color,
 
     },
+    // {
+    //     name: "romanRed",
+    //     zhName: "罗马红",
+    //     token: romanRedToken,
+    //     dark: romaDarkToken,
+    //     light: romaLightToken,
+    //     colors: roma.color,
+
+    // },
     {
-        name: "romanRed",
-        zhName: "罗马红",
-        token: romanRedToken,
-        dark: romaDarkToken,
-        light: romaLightToken,
-        colors: roma.color,
+        name: "green",
+        zhName: "复古绿",
+        token: greenToken,
+        dark: greenDarkToken,
+        light: greenLightToken,
+        colors: walden.color,
 
     },
 

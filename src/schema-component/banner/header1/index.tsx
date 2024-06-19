@@ -1,23 +1,23 @@
 import { Schema } from "@formily/react";
 import { createStyles, useTheme } from "antd-style";
-import { cn } from "../../../utils";
+import { cn, rs } from "../../../utils";
 import { css } from "@emotion/css";
 import { PropsWithChildren, useMemo } from "react";
 
 const useHeader1Styles = createStyles(({ css, token }) => {
   const { themeProvider, isDarkTheme } = token;
 
-  if (themeProvider === "technologyBlue") {
-    if (isDarkTheme) {
-      return css`
-        background-image: url("/assets/header1/darkBlue.png");
-      `;
-    }
+  if (isDarkTheme) {
+    const url = rs("/assets/header1/" + themeProvider + "-dark/bg.png");
     return css`
-      background-image: url("/assets/header1/lightBlue.png");
+      background-image: url(${url});
+    `;
+  } else {
+    const url = rs("/assets/header1/" + themeProvider + "-light/bg.png");
+    return css`
+      background-image: url(${url});
     `;
   }
-  return css``;
 });
 
 interface Header1Props extends PropsWithChildren {
@@ -33,6 +33,12 @@ export const Header1 = ({ title }: Header1Props) => {
       }
       return "#1760A4";
     }
+    if (themeProvider === "green") {
+      if (isDarkTheme) {
+        return "#00FFD1";
+      }
+      return "#007350";
+    }
   }, [isDarkTheme, themeProvider]);
   const endColor = useMemo(() => {
     if (themeProvider === "technologyBlue") {
@@ -41,6 +47,7 @@ export const Header1 = ({ title }: Header1Props) => {
       }
       return "#1760A4";
     }
+    return "#fff";
   }, [isDarkTheme, themeProvider]);
   return (
     <div
@@ -53,12 +60,6 @@ export const Header1 = ({ title }: Header1Props) => {
           background-repeat: no-repeat;
           background-position: center bottom;
           position: relative;
-          @font-face {
-            font-family: "YouSheBiaoTiHei";
-            src: url("/assets/fonts/youshe.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-          }
         `
       )}
     >
