@@ -1,7 +1,13 @@
 import { css } from "@emotion/css";
 import { SchemaOptionsContext, useForm } from "@formily/react";
 import { ConfigProvider } from "antd";
-import React, { useContext, useMemo } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useSaveAllFieldSchema } from "../../hooks";
 import { createForm } from "@formily/core";
 import {
@@ -13,8 +19,11 @@ import {
 } from "@formily/antd-v5";
 import { SchemaComponent } from "../../core";
 import { allComponentTypeSettingSchema } from "./allComponentTypeSettingSchema";
+import { dispatchInsert } from "./utils";
+import { uid } from "@formily/shared";
 
 export const DesignComponentSetting = ({ address }: { address: string }) => {
+  const [formId, setFormId] = useState(uid());
   const globalForm = useForm();
   const { componentType } = globalForm.query(address).take();
 
@@ -35,9 +44,20 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
     return createForm({
       initialValues: {
         ...dashboardRootConfig.componentProps,
+        decoratorProps: dashboardRootConfig.decoratorProps,
       },
     });
-  }, [address]);
+  }, [address, formId]);
+
+  useEffect(() => {
+    const onSchemaChange = () => {
+      setFormId(uid());
+    };
+    document.addEventListener("dispatchFieldSchemaChange", onSchemaChange);
+    return () => {
+      document.removeEventListener("dispatchFieldSchemaChange", onSchemaChange);
+    };
+  }, []);
 
   return (
     <div
@@ -91,16 +111,20 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
             <FormButtonGroup gutter={24} align="right">
               <Reset>重置</Reset>
               <Submit
-                onSubmit={async (values) => {
+                onSubmit={async ({ decoratorProps, ...values }) => {
                   saveLocalFieldState({
                     address,
                     schema: {
                       "x-component-props": {
                         ...values,
                       },
+                      "x-decorator-props": {
+                        ...decoratorProps,
+                      },
                     },
                   });
-                  saveRemoteFieldSchema();
+                  await saveRemoteFieldSchema();
+                  dispatchInsert();
                 }}
               >
                 应用

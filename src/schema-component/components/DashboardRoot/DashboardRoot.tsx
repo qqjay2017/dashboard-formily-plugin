@@ -203,9 +203,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
           (clientY - over.rect.top) / rowHeight / designZoom
         );
 
-        console.log(overData, activeData);
-        console.log(x, y, "x");
-
         // debugger;
 
         insertSchemaComponent({

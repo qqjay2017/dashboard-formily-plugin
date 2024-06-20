@@ -8,7 +8,7 @@ import { CreateApiBtn } from "./data-source-center/CreateApiBtn";
 
 export const DashboardLayout = () => {
   const { pathname } = useLocation();
-  console.log(pathname, "pathname");
+
   if (pathname == "/dashboard" || pathname == "/dashboard/") {
     return <NavigateHome />;
   }

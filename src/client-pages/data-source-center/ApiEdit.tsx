@@ -50,7 +50,6 @@ export const ApiEdit = () => {
   }, [dtData, id]);
 
   const onSubmit = async (values) => {
-    console.log(values, "values");
     const res = await apiClient.request({
       method: id ? "put" : "post",
       url: id
@@ -76,7 +75,6 @@ export const ApiEdit = () => {
   };
 
   const onTest = async (values) => {
-    console.log(values, "values");
     const dialog = FormDialog(
       {
         title: "测试API",

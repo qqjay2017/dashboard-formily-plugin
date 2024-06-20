@@ -28,7 +28,7 @@ export const Statistic = ({
     if (!data || !dataSource?.dataSourceId || !dataSource?.afterScript) {
       return amount;
     }
-    console.log(dataSource.afterScript, "dataSource?.afterScript");
+
     try {
       const testHandle = new Function(
         "apiRes",

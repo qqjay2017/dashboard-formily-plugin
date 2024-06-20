@@ -3,7 +3,7 @@ import { rs } from "../../../../utils/resolveStatic";
 
 export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: { hasTitle?: boolean }) => {
   const { themeProvider, isDarkTheme } = token
-  console.log(token, 'token')
+
   const url = rs(`/assets/classic-frame/${themeProvider}-${isDarkTheme ? 'dark' : "light"}/bg1.png`)
   return css`
     &.nodeContentRenderer {

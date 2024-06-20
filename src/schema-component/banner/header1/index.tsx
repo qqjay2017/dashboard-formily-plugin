@@ -115,8 +115,8 @@ export const Header1 = ({ title }: Header1Props) => {
               height={50}
               x="50%"
               y={50}
-              text-anchor="middle"
-              alignment-baseline="middle"
+              textAnchor="middle"
+              alignmentBaseline="middle"
               fill="url(#text-gradient)"
               fontSize={"38px"}
               fontFamily="YouSheBiaoTiHei"

@@ -8,6 +8,10 @@ import { uid } from "@formily/shared";
 import { ClassicFrame, ClassicFrameSchemeWrap } from "../widgets";
 import { useSchemaComponentContext } from "./useSchemaComponentContext";
 import { allComponentTypInitSchema } from "../components";
+import {
+  dispatchFieldSchemaChange,
+  dispatchInsert,
+} from "../components/DashboardRoot/utils";
 const replaceKeys = {
   title: "title",
   description: "description",
@@ -79,8 +83,8 @@ export const useSaveAllFieldSchema = () => {
     });
   };
 
-  const saveRemoteFieldSchema = () => {
-    return apiClient.request({
+  const saveRemoteFieldSchema = async () => {
+    await apiClient.request({
       url: "/huang-api/dashboard/" + id,
       method: "put",
       data: {
@@ -93,6 +97,7 @@ export const useSaveAllFieldSchema = () => {
         }),
       },
     });
+    dispatchFieldSchemaChange();
   };
   return {
     saveRemoteFieldSchema,
@@ -194,7 +199,7 @@ export const useInsertSchemaComponent = () => {
     // refresh && refresh();
     saveRemoteFieldSchema().then(() => {
       reset && reset();
-      document.dispatchEvent(new CustomEvent("onInsert"));
+      dispatchInsert();
     });
     // reset && reset();
     // set(

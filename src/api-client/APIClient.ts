@@ -40,7 +40,7 @@ export class APIClient extends APIClientSdk {
     interceptors() {
         // 基础拦截
         this.axios.interceptors.response.use((res) => {
-            console.log(res, 'res')
+
             const code = get(res, 'data.code', '')
             if (code === 401) {
                 sessionStorage.clear();

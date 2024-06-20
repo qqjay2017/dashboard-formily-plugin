@@ -10,7 +10,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { showConfirmPromisify } from "../../schema-component/antd";
 
 export const HomeList = () => {
-  console.log(Link, "Link");
   const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
     "/huang-api/dashboard",
     {
