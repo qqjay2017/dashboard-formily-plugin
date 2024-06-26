@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { ConfigProvider, Select, Slider } from "antd";
 import { css } from "@emotion/css";
@@ -14,6 +14,23 @@ export const CanvasSetting = ({
   const { designWidth } = useDashboardRoot();
   const { designZoom, setDesignZoom } = useDesignPageConext();
   const zoomFormatter = (designZoom) => `${(designZoom * 100).toFixed(0)}%`;
+  const fitZoom = () => {
+    const viewPort = document.getElementById("viewPort");
+    if (!viewPort) {
+      return false;
+    }
+
+    setDesignZoom(
+      Math.min(viewPort.getBoundingClientRect().width / designWidth, 1)
+    );
+    setTimeout(() => {
+      handleViewPortFit && handleViewPortFit();
+    }, 0);
+  };
+
+  useEffect(() => {
+    fitZoom();
+  }, []);
   return (
     <ConfigProvider
       theme={{
@@ -57,20 +74,7 @@ export const CanvasSetting = ({
             <Select
               onSelect={(e) => {
                 if (e === "fit") {
-                  const viewPort = document.getElementById("viewPort");
-                  if (!viewPort) {
-                    return false;
-                  }
-
-                  setDesignZoom(
-                    Math.min(
-                      viewPort.getBoundingClientRect().width / designWidth,
-                      1
-                    )
-                  );
-                  setTimeout(() => {
-                    handleViewPortFit();
-                  }, 0);
+                  fitZoom();
                   return;
                 }
                 if (typeof e === "number") {
@@ -96,7 +100,7 @@ export const CanvasSetting = ({
                   value: "fit",
                 },
               ]}
-            ></Select>
+            />
           </div>
           <div
             className={css`
