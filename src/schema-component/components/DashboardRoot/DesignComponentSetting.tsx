@@ -25,7 +25,8 @@ import { uid } from "@formily/shared";
 export const DesignComponentSetting = ({ address }: { address: string }) => {
   const [formId, setFormId] = useState(uid());
   const globalForm = useForm();
-  const { componentType } = globalForm.query(address).take();
+  const compoennt = globalForm.query(address).take();
+  const componentType = compoennt?.componentType;
 
   const dashboardRootFormSchema =
     allComponentTypeSettingSchema[componentType] ||
@@ -43,11 +44,11 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
   const form = useMemo(() => {
     return createForm({
       initialValues: {
-        ...dashboardRootConfig.componentProps,
-        decoratorProps: dashboardRootConfig.decoratorProps,
+        ...dashboardRootConfig?.componentProps,
+        decoratorProps: dashboardRootConfig?.decoratorProps,
       },
     });
-  }, [address, formId]);
+  }, [address, formId, dashboardRootConfig]);
 
   useEffect(() => {
     const onSchemaChange = () => {

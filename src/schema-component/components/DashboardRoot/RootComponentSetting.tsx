@@ -70,10 +70,10 @@ export const RootComponentSetting = memo(() => {
   const form = useMemo(() => {
     return createForm({
       initialValues: {
-        ...dashboardRootConfig.componentProps,
+        ...dashboardRootConfig?.componentProps,
       },
     });
-  }, []);
+  }, [dashboardRootConfig]);
 
   return (
     <div

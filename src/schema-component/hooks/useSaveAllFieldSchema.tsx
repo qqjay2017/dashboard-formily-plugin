@@ -1,6 +1,12 @@
 import React from "react";
 import { useAPIClient } from "../../api-client";
-import { ISchema, useField, useFieldSchema, useForm } from "@formily/react";
+import {
+  ISchema,
+  Schema,
+  useField,
+  useFieldSchema,
+  useForm,
+} from "@formily/react";
 import { useParams } from "react-router-dom";
 import { get, set } from "lodash-es";
 import { ElementsType } from "../components/DashboardRoot/ContentMenu";
@@ -113,9 +119,7 @@ export const useInsertSchemaComponent = () => {
   // const form = useForm();
   // const field = useField();
   const fieldSchema = useFieldSchema();
-  const saveRemoteFieldSchema = () => {
-    console.log(fieldSchema, fieldSchema.toJSON());
-
+  const saveRemoteFieldSchema = (schema?: Schema) => {
     return apiClient.request({
       url: "/huang-api/dashboard/" + id,
       method: "put",
@@ -124,7 +128,7 @@ export const useInsertSchemaComponent = () => {
         content: JSON.stringify({
           type: "void",
           properties: {
-            dashboardRoot: fieldSchema.toJSON(),
+            dashboardRoot: (schema || fieldSchema).toJSON(),
           },
         }),
       },

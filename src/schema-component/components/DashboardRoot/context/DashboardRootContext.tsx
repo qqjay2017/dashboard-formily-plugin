@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { BreakpointKey } from "../../PositionDecorator/types";
-import { ISchema } from "@formily/react";
+import { Schema } from "@formily/react";
 
 export interface DashboardRootRendererContextValue {
   breakpoint: BreakpointKey;
@@ -11,7 +11,7 @@ export interface DashboardRootRendererContextValue {
   designHeight: number;
   themeProvider: string;
   scale: number;
-  rootFieldSchema?: ISchema;
+  rootFieldSchema?: Schema;
   mobileRowHeight: number;
 }
 

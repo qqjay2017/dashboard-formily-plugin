@@ -251,7 +251,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
               designWidth,
               designHeight,
               themeProvider,
-              scale: 1,
+              scale: designZoom,
               rootFieldSchema: fieldSchema,
               mobileRowHeight,
             }}
@@ -413,7 +413,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                                 key={`MoveableManage-${blockItems?.length}-${designZoom}`}
                               />
                             )}
-                            {designable && <PositionContextMenu />}
                           </div>
                         </div>
                       </div>

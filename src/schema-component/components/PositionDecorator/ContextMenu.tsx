@@ -6,6 +6,7 @@ import { Popconfirm } from "antd";
 import { FC, memo, useMemo } from "react";
 import { useInsertSchemaComponent } from "../../hooks";
 import { dispatchInsert } from "../DashboardRoot/utils";
+import { useDashboardRoot } from "../DashboardRoot";
 
 const iconStyle = { cursor: "pointer", fontSize: 12, color: "#fff" };
 
@@ -35,25 +36,23 @@ export const SchemaDeleteIcon: FC<SchemaSettingsIconProps> = memo(
   }
 );
 
-export const PositionContextMenu = ({
-  MENU_ID = "PositionContextMenu",
-}: {
-  MENU_ID?: string;
-}) => {
+export const PositionContextMenu = () => {
   const { saveRemoteFieldSchema, reset } = useInsertSchemaComponent();
+  const { rootFieldSchema, scale } = useDashboardRoot();
   const fieldSchema = useFieldSchema();
   const confirm = (e) => {
     // 执行删除操作
-    console.log(fieldSchema, "fieldSchema");
+
     const fieldSchemaParent = fieldSchema.parent
       ? fieldSchema.parent
-      : fieldSchema;
+      : rootFieldSchema;
+
     fieldSchemaParent.removeProperty(fieldSchema.name);
-    console.log(fieldSchemaParent, "fieldSchemaParent");
-    // saveRemoteFieldSchema().then(() => {
-    //   reset && reset();
-    //   dispatchInsert();
-    // });
+
+    saveRemoteFieldSchema(rootFieldSchema).then(() => {
+      reset && reset();
+      dispatchInsert();
+    });
   };
 
   return (
@@ -68,6 +67,8 @@ export const PositionContextMenu = ({
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        transform: scale(${1 / scale});
+        transform-origin: right top;
       `}
     >
       <SchemaDeleteIcon>
