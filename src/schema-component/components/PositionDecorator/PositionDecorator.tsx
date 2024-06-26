@@ -99,7 +99,6 @@ export const PositionDecorator = observer(
 
     const eid = field.address.toString();
     const elementId = eidToElementId(eid);
-    console.log(elementId, "elementId");
 
     const isSelected = selectedTargets.find(
       (target) => target.id === elementId

@@ -1,63 +1,68 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Moveable from "react-moveable";
-import Selecto from "react-selecto";
 
 import { useForm } from "@formily/react";
 import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
 import { eidToElementId, elementIdToEid } from "../../../utils";
 import { sizeFormat } from "./utils";
 import { useDashboardRoot } from "./hooks";
-import { diff } from "@egjs/children-differ";
+
 import { observer } from "@formily/reactive-react";
 import { selectedTargetsStore } from "./selectedTargetsStore";
 import { useDesignPageConext } from "./context";
 import { uid } from "@formily/shared";
+import Selecto from "react-selecto";
 
-export const MoveableManage = observer(() => {
-  const [renderKey, setRenderKey] = useState(uid());
-  const { colWidth, rowHeight } = useDashboardRoot();
-  const moveableRef = useRef<Moveable>(null);
-  const selectoRef = useRef<Selecto>(null);
-  const { designZoom } = useDesignPageConext();
+export const MoveableManage = observer(
+  ({
+    selectoRef,
+    moveableRef,
+  }: {
+    selectoRef: React.MutableRefObject<Selecto>;
+    moveableRef: React.MutableRefObject<Moveable>;
+  }) => {
+    const [renderKey, setRenderKey] = useState(uid());
+    const { colWidth, rowHeight } = useDashboardRoot();
 
-  const form = useForm();
+    const { designZoom } = useDesignPageConext();
 
-  const { saveRemoteFieldSchema, saveLocalFieldState } =
-    useSaveAllFieldSchema();
-  const onMoveEnd = (eid, e, zoom = 1) => {
-    const { left, top, width, height } = e.moveable.getRect();
+    const form = useForm();
 
-    saveLocalFieldState({
-      address: elementIdToEid(eid),
-      schema: {
-        "x-decorator-props": {
-          x: sizeFormat(left / colWidth / zoom),
-          w: sizeFormat(width / colWidth / zoom),
-          y: sizeFormat(top / rowHeight / zoom),
-          h: sizeFormat(height / rowHeight / zoom),
+    const { saveRemoteFieldSchema, saveLocalFieldState } =
+      useSaveAllFieldSchema();
+    const onMoveEnd = (eid, e, zoom = 1) => {
+      const { left, top, width, height } = e.moveable.getRect();
+
+      saveLocalFieldState({
+        address: elementIdToEid(eid),
+        schema: {
+          "x-decorator-props": {
+            x: sizeFormat(left / colWidth / zoom),
+            w: sizeFormat(width / colWidth / zoom),
+            y: sizeFormat(top / rowHeight / zoom),
+            h: sizeFormat(height / rowHeight / zoom),
+          },
         },
-      },
-    });
-  };
-  const setTargets = (targets) => {
-    selectedTargetsStore.value = targets;
-  };
-
-  useEffect(() => {
-    setTargets([]);
-  }, [designZoom]);
-
-  useEffect(() => {
-    function onInsert() {
-      setRenderKey(uid());
-    }
-    document.addEventListener("onInsert", onInsert);
-    return () => {
-      document.removeEventListener("onInsert", onInsert);
+      });
     };
-  }, []);
-  return (
-    <>
+    const setTargets = (targets) => {
+      selectedTargetsStore.value = targets;
+    };
+
+    useEffect(() => {
+      setTargets([]);
+    }, [designZoom]);
+
+    useEffect(() => {
+      function onInsert() {
+        setRenderKey(uid());
+      }
+      document.addEventListener("onInsert", onInsert);
+      return () => {
+        document.removeEventListener("onInsert", onInsert);
+      };
+    }, []);
+    return (
       <Moveable
         key={`Moveable-${renderKey}`}
         zoom={1}
@@ -202,57 +207,6 @@ export const MoveableManage = observer(() => {
           saveRemoteFieldSchema();
         }}
       />
-      <Selecto
-        ref={selectoRef}
-        rootContainer={document.body}
-        dragContainer={"#DashboardRoot"}
-        selectableTargets={[".positionDecoratorHandle"]}
-        hitRate={0}
-        selectByClick={true}
-        selectFromInside={false}
-        toggleContinueSelect={["shift"]}
-        continueSelect={false}
-        ratio={0}
-        onDragStart={(e) => {
-          const moveable = moveableRef.current!;
-          const target = e.inputEvent.target;
-          if (
-            moveable.isMoveableElement(target) ||
-            selectedTargetsStore.value.some(
-              (t: any) => t === target || t.contains(target)
-            )
-          ) {
-            e.stop();
-          }
-        }}
-        onSelectEnd={(e) => {
-          const moveable = moveableRef.current!;
-          let selected = e.selected;
-
-          // excludes child elements.
-          selected = selected.filter((target) => {
-            return selected.every((target2) => {
-              return target === target2 || !target2.contains(target);
-            });
-          });
-
-          const result = diff(e.startSelected, selected);
-
-          e.currentTarget.setSelectedTargets(selected);
-
-          if (!result.added.length && !result.removed.length) {
-            return;
-          }
-          if (e.isDragStartEnd) {
-            e.inputEvent.preventDefault();
-
-            moveable.waitToChangeTarget().then(() => {
-              moveable.dragStart(e.inputEvent);
-            });
-          }
-          setTargets(selected);
-        }}
-      />
-    </>
-  );
-});
+    );
+  }
+);

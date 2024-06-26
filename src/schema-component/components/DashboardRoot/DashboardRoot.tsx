@@ -45,6 +45,9 @@ import {
 } from "@dnd-kit/core";
 import { useInsertSchemaComponent } from "../../hooks/useSaveAllFieldSchema";
 import { PositionContextMenu } from "../PositionDecorator/ContextMenu";
+import Selecto from "react-selecto";
+import { Selectable } from "./Selectable";
+import Moveable from "react-moveable";
 
 const MemorizedRecursionField = RecursionField;
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
@@ -89,6 +92,8 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
     clientX: 0,
     clientY: 0,
   });
+  const selectoRef = useRef<Selecto>(null);
+  const moveableRef = useRef<Moveable>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [designZoom, setDesignZoom] = useState(0.5);
   const { designable, formId } = useSchemaComponentContext();
@@ -290,8 +295,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                     width: calc(100% - 600px);
                     position: relative;
                     overflow: hidden;
-
-                    /*  */
                     background-color: #18181c;
                     background-image: linear-gradient(
                         #18181c 14px,
@@ -312,7 +315,6 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                       overflow: auto;
                       scrollbar-color: rgba(144, 146, 152, 0.3) transparent;
                       scrollbar-width: thin;
-                      /*  */
                     `}
                   >
                     {/* 最大的画布 */}
@@ -325,6 +327,14 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                         width: 3840px;
                       `}
                     >
+                      {designable && (
+                        <Selectable
+                          moveableRef={moveableRef}
+                          selectoRef={selectoRef}
+                          key={`Selectable-${blockItems?.length}-${designZoom}`}
+                        />
+                      )}
+
                       {/* 居中定位 */}
                       <div
                         className={css`
@@ -410,6 +420,8 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                             </div>
                             {designable && (
                               <MoveableManage
+                                moveableRef={moveableRef}
+                                selectoRef={selectoRef}
                                 key={`MoveableManage-${blockItems?.length}-${designZoom}`}
                               />
                             )}
