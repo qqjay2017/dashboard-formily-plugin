@@ -56,12 +56,21 @@ const subMenuItems3 = [
   },
 ];
 
+const subMenuItems4 = [
+  {
+    id: "4-projectBudge",
+    label: "项目预算",
+    type: "ProjectBudget",
+    previewBg: "/assets/schema-component/Header1/header1.png",
+  },
+];
 type SubMenuItems = (typeof subMenuItems0)[0];
 
 const subMenuItems = {
   0: subMenuItems0,
   2: subMenuItems2,
   3: subMenuItems3,
+  4: subMenuItems4,
 };
 
 const useContentMenuStyles = createStyles(({ css, token }) => {

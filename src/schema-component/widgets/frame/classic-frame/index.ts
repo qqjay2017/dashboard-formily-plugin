@@ -1,4 +1,5 @@
-import { Schema } from '@formily/react';
+
 
 export * from './ClassicFrame'
 
+export * from './ClassicFrameSettingSchema'

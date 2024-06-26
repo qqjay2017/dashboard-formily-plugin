@@ -1,9 +1,11 @@
 import { ISchema } from "@formily/react";
-import { positionDecoratorFormItemSchema } from "./positionDecoratorFormItemSchema";
+import { compomentTypeInfoSchema, positionDecoratorFormItemSchema } from "../../../components/DashboardRoot/setting-schema";
 
-export const Header1: ISchema = {
+
+export const ClassicFrameSettingSchema: ISchema = {
     type: "object",
     properties: {
+        ...compomentTypeInfoSchema,
         title: {
             type: "string",
             title: "标题",

@@ -44,11 +44,14 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
   const form = useMemo(() => {
     return createForm({
       initialValues: {
+        formId,
         ...dashboardRootConfig?.componentProps,
         decoratorProps: dashboardRootConfig?.decoratorProps,
+        componentType,
+        componentAddress: address,
       },
     });
-  }, [address, formId, dashboardRootConfig]);
+  }, [address, formId, dashboardRootConfig, componentType, address]);
 
   useEffect(() => {
     const onSchemaChange = () => {
@@ -72,22 +75,27 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
         <Form
           form={form}
           layout="vertical"
+          labelCol={4}
+          wrapperCol={20}
           className={css`
             max-width: 100%;
             width: 100%;
             height: 100%;
-            padding: 16px;
             position: relative;
+            overflow: hidden;
+            form {
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
+            }
           `}
         >
-          <FormLayout
-            layout={"vertical"}
-            labelCol={4}
-            wrapperCol={20}
+          <div
             className={css`
-              width: 100%;
+              padding: 12px 16px;
               height: calc(100% - 40px);
-              padding: 16px;
+              overflow-x: hidden;
+              overflow-y: auto;
             `}
           >
             <SchemaComponent
@@ -95,7 +103,8 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
               scope={options.scope}
               schema={dashboardRootFormSchema}
             />
-          </FormLayout>
+          </div>
+
           <div
             className={css`
               padding-right: 16px;

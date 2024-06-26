@@ -1,5 +1,4 @@
 export * from './positionDecoratorFormItemSchema'
-export * from './ClassicFrame'
-export * from './Statistic'
+
 export * from './dashboardRootForm'
-export * from './Header1'
+export * from './compomentTypeInfoSchema'

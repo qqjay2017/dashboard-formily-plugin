@@ -1,6 +1,8 @@
 import { ISchema } from '@formily/react'
 
-import { ClassicFrame, dashboardRootFormSchema, Statistic, Header1 } from './setting-schema';
+import { dashboardRootFormSchema } from './setting-schema';
+import { ClassicFrameSettingSchema, ProjectBudgetSettingSchema, StatisticSettingSchema } from '../../widgets';
+import { Header1SettingSchema } from '../../banner';
 
 
 
@@ -9,8 +11,10 @@ import { ClassicFrame, dashboardRootFormSchema, Statistic, Header1 } from './set
 export const allComponentTypeSettingSchema: Record<string, ISchema> = {
 
     "DashboardRoot": dashboardRootFormSchema,
-    ClassicFrame,
-    Statistic,
-    Header1
+
+    Header1: Header1SettingSchema,
+    ClassicFrame: ClassicFrameSettingSchema,
+    Statistic: StatisticSettingSchema,
+    ProjectBudget: ProjectBudgetSettingSchema
 
 }

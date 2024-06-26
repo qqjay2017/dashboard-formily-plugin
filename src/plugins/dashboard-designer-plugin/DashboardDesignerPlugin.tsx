@@ -5,6 +5,7 @@ import {
   ClassicFrame,
   PositionDecorator,
   Header1,
+  ProjectBudget,
 } from "../../schema-component";
 import { ColorTypeSelect, IsDarkThemeSelect } from "../../schema-settings";
 
@@ -21,6 +22,7 @@ export class DashboardDesignerPlugin extends Plugin {
       ClassicFrame,
       Statistic,
       Header1,
+      ProjectBudget,
     });
   }
 }

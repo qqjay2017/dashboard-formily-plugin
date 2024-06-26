@@ -1,9 +1,12 @@
 import { ISchema } from "@formily/react";
-import { DataSourceBind } from "../../DataSourceBind/DataSourceBind";
+import { DataSourceBind } from "../../components/DataSourceBind/DataSourceBind";
+import { compomentTypeInfoSchema } from "../../components/DashboardRoot/setting-schema";
 
-export const Statistic: ISchema = {
+
+export const StatisticSettingSchema: ISchema = {
     type: "object",
     properties: {
+        ...compomentTypeInfoSchema,
         title: {
             type: "string",
             title: "标题",

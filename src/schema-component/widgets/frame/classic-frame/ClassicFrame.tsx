@@ -45,9 +45,7 @@ export function ClassicFrame({
   // });
 
   //
-  useEffect(() => {
-    console.log("重新渲染 ClassicFrame", field.address.toString());
-  }, []);
+
   return (
     <div
       className={cn("nodeContentRenderer", classicFrameStyle.styles, className)}
