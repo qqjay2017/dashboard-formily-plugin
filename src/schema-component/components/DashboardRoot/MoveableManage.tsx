@@ -202,7 +202,7 @@ export const MoveableManage = observer(
               return false;
             }
             const eid = ev.target.id;
-            onMoveEnd(eid, ev);
+            onMoveEnd(eid, ev, designZoom);
           });
           saveRemoteFieldSchema();
         }}
