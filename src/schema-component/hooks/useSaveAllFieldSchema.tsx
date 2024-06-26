@@ -222,6 +222,8 @@ export const useInsertSchemaComponent = () => {
     // });
   };
   return {
+    saveRemoteFieldSchema,
     insertSchemaComponent,
+    reset,
   };
 };

@@ -47,6 +47,8 @@ export interface PositionDecoratorOptions {
     style?: React.CSSProperties;
     zIndex?: number;
     className?: string;
+    elementId?: string;
+    isSelected?: boolean;
 }
 
 export interface SchemaToolbarProps extends PropsWithChildren {

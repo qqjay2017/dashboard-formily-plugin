@@ -44,6 +44,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { useInsertSchemaComponent } from "../../hooks/useSaveAllFieldSchema";
+import { PositionContextMenu } from "../PositionDecorator/ContextMenu";
 
 const MemorizedRecursionField = RecursionField;
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
@@ -412,6 +413,7 @@ const DashboardRootMain = ({ children, ...props }: DashboardRootProps) => {
                                 key={`MoveableManage-${blockItems?.length}-${designZoom}`}
                               />
                             )}
+                            {designable && <PositionContextMenu />}
                           </div>
                         </div>
                       </div>
