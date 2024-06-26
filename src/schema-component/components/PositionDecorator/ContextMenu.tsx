@@ -1,11 +1,18 @@
-import { ArrowUpOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 import { css } from "@emotion/css";
 import { useField, useFieldSchema } from "@formily/react";
 import { Popconfirm } from "antd";
 import { FC, memo } from "react";
 import { useInsertSchemaComponent, useSaveAllFieldSchema } from "../../hooks";
-import { dispatchInsert } from "../DashboardRoot/utils";
+import {
+  dispatchFieldSchemaChange,
+  dispatchInsert,
+} from "../DashboardRoot/utils";
 import { useDashboardRoot } from "../DashboardRoot";
 
 const iconStyle = { cursor: "pointer", fontSize: 12, color: "#fff" };
@@ -78,7 +85,25 @@ export const PositionContextMenu = () => {
         },
       },
     });
-    saveRemoteFieldSchema(rootFieldSchema);
+    saveRemoteFieldSchema(rootFieldSchema).then(() => {
+      dispatchFieldSchemaChange();
+    });
+  };
+
+  const handleSetDown = () => {
+    const curZIndex = fieldSchema["x-decorator-props"].zIndex || 1;
+    console.log(curZIndex, "curZIndex");
+    saveLocalFieldState({
+      address: field.address.toString(),
+      schema: {
+        "x-decorator-props": {
+          zIndex: curZIndex - 1,
+        },
+      },
+    });
+    saveRemoteFieldSchema(rootFieldSchema).then(() => {
+      dispatchFieldSchemaChange();
+    });
   };
 
   return (
@@ -97,6 +122,13 @@ export const PositionContextMenu = () => {
         transform-origin: right top;
       `}
     >
+      <SchemaDeleteIcon
+        onClick={() => {
+          handleSetDown();
+        }}
+      >
+        <ArrowDownOutlined role="button" style={iconStyle} />
+      </SchemaDeleteIcon>
       <SchemaDeleteIcon
         onClick={() => {
           handleSetTop();

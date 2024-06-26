@@ -13,7 +13,7 @@ import { ElementsType } from "../components/DashboardRoot/ContentMenu";
 import { uid } from "@formily/shared";
 import { ClassicFrame, ClassicFrameSchemeWrap } from "../widgets";
 import { useSchemaComponentContext } from "./useSchemaComponentContext";
-import { allComponentTypInitSchema } from "../components";
+import { allComponentTypInitSchema, useDashboardRoot } from "../components";
 import {
   dispatchFieldSchemaChange,
   dispatchInsert,
@@ -45,14 +45,17 @@ export const useSaveAllFieldSchema = () => {
   const apiClient = useAPIClient();
   const form = useForm();
   const fieldSchema = useFieldSchema();
+  const { rootFieldSchema } = useDashboardRoot();
   const { id } = useParams();
 
   const saveLocalFieldState = ({
     address = "",
     schema = {},
+    fieldSchema: _fieldSchema = rootFieldSchema,
   }: {
     address: string;
     schema: ISchema;
+    fieldSchema?: ISchema;
   }) => {
     form.setFieldState(address, (state) => {
       Object.keys(schema).forEach((k) => {
@@ -84,7 +87,7 @@ export const useSaveAllFieldSchema = () => {
           .join(".");
         const setAddress = setAddressBefore ? `${setAddressBefore}.${k}` : k;
 
-        setAddress && set(fieldSchema, setAddress, state[replaceKey]);
+        setAddress && set(_fieldSchema, setAddress, state[replaceKey]);
       });
     });
   };
