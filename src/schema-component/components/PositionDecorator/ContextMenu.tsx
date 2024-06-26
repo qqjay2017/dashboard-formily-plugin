@@ -1,10 +1,10 @@
 import { ArrowUpOutlined, DeleteOutlined } from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 import { css } from "@emotion/css";
-import { useFieldSchema } from "@formily/react";
+import { useField, useFieldSchema } from "@formily/react";
 import { Popconfirm } from "antd";
-import { FC, memo, useMemo } from "react";
-import { useInsertSchemaComponent } from "../../hooks";
+import { FC, memo } from "react";
+import { useInsertSchemaComponent, useSaveAllFieldSchema } from "../../hooks";
 import { dispatchInsert } from "../DashboardRoot/utils";
 import { useDashboardRoot } from "../DashboardRoot";
 
@@ -37,8 +37,10 @@ export const SchemaDeleteIcon: FC<SchemaSettingsIconProps> = memo(
 );
 
 export const PositionContextMenu = () => {
+  const { saveLocalFieldState } = useSaveAllFieldSchema();
   const { saveRemoteFieldSchema, reset } = useInsertSchemaComponent();
   const { rootFieldSchema, scale } = useDashboardRoot();
+  const field = useField();
   const fieldSchema = useFieldSchema();
   const confirm = (e) => {
     // 执行删除操作
@@ -53,6 +55,30 @@ export const PositionContextMenu = () => {
       reset && reset();
       dispatchInsert();
     });
+  };
+
+  const handleSetTop = () => {
+    const fieldSchemaParent = fieldSchema.parent
+      ? fieldSchema.parent
+      : rootFieldSchema;
+
+    const maxZIndex = fieldSchemaParent.reduceProperties((memo, cur) => {
+      const curZIndex = cur["x-decorator-props"].zIndex || 0;
+      if (curZIndex > memo) {
+        memo = cur["x-decorator-props"].zIndex;
+      }
+      return memo;
+    }, 0);
+
+    saveLocalFieldState({
+      address: field.address.toString(),
+      schema: {
+        "x-decorator-props": {
+          zIndex: maxZIndex + 1,
+        },
+      },
+    });
+    saveRemoteFieldSchema(rootFieldSchema);
   };
 
   return (
@@ -71,7 +97,11 @@ export const PositionContextMenu = () => {
         transform-origin: right top;
       `}
     >
-      <SchemaDeleteIcon>
+      <SchemaDeleteIcon
+        onClick={() => {
+          handleSetTop();
+        }}
+      >
         <ArrowUpOutlined role="button" style={iconStyle} />
       </SchemaDeleteIcon>
       <SchemaDeleteIcon>

@@ -89,7 +89,7 @@ export const useSaveAllFieldSchema = () => {
     });
   };
 
-  const saveRemoteFieldSchema = async () => {
+  const saveRemoteFieldSchema = async (schema?: Schema) => {
     await apiClient.request({
       url: "/huang-api/dashboard/" + id,
       method: "put",
@@ -98,7 +98,7 @@ export const useSaveAllFieldSchema = () => {
         content: JSON.stringify({
           type: "void",
           properties: {
-            dashboardRoot: fieldSchema.toJSON(),
+            dashboardRoot: (schema || fieldSchema).toJSON(),
           },
         }),
       },
@@ -144,8 +144,7 @@ export const useInsertSchemaComponent = () => {
     position: {
       x?: number;
       y?: number;
-      w?: number;
-      h?: number;
+      zIndex?: number;
     };
   }) => {
     if (!address || !type) {
@@ -195,8 +194,8 @@ export const useInsertSchemaComponent = () => {
       newId,
       initFn({
         "x-decorator-props": {
-          ...position,
           zIndex: 4,
+          ...position,
         },
       })
     );

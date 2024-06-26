@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import { cn } from "../../../../utils";
 import { useClassicFrameStyle } from "./styles";
 
@@ -29,7 +29,7 @@ export function ClassicFrame({
   titleClassName,
   contentClassName,
 }: ClassicFramePropw) {
-  // const field = useField();
+  const field = useField();
   // const fieldSchema = useFieldSchema();
   const hasTitle = title || extra;
   const classicFrameStyle = useClassicFrameStyle({ hasTitle: !!hasTitle });
@@ -45,6 +45,9 @@ export function ClassicFrame({
   // });
 
   //
+  useEffect(() => {
+    console.log("重新渲染 ClassicFrame", field.address.toString());
+  }, []);
   return (
     <div
       className={cn("nodeContentRenderer", classicFrameStyle.styles, className)}
@@ -103,6 +106,11 @@ export function ClassicFrameSchemeWrap(inject: any = {}) {
       title: "默认标题",
     },
     ...inject,
+    "x-decorator-props": {
+      ...inject?.["x-decorator-props"],
+      w: 3,
+      h: 3,
+    },
   });
 }
 ClassicFrame.schema = ClassicFrameSchemeWrap();
