@@ -4,6 +4,8 @@ import {
   DashboardPreviewPlugin,
   KxgcAuthPlugin,
 } from "../../plugins";
+import { DashboardRootPreview } from "../../schema-component/components/DashboardRoot/DashboardRootPreview";
+import { PositionDecoratorPreview } from "../../schema-component/components/PositionDecorator/PositionDecoratorPreview";
 import { PreviewPage } from "../preview-page";
 
 export const application = new Application({
@@ -13,6 +15,8 @@ export const application = new Application({
   components: {
     // DashboardRoot,
     // PositionDecorator,
+    PositionDecorator: PositionDecoratorPreview,
+    DashboardRoot: DashboardRootPreview,
   },
 
   router: {

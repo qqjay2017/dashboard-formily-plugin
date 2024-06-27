@@ -16,12 +16,12 @@ export const useDashboardRootStyle = createStyles(
         if (isDarkTheme) {
             const darkColor = themeProvider === 'technologyBlue' ? "#c3d4e5" : "#fff"
             return css`
-          background-image: url(${rs("/assets/dashboardRoot/" + themeProvider + "-dark/main-bg.jpg")});
+          background-image: url(${rs("/assets/dashboardRoot/" + themeProvider + "-dark/main-bg.png")});
           color:  ${darkColor};
         `;
         } else {
             return css`
-          background-image: url(${rs("/assets/dashboardRoot/" + themeProvider + "-light/main-bg.jpg")});
+          background-image: url(${rs("/assets/dashboardRoot/" + themeProvider + "-light/main-bg.png")});
           color: #000;
         `;
         }
