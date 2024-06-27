@@ -82,9 +82,8 @@ export const Header1 = ({ title }: Header1Props) => {
           `}
         >
           <svg
-            viewBox="0 0 1920 120"
-            width={1920}
-            height={120}
+            width={"100%"}
+            height={"100%"}
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
@@ -112,13 +111,12 @@ export const Header1 = ({ title }: Header1Props) => {
               </linearGradient>
             </defs>
             <text
-              height={50}
               x="50%"
-              y={50}
+              y="40%"
               textAnchor="middle"
               alignmentBaseline="middle"
               fill="url(#text-gradient)"
-              fontSize={"38px"}
+              fontSize={"0.38rem"}
               fontFamily="YouSheBiaoTiHei"
               letterSpacing={"6px"}
             >

@@ -38,5 +38,5 @@ export const useBreakpoints = (
     onResize: onResize,
   });
 
-  return { breakpoint: breakpoint, width, height, ref };
+  return { breakpoint: breakpoint, width, height, ref, };
 };

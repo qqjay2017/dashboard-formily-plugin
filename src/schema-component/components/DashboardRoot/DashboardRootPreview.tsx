@@ -1,7 +1,7 @@
-import React, { Fragment, useMemo, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { DashboardRootContext, DesignPageConext } from "./context";
 import { ConfigProvider, theme } from "antd";
-import { defaultBreakpoints, sizeFormat } from "./utils";
+import { defaultBreakpoints, flexible, sizeFormat } from "./utils";
 import { DashboardRootProps, MemorizedRecursionField } from "./DashboardRoot";
 import { allThemeNameMap } from "../../../dashboard-themes";
 import { ThemeCSSVariableProvider } from "../../../css-variable";
@@ -59,7 +59,16 @@ export const DashboardRootPreview = ({
   const isPc = breakpoint === "desktop" || breakpoint === "showroom";
   const rowHeight = sizeFormat(height / rows);
   const colWidth = cols && width ? sizeFormat(width / cols) : 0;
-
+  useEffect(() => {
+    console.log(isPc, "isPc");
+    if (isPc) {
+      flexible(designWidth);
+    } else if (breakpoint === "mobile") {
+      flexible(750);
+    } else if (breakpoint === "tablet") {
+      flexible(1300);
+    }
+  }, [designWidth, isPc]);
   return (
     <DesignPageConext.Provider
       value={{
@@ -104,8 +113,10 @@ export const DashboardRootPreview = ({
             >
               <div
                 className={css`
-                  width: ${designWidth}px;
-                  height: ${designHeight}px;
+                  width: 100vw;
+                  height: 100vh;
+                  /* width: ${designWidth}px;
+                  height: ${designHeight}px; */
                   transform: scale(${designZoom});
                   border-color: #373739;
                   transition: all 0.4s;
@@ -117,8 +128,11 @@ export const DashboardRootPreview = ({
               >
                 <div
                   className={css`
-                    width: ${designWidth}px;
-                    height: ${designHeight}px;
+                    width: 100vw;
+                    height: 100vh;
+                    min-height: 600px;
+                    /* width: ${designWidth}px;
+                    height: ${designHeight}px; */
                   `}
                 >
                   <div

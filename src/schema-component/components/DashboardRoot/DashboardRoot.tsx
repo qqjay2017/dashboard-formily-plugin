@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 
-import { defaultBreakpoints, sizeFormat } from "./utils";
+import { defaultBreakpoints, flexible, sizeFormat } from "./utils";
 import { useSchemaComponentContext } from "../../hooks";
 import {
   RecursionField,
@@ -167,9 +167,6 @@ const DashboardRootMain = observer(
       scrollAreaRef.current.scrollTop = designHeight / 2 + 160;
     };
 
-    useEffect(() => {
-      handleViewPortFit();
-    }, []);
     const field = useField();
     const { insertSchemaComponent } = useInsertSchemaComponent();
     const droppable = useDroppable({
@@ -243,6 +240,19 @@ const DashboardRootMain = observer(
       },
     });
 
+    useEffect(() => {
+      handleViewPortFit();
+    }, []);
+
+    useEffect(() => {
+      if (isPc) {
+        flexible(designWidth);
+      } else if (breakpoint === "mobile") {
+        flexible(750);
+      } else if (breakpoint === "tablet") {
+        flexible(1300);
+      }
+    }, [designWidth, isPc]);
     return (
       <DesignPageConext.Provider
         value={{
