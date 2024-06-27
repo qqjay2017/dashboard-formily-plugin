@@ -122,6 +122,11 @@ export const MoveableManage = observer(
           ...Object.keys(form.getFormGraph())
             .filter(Boolean)
             .map((k) => "#" + eidToElementId(k)),
+          ...Object.keys(form.getFormGraph())
+            .filter(Boolean)
+            .map(
+              (k) => "#" + eidToElementId(k) + " .nodeContentRendererContent"
+            ),
         ]}
         onDragOrigin={(e) => {
           e.target.style.transformOrigin = e.transformOrigin;

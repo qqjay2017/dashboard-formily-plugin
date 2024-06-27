@@ -14,16 +14,16 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
     }
 
     .nodeContentRendererTitle {
-      height: 46px;
+      height: 0.46rem;
       color: var(--secondary);
-      padding-left: 40px;
+      padding-left: 0.4rem;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       position: relative;
       &::after {
         content: "";
-        width: calc(100% - 36px);
+        width: calc(100% - 0.36rem);
         height: 2px;
         background: linear-gradient(
           90deg,
@@ -38,8 +38,8 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
       }
     }
     .nrtTitle {
-      font-size: 18px;
-      line-height:20px;
+      font-size: 0.18rem;
+      line-height:0.2rem;
       font-family:YouSheBiaoTiHei;
       letter-spacing:2px;
       color:var(--node-content-foreground)
@@ -48,7 +48,7 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
       font-size: 12px;
     }
     .nrtExtra {
-      height: 46px;
+      height: 0.46rem;
       flex: 1;
       display: flex;
       align-items: center;
@@ -56,18 +56,18 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
     }
 
     .nodeContentRendererContent {
-      height:${hasTitle ? " calc(100% - 46px)" : "100%"};
+      height:${hasTitle ? " calc(100% - 0.46rem)" : "100%"};
       position:relative;
      
     }
 
     .nodeContentRendererTitleBg {
-      width: 26px;
-      height: 26px;
+      width: .26rem;
+      height: .26rem;
       position: absolute;
       z-index: 2;
       bottom: 0;
-      left: 10px;
+      left: 0.10rem;
       background-image: url(${url});
       background-repeat: no-repeat;
       background-size: cover;
