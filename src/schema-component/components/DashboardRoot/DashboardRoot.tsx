@@ -95,6 +95,7 @@ const DashboardRootMain = observer(
       className,
       style,
       isDarkTheme,
+
       ...otherProps
     } = props;
     const mousePosition = useRef({
@@ -389,6 +390,7 @@ const DashboardRootMain = observer(
                               `}
                             >
                               <div
+                                id="DashboardRootWrap"
                                 ref={droppable.setNodeRef}
                                 className={css`
                                   width: ${designWidth}px;
@@ -410,7 +412,7 @@ const DashboardRootMain = observer(
                                   `}
                                 >
                                   <div
-                                    {...otherProps}
+                                    // {...otherProps}
                                     key={formId}
                                     id="DashboardRoot"
                                     ref={ref}

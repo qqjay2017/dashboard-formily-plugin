@@ -8,17 +8,29 @@ export const DesignPageHeader = () => {
   const { updateDashboard } = useUpdateDashboard();
 
   const handleGenThumb = async () => {
-    const canvas = await html2canvas(document.getElementById("DashboardRoot"), {
-      scale: 0.1,
-    });
-    const data = canvas.toDataURL();
-    if (data) {
-      await updateDashboard({
-        coverThumbnail: data,
-      });
-      return message.success("生成成功");
+    const r = document.getElementById("DashboardRootWrap");
+    if (!r) {
+      return false;
     }
-    message.error("生成失败");
+
+    // const { width, height } = r.getBoundingClientRect();
+    try {
+      const canvas = await html2canvas(r, {
+        scale: 0.1,
+      });
+
+      const data = canvas.toDataURL();
+      if (data) {
+        await updateDashboard({
+          coverThumbnail: data,
+        });
+        return message.success("生成成功");
+      }
+      message.error("生成失败");
+    } catch (error) {
+      console.log(error, "error");
+      message.error("生成失败");
+    }
   };
   return (
     <div
