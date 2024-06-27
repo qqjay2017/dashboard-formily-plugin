@@ -2,6 +2,7 @@ import React, {
   Fragment,
   HTMLAttributes,
   PropsWithChildren,
+  memo,
   useEffect,
   useMemo,
   useRef,
@@ -54,10 +55,12 @@ import Selecto from "react-selecto";
 import { Selectable } from "./Selectable";
 import Moveable from "react-moveable";
 
-const MemorizedRecursionField = RecursionField;
+export const MemorizedRecursionField = memo(RecursionField);
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
 
-interface DashboardRootProps extends PropsWithChildren, HTMLAttributes<any> {
+export interface DashboardRootProps
+  extends PropsWithChildren,
+    HTMLAttributes<any> {
   cols?: number;
   designable?: boolean;
   distributed?: boolean;

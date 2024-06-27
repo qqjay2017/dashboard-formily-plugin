@@ -1,12 +1,6 @@
 import { Plugin } from "../../application";
 
-import {
-  Statistic,
-  ClassicFrame,
-  PositionDecorator,
-  Header1,
-  ProjectBudget,
-} from "../../schema-component";
+import { PositionDecorator } from "../../schema-component";
 import { ColorTypeSelect, IsDarkThemeSelect } from "../../schema-settings";
 
 /**
@@ -19,10 +13,6 @@ export class DashboardDesignerPlugin extends Plugin {
       IsDarkThemeSelect,
       // DashboardRoot,
       PositionDecorator,
-      ClassicFrame,
-      Statistic,
-      Header1,
-      ProjectBudget,
     });
   }
 }

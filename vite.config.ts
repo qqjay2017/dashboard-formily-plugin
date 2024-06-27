@@ -1,22 +1,37 @@
-import { defineConfig } from 'vite'
+import { PluginOption, defineConfig } from 'vite'
 import { resolve } from 'path'
 
 import react from '@vitejs/plugin-react'
-// webpack monaco-editor-webpack-plugin
-// import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 
-// https://vitejs.dev/config/
+const PagePlugin = (): PluginOption => ({
+  name: 'configure-server',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      const url = req.url || '';
+
+      if (url.startsWith('/report/') && !url.includes('.')) {
+
+        req.url = '/report/index.html';
+      }
+      next();
+    })
+  },
+})
 export default defineConfig({
-  plugins: [react(),],
+  plugins: [react(), PagePlugin()],
   build: {
     rollupOptions: {
+
       input: {
         main: resolve(__dirname, 'index.html'),
-        report: resolve(__dirname, 'src/report/index.html'),
+        "report": resolve(__dirname, 'report/index.html'),
       },
     },
   },
+
   server: {
+
+
     proxy: {
       '/huang-api': {
         target: 'http://localhost:3001',

@@ -1,0 +1,166 @@
+import React, { Fragment, useMemo, useState } from "react";
+import { DashboardRootContext, DesignPageConext } from "./context";
+import { ConfigProvider, theme } from "antd";
+import { defaultBreakpoints, sizeFormat } from "./utils";
+import { DashboardRootProps, MemorizedRecursionField } from "./DashboardRoot";
+import { allThemeNameMap } from "../../../dashboard-themes";
+import { ThemeCSSVariableProvider } from "../../../css-variable";
+import { useBreakpoints, useRowProperties } from "./hooks";
+import { useFieldSchema } from "@formily/react";
+import { css } from "@emotion/css";
+import { cn } from "../../../utils";
+import { useDashboardRootStyle } from "./styles";
+
+export const DashboardRootPreview = ({
+  children,
+  ...props
+}: DashboardRootProps) => {
+  const {
+    breakpoints = defaultBreakpoints,
+    designWidth = 1920,
+    designHeight = 1080,
+    cols = 12,
+    rows = 12,
+    rowheight: mobileRowHeight = 80,
+    themeProvider = "",
+    distributed,
+    className,
+    style,
+    isDarkTheme,
+    ...otherProps
+  } = props;
+  const [designZoom, setDesignZoom] = useState(1);
+  const { breakpoint, width, height, ref } = useBreakpoints(breakpoints, 800);
+  const rootStyle = useDashboardRootStyle({
+    themeProvider,
+    isDarkTheme,
+  });
+  const fieldSchema = useFieldSchema();
+  const blockItems = useRowProperties();
+
+  const RenderBlockItems = useMemo(() => {
+    return (
+      <>
+        {blockItems.map((schema, index) => {
+          return (
+            <Fragment key={schema.name + index}>
+              {/* TODO 有的时候可能不能用memo */}
+              <MemorizedRecursionField name={schema.name} schema={schema} />
+            </Fragment>
+          );
+        })}
+      </>
+    );
+  }, [blockItems?.length]);
+  const themeConfig = allThemeNameMap[themeProvider] || {};
+  const themeToken = themeConfig?.token || {};
+  const themeDarkOrLightToken = themeConfig?.[isDarkTheme ? "dark" : "light"];
+
+  const isPc = breakpoint === "desktop" || breakpoint === "showroom";
+  const rowHeight = sizeFormat(height / rows);
+  const colWidth = cols && width ? sizeFormat(width / cols) : 0;
+
+  return (
+    <DesignPageConext.Provider
+      value={{
+        designZoom,
+        setDesignZoom,
+      }}
+    >
+      <ConfigProvider
+        theme={{
+          algorithm: isDarkTheme ? theme.darkAlgorithm : theme.defaultAlgorithm,
+          token: {
+            isDarkTheme,
+            themeProvider,
+            themeAssetsPath: `${themeProvider}-${
+              isDarkTheme ? "dark" : "light"
+            }`,
+            ...themeToken,
+            ...themeDarkOrLightToken,
+          },
+        }}
+      >
+        <ThemeCSSVariableProvider>
+          <DashboardRootContext.Provider
+            value={{
+              breakpoint,
+              colWidth,
+              rowHeight,
+              isPc,
+              designWidth,
+              designHeight,
+              themeProvider,
+              scale: designZoom,
+              rootFieldSchema: fieldSchema,
+              mobileRowHeight,
+            }}
+          >
+            <div
+              className={css`
+                width: 100vw;
+                height: 100vh;
+              `}
+            >
+              <div
+                className={css`
+                  width: ${designWidth}px;
+                  height: ${designHeight}px;
+                  transform: scale(${designZoom});
+                  border-color: #373739;
+                  transition: all 0.4s;
+                  position: relative;
+                  transform-origin: left top;
+                  background-size: cover;
+                  overflow: hidden;
+                `}
+              >
+                <div
+                  className={css`
+                    width: ${designWidth}px;
+                    height: ${designHeight}px;
+                  `}
+                >
+                  <div
+                    {...otherProps}
+                    id="DashboardRoot"
+                    ref={ref}
+                    className={cn(
+                      css`
+                        @font-face {
+                          font-family: "YouSheBiaoTiHei";
+                          src: url("/assets/fonts/youshe.ttf")
+                            format("truetype");
+                          font-weight: normal;
+                          font-style: normal;
+                        }
+                      `,
+                      css`
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        font-size: 14px;
+                        color: #ccc;
+                      `,
+                      rootStyle.styles,
+                      className,
+                      themeProvider
+                    )}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      position: "relative",
+                      ...style,
+                    }}
+                  >
+                    {RenderBlockItems}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DashboardRootContext.Provider>
+        </ThemeCSSVariableProvider>
+      </ConfigProvider>
+    </DesignPageConext.Provider>
+  );
+};

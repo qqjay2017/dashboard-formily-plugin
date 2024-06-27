@@ -4,6 +4,7 @@ import { Application } from "../application/Application";
 import {
   AntdV5Plugin,
   DashboardDesignerPlugin,
+  DashboardPreviewPlugin,
   KxgcAuthPlugin,
 } from "../plugins";
 import { DashboardRoot } from "../schema-component";
@@ -15,7 +16,12 @@ import { ApiEdit } from "../client-pages/data-source-center/ApiEdit";
 
 export const application = new Application({
   providers: [],
-  plugins: [AntdV5Plugin, DashboardDesignerPlugin, KxgcAuthPlugin],
+  plugins: [
+    AntdV5Plugin,
+    DashboardDesignerPlugin,
+    DashboardPreviewPlugin,
+    KxgcAuthPlugin,
+  ],
   designable: true,
   components: {
     Hello,
