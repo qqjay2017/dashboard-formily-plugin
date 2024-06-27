@@ -92,7 +92,7 @@ export const PositionContextMenu = () => {
 
   const handleSetDown = () => {
     const curZIndex = fieldSchema["x-decorator-props"].zIndex || 1;
-    console.log(curZIndex, "curZIndex");
+
     saveLocalFieldState({
       address: field.address.toString(),
       schema: {

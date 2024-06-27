@@ -22,7 +22,6 @@ export function MonacoEditor({
 }: MonacoEditorProps) {
   // 初始化后自动格式化
   const handleEditorMount = (editor) => {
-    console.log(editor, "editor");
     setTimeout(function () {
       editor.getAction("editor.action.formatDocument").run();
     }, 500);

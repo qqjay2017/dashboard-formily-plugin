@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useAPIClient } from "../../../../api-client";
 import { get } from "lodash-es";
+import { css } from "@emotion/css";
 
 export const ProjectBudget = () => {
   const apiClient = useAPIClient();
@@ -15,9 +16,40 @@ export const ProjectBudget = () => {
   });
   const amount = get(data, "data.data.totalBudget", "0");
   return (
-    <div>
-      <div>在建项目总预算（万元）</div>
-      <div>{amount}</div>
+    <div
+      className={css`
+        width: 100%;
+        height: 100%;
+      `}
+    >
+      <div
+        className={css`
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+        `}
+      >
+        <div
+          className={css`
+            font-size: 0.16rem;
+            color: #fdffff;
+            line-height: 0.16rem;
+            opacity: 0.65;
+          `}
+        >
+          在建项目总预算（万元）
+        </div>
+        <div
+          className={css`
+            font-family: Digiface;
+            font-size: 0.36rem;
+            color: #49ffdf;
+          `}
+        >
+          {amount}
+        </div>
+      </div>
     </div>
   );
 };

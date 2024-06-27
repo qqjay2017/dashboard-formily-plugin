@@ -14,9 +14,11 @@ export function ProjectBudgetSchemeWrap(inject: any = {}) {
 
         ...inject,
         "x-decorator-props": {
+
             ...inject?.["x-decorator-props"],
             w: 3,
             h: 3,
+            // padding: 0
         },
     });
 }

@@ -423,22 +423,30 @@ const DashboardRootMain = observer(
                                           font-weight: normal;
                                           font-style: normal;
                                         }
+                                        @font-face {
+                                          font-family: "Digiface";
+                                          src: url("/assets/fonts/digiface.ttf")
+                                            format("truetype");
+                                          font-weight: normal;
+                                          font-style: normal;
+                                        }
                                       `,
                                       css`
                                         background-size: cover;
                                         background-position: center;
                                         background-repeat: no-repeat;
-                                        font-size: 14px;
+                                        font-size: 0.14rem;
+                                        line-height: 1;
                                         color: #ccc;
+                                        width: 100%;
+                                        height: 100%;
+                                        position: relative;
                                       `,
                                       rootStyle.styles,
                                       className,
                                       themeProvider
                                     )}
                                     style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      position: "relative",
                                       ...style,
                                     }}
                                   >

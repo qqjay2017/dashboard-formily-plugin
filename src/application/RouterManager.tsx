@@ -130,7 +130,7 @@ export class RouterManager {
    */
   getRouterComponent(children?: React.ReactNode) {
     const { type = "browser", ...opts } = this.options;
-    console.log(opts, "opts");
+
     const Routers = {
       hash: HashRouter,
       browser: BrowserRouter,
