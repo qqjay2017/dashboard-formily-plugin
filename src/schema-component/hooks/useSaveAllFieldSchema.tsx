@@ -18,6 +18,7 @@ import {
   dispatchFieldSchemaChange,
   dispatchInsert,
 } from "../components/DashboardRoot/utils";
+import { useUpdateDashboard } from "./useUpdateDashboard";
 const replaceKeys = {
   title: "title",
   description: "description",
@@ -42,11 +43,10 @@ const replaceKeys = {
 };
 
 export const useSaveAllFieldSchema = () => {
-  const apiClient = useAPIClient();
   const form = useForm();
   const fieldSchema = useFieldSchema();
   const { rootFieldSchema } = useDashboardRoot();
-  const { id } = useParams();
+  const { updateDashboard } = useUpdateDashboard();
 
   const saveLocalFieldState = ({
     address = "",
@@ -93,19 +93,15 @@ export const useSaveAllFieldSchema = () => {
   };
 
   const saveRemoteFieldSchema = async (schema?: Schema) => {
-    await apiClient.request({
-      url: "/huang-api/dashboard/" + id,
-      method: "put",
-      data: {
-        // id,
-        content: JSON.stringify({
-          type: "void",
-          properties: {
-            dashboardRoot: (schema || fieldSchema).toJSON(),
-          },
-        }),
-      },
+    await updateDashboard({
+      content: JSON.stringify({
+        type: "void",
+        properties: {
+          dashboardRoot: (schema || fieldSchema).toJSON(),
+        },
+      }),
     });
+
     dispatchFieldSchemaChange();
   };
   return {

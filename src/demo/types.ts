@@ -10,4 +10,5 @@ export interface DashboardItem {
     visits: number;
     submissions: number;
     shareURL: string;
+    coverThumbnail?: string;
 }

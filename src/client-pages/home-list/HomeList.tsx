@@ -4,8 +4,9 @@ import { get } from "lodash-es";
 import { DashboardItem } from "../../demo/types";
 import { Col, Dropdown, Row } from "antd";
 import { css } from "@emotion/css";
-import { DashOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { IoIosMore } from "react-icons/io";
+
+import { useNavigate } from "react-router-dom";
 
 import { showConfirmPromisify } from "../../schema-component/antd";
 
@@ -50,7 +51,7 @@ function FormCard({
       <div
         className={css`
           width: 272px;
-          height: 234px;
+          height: 207px;
           border: 1px solid #e9ecf1;
           background-color: #fff;
           box-sizing: border-box;
@@ -71,8 +72,12 @@ function FormCard({
           }}
           className={css`
             width: 100%;
-            height: 176px;
+            height: 151px;
             background: #f5f5f5;
+            background-image: url(${dashboard.coverThumbnail});
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
           `}
         ></div>
         <div
@@ -125,7 +130,7 @@ function FormCard({
               ],
             }}
           >
-            <DashOutlined />
+            <IoIosMore />
           </Dropdown>
         </div>
       </div>

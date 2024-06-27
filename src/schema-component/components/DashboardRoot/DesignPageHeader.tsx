@@ -1,7 +1,25 @@
 import { css } from "@emotion/css";
-import React from "react";
+import { Button, message } from "antd";
+import html2canvas from "html2canvas";
+
+import { useUpdateDashboard } from "../../hooks/useUpdateDashboard";
 
 export const DesignPageHeader = () => {
+  const { updateDashboard } = useUpdateDashboard();
+
+  const handleGenThumb = async () => {
+    const canvas = await html2canvas(document.getElementById("DashboardRoot"), {
+      scale: 0.1,
+    });
+    const data = canvas.toDataURL();
+    if (data) {
+      await updateDashboard({
+        coverThumbnail: data,
+      });
+      return message.success("生成成功");
+    }
+    message.error("生成失败");
+  };
   return (
     <div
       className={css`
@@ -33,7 +51,16 @@ export const DesignPageHeader = () => {
       >
         可视化大屏搭建
       </div>
-      {/* <div>保存</div> */}
+      <div>
+        <Button
+          type="primary"
+          onClick={() => {
+            handleGenThumb();
+          }}
+        >
+          生成封面
+        </Button>
+      </div>
     </div>
   );
 };
