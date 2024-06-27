@@ -155,3 +155,4 @@ export function Header1SchemeWrap(inject: any = {}) {
 Header1.schema = Header1SchemeWrap();
 
 export * from "./Header1SettingSchema";
+export * from "./Header1MenuItem";

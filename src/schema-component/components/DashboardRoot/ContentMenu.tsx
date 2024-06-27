@@ -4,6 +4,12 @@ import { cn } from "../../../utils";
 import { useState } from "react";
 
 import { useDraggable } from "@dnd-kit/core";
+import {
+  ClassicFrameMenuItem,
+  ProjectBudgetMenuItem,
+  StatisticMenuItem,
+} from "../../widgets";
+import { Header1MenuItem } from "../../banner";
 
 export type ElementsType = "ClassicFrame" | "Statistic";
 const menuItems = [
@@ -29,41 +35,13 @@ const menuItems = [
   },
 ];
 
-const subMenuItems0 = [
-  {
-    id: "0-jcbk",
-    label: "基础边框",
-    type: "ClassicFrame",
-    previewBg: "/assets/schema-component/ClassicFrame/WX20240603-234022@2x.png",
-  },
-];
+const subMenuItems0 = [ClassicFrameMenuItem];
 
-const subMenuItems2 = [
-  {
-    id: "2-tj",
-    label: "统计",
-    type: "Statistic",
-    previewBg: "/assets/schema-component/Statistics/WX20240606-163117.png",
-  },
-];
+const subMenuItems2 = [StatisticMenuItem];
 
-const subMenuItems3 = [
-  {
-    id: "3-toubu1",
-    label: "头部",
-    type: "Header1",
-    previewBg: "/assets/schema-component/Header1/header1.png",
-  },
-];
+const subMenuItems3 = [Header1MenuItem];
 
-const subMenuItems4 = [
-  {
-    id: "4-projectBudge",
-    label: "项目预算",
-    type: "ProjectBudget",
-    previewBg: "/assets/schema-component/Header1/header1.png",
-  },
-];
+const subMenuItems4 = [ProjectBudgetMenuItem];
 type SubMenuItems = (typeof subMenuItems0)[0];
 
 const subMenuItems = {
