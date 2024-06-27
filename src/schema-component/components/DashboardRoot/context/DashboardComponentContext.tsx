@@ -1,9 +1,5 @@
 import { createContext } from "react";
-import { DashboardComponentContextValue } from "../types";
+import { DashboardComponentContextValue } from "../../PositionDecorator/types";
 
-
-
-
-export const DashboardComponentContext = createContext<DashboardComponentContextValue>({
-
-})
+export const DashboardComponentContext =
+  createContext<DashboardComponentContextValue>({});

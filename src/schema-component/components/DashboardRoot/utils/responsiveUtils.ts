@@ -1,4 +1,5 @@
-import { BreakpointKey, Breakpoints } from "../types";
+import { BreakpointKey, Breakpoints } from "../../PositionDecorator/types";
+
 
 
 

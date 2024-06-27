@@ -1,4 +1,5 @@
-import { Breakpoints } from "../types";
+import { Breakpoints } from "../../PositionDecorator/types";
+
 
 
 

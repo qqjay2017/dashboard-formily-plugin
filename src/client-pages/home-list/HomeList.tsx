@@ -112,6 +112,14 @@ function FormCard({
                     method: "delete",
                   });
                   refetch && refetch();
+                  return;
+                }
+                if (key === "preview") {
+                  window.open(
+                    `/report/${dashboard.shareURL}`,
+                    `/report/${dashboard.shareURL}`
+                  );
+                  return;
                 }
               },
               items: [

@@ -6,8 +6,9 @@ import useResizeObserver from "use-resize-observer";
 import { debounce } from "lodash-es";
 
 
-import { BreakpointKey, Breakpoints } from "../types";
+
 import { defaultBreakpoints, getBreakpointFromWidth } from "../utils";
+import { BreakpointKey, Breakpoints } from "../../PositionDecorator/types";
 
 export const useBreakpoints = (
 

@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite'
+import { resolve } from 'path'
+
 import react from '@vitejs/plugin-react'
 // webpack monaco-editor-webpack-plugin
 // import monacoEditorPlugin from 'vite-plugin-monaco-editor';
@@ -6,6 +8,14 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(),],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        report: resolve(__dirname, 'src/report/index.html'),
+      },
+    },
+  },
   server: {
     proxy: {
       '/huang-api': {
