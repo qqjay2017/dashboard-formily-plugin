@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+
 import { useAPIClient } from "../../../../api-client";
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
+import { useToken } from "../../../../style";
 
 export const ProjectBudget = () => {
+  const { token } = useToken();
+
   const apiClient = useAPIClient();
+
   const { data, isLoading } = useQuery({
     queryKey: ["/api/bg/v1/fee/budget"],
     queryFn: () =>
@@ -33,7 +37,7 @@ export const ProjectBudget = () => {
         <div
           className={css`
             font-size: 0.16rem;
-            color: #fdffff;
+            color: ${token.nodeContentForeground};
             line-height: 0.16rem;
             opacity: 0.65;
           `}

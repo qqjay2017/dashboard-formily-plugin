@@ -114,28 +114,21 @@ export const DashboardRootPreview = ({
                 className={css`
                   width: 100vw;
                   height: 100vh;
-                  /* width: ${designWidth}px;
-                  height: ${designHeight}px; */
-                  transform: scale(${designZoom});
-                  border-color: #373739;
-                  transition: all 0.4s;
                   position: relative;
-                  transform-origin: left top;
                   background-size: cover;
-                  overflow: hidden;
+                  overflow-x: hidden;
+                  overflow-y: auto;
                 `}
               >
                 <div
                   className={css`
                     width: 100vw;
                     height: 100vh;
-                    min-height: 600px;
-                    /* width: ${designWidth}px;
-                    height: ${designHeight}px; */
+                    min-height: 44vw;
                   `}
                 >
                   <div
-                    {...otherProps}
+                    // {...otherProps}
                     id="DashboardRoot"
                     ref={ref}
                     className={cn(
