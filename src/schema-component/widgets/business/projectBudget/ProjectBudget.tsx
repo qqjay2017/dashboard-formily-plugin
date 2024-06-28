@@ -6,8 +6,9 @@ import { css } from "@emotion/css";
 import { useToken } from "@/style";
 import { CountTo } from "@/schema-component/components";
 import { FeeListItem, getPieOption } from "./getPieOption";
+import { memo, useMemo } from "react";
 
-export const ProjectBudget = () => {
+export const ProjectBudget = memo(() => {
   const { token } = useToken();
 
   const apiClient = useAPIClient();
@@ -22,6 +23,11 @@ export const ProjectBudget = () => {
   });
   const amount = get(data, "data.data.totalBudget", "0");
   const feeList: FeeListItem[] = get(data, "data.data.feeList", []);
+  const option = useMemo(() => {
+    return getPieOption({
+      feeList,
+    });
+  }, [feeList.length]);
   if (isLoading) {
     return null;
   }
@@ -75,13 +81,11 @@ export const ProjectBudget = () => {
             width: "100%",
             height: "100%",
           }}
-          option={getPieOption({
-            feeList,
-          })}
+          option={option}
         />
       </div>
     </div>
   );
-};
+});
 
 ProjectBudget.displayName = "ProjectBudget";

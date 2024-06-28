@@ -2,6 +2,8 @@ import type { EChartsOption } from 'echarts'
 import * as echarts from 'echarts'
 import Decimal from 'decimal.js'
 import { getPercent } from '@/schema-component/utils';
+
+
 export interface FeeListItem {
     name: string;
     value: number;
@@ -14,32 +16,49 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
         return memo
     }, new Decimal(0)).toNumber()
     return {
-        tooltip: {},
+        tooltip: {
+            appendTo: () => document.body,
+            borderWidth: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.50)', // 设置背景图片 rgba格式
+            textStyle: {
+                align: 'left',
+                color: 'rgba(255, 255, 255, 1)', // 设置文字颜色
+            },
+            trigger: "item",
+            axisPointer: {
+
+                type: 'none',
+            },
+            valueFormatter: (value: number) => {
+                return `${value}万元  ` + `   占比${getPercent(value, total, { fixed: 2 })}%`
+            },
+
+        },
         series: [{
             name: '',
             type: 'pie',
 
-            radius: ["80%", "80%"],
+            radius: ["55%", "55%"],
             label: {
                 show: true,
                 position: 'outside',
-                color: '#ddd',
+
+
                 formatter: (params: any) => {
+
+                    if (!params.name) {
+                        return ""
+                    }
                     console.log(params, 'params')
                     const percent = getPercent(params.value, total, {
                         fixed: 2
                     });
-                    if (params.name !== '') {
-                        return params.name + '\n{white|' + '占比' + percent + '%}';
-                    } else {
-                        return '';
-                    }
+                    return `${params.name}\n{white|${params.value}万} {white|${percent}%}`;
                 },
                 rich: {
                     white: {
-                        color: '#ddd',
                         align: 'center',
-                        padding: [5, 0]
+                        padding: [5, 2]
                     }
                 }
             },
@@ -48,9 +67,17 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
             },
 
             data: feeList.reduce((memo, fee) => {
+                console.log(fee, 'fee')
+
                 memo.push({
                     ...fee,
+                    label: {
+                        show: true,
+                        color: getNameColor(fee.name),
+                    },
                     itemStyle: {
+
+                        color: getNameColor(fee.name),
                         borderWidth: 5,
                         shadowBlur: 30,
                         borderColor: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
@@ -66,10 +93,11 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
                 memo.push({
                     value: total * 0.04,
                     name: '',
+                    label: {
+                        show: false
+                    },
                     itemStyle: {
-                        label: {
-                            show: false
-                        },
+
                         labelLine: {
                             show: false
                         },
@@ -84,4 +112,21 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
 
         }]
     }
+}
+
+
+function getNameColor(name = '') {
+    if (name === '人工') {
+        return "#A4FCEE"
+    }
+    if (name === '机械') {
+        return "#84A6FF"
+    }
+    if (name === '费用') {
+        return "#76F5B0"
+    }
+    if (name === '材料') {
+        return "#64B7FB"
+    }
+    return "#64B7FB"
 }
