@@ -17,7 +17,7 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
     }, new Decimal(0)).toNumber()
     return {
         tooltip: {
-            appendTo: () => document.body,
+            confine: true,
             borderWidth: 0,
             backgroundColor: 'rgba(0, 0, 0, 0.50)', // 设置背景图片 rgba格式
             textStyle: {

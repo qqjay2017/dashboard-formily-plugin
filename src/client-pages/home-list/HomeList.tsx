@@ -2,11 +2,12 @@ import { APiWrap, useAPIClient, useRequest } from "../../api-client/hooks";
 import { get } from "lodash-es";
 
 import { DashboardItem } from "../../demo/types";
-import { Col, Dropdown, Row, message } from "antd";
+import { Button, Col, Dropdown, Row, message } from "antd";
 import { css } from "@emotion/css";
 import { IoIosMore } from "react-icons/io";
 
 import { useNavigate } from "react-router-dom";
+import { FormDialog, FormItem, FormLayout, Input } from "@formily/antd-v5";
 
 import {
   showConfirmPromisify,
@@ -15,6 +16,7 @@ import {
 import { useApp } from "@/application";
 import { updateDashboardFormSchema } from "./createDashboardFormSchema";
 import { useReportShare } from "./useReportShare";
+import { copyTextToClipboard } from "@/utils";
 
 export const HomeList = () => {
   const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
@@ -112,8 +114,40 @@ function FormCard({
             {dashboard.name}
           </div>
           <Dropdown
+            trigger={["click"]}
             menu={{
               onClick: async ({ key }) => {
+                if (key === "share") {
+                  const url = `${window.location.origin}/report/${dashboard.shareURL}`;
+                  const dialog = FormDialog(
+                    {
+                      title: "分享链接",
+
+                      footer: null,
+                    },
+                    () => {
+                      return (
+                        <div>
+                          <Input.TextArea value={url} disabled />
+                          <Button
+                            block
+                            type="primary"
+                            style={{
+                              marginTop: "16px",
+                            }}
+                            onClick={() => {
+                              copyTextToClipboard(url);
+                            }}
+                          >
+                            复制链接
+                          </Button>
+                        </div>
+                      );
+                    }
+                  );
+                  dialog.open();
+                  return;
+                }
                 if (key === "delete") {
                   await showConfirmPromisify({});
                   await apiClient.request({
@@ -166,7 +200,7 @@ function FormCard({
                   label: "预览",
                 },
                 {
-                  key: "shared",
+                  key: "share",
                   label: "分享",
                 },
                 {
