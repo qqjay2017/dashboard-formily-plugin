@@ -49,8 +49,6 @@ export function AuthContextProvider({
     if (Authing.isRedirectCallback() || (!manual && !Authing.getLoginState())) {
       appSpin.render();
       authing.handleRedirectCallback().then((userInfo) => {
-        console.log(userInfo, "userInfo");
-
         setIsLoading(!Authing.getLoginState());
         setAuthenticated(Authing.getLoginState());
         userInfo && userInfo.id && setUserInfoFromSession(userInfo);

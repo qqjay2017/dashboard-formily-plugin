@@ -67,7 +67,7 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
             },
 
             data: feeList.reduce((memo, fee) => {
-                console.log(fee, 'fee')
+
 
                 memo.push({
                     ...fee,

@@ -6,7 +6,6 @@ import React from "react";
 
 export const DecoratorPaddingFormItem = observer(
   ({ value, onChange }: FormItemComponentProps) => {
-    console.log(value, "value");
     return (
       <div
         className={css`
