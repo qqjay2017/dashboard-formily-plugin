@@ -49,7 +49,7 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
                     if (!params.name) {
                         return ""
                     }
-                    console.log(params, 'params')
+
                     const percent = getPercent(params.value, total, {
                         fixed: 2
                     });
