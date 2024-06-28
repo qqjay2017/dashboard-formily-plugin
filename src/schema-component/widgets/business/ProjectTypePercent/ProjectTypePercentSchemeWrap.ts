@@ -1,11 +1,12 @@
+
 import { Schema } from "@formily/react";
 
-export function ProjectBudgetSchemeWrap(inject: any = {}) {
+export function ProjectTypePercentSchemeWrap(inject: any = {}) {
     return new Schema({
         _isJSONSchemaObject: true,
         version: "2.0",
         type: "void",
-        "x-component": "ProjectBudget",
+        "x-component": "ProjectTypePercent",
         "x-settings": "settings:block",
         "x-decorator": "PositionDecorator",
         "x-component-props": {

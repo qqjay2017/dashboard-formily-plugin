@@ -10,6 +10,7 @@ import {
   StatisticMenuItem,
 } from "../../../widgets";
 import { Header1MenuItem } from "../../../banner";
+import { SubMenuItems, allSubMenuItems } from "../allMenuItem";
 
 export type ElementsType = "ClassicFrame" | "Statistic";
 const menuItems = [
@@ -34,22 +35,6 @@ const menuItems = [
     label: "业务",
   },
 ];
-
-const subMenuItems0 = [ClassicFrameMenuItem];
-
-const subMenuItems2 = [StatisticMenuItem];
-
-const subMenuItems3 = [Header1MenuItem];
-
-const subMenuItems4 = [ProjectBudgetMenuItem];
-type SubMenuItems = (typeof subMenuItems0)[0];
-
-const subMenuItems = {
-  0: subMenuItems0,
-  2: subMenuItems2,
-  3: subMenuItems3,
-  4: subMenuItems4,
-};
 
 const useContentMenuStyles = createStyles(({ css, token }) => {
   return css`
@@ -131,7 +116,7 @@ export const ContentMenu = () => {
           align-items: center;
         `}
       >
-        {(subMenuItems[activeMenuItem] || []).map(
+        {(allSubMenuItems[activeMenuItem] || []).map(
           (subMenuItem: SubMenuItems) => {
             return (
               <SubMenuItemCom
@@ -162,6 +147,7 @@ const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
       key={subMenuItem.id}
       className={css`
         reset: all;
+        padding: 0;
         width: 180px;
         height: 140px;
         overflow: hidden;
@@ -172,6 +158,7 @@ const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
         margin: 0;
         background-color: #232324;
         touch-action: none;
+        margin-bottom: 16px;
       `}
       {...draggable.listeners}
       {...draggable.attributes}

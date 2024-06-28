@@ -2,7 +2,7 @@ import { ISchema } from "@formily/react";
 import { DecoratorPaddingFormItem } from "./DecoratorPaddingFormItem";
 import { PositionDecoratorFormItem } from "./PositionDecoratorFormItem";
 
-export const positionDecoratorFormItemSchema: ISchema['properties'] = {
+export const positionDecoratorFormItemSchema = {
     decoratorProps: {
         type: "object",
         title: "位置/尺寸信息",

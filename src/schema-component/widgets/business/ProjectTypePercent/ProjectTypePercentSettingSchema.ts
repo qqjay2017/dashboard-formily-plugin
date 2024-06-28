@@ -3,7 +3,7 @@ import { ISchema } from "@formily/react";
 
 
 
-export const ProjectBudgetSettingSchema: ISchema = {
+export const ProjectTypePercentSettingSchema: ISchema = {
     type: "object",
     properties: {
         ...getCompomentTypeInfoSchema(),
