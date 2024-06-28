@@ -7,7 +7,7 @@ import {
 } from "@formily/antd-v5";
 import { SchemaOptionsContext, useForm } from "@formily/react";
 import { memo, useContext, useMemo } from "react";
-import { SchemaComponent } from "../../core";
+import { SchemaComponent } from "../../../core";
 import { ConfigProvider } from "antd";
 
 import { css } from "@emotion/css";
@@ -16,7 +16,7 @@ const address = "dashboardRoot";
 
 import { ISchema } from "@formily/react";
 import { createForm, onFormValuesChange } from "@formily/core";
-import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
+import { useSaveAllFieldSchema } from "../../../hooks/useSaveAllFieldSchema";
 
 const dashboardRootFormSchema: ISchema = {
   type: "object",

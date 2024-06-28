@@ -89,9 +89,10 @@ export function StatisticSchemeWrap(inject: any = {}) {
 
     ...inject,
     "x-decorator-props": {
-      ...inject?.["x-decorator-props"],
       w: 1,
       h: 1,
+      padding: [0, 0, 0, 0],
+      ...inject?.["x-decorator-props"],
     },
   });
 }

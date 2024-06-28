@@ -1,25 +1,13 @@
 import { css } from "@emotion/css";
 import { SchemaOptionsContext, useForm } from "@formily/react";
 import { ConfigProvider } from "antd";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { useSaveAllFieldSchema } from "../../hooks";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { useSaveAllFieldSchema } from "../../../hooks";
 import { createForm } from "@formily/core";
-import {
-  Form,
-  FormButtonGroup,
-  FormLayout,
-  Reset,
-  Submit,
-} from "@formily/antd-v5";
-import { SchemaComponent } from "../../core";
-import { allComponentTypeSettingSchema } from "./allComponentTypeSettingSchema";
-import { dispatchInsert } from "./utils";
+import { Form, FormButtonGroup, Reset, Submit } from "@formily/antd-v5";
+import { SchemaComponent } from "../../../core";
+import { allComponentTypeSettingSchema } from "../allComponentTypeSettingSchema";
+import { dispatchInsert } from "../utils";
 import { uid } from "@formily/shared";
 
 export const DesignComponentSetting = ({ address }: { address: string }) => {
@@ -47,6 +35,7 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
         formId,
         ...dashboardRootConfig?.componentProps,
         decoratorProps: dashboardRootConfig?.decoratorProps,
+        decoratorPadding: dashboardRootConfig?.decoratorProps?.padding || [],
         componentType,
         componentAddress: address,
       },
@@ -121,7 +110,11 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
             <FormButtonGroup gutter={24} align="right">
               <Reset>重置</Reset>
               <Submit
-                onSubmit={async ({ decoratorProps, ...values }) => {
+                onSubmit={async ({
+                  decoratorProps,
+                  decoratorPadding,
+                  ...values
+                }) => {
                   saveLocalFieldState({
                     address,
                     schema: {
@@ -130,6 +123,10 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
                       },
                       "x-decorator-props": {
                         ...decoratorProps,
+                        padding:
+                          decoratorPadding ||
+                          decoratorProps?.padding ||
+                          undefined,
                       },
                     },
                   });

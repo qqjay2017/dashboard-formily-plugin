@@ -8,7 +8,7 @@ import { FormDialogPortal, useFormDialog } from "../../schema-component";
 import { APiWrap } from "../../api-client";
 import { dashboardRootWrap } from "../../schema-component";
 import { get } from "lodash-es";
-import { createDashboardFormSchema } from "./createDashboardFormSchema";
+import { createDashboardFormSchema } from "@/client-pages/home-list/createDashboardFormSchema";
 
 export const CreateFormBtn = () => {
   const navigate = useNavigate();

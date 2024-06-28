@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Moveable from "react-moveable";
 import Selecto from "react-selecto";
-import { selectedTargetsStore } from "./selectedTargetsStore";
+import { selectedTargetsStore } from "../selectedTargetsStore";
 import { diff } from "@egjs/children-differ";
 import { observer } from "@formily/reactive-react";
-import { useDesignPageConext } from "./context";
+import { useDesignPageConext } from "../context";
 export const Selectable = observer(
   ({
     selectoRef,

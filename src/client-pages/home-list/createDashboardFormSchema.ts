@@ -34,3 +34,25 @@ export const createDashboardFormSchema: ISchema = {
         },
     },
 };
+
+
+export const updateDashboardFormSchema: ISchema = {
+    type: "object",
+    properties: {
+        name: {
+            type: "string",
+            title: "名称",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "Input",
+        },
+
+        description: {
+            type: "string",
+            title: "描述",
+            required: true,
+            "x-decorator": "FormItem",
+            "x-component": "Input.TextArea",
+        },
+    },
+};

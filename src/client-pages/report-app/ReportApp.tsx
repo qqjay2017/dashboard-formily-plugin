@@ -4,7 +4,7 @@ import {
   DashboardPreviewPlugin,
   KxgcAuthPlugin,
 } from "../../plugins";
-import { DashboardRootPreview } from "../../schema-component/components/DashboardRoot/DashboardRootPreview";
+import { DashboardRootPreview } from "../../schema-component/components/DashboardRoot/components/DashboardRootPreview";
 import { PositionDecoratorPreview } from "../../schema-component/components/PositionDecorator/PositionDecoratorPreview";
 import { PreviewPage } from "../preview-page";
 

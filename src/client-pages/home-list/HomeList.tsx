@@ -2,13 +2,19 @@ import { APiWrap, useAPIClient, useRequest } from "../../api-client/hooks";
 import { get } from "lodash-es";
 
 import { DashboardItem } from "../../demo/types";
-import { Col, Dropdown, Row } from "antd";
+import { Col, Dropdown, Row, message } from "antd";
 import { css } from "@emotion/css";
 import { IoIosMore } from "react-icons/io";
 
 import { useNavigate } from "react-router-dom";
 
-import { showConfirmPromisify } from "../../schema-component/antd";
+import {
+  showConfirmPromisify,
+  useFormDialog,
+} from "../../schema-component/antd";
+import { useApp } from "@/application";
+import { updateDashboardFormSchema } from "./createDashboardFormSchema";
+import { useReportShare } from "./useReportShare";
 
 export const HomeList = () => {
   const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
@@ -42,6 +48,9 @@ function FormCard({
 }) {
   const navigate = useNavigate();
   const apiClient = useAPIClient();
+  const app = useApp();
+  const { reportShare } = useReportShare();
+  const { getFormDialog } = useFormDialog();
   return (
     <div
       className={css`
@@ -115,10 +124,39 @@ function FormCard({
                   return;
                 }
                 if (key === "preview") {
-                  window.open(
-                    `/report/${dashboard.shareURL}`,
-                    `/report/${dashboard.shareURL}`
+                  return reportShare(dashboard.shareURL);
+                }
+                if (key === "edit") {
+                  const dialog = getFormDialog(
+                    "新建",
+                    updateDashboardFormSchema
                   );
+                  dialog
+                    .forOpen((payload, next) => {
+                      next({
+                        initialValues: {
+                          name: dashboard.name,
+                          description: dashboard.description,
+                        },
+                      });
+                    })
+                    .forConfirm(async (payload, next) => {
+                      const { name, description } = payload.values;
+                      await app.apiClient.request<any, APiWrap<{ id: number }>>(
+                        {
+                          url: `/huang-api/dashboard/${dashboard.id}`,
+                          method: "PUT",
+                          data: {
+                            name,
+                            description,
+                          },
+                        }
+                      );
+                      message.success("修改成功");
+                      refetch && refetch();
+                      next(payload);
+                    })
+                    .open();
                   return;
                 }
               },
@@ -130,6 +168,10 @@ function FormCard({
                 {
                   key: "shared",
                   label: "分享",
+                },
+                {
+                  key: "edit",
+                  label: "编辑",
                 },
                 {
                   key: "delete",

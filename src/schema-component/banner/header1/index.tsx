@@ -144,10 +144,10 @@ export function Header1SchemeWrap(inject: any = {}) {
 
     ...inject,
     "x-decorator-props": {
-      ...inject?.["x-decorator-props"],
       w: 12,
       h: 1.33,
-      padding: 0,
+      padding: [0, 0, 0, 0],
+      ...inject?.["x-decorator-props"],
     },
   });
 }

@@ -7,25 +7,21 @@ import { useContext } from "react";
 import { RecursionField, SchemaOptionsContext } from "@formily/react";
 import { RecursionSchemaComponentWrap } from "../../schema-component/core";
 import { useAppSpin } from "../../application";
+import { useDashboardDt } from "./useDashboardDt";
 
 export const DesignPage = () => {
-  const { id } = useParams();
-
   const { render } = useAppSpin();
   const options = useContext(SchemaOptionsContext);
-  const { data, isLoading } = useRequest<APiWrap<DashboardItem>>(
-    `/huang-api/dashboard/${id}`,
-    {
-      method: "GET",
-      refreshDeps: [id],
-    }
-  );
+  const { data, isLoading } = useDashboardDt();
   const schema = get(data, "data.data.content", "");
 
   return (
     <RecursionSchemaComponentWrap
       components={options.components}
-      scope={options.scope}
+      scope={{
+        ...options.scope,
+        dashboardDt: get(data, "data.data", {}),
+      }}
     >
       {!schema || isLoading ? (
         render()

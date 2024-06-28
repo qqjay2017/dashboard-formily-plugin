@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import Moveable from "react-moveable";
 
 import { useForm } from "@formily/react";
-import { useSaveAllFieldSchema } from "../../hooks/useSaveAllFieldSchema";
-import { eidToElementId, elementIdToEid } from "../../../utils";
-import { sizeFormat } from "./utils";
-import { useDashboardRoot } from "./hooks";
+import { useSaveAllFieldSchema } from "../../../hooks/useSaveAllFieldSchema";
+import { eidToElementId, elementIdToEid } from "../../../../utils";
+import { sizeFormat } from "../utils";
+import { useDashboardRoot } from "../hooks";
 
 import { observer } from "@formily/reactive-react";
-import { selectedTargetsStore } from "./selectedTargetsStore";
-import { useDesignPageConext } from "./context";
+import { selectedTargetsStore } from "../selectedTargetsStore";
+import { useDesignPageConext } from "../context";
 import { uid } from "@formily/shared";
 import Selecto from "react-selecto";
 

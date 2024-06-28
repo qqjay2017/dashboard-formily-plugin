@@ -1,9 +1,9 @@
 import { observer } from "@formily/reactive-react";
 
 // import { RootComponentSetting } from "./RootComponentSetting";
-import { selectedTargetsStore } from "./selectedTargetsStore";
+import { selectedTargetsStore } from "../selectedTargetsStore";
 import { DesignComponentSetting } from "./DesignComponentSetting";
-import { elementIdToEid } from "../../../utils";
+import { elementIdToEid } from "../../../../utils";
 
 export const SchemaComponentSetting = observer(() => {
   const selectedTargets: any[] = selectedTargetsStore.value;

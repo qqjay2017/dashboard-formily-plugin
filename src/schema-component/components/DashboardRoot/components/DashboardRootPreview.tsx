@@ -1,15 +1,15 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
-import { DashboardRootContext, DesignPageConext } from "./context";
+import { DashboardRootContext, DesignPageConext } from "../context";
 import { ConfigProvider, theme } from "antd";
-import { defaultBreakpoints, flexible, sizeFormat } from "./utils";
+import { defaultBreakpoints, flexible, sizeFormat } from "../utils";
 import { DashboardRootProps, MemorizedRecursionField } from "./DashboardRoot";
-import { allThemeNameMap } from "../../../dashboard-themes";
-import { ThemeCSSVariableProvider } from "../../../css-variable";
-import { useBreakpoints, useRowProperties } from "./hooks";
+import { allThemeNameMap } from "../../../../dashboard-themes";
+import { ThemeCSSVariableProvider } from "../../../../css-variable";
+import { useBreakpoints, useRowProperties } from "../hooks";
 import { useFieldSchema } from "@formily/react";
 import { css } from "@emotion/css";
-import { cn } from "../../../utils";
-import { useDashboardRootStyle } from "./styles";
+import { cn } from "../../../../utils";
+import { useDashboardRootStyle } from "../styles";
 
 export const DashboardRootPreview = ({
   children,

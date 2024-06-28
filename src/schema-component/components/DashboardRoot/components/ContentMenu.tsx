@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import { createStyles } from "antd-style";
-import { cn } from "../../../utils";
+import { cn } from "../../../../utils";
 import { useState } from "react";
 
 import { useDraggable } from "@dnd-kit/core";
@@ -8,8 +8,8 @@ import {
   ClassicFrameMenuItem,
   ProjectBudgetMenuItem,
   StatisticMenuItem,
-} from "../../widgets";
-import { Header1MenuItem } from "../../banner";
+} from "../../../widgets";
+import { Header1MenuItem } from "../../../banner";
 
 export type ElementsType = "ClassicFrame" | "Statistic";
 const menuItems = [

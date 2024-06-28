@@ -9,7 +9,7 @@ import {
 } from "@formily/react";
 import { useParams } from "react-router-dom";
 import { get, set } from "lodash-es";
-import { ElementsType } from "../components/DashboardRoot/ContentMenu";
+import { ElementsType } from "../components/DashboardRoot/components/ContentMenu";
 import { uid } from "@formily/shared";
 import { ClassicFrame, ClassicFrameSchemeWrap } from "../widgets";
 import { useSchemaComponentContext } from "./useSchemaComponentContext";

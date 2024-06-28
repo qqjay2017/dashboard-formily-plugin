@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { ConfigProvider, Select, Slider } from "antd";
 import { css } from "@emotion/css";
 
-import { useDashboardRoot } from "./hooks";
-import { useDesignPageConext } from "./context";
+import { useDashboardRoot } from "../hooks";
+import { useDesignPageConext } from "../context";
 
 export const CanvasSetting = ({
   handleViewPortFit,

@@ -9,29 +9,29 @@ import React, {
   useState,
 } from "react";
 
-import { defaultBreakpoints, flexible, sizeFormat } from "./utils";
-import { useSchemaComponentContext } from "../../hooks";
+import { defaultBreakpoints, flexible, sizeFormat } from "../utils";
+import { useSchemaComponentContext } from "../../../hooks";
 import {
   RecursionField,
   observer,
   useField,
   useFieldSchema,
 } from "@formily/react";
-import { useBreakpoints, useRowProperties } from "./hooks";
-import { allThemeNameMap } from "../../../dashboard-themes";
-import { useDashboardRootStyle } from "./styles";
+import { useBreakpoints, useRowProperties } from "../hooks";
+import { allThemeNameMap } from "../../../../dashboard-themes";
+import { useDashboardRootStyle } from "../styles";
 
-import { DashboardRootContext, DesignPageConext } from "./context";
-import { cn } from "../../../utils";
+import { DashboardRootContext, DesignPageConext } from "../context";
+import { cn } from "../../../../utils";
 
 import { ConfigProvider, theme } from "antd";
-import { ThemeCSSVariableProvider } from "../../../css-variable";
+import { ThemeCSSVariableProvider } from "../../../../css-variable";
 
 import { MoveableManage } from "./MoveableManage";
 import { uid } from "@formily/shared";
 import { css } from "@emotion/css";
 import { DesignPageHeader } from "./DesignPageHeader";
-import { CanvasSetting } from "./CanvasSetting";
+
 import { SchemaComponentSetting } from "./SchemaComponentSetting";
 import {
   ContentMenu,
@@ -49,11 +49,12 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { useInsertSchemaComponent } from "../../hooks/useSaveAllFieldSchema";
+import { useInsertSchemaComponent } from "../../../hooks/useSaveAllFieldSchema";
 
 import Selecto from "react-selecto";
 import { Selectable } from "./Selectable";
 import Moveable from "react-moveable";
+import { CanvasSetting } from "./CanvasSetting";
 
 export const MemorizedRecursionField = memo(RecursionField);
 MemorizedRecursionField.displayName = "MemorizedRecursionField";

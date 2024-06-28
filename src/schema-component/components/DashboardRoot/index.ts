@@ -1,4 +1,4 @@
-export * from './DashboardRoot'
+export * from './components/DashboardRoot'
 export * from './hooks'
 export * from './allComponentTypeSettingSchema'
 export * from './allComponentTypInitSchema'

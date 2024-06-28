@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { FormItemComponentProps } from "../../../types";
+import { FormItemComponentProps } from "../../../../types";
 import { InputNumber } from "antd";
 import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
@@ -66,6 +66,17 @@ export const PositionDecoratorFormItem = observer(
             }}
           />
         </PositionItemWrap>
+        {/* <PositionItemWrap>
+          <div>
+            <div
+              className={css`
+                width: 40px;
+                height: 15px;
+                background-color: #7fadb9;
+              `}
+            ></div>
+          </div>
+        </PositionItemWrap> */}
       </div>
     );
   }
