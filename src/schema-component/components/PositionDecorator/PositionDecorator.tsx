@@ -60,7 +60,13 @@ export const PositionDecoratorHandle = memo(
       if (padding) {
         s.padding = Array.isArray(padding)
           ? padding
-              .map((p) => (typeof p === "number" ? (p || 0) + "px" : p))
+              .map((p) =>
+                typeof p === "number"
+                  ? p >= 0
+                    ? `${p / 100}rem`
+                    : (p || 0) + "px"
+                  : p
+              )
               .join(" ")
           : padding;
       }
