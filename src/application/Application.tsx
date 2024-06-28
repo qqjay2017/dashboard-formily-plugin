@@ -88,6 +88,7 @@ export class Application {
       client: new QueryClient({
         defaultOptions: {
           queries: {
+            refetchOnWindowFocus: false,
             retry: false,
           },
         },

@@ -23,10 +23,20 @@ export const greenToken = {
 }
 
 export const greenDarkToken = {
+    textCommon: "#C3D4E5",
+    textNumBlue: "#64E3FF",
+    textNumGreen: "#59FFCD",
+    textNumRed: "#FF7777",
+
     nodeContentForeground: "#96CDFF",
     nodeContentBg: 'rgba(4, 73, 73, 0.60)',
 }
 export const greenLightToken = {
+    textCommon: "#333",
+    textNumBlue: "#6998F3",
+    textNumGreen: "#47D107",
+    textNumRed: "#FF7777",
+
     nodeContentForeground: "#007350",
     nodeContentBg: "rgba(255, 255, 255, 0.2)"
 }

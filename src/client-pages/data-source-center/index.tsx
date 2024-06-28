@@ -36,7 +36,18 @@ export const DataSourceCenter = () => {
       },
       () => {
         return (
-          <QueryClientProvider client={new QueryClient()}>
+          <QueryClientProvider
+            client={
+              new QueryClient({
+                defaultOptions: {
+                  queries: {
+                    refetchOnWindowFocus: false,
+                    retry: false,
+                  },
+                },
+              })
+            }
+          >
             <ApiTest apiId={apiId} />
           </QueryClientProvider>
         );

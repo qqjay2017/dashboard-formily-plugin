@@ -18,6 +18,11 @@ const PagePlugin = (): PluginOption => ({
   },
 })
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src') // 路径别名
+    }
+  },
   plugins: [react(), PagePlugin()],
   build: {
     rollupOptions: {

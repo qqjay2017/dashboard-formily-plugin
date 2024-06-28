@@ -19,14 +19,24 @@ export const technologyBlueToken = {
     frame: {
         startColor: "#154c8d",
         endColor: "rgba(21, 76, 141, 0.14)"
-    }
+    },
+
 }
 
 export const technologyBlueDarkToken = {
+    textCommon: "#C3D4E5",
+
+    textNumBlue: "#64E3FF",
+    textNumGreen: "#59FFCD",
+    textNumRed: "#FF7777",
     nodeContentForeground: "#C3D4E5",
     nodeContentBg: 'rgba(0, 26, 58, 0.8)',
 }
 export const technologyBlueLightToken = {
+    textCommon: "#333",
+    textNumBlue: "#6998F3",
+    textNumGreen: "#47D107",
+    textNumRed: "#FF7777",
     nodeContentForeground: "#333333",
     nodeContentBg: "rgba(234, 243, 255, 0.8)"
 }

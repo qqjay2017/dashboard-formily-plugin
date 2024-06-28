@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-
+import ReactECharts from "echarts-for-react";
 import { useAPIClient } from "../../../../api-client";
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
-import { useToken } from "../../../../style";
+import { useToken } from "@/style";
+import { CountTo } from "@/schema-component/components";
+import { FeeListItem, getPieOption } from "./getPieOption";
 
 export const ProjectBudget = () => {
   const { token } = useToken();
@@ -19,27 +21,34 @@ export const ProjectBudget = () => {
       }),
   });
   const amount = get(data, "data.data.totalBudget", "0");
+  const feeList: FeeListItem[] = get(data, "data.data.feeList", []);
+  if (isLoading) {
+    return null;
+  }
   return (
     <div
       className={css`
         width: 100%;
         height: 100%;
+        padding: 0.2rem 0.1rem;
       `}
     >
       <div
         className={css`
           width: 100%;
+          height: 0.36rem;
           display: flex;
           align-items: center;
-          justify-content: space-around;
+          justify-content: center;
         `}
       >
         <div
           className={css`
             font-size: 0.16rem;
-            color: ${token.nodeContentForeground};
+            color: ${token.textCommon};
             line-height: 0.16rem;
             opacity: 0.65;
+            margin-right: 0.16rem;
           `}
         >
           在建项目总预算（万元）
@@ -48,11 +57,29 @@ export const ProjectBudget = () => {
           className={css`
             font-family: Digiface;
             font-size: 0.36rem;
-            color: #49ffdf;
+            color: ${token.textNumGreen};
           `}
         >
-          {amount}
+          <CountTo endVal={amount || 0} />
+          {/* {amount} */}
         </div>
+      </div>
+      <div
+        className={css`
+          width: 100%;
+          margin-top: 0.16rem;
+          height: calc(100% - 0.52rem);
+        `}
+      >
+        <ReactECharts
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          option={getPieOption({
+            feeList,
+          })}
+        />
       </div>
     </div>
   );

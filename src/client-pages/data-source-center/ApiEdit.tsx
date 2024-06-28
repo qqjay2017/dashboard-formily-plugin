@@ -82,7 +82,18 @@ export const ApiEdit = () => {
       },
       () => {
         return (
-          <QueryClientProvider client={new QueryClient()}>
+          <QueryClientProvider
+            client={
+              new QueryClient({
+                defaultOptions: {
+                  queries: {
+                    refetchOnWindowFocus: false,
+                    retry: false,
+                  },
+                },
+              })
+            }
+          >
             <ApiTest formValues={values} />
           </QueryClientProvider>
         );

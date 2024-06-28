@@ -47,6 +47,7 @@ export interface CustomToken extends AliasToken {
    */
   nodeContentBg: string;
   nodeContentForeground: string;
+
   textWhite: string;
   textCommon: string;
   textLight: string;
@@ -60,6 +61,9 @@ export interface CustomToken extends AliasToken {
   themeProvider: string;
   isDarkTheme?: boolean;
   themeAssetsPath: string;
+  textNumBlue: string;
+  textNumGreen: string;
+  textNumRed: string;
 }
 
 type CustomToken1 = CustomToken;
