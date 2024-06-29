@@ -1,6 +1,6 @@
 import { Schema } from "@formily/react";
 import { createStyles, useTheme } from "antd-style";
-import { cn, rs } from "../../../utils";
+import { cn, rs } from "@/utils";
 import { css } from "@emotion/css";
 import { PropsWithChildren, useMemo } from "react";
 

@@ -2,6 +2,7 @@ import { Plugin } from "../../application";
 import {
   ClassicFrame,
   Header1,
+  HeaderMenu,
   ProjectBudget,
   ProjectTypePercent,
   Statistic,
@@ -15,6 +16,7 @@ export class DashboardPreviewPlugin extends Plugin {
       Header1,
       ProjectBudget,
       ProjectTypePercent,
+      HeaderMenu,
     });
   }
 }

@@ -4,12 +4,7 @@ import { cn } from "../../../../utils";
 import { useState } from "react";
 
 import { useDraggable } from "@dnd-kit/core";
-import {
-  ClassicFrameMenuItem,
-  ProjectBudgetMenuItem,
-  StatisticMenuItem,
-} from "../../../widgets";
-import { Header1MenuItem } from "../../../banner";
+
 import { SubMenuItems, allSubMenuItems } from "../allMenuItem";
 
 export type ElementsType = "ClassicFrame" | "Statistic";

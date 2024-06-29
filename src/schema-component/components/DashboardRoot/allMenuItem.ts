@@ -1,6 +1,6 @@
 
-import { Header1MenuItem } from '../../banner'
-import { ClassicFrameMenuItem, ProjectBudgetMenuItem, ProjectTypePercentMenuItem, StatisticMenuItem } from '../../widgets'
+
+import { ClassicFrameMenuItem, ProjectBudgetMenuItem, ProjectTypePercentMenuItem, StatisticMenuItem, Header1MenuItem, HeaderMenuMenuItem } from '../../widgets'
 
 export const allMenuItem = {
 
@@ -9,14 +9,15 @@ export const allMenuItem = {
     ClassicFrame: ClassicFrameMenuItem,
     Statistic: StatisticMenuItem,
     ProjectBudget: ProjectBudgetMenuItem,
-    ProjectTypePercent: ProjectTypePercentMenuItem
+    ProjectTypePercent: ProjectTypePercentMenuItem,
+    HeaderMenu: HeaderMenuMenuItem
 }
 
 const subMenuItems0 = [ClassicFrameMenuItem];
 
 const subMenuItems2 = [StatisticMenuItem];
 
-const subMenuItems3 = [Header1MenuItem];
+const subMenuItems3 = [Header1MenuItem, HeaderMenuMenuItem];
 
 const subMenuItems4 = [ProjectBudgetMenuItem, ProjectTypePercentMenuItem];
 export type SubMenuItems = (typeof subMenuItems0)[0];

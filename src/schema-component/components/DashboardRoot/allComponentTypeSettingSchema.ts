@@ -1,8 +1,8 @@
 import { ISchema } from '@formily/react'
 
 import { dashboardRootFormSchema } from './setting-schema';
-import { ClassicFrameSettingSchema, ProjectBudgetSettingSchema, ProjectTypePercentSettingSchema, StatisticSettingSchema } from '../../widgets';
-import { Header1SettingSchema } from '../../banner';
+import { ClassicFrameSettingSchema, Header1SettingSchema, HeaderMenuSettingSchema, ProjectBudgetSettingSchema, ProjectTypePercentSettingSchema, StatisticSettingSchema } from '../../widgets';
+
 
 
 
@@ -16,6 +16,7 @@ export const allComponentTypeSettingSchema: Record<string, ISchema> = {
     ClassicFrame: ClassicFrameSettingSchema,
     Statistic: StatisticSettingSchema,
     ProjectBudget: ProjectBudgetSettingSchema,
-    ProjectTypePercent: ProjectTypePercentSettingSchema
+    ProjectTypePercent: ProjectTypePercentSettingSchema,
+    HeaderMenu: HeaderMenuSettingSchema
 
 }

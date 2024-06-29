@@ -1,7 +1,5 @@
 import type { EChartsOption } from 'echarts'
-import * as echarts from 'echarts'
-import Decimal from 'decimal.js'
-import { getPercent } from '@/schema-component/utils';
+
 
 
 export interface ProjectTypeListItem {

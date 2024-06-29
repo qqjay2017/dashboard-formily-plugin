@@ -1,5 +1,6 @@
+import { positionDecoratorFormItemSchema } from "@/schema-component/components/DashboardRoot/setting-schema";
 import { ISchema } from "@formily/react";
-import { positionDecoratorFormItemSchema } from "../../components/DashboardRoot/setting-schema";
+
 
 
 export const Header1SettingSchema: ISchema = {
