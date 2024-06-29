@@ -37,8 +37,10 @@ export interface ISchemaComponentOptionsProps extends PropsWithChildren {
 }
 
 
-export interface DataSourceBind {
+export interface DataSourceBindType {
   dataSourceId?: string;
+
+  dataSourceName?: string;
   afterScript?: string;
   beforeScript?: string;
 }

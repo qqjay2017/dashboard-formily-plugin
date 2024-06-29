@@ -2,7 +2,8 @@
 import { TinyColor } from '@ctrl/tinycolor';
 
 const primary = new TinyColor("#007350")
-
+const textMenuLight = new TinyColor("#0EA778")
+const textMenuDark = new TinyColor("#79E8C7")
 
 export const greenToken = {
 
@@ -31,6 +32,8 @@ export const greenDarkToken = {
 
     nodeContentForeground: "#96CDFF",
     nodeContentBg: 'rgba(4, 73, 73, 0.60)',
+    textMenuSelect: "#00D997",
+    textMenu: textMenuDark.setAlpha(0.65).toRgbString(),
 }
 export const greenLightToken = {
     colorPrimary: "#007350",
@@ -40,5 +43,7 @@ export const greenLightToken = {
     textNumRed: "#FF7777",
 
     nodeContentForeground: "#007350",
-    nodeContentBg: "rgba(255, 255, 255, 0.2)"
+    nodeContentBg: "rgba(255, 255, 255, 0.2)",
+    textMenuSelect: textMenuLight,
+    textMenu: textMenuLight.setAlpha(0.45).toRgbString(),
 }

@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 import React, { useMemo } from "react";
 import { Schema } from "@formily/react";
-import { DataSourceBind } from "../../types";
+import { DataSourceBindType } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { useReqApiProxy } from "../../../api-client";
 import { get } from "lodash-es";
@@ -12,7 +12,7 @@ export const Statistic = ({
 }: {
   title?: React.ReactNode;
   amount?: string | number | React.ReactNode;
-  dataSource?: DataSourceBind;
+  dataSource?: DataSourceBindType;
 }) => {
   const { request } = useReqApiProxy();
   const { data } = useQuery({

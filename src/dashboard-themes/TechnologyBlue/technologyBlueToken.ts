@@ -2,6 +2,8 @@
 import { TinyColor } from '@ctrl/tinycolor';
 
 const primary = new TinyColor("#c3d4e5")
+const textMenuLight = new TinyColor("#257ACA")
+const textMenuDark = new TinyColor("#3C90DD")
 
 
 export const technologyBlueToken = {
@@ -24,6 +26,7 @@ export const technologyBlueToken = {
 }
 
 export const technologyBlueDarkToken = {
+
     colorPrimary: "#1860EC",
     textCommon: "#C3D4E5",
 
@@ -32,6 +35,8 @@ export const technologyBlueDarkToken = {
     textNumRed: "#FF7777",
     nodeContentForeground: "#C3D4E5",
     nodeContentBg: 'rgba(0, 26, 58, 0.8)',
+    textMenuSelect: textMenuDark,
+    textMenu: textMenuDark.setAlpha(0.45).toRgbString(),
 }
 export const technologyBlueLightToken = {
     colorPrimary: "#1D69B1",
@@ -40,5 +45,7 @@ export const technologyBlueLightToken = {
     textNumGreen: "#47D107",
     textNumRed: "#FF7777",
     nodeContentForeground: "#333333",
-    nodeContentBg: "rgba(234, 243, 255, 0.8)"
+    nodeContentBg: "rgba(234, 243, 255, 0.8)",
+    textMenuSelect: textMenuLight,
+    textMenu: textMenuLight.setAlpha(0.45).toRgbString(),
 }
