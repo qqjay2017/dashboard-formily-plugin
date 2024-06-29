@@ -4,7 +4,7 @@ import { useAPIClient } from "../../../../api-client";
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
 import { useToken } from "@/style";
-import { CountTo } from "@/schema-component/components";
+import { ConetentSpin, CountTo } from "@/schema-component/components";
 import { FeeListItem, getPieOption } from "./getPieOption";
 import { memo, useMemo } from "react";
 
@@ -28,16 +28,11 @@ export const ProjectBudget = memo(() => {
       feeList,
     });
   }, [feeList.length]);
-  if (isLoading) {
-    return null;
-  }
+  // if (isLoading) {
+  //   return null;
+  // }
   return (
-    <div
-      className={css`
-        width: 100%;
-        height: 100%;
-      `}
-    >
+    <ConetentSpin isLoading={isLoading}>
       <div
         className={css`
           width: 100%;
@@ -84,7 +79,7 @@ export const ProjectBudget = memo(() => {
           option={option}
         />
       </div>
-    </div>
+    </ConetentSpin>
   );
 });
 

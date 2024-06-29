@@ -148,9 +148,9 @@ const DashboardRootMain = observer(
     const RenderBlockItems = useMemo(() => {
       return (
         <>
-          {blockItems.map((schema, index) => {
+          {blockItems.map((schema) => {
             return (
-              <Fragment key={schema.name + index}>
+              <Fragment key={schema.name}>
                 {/* TODO 有的时候可能不能用memo */}
                 <MemorizedRecursionField name={schema.name} schema={schema} />
               </Fragment>
@@ -357,7 +357,7 @@ const DashboardRootMain = observer(
                           width: 3840px;
                         `}
                       >
-                        {designable && (
+                        {width && designable && (
                           <Selectable
                             moveableRef={moveableRef}
                             selectoRef={selectoRef}
@@ -420,6 +420,13 @@ const DashboardRootMain = observer(
                                     className={cn(
                                       css`
                                         @font-face {
+                                          font-family: "Lijin";
+                                          src: url("/assets/fonts/lijin.ttf")
+                                            format("truetype");
+                                          font-weight: normal;
+                                          font-style: normal;
+                                        }
+                                        @font-face {
                                           font-family: "YouSheBiaoTiHei";
                                           src: url("/assets/fonts/youshe.ttf")
                                             format("truetype");
@@ -453,11 +460,11 @@ const DashboardRootMain = observer(
                                       ...style,
                                     }}
                                   >
-                                    {RenderBlockItems}
+                                    {width ? RenderBlockItems : null}
                                   </div>
                                 </div>
                               </div>
-                              {designable && (
+                              {width && designable && (
                                 <MoveableManage
                                   moveableRef={moveableRef}
                                   selectoRef={selectoRef}

@@ -15,7 +15,8 @@ export interface UseRequestOptions {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   params?: any;
   data?: any;
-  refreshDeps?: any[]
+  refreshDeps?: any[],
+  headers?: any
 
 }
 
@@ -29,7 +30,8 @@ export function useRequest<D = any>(url?: string, options?: UseRequestOptions) {
     method,
     params,
     data,
-    refreshDeps = []
+    refreshDeps = [],
+    headers
   } = options
 
   return useQuery({
@@ -42,7 +44,8 @@ export function useRequest<D = any>(url?: string, options?: UseRequestOptions) {
       url,
       method,
       params,
-      data
+      data,
+      headers
     })
   })
 }

@@ -38,11 +38,16 @@ export const useClassicFrameStyle = createStyles(({ css, token }, { hasTitle }: 
       }
     }
     .nrtTitle {
+     
       font-size: 0.18rem;
       line-height:0.2rem;
-      font-family:YouSheBiaoTiHei;
-      letter-spacing:2px;
-      color:var(--node-content-foreground)
+
+       font-family:Lijin  ;
+       font-style:italic;
+      letter-spacing:1px;
+      color:var(--node-content-foreground);
+
+      
     }
     .nrtSubTitle {
       font-size: 12px;

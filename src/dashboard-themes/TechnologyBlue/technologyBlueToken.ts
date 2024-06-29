@@ -24,6 +24,7 @@ export const technologyBlueToken = {
 }
 
 export const technologyBlueDarkToken = {
+    colorPrimary: "#1860EC",
     textCommon: "#C3D4E5",
 
     textNumBlue: "#64E3FF",
@@ -33,6 +34,7 @@ export const technologyBlueDarkToken = {
     nodeContentBg: 'rgba(0, 26, 58, 0.8)',
 }
 export const technologyBlueLightToken = {
+    colorPrimary: "#1D69B1",
     textCommon: "#333",
     textNumBlue: "#6998F3",
     textNumGreen: "#47D107",

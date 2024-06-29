@@ -23,6 +23,7 @@ export const greenToken = {
 }
 
 export const greenDarkToken = {
+    colorPrimary: "#00FFB2",
     textCommon: "#C3D4E5",
     textNumBlue: "#64E3FF",
     textNumGreen: "#59FFCD",
@@ -32,6 +33,7 @@ export const greenDarkToken = {
     nodeContentBg: 'rgba(4, 73, 73, 0.60)',
 }
 export const greenLightToken = {
+    colorPrimary: "#007350",
     textCommon: "#333",
     textNumBlue: "#6998F3",
     textNumGreen: "#47D107",

@@ -134,6 +134,12 @@ export const DashboardRootPreview = ({
                     className={cn(
                       css`
                         @font-face {
+                          font-family: "Lijin";
+                          src: url("/assets/fonts/lijin.ttf") format("truetype");
+                          font-weight: normal;
+                          font-style: normal;
+                        }
+                        @font-face {
                           font-family: "YouSheBiaoTiHei";
                           src: url("/assets/fonts/youshe.ttf")
                             format("truetype");
@@ -167,7 +173,7 @@ export const DashboardRootPreview = ({
                       ...style,
                     }}
                   >
-                    {RenderBlockItems}
+                    {width ? RenderBlockItems : null}
                   </div>
                 </div>
               </div>
