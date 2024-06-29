@@ -5,6 +5,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import { NavigateHome } from "./home-list/NavigateHome";
 import { CreateFormBtn } from "../demo/components";
 import { CreateApiBtn } from "./data-source-center/CreateApiBtn";
+import { ExportApiBtn } from "./data-source-center/ExportApiBtn";
+import { Space } from "antd";
 
 export const DashboardLayout = () => {
   const { pathname } = useLocation();
@@ -23,7 +25,10 @@ export const DashboardLayout = () => {
     >
       <HomeMenu>
         {isHomePage && <CreateFormBtn />}
-        {isApiPage && <CreateApiBtn />}
+        <Space>
+          {isApiPage && <ExportApiBtn />}
+          {isApiPage && <CreateApiBtn />}
+        </Space>
       </HomeMenu>
       <div
         className={css`

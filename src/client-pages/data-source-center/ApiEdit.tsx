@@ -16,6 +16,7 @@ import { useEditId } from "../../hooks";
 import { FormButtonGroupWrap } from "../../schema-component";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ApiTest } from "./ApiTest";
+import { apiBase } from "@/utils";
 
 export const ApiEdit = () => {
   const id = useEditId();
@@ -28,7 +29,7 @@ export const ApiEdit = () => {
     enabled: !!id,
     queryFn: () =>
       apiClient.request({
-        url: "/huang-api/api-manage/" + id,
+        url: `${apiBase}/api-manage/` + id,
         method: "get",
       }),
     queryKey: [id, "apiDt"],
@@ -53,8 +54,8 @@ export const ApiEdit = () => {
     const res = await apiClient.request({
       method: id ? "put" : "post",
       url: id
-        ? `/huang-api/api-manage/edit/${id}`
-        : `/huang-api/api-manage/create`,
+        ? `${apiBase}/api-manage/edit/${id}`
+        : `${apiBase}/api-manage/create`,
       data: {
         originId: null,
         baseNameId: null,

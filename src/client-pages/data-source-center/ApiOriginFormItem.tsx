@@ -6,6 +6,7 @@ import { APiWrap, useAPIClient, useQuery } from "../../api-client";
 import { get } from "lodash-es";
 import { useFormDialog } from "../../schema-component";
 import { ISchema } from "@formily/react";
+import { apiBase } from "@/utils";
 
 const createApiOriginSchema: ISchema = {
   type: "object",
@@ -37,7 +38,7 @@ export const ApiOriginFormItem = ({
     queryKey: ["getApiOrigin"],
     queryFn: () =>
       apiClient.request({
-        url: "/huang-api/api-manage/origin/list",
+        url: `${apiBase}/api-manage/origin/list`,
         method: "get",
       }),
   });
@@ -86,7 +87,7 @@ export const ApiOriginFormItem = ({
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `/huang-api/api-manage/origin`,
+                  url: `${apiBase}/api-manage/origin`,
                   method: "POST",
                   data: {
                     origin: (origin || "").trim(),

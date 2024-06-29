@@ -9,6 +9,7 @@ import { APiWrap } from "../../api-client";
 import { dashboardRootWrap } from "../../schema-component";
 import { get } from "lodash-es";
 import { createDashboardFormSchema } from "@/client-pages/home-list/createDashboardFormSchema";
+import { apiBase } from "@/utils";
 
 export const CreateFormBtn = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export const CreateFormBtn = () => {
                 any,
                 APiWrap<{ id: number }>
               >({
-                url: `/huang-api/dashboard`,
+                url: `${apiBase}/dashboard`,
                 method: "POST",
                 data: {
                   userId: "123",

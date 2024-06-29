@@ -1,4 +1,5 @@
 
+import { apiBase } from '@/utils';
 import { useAPIClient } from './useAPIClient'
 
 export const useReqApiProxy = () => {
@@ -11,7 +12,7 @@ export const useReqApiProxy = () => {
     }) => {
         return apiClient.request({
             method: 'post',
-            url: apiId ? "/huang-api/api-proxy/proxy" : "/huang-api/api-proxy/proxy-test",
+            url: apiId ? `${apiBase}/api-proxy/proxy` : `${apiBase}/api-proxy/proxy-test`,
             data: {
                 formValues,
                 apiId,

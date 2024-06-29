@@ -7,7 +7,7 @@ import { css } from "@emotion/css";
 import { IoIosMore } from "react-icons/io";
 
 import { useNavigate } from "react-router-dom";
-import { FormDialog, FormItem, FormLayout, Input } from "@formily/antd-v5";
+import { FormDialog, Input } from "@formily/antd-v5";
 
 import {
   showConfirmPromisify,
@@ -16,11 +16,11 @@ import {
 import { useApp } from "@/application";
 import { updateDashboardFormSchema } from "./createDashboardFormSchema";
 import { useReportShare } from "./useReportShare";
-import { copyTextToClipboard } from "@/utils";
+import { apiBase, copyTextToClipboard } from "@/utils";
 
 export const HomeList = () => {
   const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
-    "/huang-api/dashboard",
+    `${apiBase}/dashboard`,
     {
       method: "GET",
     }
@@ -151,7 +151,7 @@ function FormCard({
                 if (key === "delete") {
                   await showConfirmPromisify({});
                   await apiClient.request({
-                    url: `/huang-api/dashboard/${dashboard.id}`,
+                    url: `${apiBase}/dashboard/${dashboard.id}`,
                     method: "delete",
                   });
                   refetch && refetch();
@@ -180,7 +180,7 @@ function FormCard({
                       const { name, description } = payload.values;
                       await app.apiClient.request<any, APiWrap<{ id: number }>>(
                         {
-                          url: `/huang-api/dashboard/${dashboard.id}`,
+                          url: `${apiBase}/dashboard/${dashboard.id}`,
                           method: "PUT",
                           data: {
                             name,

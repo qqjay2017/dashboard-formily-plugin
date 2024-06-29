@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+
 import { useAppSpin } from "../../application";
 import { APiWrap, useRequest } from "../../api-client";
 import { RecursionField, SchemaOptionsContext } from "@formily/react";
@@ -8,6 +8,7 @@ import { get } from "lodash-es";
 import { RecursionSchemaComponentWrap } from "../../schema-component/core";
 import { Helmet } from "react-helmet";
 import { useReportId } from "@/schema-component";
+import { apiBase } from "@/utils";
 
 export const PreviewPage = () => {
   const { reportId: shareURL } = useReportId();
@@ -15,7 +16,7 @@ export const PreviewPage = () => {
   const { render } = useAppSpin();
   const options = useContext(SchemaOptionsContext);
   const { data, isLoading } = useRequest<APiWrap<DashboardItem>>(
-    `/huang-api/dashboard/preview/${shareURL}`,
+    `${apiBase}/dashboard/preview/${shareURL}`,
     {
       method: "GET",
       refreshDeps: [shareURL],

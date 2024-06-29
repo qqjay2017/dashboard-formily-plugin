@@ -10,6 +10,7 @@ import { IoIosRefresh, IoMdAdd } from "react-icons/io";
 import { MonacoEditor } from "./MyEditorComponent";
 import { FuncText } from "./FuncText";
 import { observer } from "@formily/react";
+import { apiBase } from "@/utils";
 
 interface DataSourceBindProps extends FormItemComponentProps {}
 
@@ -23,7 +24,7 @@ export const DataSourceBind = observer(
       queryFn: () =>
         apiClient.request({
           method: "get",
-          url: `/huang-api/api-manage/list`,
+          url: `${apiBase}/api-manage/list`,
         }),
     });
     const dataSourceApiOptions = get(data, "data.data", []).map((item) => {

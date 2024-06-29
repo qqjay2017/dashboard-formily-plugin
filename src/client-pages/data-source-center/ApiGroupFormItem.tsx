@@ -5,6 +5,8 @@ import { useFormDialog } from "../../schema-component";
 import { ISchema } from "@formily/react";
 import { APiWrap, useAPIClient, useQuery } from "../../api-client";
 import { get } from "lodash-es";
+import { useGroupList } from "./useGroupList";
+import { apiBase } from "@/utils";
 
 const createApiGroupSchema: ISchema = {
   type: "object",
@@ -28,14 +30,7 @@ export const ApiGroupFormItem = ({
 }: ApiGroupFormItemProps) => {
   const apiClient = useAPIClient();
 
-  const { data, refetch } = useQuery<any, APiWrap<{}[]>>({
-    queryKey: ["getApiGroup"],
-    queryFn: () =>
-      apiClient.request({
-        url: "/huang-api/api-manage/group/list",
-        method: "get",
-      }),
-  });
+  const { data, refetch } = useGroupList();
 
   const options = get(data, "data.data", []).map((item) => {
     return {
@@ -80,7 +75,7 @@ export const ApiGroupFormItem = ({
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `/huang-api/api-manage/group`,
+                  url: `${apiBase}/api-manage/group`,
                   method: "POST",
                   data: {
                     name: (name || "").trim(),

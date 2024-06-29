@@ -19,6 +19,7 @@ import {
   dispatchInsert,
 } from "../components/DashboardRoot/utils";
 import { useUpdateDashboard } from "./useUpdateDashboard";
+import { apiBase } from "@/utils";
 const replaceKeys = {
   title: "title",
   description: "description",
@@ -120,7 +121,7 @@ export const useInsertSchemaComponent = () => {
   const fieldSchema = useFieldSchema();
   const saveRemoteFieldSchema = (schema?: Schema) => {
     return apiClient.request({
-      url: "/huang-api/dashboard/" + id,
+      url: `${apiBase}/dashboard/` + id,
       method: "put",
       data: {
         // id,

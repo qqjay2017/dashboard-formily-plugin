@@ -6,6 +6,7 @@ import { APiWrap, useAPIClient, useQuery } from "../../api-client";
 import { get } from "lodash-es";
 import { useFormDialog } from "../../schema-component";
 import { ISchema } from "@formily/react";
+import { apiBase } from "@/utils";
 
 const createApiBaseNameSchema: ISchema = {
   type: "object",
@@ -37,7 +38,7 @@ export const ApiBaseNameFormItem = ({
     queryKey: ["getApiBaseName"],
     queryFn: () =>
       apiClient.request({
-        url: "/huang-api/api-manage/baseName/list",
+        url: `${apiBase}/api-manage/baseName/list`,
         method: "get",
       }),
   });
@@ -86,7 +87,7 @@ export const ApiBaseNameFormItem = ({
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `/huang-api/api-manage/baseName`,
+                  url: `${apiBase}/api-manage/baseName`,
                   method: "POST",
                   data: {
                     baseName: (baseName || "").trim(),
