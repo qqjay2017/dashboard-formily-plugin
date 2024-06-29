@@ -33,7 +33,14 @@ export const greenDarkToken = {
     nodeContentForeground: "#96CDFF",
     nodeContentBg: 'rgba(4, 73, 73, 0.60)',
     textMenuSelect: "#00D997",
-    textMenu: textMenuDark.setAlpha(0.65).toRgbString(),
+    textMenu: "#79E8C7",
+    popover: {
+        bg: "#005656",
+        foreground: "#4DA1AC",
+        border: "#076C6C",
+        accentBg: "#15786C",
+        accentForeground: "#C3E5DF"
+    }
 }
 export const greenLightToken = {
     colorPrimary: "#007350",
@@ -44,6 +51,13 @@ export const greenLightToken = {
 
     nodeContentForeground: "#007350",
     nodeContentBg: "rgba(255, 255, 255, 0.2)",
-    textMenuSelect: textMenuLight,
-    textMenu: textMenuLight.setAlpha(0.45).toRgbString(),
+    textMenuSelect: "#007652",
+    textMenu: "#0EA778",
+    popover: {
+        bg: new TinyColor("#B7D7FB").setAlpha(1).toRgbString(),
+        foreground: new TinyColor("#007350;").setAlpha(1).toRgbString(),
+        border: new TinyColor("#40C69F").setAlpha(0.5).toRgbString(),
+        accentBg: new TinyColor("#fff").setAlpha(0.2).toRgbString(),
+        accentForeground: "#007350"
+    }
 }

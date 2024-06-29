@@ -24,6 +24,7 @@
     "@formily/shared": "^2.3.0",
     "@monaco-editor/react": "^4.6.0",
     "@moveable/helper": "^0.1.3",
+    "@radix-ui/react-select": "^2.1.1",
     "@tanstack/react-query": "^5.40.0",
     "@types/node": "^20.14.9",
     "ahooks": "^3.8.0",

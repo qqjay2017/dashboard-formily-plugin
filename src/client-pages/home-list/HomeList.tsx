@@ -158,7 +158,9 @@ function FormCard({
                   return;
                 }
                 if (key === "preview") {
-                  return reportShare(dashboard.shareURL);
+                  return reportShare(dashboard.shareURL, {
+                    isHref: false,
+                  });
                 }
                 if (key === "edit") {
                   const dialog = getFormDialog(

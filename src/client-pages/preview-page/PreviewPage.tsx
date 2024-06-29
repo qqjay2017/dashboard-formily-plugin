@@ -7,9 +7,10 @@ import { DashboardItem } from "../../demo/types";
 import { get } from "lodash-es";
 import { RecursionSchemaComponentWrap } from "../../schema-component/core";
 import { Helmet } from "react-helmet";
+import { useReportId } from "@/schema-component";
 
 export const PreviewPage = () => {
-  const { shareURL } = useParams();
+  const { reportId: shareURL } = useReportId();
 
   const { render } = useAppSpin();
   const options = useContext(SchemaOptionsContext);
@@ -37,7 +38,7 @@ export const PreviewPage = () => {
       {!schema || isLoading ? (
         render()
       ) : (
-        <RecursionField schema={JSON.parse(schema)} />
+        <RecursionField schema={JSON.parse(schema)} key={schema} />
       )}
     </RecursionSchemaComponentWrap>
   );

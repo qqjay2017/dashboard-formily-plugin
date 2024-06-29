@@ -66,6 +66,14 @@ export interface CustomToken extends AliasToken {
   textNumRed: string;
   textMenu: string,
   textMenuSelect: string;
+
+  popover: {
+    bg: string,
+    foreground: string,
+    border: string,
+    accentBg: string,
+    accentForeground: string
+  }
 }
 
 type CustomToken1 = CustomToken;

@@ -107,7 +107,9 @@ export const DesignPageHeader = () => {
         <Button
           type="primary"
           onClick={() => {
-            reportShare(shareURL);
+            reportShare(shareURL, {
+              isHref: false,
+            });
           }}
         >
           预览

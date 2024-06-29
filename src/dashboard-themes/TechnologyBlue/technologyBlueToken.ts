@@ -23,6 +23,7 @@ export const technologyBlueToken = {
         endColor: "rgba(21, 76, 141, 0.14)"
     },
 
+
 }
 
 export const technologyBlueDarkToken = {
@@ -35,8 +36,15 @@ export const technologyBlueDarkToken = {
     textNumRed: "#FF7777",
     nodeContentForeground: "#C3D4E5",
     nodeContentBg: 'rgba(0, 26, 58, 0.8)',
-    textMenuSelect: textMenuDark,
-    textMenu: textMenuDark.setAlpha(0.45).toRgbString(),
+    textMenuSelect: "#349EFF",
+    textMenu: "#79B2E8",
+    popover: {
+        bg: "#002D56",
+        foreground: "#4D7DAC",
+        border: "#0A386B",
+        accentBg: "#154678",
+        accentForeground: "#C3D4E5"
+    }
 }
 export const technologyBlueLightToken = {
     colorPrimary: "#1D69B1",
@@ -46,6 +54,13 @@ export const technologyBlueLightToken = {
     textNumRed: "#FF7777",
     nodeContentForeground: "#333333",
     nodeContentBg: "rgba(234, 243, 255, 0.8)",
-    textMenuSelect: textMenuLight,
-    textMenu: textMenuLight.setAlpha(0.45).toRgbString(),
+    textMenuSelect: "#257ACA",
+    textMenu: "#458DE1",
+    popover: {
+        bg: new TinyColor("#83AFE9").setAlpha(0.2).toRgbString(),
+        foreground: new TinyColor("#1D69B1").setAlpha(0.5).toRgbString(),
+        border: new TinyColor("#5892D2").setAlpha(0.2).toRgbString(),
+        accentBg: "rgba(255,255,255,0.2)",
+        accentForeground: "#1D69B1"
+    }
 }
