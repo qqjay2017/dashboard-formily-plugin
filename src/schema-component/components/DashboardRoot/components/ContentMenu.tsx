@@ -1,35 +1,15 @@
 import { css } from "@emotion/css";
 import { createStyles } from "antd-style";
 import { cn } from "../../../../utils";
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 
 import { useDraggable } from "@dnd-kit/core";
 
 import { SubMenuItems, allSubMenuItems } from "../allMenuItem";
+import { useApp } from "@/application";
+import { get, set } from "lodash-es";
 
 export type ElementsType = "ClassicFrame" | "Statistic";
-const menuItems = [
-  {
-    id: "1",
-    label: "小组件",
-  },
-  {
-    id: "2",
-    label: "图表",
-  },
-  {
-    id: "3",
-    label: "信息",
-  },
-  {
-    id: "4",
-    label: "导航",
-  },
-  {
-    id: "5",
-    label: "业务",
-  },
-];
 
 const useContentMenuStyles = createStyles(({ css, token }) => {
   return css`
@@ -43,9 +23,54 @@ const useContentMenuStyles = createStyles(({ css, token }) => {
   `;
 });
 
-export const ContentMenu = () => {
+export const ContentMenu = memo(() => {
+  const app = useApp();
   const [activeMenuItem, setActiveMenuItem] = useState(0);
+  const [activeMenuItem2, setActiveMenuItem2] = useState(0);
+
   const { styles: contentMenuStyles } = useContentMenuStyles();
+  const allMenuItem = useMemo(() => {
+    return Object.keys(app.components)
+      .map((componentType) => {
+        return app.components[componentType]?.menuItem;
+      })
+      .filter(Boolean);
+  }, [Object.keys(app.components).join(" ")]);
+
+  const menuList = useMemo(() => {
+    const keysMap = allMenuItem.reduce((memo, cur) => {
+      if (!memo[cur.category1]) {
+        memo[cur.category1] = {};
+      }
+      if (!get(memo, `${cur.category1}.${cur.category2}`)) {
+        set(memo, `${cur.category1}.${cur.category2}`, []);
+      }
+      memo[cur.category1][cur.category2].push({
+        ...cur,
+      });
+      return memo;
+    }, {});
+    const _menuList: any[] = [];
+    Object.keys(keysMap).map((lv1Keys, index) => {
+      _menuList.push({
+        index,
+        label: lv1Keys,
+        children: Object.keys(keysMap[lv1Keys]).map((lv2Keys, index) => {
+          return {
+            index,
+            pLabel: lv1Keys,
+
+            label: lv2Keys,
+            children: get(keysMap, `${lv1Keys}.${lv2Keys}`, []),
+          };
+        }),
+      });
+    });
+    return _menuList;
+  }, [allMenuItem.length]);
+
+  console.log(menuList, "menuList");
+
   return (
     <div
       className={css`
@@ -62,27 +87,30 @@ export const ContentMenu = () => {
           background-color: #232324;
         `}
       >
-        {menuItems.map((menuItem, index) => {
+        {menuList.map((menuItem, index) => {
           const isActive = activeMenuItem === index;
           return (
             <div
-              key={menuItem.id}
+              key={menuItem.label + menuItem.index}
               className={css`
-                padding: 14px 4px 0 4px;
+                padding: 6px 8px;
+                font-size: 14px;
+                line-height: 24px;
               `}
             >
               <div
                 onClick={() => {
                   setActiveMenuItem(index);
+                  setActiveMenuItem2(0);
                 }}
                 className={cn(
                   css`
                     cursor: pointer;
                     padding: 0;
                     font-size: 14px;
-                    line-height: 24px;
+                    line-height: 30px;
                     text-align: center;
-                    height: 24px;
+                    height: 30px;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -102,8 +130,58 @@ export const ContentMenu = () => {
       </div>
       <div
         className={css`
+          width: 65px;
+          height: 100%;
+          background-color: #1e1e1f;
+        `}
+      >
+        {(menuList[activeMenuItem]?.children || []).map((menuItem2, index) => {
+          const isActive = activeMenuItem2 === index;
+          return (
+            <div
+              key={menuItem2.label}
+              className={css`
+                height: 30px;
+                margin-top: 6px;
+                padding: 6px 8px;
+              `}
+            >
+              <div
+                onClick={() => {
+                  setActiveMenuItem2(index);
+                }}
+                className={cn(
+                  css`
+                    cursor: pointer;
+                    padding: 0;
+                    line-height: 24px;
+                    text-align: center;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    color: #fff;
+                    border-radius: 4px;
+                  `,
+                  css`
+                    text-align: center;
+                    font-size: 12px;
+                    line-height: 30px;
+                  `,
+                  contentMenuStyles,
+                  "menuItem",
+                  isActive ? "menuItemActive" : ""
+                )}
+              >
+                {menuItem2.label}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div
+        className={css`
           background-color: #18181c;
-          width: calc(100% - 65px);
+          width: calc(100% - 130px);
           height: 100%;
           padding: 10px;
           display: flex;
@@ -111,20 +189,22 @@ export const ContentMenu = () => {
           align-items: center;
         `}
       >
-        {(allSubMenuItems[activeMenuItem] || []).map(
-          (subMenuItem: SubMenuItems) => {
-            return (
-              <SubMenuItemCom
-                key={subMenuItem.id + subMenuItem.type}
-                subMenuItem={subMenuItem}
-              />
-            );
-          }
-        )}
+        {get(
+          menuList,
+          `[${activeMenuItem}].children[${activeMenuItem2}].children`,
+          []
+        ).map((subMenuItem: SubMenuItems) => {
+          return (
+            <SubMenuItemCom
+              key={subMenuItem.id + subMenuItem.type}
+              subMenuItem={subMenuItem}
+            />
+          );
+        })}
       </div>
     </div>
   );
-};
+});
 
 const SubMenuItemCom = ({ subMenuItem }: { subMenuItem: SubMenuItems }) => {
   const draggable = useDraggable({

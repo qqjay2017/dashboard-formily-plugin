@@ -310,7 +310,7 @@ const DashboardRootMain = observer(
                   <div
                     className={css`
                       height: 100%;
-                      width: 300px;
+                      width: 330px;
                       position: relative;
                       overflow: hidden;
                     `}
@@ -322,7 +322,7 @@ const DashboardRootMain = observer(
                     id="viewPort"
                     className={css`
                       height: calc(100%);
-                      width: calc(100% - 600px);
+                      width: calc(100% - 630px);
                       position: relative;
                       overflow: hidden;
                       background-color: #18181c;
