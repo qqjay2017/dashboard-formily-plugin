@@ -2,7 +2,6 @@ import { useAPIClient } from "@/api-client";
 import { apiBase } from "@/utils";
 import { Button } from "antd";
 import { get } from "lodash-es";
-import React from "react";
 
 export const ExportApiBtn = () => {
   const apiClient = useAPIClient();

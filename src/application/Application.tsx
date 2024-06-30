@@ -22,6 +22,7 @@ import { createRoot } from "react-dom/client";
 import { AppSchemaComponentProvider } from "./AppSchemaComponentProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { APIClientOptions } from "../sdk";
+import { message, notification } from "antd";
 export type ComponentAndProps<T = any> = [ComponentType, T];
 
 export interface ApplicationOptions {
@@ -46,7 +47,8 @@ export class Application {
     ...defaultAppComponents,
   };
   public pluginManager: PluginManager;
-  public notification;
+  public notification = notification;
+  public message = message;
   public name: string = "app";
 
   loading = true;

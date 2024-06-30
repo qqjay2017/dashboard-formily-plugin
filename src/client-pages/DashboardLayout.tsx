@@ -7,6 +7,7 @@ import { CreateFormBtn } from "../demo/components";
 import { CreateApiBtn } from "./data-source-center/CreateApiBtn";
 import { ExportApiBtn } from "./data-source-center/ExportApiBtn";
 import { Space } from "antd";
+import { ImportApiBtn } from "./data-source-center/ImportApiBtn";
 
 export const DashboardLayout = () => {
   const { pathname } = useLocation();
@@ -25,10 +26,13 @@ export const DashboardLayout = () => {
     >
       <HomeMenu>
         {isHomePage && <CreateFormBtn />}
-        <Space>
-          {isApiPage && <ExportApiBtn />}
-          {isApiPage && <CreateApiBtn />}
-        </Space>
+        {isApiPage && (
+          <Space>
+            <ImportApiBtn />
+            <ExportApiBtn />
+            <CreateApiBtn />
+          </Space>
+        )}
       </HomeMenu>
       <div
         className={css`

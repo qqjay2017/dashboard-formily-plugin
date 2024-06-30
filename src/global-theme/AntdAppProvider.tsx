@@ -5,13 +5,15 @@ import { useApp } from "../application";
 
 const AppInner = memo(({ children }: { children: React.ReactNode }) => {
   const app = useApp();
-  const { notification } = App.useApp();
+  const { notification, message } = App.useApp();
   const apiClient = useAPIClient();
 
   useEffect(() => {
     apiClient.notification = notification;
+    apiClient.message = message;
     app.notification = notification;
-  }, [notification]);
+    app.message = message;
+  }, [notification, message]);
 
   return <>{children}</>;
 });

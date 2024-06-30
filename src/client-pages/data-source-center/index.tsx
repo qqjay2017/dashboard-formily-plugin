@@ -15,11 +15,12 @@ import { shortUid } from "@/utils/shortUid";
 import { apiBase, copyTextToClipboard } from "@/utils";
 import { css } from "@emotion/css";
 import { useGroupList } from "./useGroupList";
+import { useEffect } from "react";
 
 export const DataSourceCenter = () => {
   const navigate = useNavigate();
   const apiClient = useAPIClient();
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["/api-manage/list", "get"],
     queryFn: () =>
       apiClient.request({
@@ -69,6 +70,17 @@ export const DataSourceCenter = () => {
     );
     dialog.open();
   };
+
+  useEffect(() => {
+    function refresh() {
+      refetch();
+      refetchGroupList();
+    }
+    document.addEventListener("importApi", refresh);
+    return () => {
+      document.removeEventListener("importApi", refresh);
+    };
+  }, []);
 
   return (
     <div
