@@ -9,17 +9,27 @@ import { SchemaComponent } from "../../../core";
 import { allComponentTypeSettingSchema } from "../allComponentTypeSettingSchema";
 import { dispatchInsert } from "../utils";
 import { uid } from "@formily/shared";
+import { useApp } from "@/application";
 
 export const DesignComponentSetting = ({ address }: { address: string }) => {
+  const app = useApp();
   const [formId, setFormId] = useState(uid());
   const globalForm = useForm();
   const compoennt = globalForm.query(address).take();
   const componentType = compoennt?.componentType;
 
+  const typeSettingSchema = {
+    ...Object.keys(app.components).reduce((memo, curKey) => {
+      const cur = app.components[curKey];
+      if (cur && cur.settingSchema) {
+        memo[curKey] = cur.settingSchema;
+      }
+      return memo;
+    }, {}),
+    ...allComponentTypeSettingSchema,
+  };
   const dashboardRootFormSchema =
-    allComponentTypeSettingSchema[componentType] ||
-    allComponentTypeSettingSchema[address] ||
-    {};
+    typeSettingSchema[componentType] || typeSettingSchema[address] || {};
 
   const options = useContext(SchemaOptionsContext);
   const { locale } = useContext(ConfigProvider.ConfigContext);

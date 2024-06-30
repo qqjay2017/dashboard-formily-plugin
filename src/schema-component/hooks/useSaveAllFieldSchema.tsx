@@ -20,6 +20,7 @@ import {
 } from "../components/DashboardRoot/utils";
 import { useUpdateDashboard } from "./useUpdateDashboard";
 import { apiBase } from "@/utils";
+import { useApp } from "@/application";
 const replaceKeys = {
   title: "title",
   description: "description",
@@ -112,8 +113,20 @@ export const useSaveAllFieldSchema = () => {
 };
 
 export const useInsertSchemaComponent = () => {
-  const { reset, refresh } = useSchemaComponentContext();
+  const app = useApp();
+  const { reset } = useSchemaComponentContext();
   const apiClient = useAPIClient();
+  const initSchema = {
+    ...Object.keys(app.components).reduce((memo, curKey) => {
+      const cur = app.components[curKey];
+      if (cur && cur.schemaFn) {
+        memo[curKey] = cur.schemaFn;
+      }
+      return memo;
+    }, {}),
+
+    ...allComponentTypInitSchema,
+  };
 
   const { id } = useParams();
   // const form = useForm();
@@ -151,7 +164,7 @@ export const useInsertSchemaComponent = () => {
       return false;
     }
 
-    const initFn = allComponentTypInitSchema[type];
+    const initFn = initSchema[type];
     if (!initFn) {
       return false;
     }

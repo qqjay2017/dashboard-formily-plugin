@@ -1,10 +1,12 @@
 import { theme } from "antd";
-import { allMenuItem } from "../allMenuItem";
+
 import { get } from "lodash-es";
+import { useApp } from "@/application";
 
 function InfoCom({ value }) {
+  const app = useApp();
   const { token } = theme.useToken();
-  const zhName = get(allMenuItem || {}, `${value}.label`, "");
+  const zhName = get(app.components || {}, `${value}.menuItem.label`, "");
   if (!zhName) {
     return (
       <div

@@ -2,10 +2,13 @@ import { useRequest } from "@/api-client";
 import { ConetentSpin } from "@/schema-component/components";
 import { get } from "lodash-es";
 import ReactECharts, { EChartsInstance } from "echarts-for-react";
-import React, { memo, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ProjectTypeListItem, getPieOption } from "./getPieOption";
+import { ProjectTypePercentSchemeWrap } from "./ProjectTypePercentSchemeWrap";
+import { ProjectTypePercentMenuItem } from "./ProjectTypePercentMenuItem";
+import { ProjectTypePercentSettingSchema } from "./ProjectTypePercentSettingSchema";
 
-export const ProjectTypePercent = memo(() => {
+export function ProjectTypePercent() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { data, isLoading } = useRequest("/api/bg/v1/project/type", {
     method: "GET",
@@ -54,4 +57,8 @@ export const ProjectTypePercent = memo(() => {
       />
     </ConetentSpin>
   );
-});
+}
+ProjectTypePercent.displayName = "ProjectTypePercent";
+ProjectTypePercent.schemaFn = ProjectTypePercentSchemeWrap;
+ProjectTypePercent.menuItem = ProjectTypePercentMenuItem;
+ProjectTypePercent.settingSchema = ProjectTypePercentSettingSchema;

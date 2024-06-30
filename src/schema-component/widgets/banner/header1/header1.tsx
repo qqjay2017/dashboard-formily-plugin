@@ -1,9 +1,11 @@
-import { Schema } from "@formily/react";
-import { createStyles, useTheme } from "antd-style";
+import { createStyles } from "@/style";
 import { cn, rs } from "@/utils";
 import { css } from "@emotion/css";
+import { useTheme } from "antd-style";
 import { PropsWithChildren, useMemo } from "react";
-
+import { Header1SchemeWrap } from "./Header1SchemeWrap";
+import { Header1MenuItem } from "./Header1MenuItem";
+import { Header1SettingSchema } from "./Header1SettingSchema";
 const useHeader1Styles = createStyles(({ css, token }) => {
   const { themeAssetsPath } = token;
   const url = rs("/assets/header1/" + themeAssetsPath + "/bg.png");
@@ -15,7 +17,7 @@ const useHeader1Styles = createStyles(({ css, token }) => {
 interface Header1Props extends PropsWithChildren {
   title?: string;
 }
-export const Header1 = ({ title }: Header1Props) => {
+export function Header1({ title }: Header1Props) {
   const { styles } = useHeader1Styles();
   const { themeProvider, isDarkTheme } = useTheme();
   const startColor = useMemo(() => {
@@ -128,31 +130,8 @@ export const Header1 = ({ title }: Header1Props) => {
       </div>
     </div>
   );
-};
-
-export function Header1SchemeWrap(inject: any = {}) {
-  return new Schema({
-    _isJSONSchemaObject: true,
-    version: "2.0",
-    type: "void",
-    "x-component": "Header1",
-    "x-settings": "settings:block",
-    "x-decorator": "PositionDecorator",
-    "x-component-props": {
-      title: "标题文字",
-    },
-
-    ...inject,
-    "x-decorator-props": {
-      w: 12,
-      h: 1.33,
-      padding: [0, 0, 0, 0],
-      ...inject?.["x-decorator-props"],
-    },
-  });
 }
-
-Header1.schema = Header1SchemeWrap();
-
-export * from "./Header1SettingSchema";
-export * from "./Header1MenuItem";
+Header1.displayName = "Header1";
+Header1.schemaFn = Header1SchemeWrap;
+Header1.menuItem = Header1MenuItem;
+Header1.settingSchema = Header1SettingSchema;

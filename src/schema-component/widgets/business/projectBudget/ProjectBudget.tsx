@@ -6,9 +6,12 @@ import { css } from "@emotion/css";
 import { useToken } from "@/style";
 import { ConetentSpin, CountTo } from "@/schema-component/components";
 import { FeeListItem, getPieOption } from "./getPieOption";
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
+import { ProjectBudgetSchemeWrap } from "./ProjectBudgetSchemeWrap";
+import { ProjectBudgetMenuItem } from "./ProjectBudgetMenuItem";
+import { ProjectBudgetSettingSchema } from "./ProjectBudgetSettingSchema";
 
-export const ProjectBudget = memo(() => {
+export function ProjectBudget() {
   const { token } = useToken();
 
   const apiClient = useAPIClient();
@@ -81,6 +84,10 @@ export const ProjectBudget = memo(() => {
       </div>
     </ConetentSpin>
   );
-});
+}
 
 ProjectBudget.displayName = "ProjectBudget";
+
+ProjectBudget.schemaFn = ProjectBudgetSchemeWrap;
+ProjectBudget.menuItem = ProjectBudgetMenuItem;
+ProjectBudget.settingSchema = ProjectBudgetSettingSchema;

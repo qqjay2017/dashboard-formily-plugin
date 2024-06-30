@@ -5,7 +5,9 @@ import { DataSourceBindType } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { useReqApiProxy } from "../../../api-client";
 import { get } from "lodash-es";
-export const Statistic = ({
+import { StatisticMenuItem } from "./StatisticMenuItem";
+import { StatisticSettingSchema } from "./StatisticSettingSchema";
+export function Statistic({
   title = "",
   amount,
   dataSource,
@@ -13,7 +15,7 @@ export const Statistic = ({
   title?: React.ReactNode;
   amount?: string | number | React.ReactNode;
   dataSource?: DataSourceBindType;
-}) => {
+}) {
   const { request } = useReqApiProxy();
   const { data } = useQuery({
     queryKey: ["dataSourceQuery", dataSource?.dataSourceId],
@@ -72,7 +74,7 @@ export const Statistic = ({
       </div>
     </div>
   );
-};
+}
 
 export function StatisticSchemeWrap(inject: any = {}) {
   return new Schema({
@@ -96,5 +98,7 @@ export function StatisticSchemeWrap(inject: any = {}) {
     },
   });
 }
-
-Statistic.schema = StatisticSchemeWrap();
+Statistic.displayName = "Statistic";
+Statistic.schemaFn = StatisticSchemeWrap;
+Statistic.menuItem = StatisticMenuItem;
+Statistic.settingSchema = StatisticSettingSchema;

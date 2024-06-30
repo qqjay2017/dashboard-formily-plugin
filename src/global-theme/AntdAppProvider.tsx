@@ -11,7 +11,9 @@ const AppInner = memo(({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     apiClient.notification = notification;
     apiClient.message = message;
+    //@ts-ignore
     app.notification = notification;
+    //@ts-ignore
     app.message = message;
   }, [notification, message]);
 

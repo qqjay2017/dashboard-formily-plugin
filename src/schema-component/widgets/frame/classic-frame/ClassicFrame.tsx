@@ -5,6 +5,8 @@ import { useClassicFrameStyle } from "./styles";
 import { Schema, useField, useFieldSchema } from "@formily/react";
 import { css } from "@emotion/css";
 import { useDroppable } from "@dnd-kit/core";
+import { ClassicFrameMenuItem } from "./ClassicFrameMenuItem";
+import { ClassicFrameSettingSchema } from "./ClassicFrameSettingSchema";
 
 interface ClassicFramePropw extends PropsWithChildren {
   title?: string;
@@ -112,4 +114,8 @@ export function ClassicFrameSchemeWrap(inject: any = {}) {
     },
   });
 }
-ClassicFrame.schema = ClassicFrameSchemeWrap();
+
+ClassicFrame.displayName = "ClassicFrame";
+ClassicFrame.schemaFn = ClassicFrameSchemeWrap;
+ClassicFrame.menuItem = ClassicFrameMenuItem;
+ClassicFrame.settingSchema = ClassicFrameSettingSchema;

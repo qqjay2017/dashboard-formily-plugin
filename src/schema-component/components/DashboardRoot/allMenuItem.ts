@@ -2,16 +2,7 @@
 
 import { ClassicFrameMenuItem, ProjectBudgetMenuItem, ProjectTypePercentMenuItem, StatisticMenuItem, Header1MenuItem, HeaderMenuMenuItem } from '../../widgets'
 
-export const allMenuItem = {
 
-
-    Header1: Header1MenuItem,
-    ClassicFrame: ClassicFrameMenuItem,
-    Statistic: StatisticMenuItem,
-    ProjectBudget: ProjectBudgetMenuItem,
-    ProjectTypePercent: ProjectTypePercentMenuItem,
-    HeaderMenu: HeaderMenuMenuItem
-}
 
 const subMenuItems0 = [ClassicFrameMenuItem];
 

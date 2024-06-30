@@ -11,12 +11,15 @@ import * as Select from "@radix-ui/react-select";
 import { useToken } from "@/style";
 import { cn } from "@/utils";
 import { useReportShare } from "@/client-pages/home-list/useReportShare";
+import { HeaderMenuSchemeWrap } from "./HeaderMenuSchemeWrap";
+import { HeaderMenuMenuItem } from "./HeaderMenuMenuItem";
+import { HeaderMenuSettingSchema } from "./HeaderMenuSettingSchema";
 
-export const HeaderMenu = ({
+export function HeaderMenu({
   dataSource,
 }: {
   dataSource?: DataSourceBindType;
-}) => {
+}) {
   const { data, isLoading } = useDataBindFetch(dataSource);
   const menuList: HeaderMenuItemType[] = get(data, "data.data", []);
   const { reportId } = useReportId();
@@ -57,7 +60,7 @@ export const HeaderMenu = ({
       </div>
     </ConetentSpin>
   );
-};
+}
 
 function MenuItem({
   menuItem,
@@ -190,3 +193,7 @@ function MenuItem({
     </Select.Root>
   );
 }
+
+HeaderMenu.schemaFn = HeaderMenuSchemeWrap;
+HeaderMenu.menuItem = HeaderMenuMenuItem;
+HeaderMenu.settingSchema = HeaderMenuSettingSchema;
