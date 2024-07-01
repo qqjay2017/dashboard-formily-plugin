@@ -5,10 +5,10 @@ import { notification, message } from 'antd';
 import React from "react";
 
 const handleErrorMessage = (error, notification) => {
-    const errorMsg = get(error, 'response.data.error', '');
-    console.log(errorMsg, 'errorMsg')
+    const errorMsg = get(error, 'response.data.error', '') || get(error, 'response.data.message', '');
+
     if (errorMsg) {
-        notify('error', [errorMsg], notification);
+        return notify('error', [errorMsg], notification);
     }
 
 };
@@ -68,9 +68,10 @@ export class APIClient extends APIClientSdk {
             }
             return res;
         }, (error) => {
+            console.log(error, 'errorerrorerror')
 
             handleErrorMessage(error, this.notification);
-            return error
+            return Promise.reject(error)
         });
         super.interceptors()
 
