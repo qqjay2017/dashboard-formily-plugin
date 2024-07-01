@@ -1,36 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
 import ReactECharts from "echarts-for-react";
-import { useAPIClient } from "../../../../api-client";
+
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
 import { useToken } from "@/style";
 import { ConetentSpin, CountTo } from "@/schema-component/components";
-import { FeeListItem, getPieOption } from "./getPieOption";
-import { useMemo } from "react";
+import { FeeListItem } from "./getPieOption";
+
 import { ProjectBudgetSchemeWrap } from "./ProjectBudgetSchemeWrap";
 import { ProjectBudgetMenuItem } from "./ProjectBudgetMenuItem";
 import { ProjectBudgetSettingSchema } from "./ProjectBudgetSettingSchema";
+import { useProjectBudgetOption } from "./useProjectBudgetOption";
+import { useRequest } from "@/api-client";
 
 export function ProjectBudget() {
   const { token } = useToken();
 
-  const apiClient = useAPIClient();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["/api/bg/v1/fee/budget"],
-    queryFn: () =>
-      apiClient.request({
-        method: "get",
-        url: "/api/bg/v1/fee/budget",
-      }),
+  const { data, isLoading } = useRequest(`/api/bg/v1/fee/budget`, {
+    method: "GET",
   });
   const amount = get(data, "data.data.totalBudget", "0");
   const feeList: FeeListItem[] = get(data, "data.data.feeList", []);
-  const option = useMemo(() => {
-    return getPieOption({
-      feeList,
-    });
-  }, [feeList.length]);
+  const option = useProjectBudgetOption(feeList);
   // if (isLoading) {
   //   return null;
   // }

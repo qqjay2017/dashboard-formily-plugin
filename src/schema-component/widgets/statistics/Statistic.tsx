@@ -1,12 +1,11 @@
 import { css } from "@emotion/css";
-import React, { useMemo } from "react";
+import React from "react";
 import { Schema } from "@formily/react";
 import { DataSourceBindType } from "../../types";
-import { useQuery } from "@tanstack/react-query";
-import { useReqApiProxy } from "../../../api-client";
-import { get } from "lodash-es";
+
 import { StatisticMenuItem } from "./StatisticMenuItem";
 import { StatisticSettingSchema } from "./StatisticSettingSchema";
+import { useDataBindFetch } from "@/schema-component/hooks";
 export function Statistic({
   title = "",
   amount,
@@ -16,37 +15,7 @@ export function Statistic({
   amount?: string | number | React.ReactNode;
   dataSource?: DataSourceBindType;
 }) {
-  const { request } = useReqApiProxy();
-  const { data } = useQuery({
-    queryKey: ["dataSourceQuery", dataSource?.dataSourceId],
-    enabled: !!dataSource?.dataSourceId,
-    queryFn: () =>
-      request({
-        apiId: dataSource?.dataSourceId,
-      }),
-  });
-
-  const dataMemo = useMemo(() => {
-    if (!data || !dataSource?.dataSourceId || !dataSource?.afterScript) {
-      return amount;
-    }
-
-    try {
-      const testHandle = new Function(
-        "apiRes",
-        "context",
-        dataSource.afterScript
-      );
-      const r = testHandle(data, { get });
-      if (typeof r === "object") {
-        return JSON.stringify(r);
-      }
-      return r;
-    } catch (error) {
-      console.log(error, "函数执行报错");
-      return amount;
-    }
-  }, [data, amount, dataSource?.dataSourceId, dataSource?.afterScript]);
+  const { data } = useDataBindFetch(dataSource);
 
   return (
     <div>
@@ -70,7 +39,7 @@ export function Statistic({
           text-align: left;
         `}
       >
-        {dataMemo}
+        {data}
       </div>
     </div>
   );

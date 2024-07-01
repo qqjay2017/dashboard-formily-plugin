@@ -7,7 +7,6 @@ export const ProjectBudgetSettingSchema: ISchema = {
     type: "object",
     properties: {
         ...getCompomentTypeInfoSchema(),
-        ...positionDecoratorFormItemSchema
 
     },
 };

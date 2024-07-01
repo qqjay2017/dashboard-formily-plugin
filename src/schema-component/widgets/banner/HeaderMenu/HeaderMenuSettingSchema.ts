@@ -9,7 +9,6 @@ export const HeaderMenuSettingSchema: ISchema = {
     properties: {
         ...getCompomentTypeInfoSchema(),
         ...getDataSourceBindSchema(),
-        ...positionDecoratorFormItemSchema
 
     },
 };

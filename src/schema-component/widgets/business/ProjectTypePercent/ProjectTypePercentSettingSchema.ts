@@ -7,7 +7,6 @@ export const ProjectTypePercentSettingSchema: ISchema = {
     type: "object",
     properties: {
         ...getCompomentTypeInfoSchema(),
-        ...positionDecoratorFormItemSchema
 
     },
 };

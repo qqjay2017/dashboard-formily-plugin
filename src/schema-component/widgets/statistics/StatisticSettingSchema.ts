@@ -30,46 +30,5 @@ export const StatisticSettingSchema: ISchema = {
             "x-component": DataSourceBind,
         }
 
-        // busType: {
-        //     type: "string",
-        //     title: "绑定业务",
-        //     required: true,
-        //     "x-decorator": "FormItem",
-        //     "x-component": "Select",
-        //     'x-component-props': {
-        //         options: [
-        //             {
-        //                 label: '安全',
-        //                 value: 'aq'
-        //             },
-        //             {
-        //                 label: '项目',
-        //                 value: 'xm'
-        //             },
-        //         ]
-        //     }
-
-        // },
-        // busField: {
-        //     type: "string",
-        //     title: "绑定字段",
-        //     required: true,
-        //     "x-decorator": "FormItem",
-        //     "x-component": "Select",
-        //     'x-component-props': {
-        //         options: [
-        //             {
-        //                 label: '工程造价',
-        //                 value: 'gczj'
-        //             },
-        //             {
-        //                 label: '剩余工期',
-        //                 value: 'gq'
-        //             },
-        //         ]
-        //     }
-
-        // },
-
     },
 };

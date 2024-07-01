@@ -10,7 +10,7 @@ export interface FeeListItem {
 }
 
 
-export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOption {
+export function getPieOption({ feeList, chartColors }: { feeList: FeeListItem[]; chartColors: string[] }): EChartsOption {
     const total = feeList.reduce((memo, cur) => {
         memo = memo.add(cur.value || 0)
         return memo
@@ -66,18 +66,18 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
                 show: false
             },
 
-            data: feeList.reduce((memo, fee) => {
+            data: feeList.reduce((memo, fee, index) => {
 
 
                 memo.push({
                     ...fee,
                     label: {
                         show: true,
-                        color: getNameColor(fee.name),
+                        color: chartColors[index],
                     },
                     itemStyle: {
 
-                        color: getNameColor(fee.name),
+                        color: chartColors[index],
                         borderWidth: 5,
                         shadowBlur: 30,
                         borderColor: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
@@ -115,18 +115,3 @@ export function getPieOption({ feeList }: { feeList: FeeListItem[] }): EChartsOp
 }
 
 
-function getNameColor(name = '') {
-    if (name === '人工') {
-        return "#A4FCEE"
-    }
-    if (name === '机械') {
-        return "#84A6FF"
-    }
-    if (name === '费用') {
-        return "#76F5B0"
-    }
-    if (name === '材料') {
-        return "#64B7FB"
-    }
-    return "#64B7FB"
-}

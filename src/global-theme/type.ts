@@ -74,6 +74,7 @@ export interface CustomToken extends AliasToken {
     accentBg: string,
     accentForeground: string
   }
+  chartColors: string[];
 }
 
 type CustomToken1 = CustomToken;

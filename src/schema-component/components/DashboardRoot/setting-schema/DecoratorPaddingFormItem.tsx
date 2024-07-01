@@ -1,8 +1,9 @@
 import { FormItemComponentProps } from "@/types";
 import { css } from "@emotion/css";
 import { observer } from "@formily/react";
-import { Input, InputNumber } from "antd";
-import React from "react";
+import { InputNumber } from "antd";
+
+const width = "100px";
 
 export const DecoratorPaddingFormItem = observer(
   ({ value, onChange }: FormItemComponentProps) => {
@@ -10,8 +11,10 @@ export const DecoratorPaddingFormItem = observer(
       <div
         className={css`
           width: 100%;
-          height: 100px;
-          background-color: rgba(0, 0, 0, 0.5);
+          height: 140px;
+          padding: 16px 4px;
+          border: 1px dashed rgba(0, 0, 0, 0.8);
+          /* background-color: rgba(0, 0, 0, 0.5); */
           display: flex;
           align-items: center;
           justify-content: center;
@@ -21,7 +24,7 @@ export const DecoratorPaddingFormItem = observer(
         <div
           className={css`
             width: 40px;
-            height: 24px;
+            height: 14px;
             background-color: #4aa7be;
             border: 1px dashed #ccc;
           `}
@@ -29,13 +32,14 @@ export const DecoratorPaddingFormItem = observer(
         <div
           className={css`
             position: absolute;
-            width: 80px;
-            top: 4px;
+            width: ${width};
+            top: 16px;
             left: 50%;
             margin-left: -40px;
           `}
         >
           <InputNumber
+            addonBefore="上"
             size="small"
             value={value[0]}
             onBlur={(e) => {
@@ -46,13 +50,14 @@ export const DecoratorPaddingFormItem = observer(
         <div
           className={css`
             position: absolute;
-            width: 80px;
+            width: ${width};
             top: 50%;
             right: 4px;
             margin-top: -12px;
           `}
         >
           <InputNumber
+            addonBefore="右"
             size="small"
             value={value[1]}
             onBlur={(e) => {
@@ -63,13 +68,14 @@ export const DecoratorPaddingFormItem = observer(
         <div
           className={css`
             position: absolute;
-            width: 80px;
-            bottom: 4px;
+            width: ${width};
+            bottom: 16px;
             left: 50%;
             margin-left: -40px;
           `}
         >
           <InputNumber
+            addonBefore="下"
             size="small"
             value={value[2]}
             onBlur={(e) => {
@@ -80,13 +86,14 @@ export const DecoratorPaddingFormItem = observer(
         <div
           className={css`
             position: absolute;
-            width: 80px;
+            width: ${width};
             top: 50%;
             left: 4px;
             margin-top: -12px;
           `}
         >
           <InputNumber
+            addonBefore="左"
             size="small"
             value={value[3]}
             onBlur={(e) => {

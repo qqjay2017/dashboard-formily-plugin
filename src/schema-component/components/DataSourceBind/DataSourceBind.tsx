@@ -3,7 +3,7 @@ import { FormItemComponentProps } from "../../../types";
 import { DatabaseOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { css } from "@emotion/css";
-import { useAPIClient, useQuery } from "../../../api-client";
+import { useRequest } from "../../../api-client";
 import { get } from "lodash-es";
 import { CardItem } from "../CardItem";
 import { IoIosRefresh, IoMdAdd } from "react-icons/io";
@@ -18,14 +18,9 @@ export const DataSourceBind = observer(
   ({ value, onChange }: DataSourceBindProps) => {
     console.log(value, "value");
     const [open, setOpen] = useState(false);
-    const apiClient = useAPIClient();
-    const { data, refetch } = useQuery({
-      queryKey: ["/api-manage/select/list", "get"],
-      queryFn: () =>
-        apiClient.request({
-          method: "get",
-          url: `${apiBase}/api-manage/list`,
-        }),
+
+    const { data, refetch } = useRequest(`${apiBase}/api-manage/list`, {
+      method: "GET",
     });
     const dataSourceApiOptions = get(data, "data.data", []).map((item) => {
       return {

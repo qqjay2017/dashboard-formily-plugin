@@ -9,7 +9,7 @@ import { Form, FormButtonGroup, FormDialog, Submit } from "@formily/antd-v5";
 import { editApiFormSchema } from "./editApiFormSchema";
 import { createForm } from "@formily/core";
 import { css } from "@emotion/css";
-import { useAPIClient, useQuery } from "../../api-client";
+import { useAPIClient, useRequest } from "../../api-client";
 import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 import { useEditId } from "../../hooks";
@@ -25,14 +25,9 @@ export const ApiEdit = () => {
   const { locale } = useContext(ConfigProvider.ConfigContext);
   const navigate = useNavigate();
 
-  const { data } = useQuery({
+  const { data } = useRequest(`${apiBase}/api-manage/` + id, {
     enabled: !!id,
-    queryFn: () =>
-      apiClient.request({
-        url: `${apiBase}/api-manage/` + id,
-        method: "get",
-      }),
-    queryKey: [id, "apiDt"],
+    method: "GET",
   });
   const dtData = get(data, "data.data", {});
 

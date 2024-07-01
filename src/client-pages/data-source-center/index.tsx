@@ -1,12 +1,8 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { useAPIClient } from "../../api-client";
+import { useRequest } from "../../api-client";
 import { get } from "lodash-es";
-import { Button, Space, Table, Tag, Tooltip, message } from "antd";
+import { Button, Space, Table, Tag, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FormDialog } from "@formily/antd-v5";
 import { ApiTest } from "./ApiTest";
@@ -19,14 +15,8 @@ import { useEffect } from "react";
 
 export const DataSourceCenter = () => {
   const navigate = useNavigate();
-  const apiClient = useAPIClient();
-  const { data, refetch } = useQuery({
-    queryKey: ["/api-manage/list", "get"],
-    queryFn: () =>
-      apiClient.request({
-        method: "get",
-        url: `${apiBase}/api-manage/list`,
-      }),
+  const { data, refetch } = useRequest(`${apiBase}/api-manage/list`, {
+    method: "GET",
   });
   const { data: groupList, refetch: refetchGroupList } = useGroupList();
 

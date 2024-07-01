@@ -14,7 +14,6 @@ export const ClassicFrameSettingSchema: ISchema = {
             "x-component": "Input",
 
         },
-        ...positionDecoratorFormItemSchema
 
     },
 };

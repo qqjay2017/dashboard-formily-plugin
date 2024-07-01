@@ -2,6 +2,8 @@ import { theme } from "antd";
 
 import { get } from "lodash-es";
 import { useApp } from "@/application";
+import { PositionDecoratorFormItem } from "./PositionDecoratorFormItem";
+import { DecoratorPaddingFormItem } from "./DecoratorPaddingFormItem";
 
 function InfoCom({ value }) {
   const app = useApp();
@@ -57,6 +59,21 @@ export function getCompomentTypeInfoSchema() {
       required: false,
       "x-decorator": "FormItem",
       "x-component": InfoCom2,
+    },
+    decoratorProps: {
+      type: "object",
+      title: "位置/尺寸信息",
+      required: false,
+      "x-decorator": "FormItem",
+      "x-component": PositionDecoratorFormItem,
+    },
+    decoratorPadding: {
+      name: "decoratorProps",
+      type: "array",
+      title: "间距",
+      required: false,
+      "x-decorator": "FormItem",
+      "x-component": DecoratorPaddingFormItem,
     },
   };
 }

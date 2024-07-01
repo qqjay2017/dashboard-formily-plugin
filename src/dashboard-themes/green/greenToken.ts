@@ -20,7 +20,15 @@ export const greenToken = {
     frame: {
         startColor: "#154c8d",
         endColor: "rgba(21, 76, 141, 0.14)"
-    }
+    },
+    chartColors: [
+        "#6998F3",
+        "#87E15E",
+        "#F7BA5F",
+        "#FFE460",
+        "#10D4FF",
+        "#FF7777",
+    ]
 }
 
 export const greenDarkToken = {
@@ -59,5 +67,17 @@ export const greenLightToken = {
         border: new TinyColor("#40C69F").setAlpha(0.5).toRgbString(),
         accentBg: new TinyColor("#fff").setAlpha(0.2).toRgbString(),
         accentForeground: "#007350"
-    }
+    },
+    chartColors: [
+        "#6998F3",
+        "#47D107",
+        "#F7BA5F",
+        "#FFE460",
+        "#10D4FF",
+        "#FF7777",
+        "#6998F3",
+        "#F7BA5F",
+        "#47D107",
+        "#FF7777"
+    ]
 }

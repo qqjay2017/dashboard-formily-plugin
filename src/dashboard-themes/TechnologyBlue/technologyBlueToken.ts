@@ -44,7 +44,19 @@ export const technologyBlueDarkToken = {
         border: "#0A386B",
         accentBg: "#154678",
         accentForeground: "#C3D4E5"
-    }
+    },
+    chartColors: [
+        "#A4FCEE",
+        "#84A6FF",
+        "#76F5B0",
+        "#64B7FB",
+        "#6998F3",
+        "#87E15E",
+        "#F7BA5F",
+        "#FFE460",
+        "#10D4FF",
+        "#FF7777"
+    ]
 }
 export const technologyBlueLightToken = {
     colorPrimary: "#1D69B1",
@@ -62,5 +74,14 @@ export const technologyBlueLightToken = {
         border: new TinyColor("#5892D2").setAlpha(0.2).toRgbString(),
         accentBg: "rgba(255,255,255,0.2)",
         accentForeground: "#1D69B1"
-    }
+    },
+    chartColors: [
+        "#6998F3",
+        "#47D107",
+        "#F7BA5F",
+        "#FFE460",
+        "#10D4FF",
+        "#FF7777",
+    ]
+
 }
