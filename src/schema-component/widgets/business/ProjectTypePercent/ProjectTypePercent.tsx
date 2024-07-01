@@ -7,6 +7,7 @@ import { ProjectTypeListItem, getPieOption } from "./getPieOption";
 import { ProjectTypePercentSchemeWrap } from "./ProjectTypePercentSchemeWrap";
 import { ProjectTypePercentMenuItem } from "./ProjectTypePercentMenuItem";
 import { ProjectTypePercentSettingSchema } from "./ProjectTypePercentSettingSchema";
+import { useProjectTypePercentOption } from "./useProjectTypePercentOption";
 
 export function ProjectTypePercent() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -17,12 +18,7 @@ export function ProjectTypePercent() {
     },
   });
   const list: ProjectTypeListItem[] = get(data, "data.data", []);
-  const option = useMemo(() => {
-    return getPieOption({
-      list,
-      activeIndex,
-    });
-  }, [list.length, activeIndex]);
+  const option = useProjectTypePercentOption(list, activeIndex);
   const onEvents = useMemo(() => {
     return {
       mouseout: (a: any, chart: EChartsInstance) => {

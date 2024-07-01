@@ -20,8 +20,8 @@ export interface ProjectTypeListItem {
 }
 
 
-export function getPieOption({ list, activeIndex }: { list: ProjectTypeListItem[]; activeIndex: number }): EChartsOption {
-    const { data1, data2, data3 } = apiDataToProjectTypeChartData(list, activeIndex);
+export function getPieOption({ list, activeIndex, chartColors = [] }: { list: ProjectTypeListItem[]; activeIndex: number; chartColors: string[] }): EChartsOption {
+    const { data1, data2, data3 } = apiDataToProjectTypeChartData(list, activeIndex, chartColors);
 
     return {
         grid: {},
@@ -123,55 +123,13 @@ export function getPieOption({ list, activeIndex }: { list: ProjectTypeListItem[
 }
 
 
-function getNameColor(name = '') {
-    if (name === '人工') {
-        return "#A4FCEE"
-    }
-    if (name === '机械') {
-        return "#84A6FF"
-    }
-    if (name === '费用') {
-        return "#76F5B0"
-    }
-    if (name === '材料') {
-        return "#64B7FB"
-    }
-    return "#64B7FB"
-}
 
 function apiDataToProjectTypeChartData(
     d: ProjectTypeListItem[],
     activeIndex: number = 0,
+    chartColors: string[] = []
 ) {
-    // d = [
-    //   {
-    //     num: 30,
 
-    //     percent: 30,
-
-    //     totalAmount: 1020,
-    //     type: '其他',
-    //     typeName: null,
-    //   },
-    //   {
-    //     num: 50,
-
-    //     percent: 50,
-
-    //     totalAmount: 2020,
-    //     type: '房屋建筑',
-    //     typeName: null,
-    //   },
-    //   {
-    //     num: 20,
-
-    //     percent: 20,
-
-    //     totalAmount: 2020,
-    //     type: 'cccc',
-    //     typeName: null,
-    //   },
-    // ];
 
     const data = d.map((d) => ({
         ...d,
@@ -217,7 +175,7 @@ function apiDataToProjectTypeChartData(
             ...d,
             value: 1,
             label: {
-                color: i === activeIndex ? '#fff' : 'rgba(25, 255, 224)',
+                color: i === activeIndex ? '#fff' : chartColors[0],
                 rotate: angleText(i, data.length),
             },
         });
