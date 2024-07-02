@@ -16,12 +16,17 @@ function PositionItemWrap({ children }: PropsWithChildren) {
   );
 }
 
+const inputNumberStyle = {
+  width: 250,
+};
+
 export const PositionDecoratorFormItem = observer(
   ({ value, onChange }: FormItemComponentProps) => {
     return (
       <div>
         <PositionItemWrap>
           <InputNumber
+            style={inputNumberStyle}
             value={value.w}
             addonBefore="宽度"
             onBlur={(e) => {
@@ -32,6 +37,7 @@ export const PositionDecoratorFormItem = observer(
         </PositionItemWrap>
         <PositionItemWrap>
           <InputNumber
+            style={inputNumberStyle}
             value={value.h}
             addonBefore="高度"
             onBlur={(e) => {
@@ -41,6 +47,7 @@ export const PositionDecoratorFormItem = observer(
         </PositionItemWrap>
         <PositionItemWrap>
           <InputNumber
+            style={inputNumberStyle}
             value={value.x}
             addonBefore="X坐标"
             onBlur={(e) => {
@@ -50,6 +57,7 @@ export const PositionDecoratorFormItem = observer(
         </PositionItemWrap>
         <PositionItemWrap>
           <InputNumber
+            style={inputNumberStyle}
             value={value.y}
             addonBefore="Y坐标"
             onBlur={(e) => {
@@ -59,6 +67,7 @@ export const PositionDecoratorFormItem = observer(
         </PositionItemWrap>
         <PositionItemWrap>
           <InputNumber
+            style={inputNumberStyle}
             value={value.zIndex}
             addonBefore="层级"
             onBlur={(e) => {

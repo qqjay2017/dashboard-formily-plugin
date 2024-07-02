@@ -1,6 +1,7 @@
 import { Plugin } from "../../application";
 import {
   ClassicFrame,
+  ConstrucPersonChart,
   Header1,
   HeaderMenu,
   ProjectBudget,
@@ -17,6 +18,7 @@ export class DashboardPreviewPlugin extends Plugin {
       ProjectBudget,
       ProjectTypePercent,
       HeaderMenu,
+      ConstrucPersonChart,
     });
   }
 }

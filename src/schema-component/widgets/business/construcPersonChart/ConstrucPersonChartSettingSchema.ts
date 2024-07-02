@@ -3,4 +3,4 @@ import { ISchema } from "@formily/react";
 
 
 
-export const ProjectBudgetSettingSchema: ISchema = getCompomentTypeInfoSchema()
+export const ConstrucPersonChartSettingSchema: ISchema = getCompomentTypeInfoSchema()

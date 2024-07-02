@@ -44,36 +44,40 @@ function InfoCom2({ value }) {
     </div>
   );
 }
-export function getCompomentTypeInfoSchema() {
+export function getCompomentTypeInfoSchema(properties: any = {}) {
   return {
-    componentType: {
-      type: "string",
-      title: "组件类型",
-      required: false,
-      "x-decorator": "FormItem",
-      "x-component": InfoCom,
-    },
-    componentAddress: {
-      type: "string",
-      title: "组件路径",
-      required: false,
-      "x-decorator": "FormItem",
-      "x-component": InfoCom2,
-    },
-    decoratorProps: {
-      type: "object",
-      title: "位置/尺寸信息",
-      required: false,
-      "x-decorator": "FormItem",
-      "x-component": PositionDecoratorFormItem,
-    },
-    decoratorPadding: {
-      name: "decoratorProps",
-      type: "array",
-      title: "间距",
-      required: false,
-      "x-decorator": "FormItem",
-      "x-component": DecoratorPaddingFormItem,
+    type: "object",
+    properties: {
+      componentType: {
+        type: "string",
+        title: "组件类型",
+        required: false,
+        "x-decorator": "FormItem",
+        "x-component": InfoCom,
+      },
+      componentAddress: {
+        type: "string",
+        title: "组件路径",
+        required: false,
+        "x-decorator": "FormItem",
+        "x-component": InfoCom2,
+      },
+      ...properties,
+      decoratorProps: {
+        type: "object",
+        title: "位置/尺寸信息",
+        required: false,
+        "x-decorator": "FormItem",
+        "x-component": PositionDecoratorFormItem,
+      },
+      decoratorPadding: {
+        name: "decoratorProps",
+        type: "array",
+        title: "间距",
+        required: false,
+        "x-decorator": "FormItem",
+        "x-component": DecoratorPaddingFormItem,
+      },
     },
   };
 }

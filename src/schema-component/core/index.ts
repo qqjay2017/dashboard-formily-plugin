@@ -7,3 +7,4 @@ export * from './SchemaComponentProvider';
 
 
 
+export * from './getCommonInitSchema'

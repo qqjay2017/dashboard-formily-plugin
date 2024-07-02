@@ -106,7 +106,7 @@ const DashboardRootMain = observer(
     const selectoRef = useRef<Selecto>(null);
     const moveableRef = useRef<Moveable>(null);
     const scrollAreaRef = useRef<HTMLDivElement>(null);
-    const [designZoom, setDesignZoom] = useState(0.5);
+    const [designZoom, setDesignZoom] = useState(1);
     const { designable, formId } = useSchemaComponentContext();
     const { breakpoint, width, height, ref } = useBreakpoints(breakpoints, 800);
     const isPc = breakpoint === "desktop" || breakpoint === "showroom";
@@ -165,8 +165,8 @@ const DashboardRootMain = observer(
         return;
       }
 
-      scrollAreaRef.current.scrollLeft = designWidth;
-      scrollAreaRef.current.scrollTop = designHeight / 2 + 160;
+      scrollAreaRef.current.scrollLeft = designWidth - 50;
+      scrollAreaRef.current.scrollTop = designHeight / 2 + -50;
     };
 
     const field = useField();

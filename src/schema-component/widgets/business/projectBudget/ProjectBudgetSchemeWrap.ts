@@ -1,17 +1,10 @@
+import { commonInitSchema } from "@/schema-component/core";
 import { Schema } from "@formily/react";
 
 export function ProjectBudgetSchemeWrap(inject: any = {}) {
     return new Schema({
-        _isJSONSchemaObject: true,
-        version: "2.0",
-        type: "void",
+        ...commonInitSchema,
         "x-component": "ProjectBudget",
-        "x-settings": "settings:block",
-        "x-decorator": "PositionDecorator",
-        "x-component-props": {
-
-        },
-
         ...inject,
         "x-decorator-props": {
             padding: [24, 12, 24, 12],

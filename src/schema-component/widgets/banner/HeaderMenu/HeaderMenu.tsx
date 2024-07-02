@@ -14,7 +14,20 @@ import { useReportShare } from "@/client-pages/home-list/useReportShare";
 import { HeaderMenuSchemeWrap } from "./HeaderMenuSchemeWrap";
 import { HeaderMenuMenuItem } from "./HeaderMenuMenuItem";
 import { HeaderMenuSettingSchema } from "./HeaderMenuSettingSchema";
+import useResizeObserver from "use-resize-observer";
+import { forwardRef, useMemo } from "react";
 
+import useEmblaCarousel from "embla-carousel-react";
+import { NextButton, PrevButton, usePrevNextButtons } from "@/ui";
+import { sizeFormat } from "@/schema-component/components/DashboardRoot/utils";
+
+const emptyCss = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 export function HeaderMenu({
   dataSource,
 }: {
@@ -23,52 +36,113 @@ export function HeaderMenu({
   const { data, isLoading } = useDataBindFetch(dataSource);
   const menuList: HeaderMenuItemType[] = get(data, "data.data", []);
   const { reportId } = useReportId();
+  const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
+  const menuInnerWidth = useMemo(() => {
+    if (!width) return 0;
+
+    return Math.floor(width - 60);
+  }, [width]);
+
+  const menuCount = useMemo(() => {
+    if (!menuInnerWidth) return 0;
+
+    return Math.floor(menuInnerWidth / 180);
+  }, [menuInnerWidth]);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    slidesToScroll: "auto",
+  });
+
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+
+  console.log(menuInnerWidth, menuCount, "prevBtnDisabled");
+
   if (!dataSource || !dataSource.dataSourceId) {
-    return (
-      <div
-        className={css`
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        `}
-      >
-        请绑定数据源
-      </div>
-    );
+    return <div className={emptyCss}>请绑定数据源</div>;
   }
+  if (!isLoading && !menuList.length) {
+    return <div className={emptyCss}>菜单数据为空</div>;
+  }
+
   return (
     <ConetentSpin isLoading={isLoading}>
       <div
+        ref={ref}
         className={css`
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(0.8rem, 1fr));
-          gap: 0.24rem;
+          display: flex;
+          align-items: center;
           justify-content: center;
+          position: relative;
+          height: 100%;
+          max-height: 0.38rem;
+          width: 100%;
         `}
       >
-        {menuList.map((menuItem, index) => {
-          return (
-            <MenuItem
-              reportId={reportId}
-              key={menuItem.shareURL + menuItem.label + index}
-              menuItem={menuItem}
-            />
-          );
-        })}
+        <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+        <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+
+        <div
+          className={css`
+            width: ${menuInnerWidth}px;
+            height: 100%;
+            overflow: hidden;
+          `}
+        >
+          <div
+            className={css`
+              height: 100%;
+              overflow: hidden;
+            `}
+            ref={emblaRef}
+          >
+            <div
+              className={css`
+                touch-action: pan-y pinch-zoom;
+                backface-visibility: hidden;
+                display: flex;
+                height: 100%;
+              `}
+            >
+              {menuList.map((menuItem, index) => {
+                return (
+                  <div
+                    key={menuItem.shareURL + menuItem.label + index}
+                    className={css`
+                      min-width: 0;
+                      flex-grow: 0;
+                      flex-shrink: 0;
+                      flex-basis: ${sizeFormat(100 / menuCount)}%;
+                      padding: 0 0.12rem;
+                      height: 100%;
+                      max-height: 0.38rem;
+                    `}
+                  >
+                    <MenuItem reportId={reportId} menuItem={menuItem} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </ConetentSpin>
   );
 }
 
-function MenuItem({
-  menuItem,
-  reportId,
-}: {
-  menuItem: HeaderMenuItemType;
-  reportId?: string;
-}) {
+export const MenuItem = forwardRef<
+  HTMLDivElement,
+  {
+    menuItem: HeaderMenuItemType;
+    reportId?: string;
+    className?: string;
+    style?: React.CSSProperties;
+  }
+>(({ menuItem, reportId, className, style }, ref) => {
   const disabled = !menuItem.shareURL || menuItem.disabled;
   const active = !reportId
     ? false
@@ -82,6 +156,9 @@ function MenuItem({
   if (!menuItem.children || !menuItem.children.length) {
     return (
       <div
+        ref={ref}
+        role="group"
+        aria-roledescription="slide"
         onClick={() => {
           if (disabled) {
             return false;
@@ -91,15 +168,17 @@ function MenuItem({
           });
         }}
         className={cn(
-          active ? css`` : "",
+          // active ? css`` : "",
           styles,
 
           disabled
             ? css`
                 cursor: not-allowed;
               `
-            : ""
+            : "",
+          className
         )}
+        style={style}
       >
         {menuItem.label}
       </div>
@@ -122,7 +201,14 @@ function MenuItem({
       }}
     >
       <Select.Trigger asChild>
-        <div className={styles}>{menuItem.label}</div>
+        <div
+          role="group"
+          aria-roledescription="slide"
+          className={cn(styles, className)}
+          style={style}
+        >
+          {menuItem.label}
+        </div>
       </Select.Trigger>
 
       <Select.Portal container={document.getElementById("DashboardRoot")}>
@@ -162,8 +248,8 @@ function MenuItem({
                     className={cn(
                       css`
                         width: 100%;
-                        height: 24px;
-                        line-height: 24px;
+                        height: 0.38rem;
+                        line-height: 0.38rem;
                         background-color: unset;
                         font-family: YouSheBiaoTiHei;
                         letter-spacing: 0.02rem;
@@ -192,7 +278,7 @@ function MenuItem({
       </Select.Portal>
     </Select.Root>
   );
-}
+});
 
 HeaderMenu.schemaFn = HeaderMenuSchemeWrap;
 HeaderMenu.menuItem = HeaderMenuMenuItem;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 
 import { ConfigProvider, Select, Slider } from "antd";
 import { css } from "@emotion/css";
@@ -28,9 +28,9 @@ export const CanvasSetting = ({
     }, 0);
   };
 
-  useEffect(() => {
-    fitZoom();
-  }, []);
+  // useEffect(() => {
+  //   fitZoom();
+  // }, []);
   return (
     <ConfigProvider
       theme={{
