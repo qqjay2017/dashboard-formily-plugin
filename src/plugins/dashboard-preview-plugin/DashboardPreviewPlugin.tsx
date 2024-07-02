@@ -4,6 +4,7 @@ import {
   ConstrucPersonChart,
   Header1,
   HeaderMenu,
+  ProjectAttendanceDataAna,
   ProjectBudget,
   ProjectTypePercent,
   Statistic,
@@ -19,6 +20,7 @@ export class DashboardPreviewPlugin extends Plugin {
       ProjectTypePercent,
       HeaderMenu,
       ConstrucPersonChart,
+      ProjectAttendanceDataAna,
     });
   }
 }
