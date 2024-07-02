@@ -25,6 +25,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-select": "^2.1.1",
     "@tanstack/react-query": "^5.40.0",
+    "@tanstack/react-table": "^8.19.2",
     "@types/node": "^20.14.9",
     "ahooks": "^3.8.0",
     "antd": "^5.17.3",
