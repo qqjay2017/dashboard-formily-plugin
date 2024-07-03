@@ -4,8 +4,7 @@ import { useField } from "@formily/react";
 import { createStyles } from "antd-style";
 import { PositionDecoratorOptions } from "./types";
 
-import { sizeFormat } from "../DashboardRoot/utils";
-import { cn, eidToElementId } from "../../../utils";
+import { cn, eidToElementId, sizeFormat } from "@/utils";
 
 import { useDashboardRoot } from "../DashboardRoot";
 

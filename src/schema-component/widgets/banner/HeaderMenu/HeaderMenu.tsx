@@ -9,7 +9,7 @@ import { css } from "@emotion/css";
 import * as Select from "@radix-ui/react-select";
 
 import { useToken } from "@/style";
-import { cn } from "@/utils";
+import { cn, sizeFormat } from "@/utils";
 import { useReportShare } from "@/client-pages/home-list/useReportShare";
 import { HeaderMenuSchemeWrap } from "./HeaderMenuSchemeWrap";
 import { HeaderMenuMenuItem } from "./HeaderMenuMenuItem";
@@ -19,7 +19,6 @@ import { forwardRef, useMemo } from "react";
 
 import useEmblaCarousel from "embla-carousel-react";
 import { NextButton, PrevButton, usePrevNextButtons } from "@/ui";
-import { sizeFormat } from "@/schema-component/components/DashboardRoot/utils";
 
 const emptyCss = css`
   width: 100%;

@@ -1,9 +1,9 @@
 import { PropsWithChildren, useMemo } from "react";
 import { PositionDecoratorOptions } from "./types";
 import { useField } from "@formily/react";
-import { cn, eidToElementId } from "../../../utils";
+import { cn, eidToElementId, sizeFormat } from "@/utils";
 import { useDashboardRoot } from "../DashboardRoot";
-import { sizeFormat } from "../DashboardRoot/utils";
+
 import { useScrollBarStyle } from "../DashboardRoot/styles";
 
 export const PositionDecoratorPreview = (

@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 
-import { defaultBreakpoints, flexible, sizeFormat } from "../utils";
+import { defaultBreakpoints, flexible } from "../utils";
 import { useSchemaComponentContext } from "../../../hooks";
 import {
   RecursionField,
@@ -22,7 +22,6 @@ import { allThemeNameMap } from "../../../../dashboard-themes";
 import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
 
 import { DashboardRootContext, DesignPageConext } from "../context";
-import { cn } from "../../../../utils";
 
 import { ConfigProvider, theme } from "antd";
 import { ThemeCSSVariableProvider } from "../../../../css-variable";
@@ -55,6 +54,7 @@ import Selecto from "react-selecto";
 import { Selectable } from "./Selectable";
 import Moveable from "react-moveable";
 import { CanvasSetting } from "./CanvasSetting";
+import { cn, sizeFormat } from "@/utils";
 
 export const MemorizedRecursionField = memo(RecursionField);
 MemorizedRecursionField.displayName = "MemorizedRecursionField";

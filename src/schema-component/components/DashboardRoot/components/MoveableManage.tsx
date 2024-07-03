@@ -3,8 +3,8 @@ import Moveable from "react-moveable";
 
 import { useForm } from "@formily/react";
 import { useSaveAllFieldSchema } from "../../../hooks/useSaveAllFieldSchema";
-import { eidToElementId, elementIdToEid } from "../../../../utils";
-import { sizeFormat } from "../utils";
+import { eidToElementId, elementIdToEid, sizeFormat } from "@/utils";
+
 import { useDashboardRoot } from "../hooks";
 
 import { observer } from "@formily/reactive-react";

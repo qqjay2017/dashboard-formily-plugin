@@ -1,5 +1,4 @@
 export * from './defaultValue'
 export * from './responsiveUtils'
-export * from './sizeFormat'
 export * from './dispatchInsert'
 export * from './flexible'

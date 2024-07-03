@@ -8,6 +8,7 @@ import {
   ProjectAttendanceDataAna,
   ProjectBudget,
   ProjectTypePercent,
+  QuarterSelect,
   Statistic,
 } from "../../schema-component";
 
@@ -23,6 +24,7 @@ export class DashboardPreviewPlugin extends Plugin {
       ConstrucPersonChart,
       ProjectAttendanceDataAna,
       ProjectAttendanceAnaTable,
+      QuarterSelect,
     });
   }
 }
