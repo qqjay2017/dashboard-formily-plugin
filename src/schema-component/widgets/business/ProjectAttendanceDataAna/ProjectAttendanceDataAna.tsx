@@ -5,6 +5,7 @@ import { css } from "@emotion/css";
 import { getSchemeWrap } from "./getSchemeWrap";
 import { menuItem } from "./menuItem";
 import { settingSchema } from "./settingSchema";
+import { useToken } from "@/style";
 
 const projectNum = 20;
 
@@ -18,6 +19,7 @@ const clocking = {
 };
 
 export const ProjectAttendanceDataAna = () => {
+  const { token } = useToken();
   return (
     <div
       className={css`
@@ -60,7 +62,7 @@ export const ProjectAttendanceDataAna = () => {
               font-size: 0.16rem;
               line-height: 0.16rem;
               text-align: center;
-              color: rgba(195, 212, 229, 0.7);
+              color: ${token.textCommon};
             `}
           >
             在建项目数
@@ -76,7 +78,7 @@ export const ProjectAttendanceDataAna = () => {
               line-height: 0.24rem;
               text-align: center;
               color: #fff;
-              text-shadow: 0px 0px 10px #2193db;
+              text-shadow: 2px 2px 10px ${token.textPrimary};
             `}
           >{`${projectNum || 0}个`}</div>
         </div>
@@ -96,19 +98,19 @@ export const ProjectAttendanceDataAna = () => {
               label: "全员打卡项目数",
               count: clocking.allUserProjectNum,
               unit: "个",
-              countColor: "#64E3FF",
+              countColor: token.textNumBlue,
             },
             {
               label: "部分打卡项目数",
               count: clocking.sectionUserProjectNum,
               unit: "个",
-              countColor: "#87E15E",
+              countColor: token.textNumGreen,
             },
             {
               label: "未打卡项目数",
               count: clocking.unUserProjectNum,
               unit: "个",
-              countColor: "#FF7777",
+              countColor: token.textNumRed,
             },
             {
               label: "未打卡项目占比",
@@ -116,31 +118,31 @@ export const ProjectAttendanceDataAna = () => {
                 fixed: 0,
               }),
               unit: "%",
-              countColor: "#59FFCD",
+              countColor: token.textNumGreen,
             },
             {
               label: "应打卡人数",
               count: clocking.allUserNum,
               unit: "人",
-              countColor: "#64E3FF",
+              countColor: token.textNumBlue,
             },
             {
               label: "已打卡人数",
               count: clocking.clockUserNum,
               unit: "人",
-              countColor: "#87E15E",
+              countColor: token.textNumGreen,
             },
             {
               label: "未打卡人数",
               count: clocking.unClockUserNum,
               unit: "人",
-              countColor: "#FF7777",
+              countColor: token.textNumRed,
             },
             {
               label: "打卡人数占比",
               count: getPercent(clocking.clockUserNum, clocking.allUserNum, {}),
               unit: "%",
-              countColor: "#59FFCD",
+              countColor: token.textNumGreen,
             },
           ].map((item, index) => {
             return <ZjxmsRightItem key={item.label + index} {...item} />;

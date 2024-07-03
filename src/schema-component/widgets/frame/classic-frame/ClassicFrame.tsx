@@ -7,6 +7,7 @@ import { css } from "@emotion/css";
 import { useDroppable } from "@dnd-kit/core";
 import { ClassicFrameMenuItem } from "./ClassicFrameMenuItem";
 import { ClassicFrameSettingSchema } from "./ClassicFrameSettingSchema";
+import { useToken } from "@/style";
 
 interface ClassicFramePropw extends PropsWithChildren {
   title?: string;
@@ -31,7 +32,7 @@ export function ClassicFrame({
   titleClassName,
   contentClassName,
 }: ClassicFramePropw) {
-  const field = useField();
+  const { token } = useToken();
   // const fieldSchema = useFieldSchema();
   const hasTitle = title || extra;
   const classicFrameStyle = useClassicFrameStyle({ hasTitle: !!hasTitle });
@@ -61,7 +62,7 @@ export function ClassicFrame({
             <div
               className={cn("nrtSubTitle")}
               style={{
-                color: "#C3D4E5",
+                color: token.textCommon,
               }}
             >
               {subTitle}

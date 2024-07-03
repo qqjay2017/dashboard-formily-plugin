@@ -28,3 +28,47 @@ export const useDashboardRootStyle = createStyles(
 
     }
 );
+
+
+export const useScrollBarStyle = createStyles(({ css, token }) => {
+    return css`
+    ::-webkit-scrollbar,
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb {
+    background:${token.thumbColor};
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent ;
+  }
+
+  ::-webkit-scrollbar-track-piece,
+  ::-webkit-scrollbar-track-piece {
+    background: transparent ;
+  }
+
+  * {
+    ::-webkit-scrollbar,
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-thumb,
+    ::-webkit-scrollbar-thumb {
+      background: ${token.thumbColor};
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: transparent ;
+    }
+    ::-webkit-scrollbar-track-piece,
+    ::-webkit-scrollbar-track-piece {
+      background: transparent ;
+    }
+  }
+    `
+})

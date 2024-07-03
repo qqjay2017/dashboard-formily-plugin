@@ -1,11 +1,15 @@
 
 import { TinyColor } from '@ctrl/tinycolor';
+import { darkColorTextLabel, lightColorTextLabel, lightColorTextSecondLabel, textCommonBase, textCommonRgb } from '../consts';
 
+const darkMainColor = new TinyColor("#00FFB2")
+const lightMainColor = new TinyColor("#007350")
 const primary = new TinyColor("#007350")
 const textMenuLight = new TinyColor("#0EA778")
 const textMenuDark = new TinyColor("#79E8C7")
 
 export const greenToken = {
+    colorTextLabel: primary.setAlpha(0.8).toRgbString(),
 
     textWhite: "#fff",
     textCommon: "#c3d4e5",
@@ -21,6 +25,13 @@ export const greenToken = {
         startColor: "#154c8d",
         endColor: "rgba(21, 76, 141, 0.14)"
     },
+    table: {
+        colorHeaderForeground: textCommonBase.setAlpha(0.7).toRgbString(),
+        colorHeaderBg: "rgba(255,255,255,0.06)",
+        colorRowBg: "rgba(255,255,255,0.03)",
+        colorRowForeground: textCommonBase.setAlpha(0.6).toRgbString()
+
+    },
     chartColors: [
         "#6998F3",
         "#87E15E",
@@ -28,12 +39,15 @@ export const greenToken = {
         "#FFE460",
         "#10D4FF",
         "#FF7777",
-    ]
+    ],
 }
 
 export const greenDarkToken = {
+    thumbColor: darkMainColor.setAlpha(0.5).toRgbString(),
+    colorTextSecondLabel: darkColorTextLabel,
+    colorTextLabel: darkColorTextLabel,
     colorPrimary: "#00FFB2",
-    textCommon: "#C3D4E5",
+    textCommon: textCommonRgb,
     textNumBlue: "#64E3FF",
     textNumGreen: "#59FFCD",
     textNumRed: "#FF7777",
@@ -48,9 +62,14 @@ export const greenDarkToken = {
         border: "#076C6C",
         accentBg: "#15786C",
         accentForeground: "#C3E5DF"
-    }
+    },
+
+
 }
 export const greenLightToken = {
+    thumbColor: lightMainColor.setAlpha(0.5).toRgbString(),
+    colorTextSecondLabel: lightColorTextSecondLabel,
+    colorTextLabel: lightColorTextLabel,
     colorPrimary: "#007350",
     textCommon: "#333",
     textNumBlue: "#6998F3",
@@ -77,7 +96,13 @@ export const greenLightToken = {
         "#FF7777",
         "#6998F3",
         "#F7BA5F",
-        "#47D107",
         "#FF7777"
-    ]
+    ],
+    table: {
+        colorHeaderForeground: lightColorTextLabel,
+        colorHeaderBg: "rgba(255,255,255,0.06)",
+        colorRowBg: "transparent",
+        colorRowForeground: lightColorTextLabel
+
+    },
 }

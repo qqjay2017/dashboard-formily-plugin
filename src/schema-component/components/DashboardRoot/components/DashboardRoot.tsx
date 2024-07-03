@@ -19,7 +19,7 @@ import {
 } from "@formily/react";
 import { useBreakpoints, useRowProperties } from "../hooks";
 import { allThemeNameMap } from "../../../../dashboard-themes";
-import { useDashboardRootStyle } from "../styles";
+import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
 
 import { DashboardRootContext, DesignPageConext } from "../context";
 import { cn } from "../../../../utils";
@@ -136,6 +136,7 @@ const DashboardRootMain = observer(
     const themeToken = themeConfig?.token || {};
 
     const themeDarkOrLightToken = themeConfig?.[isDarkTheme ? "dark" : "light"];
+
     const rootStyle = useDashboardRootStyle({
       themeProvider,
       isDarkTheme,
@@ -292,10 +293,12 @@ const DashboardRootMain = observer(
               }}
             >
               <div
-                className={css`
-                  width: 100vw;
-                  height: 100vh;
-                `}
+                className={cn(
+                  css`
+                    width: 100vw;
+                    height: 100vh;
+                  `
+                )}
               >
                 <DesignPageHeader />
                 <div

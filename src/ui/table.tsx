@@ -1,3 +1,4 @@
+import { useToken } from "@/style";
 import { cn } from "@/utils";
 import { css } from "@emotion/css";
 import { PropsWithChildren, forwardRef } from "react";
@@ -73,89 +74,98 @@ TableBody.displayName = "TableBody";
 const TableCell = forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <td
-    ref={ref}
-    className={cn(
-      css`
-        padding: 0 8px;
-        align-items: center;
-        font-weight: 600;
-        font-size: var(--fs12);
-        color: rgba(195, 212, 229, 0.6);
-        line-height: var(--fs16);
-        max-width: 100%;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        span {
+>(({ className, ...props }, ref) => {
+  const { token } = useToken();
+  return (
+    <td
+      ref={ref}
+      className={cn(
+        css`
+          padding: 0 0.08rem;
+          align-items: center;
+          font-weight: 600;
+          font-size: 0.12rem;
+          color: ${token.table.colorRowForeground};
+          line-height: 0.16rem;
           max-width: 100%;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
-        }
-      `,
-      className
-    )}
-    {...props}
-  />
-));
+          span {
+            max-width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+        `,
+        className
+      )}
+      {...props}
+    />
+  );
+});
 TableCell.displayName = "TableCell";
 
 const TableHead = forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      css`
-        width: 25%;
-        height: 25px;
-        background: #10385c;
-        padding-left: 8px;
-        padding-top: 0;
-        font-weight: 500;
-        font-size: var(--fs12);
-        color: rgba(195, 212, 229, 0.7);
-        line-height: var(--fs16);
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        flex: 0 1 auto;
-      `,
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const { token } = useToken();
+  return (
+    <th
+      ref={ref}
+      className={cn(
+        css`
+          width: 25%;
+          height: 0.25rem;
+          background-color: ${token.table.colorHeaderBg};
+          padding-left: 0.08rem;
+          padding-top: 0;
+          font-weight: 500;
+          font-size: 0.12rem;
+          color: ${token.table.colorHeaderForeground};
+          line-height: 0.16rem;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          flex: 0 1 auto;
+        `,
+        className
+      )}
+      {...props}
+    />
+  );
+});
 TableHead.displayName = "TableHead";
 
 const TableHeader = forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <thead
-    ref={ref}
-    className={cn(
-      css`
-        overflow: hidden;
-        height: 30px;
-        background: transparent;
-        display: grid;
-        position: sticky;
-        top: 0px;
-        z-index: 98;
-        background-color: #012b52;
-        width: 100%;
-        border: none;
-        border-bottom: 1px solid #10385c;
-      `,
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const { token } = useToken();
+  return (
+    <thead
+      ref={ref}
+      className={cn(
+        css`
+          overflow: hidden;
+          height: 0.3rem;
+          background: transparent;
+          display: grid;
+          position: sticky;
+          top: 0;
+          z-index: 98;
+          /* background-color: #012b52; */
+          width: 100%;
+          border: none;
+          border-bottom: 1px solid ${token.table.colorRowBg};
+        `,
+        className
+      )}
+      {...props}
+    />
+  );
+});
 TableHeader.displayName = "TableHeader";
 
 const TableRow = forwardRef<

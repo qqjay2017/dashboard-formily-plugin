@@ -9,7 +9,7 @@ import { useBreakpoints, useRowProperties } from "../hooks";
 import { useFieldSchema } from "@formily/react";
 import { css } from "@emotion/css";
 import { cn } from "../../../../utils";
-import { useDashboardRootStyle } from "../styles";
+import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
 
 export const DashboardRootPreview = ({
   children,
@@ -35,6 +35,7 @@ export const DashboardRootPreview = ({
     themeProvider,
     isDarkTheme,
   });
+
   const fieldSchema = useFieldSchema();
   const blockItems = useRowProperties();
 
@@ -105,10 +106,12 @@ export const DashboardRootPreview = ({
             }}
           >
             <div
-              className={css`
-                width: 100vw;
-                height: 100vh;
-              `}
+              className={cn(
+                css`
+                  width: 100vw;
+                  height: 100vh;
+                `
+              )}
             >
               <div
                 className={css`

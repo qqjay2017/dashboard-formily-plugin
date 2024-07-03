@@ -47,6 +47,7 @@ export interface CustomToken extends AliasToken {
    */
   nodeContentBg: string;
   nodeContentForeground: string;
+  colorTextSecondLabel: string;
 
   textWhite: string;
   textCommon: string;
@@ -73,6 +74,13 @@ export interface CustomToken extends AliasToken {
     border: string,
     accentBg: string,
     accentForeground: string
+  }
+  table: {
+    colorHeaderForeground: string;
+    colorHeaderBg: string;
+    colorRowBg: string;
+    colorRowForeground: string;
+
   }
   chartColors: string[];
 }

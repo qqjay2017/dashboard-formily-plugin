@@ -14,6 +14,7 @@ import { observer } from "@formily/reactive-react";
 import { PositionContextMenu } from "./ContextMenu";
 import { useSchemaComponentContext } from "../../hooks";
 import { css } from "@emotion/css";
+import { useScrollBarStyle } from "../DashboardRoot/styles";
 const useRndStyle = createStyles(
   ({ css }, { toolbarActive }: { toolbarActive?: boolean }) => {
     return css``;
@@ -95,13 +96,15 @@ export const PositionDecoratorHandle = memo(
       >
         {isSelected && <PositionContextMenu />}
         <div
-          className={css`
-            width: 100%;
-            height: 100%;
-            position: relative;
-            user-select: none;
-            pointer-events: none;
-          `}
+          className={cn(
+            css`
+              width: 100%;
+              height: 100%;
+              position: relative;
+              user-select: none;
+              pointer-events: none;
+            `
+          )}
         >
           {children}
         </div>

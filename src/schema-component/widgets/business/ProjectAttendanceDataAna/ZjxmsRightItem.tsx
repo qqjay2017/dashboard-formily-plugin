@@ -1,3 +1,4 @@
+import { useToken } from "@/style";
 import { css } from "@emotion/css";
 
 export function ZjxmsRightItem({
@@ -11,6 +12,7 @@ export function ZjxmsRightItem({
   unit: string;
   countColor: string;
 }) {
+  const { token } = useToken();
   return (
     <div
       className={css`
@@ -24,7 +26,7 @@ export function ZjxmsRightItem({
       <div
         className={css`
           font-size: 0.12rem;
-          color: rgba(195, 212, 229, 0.7);
+          color: ${token.textCommon};
           line-height: 0.14rem;
         `}
       >

@@ -4,6 +4,7 @@ import { useField } from "@formily/react";
 import { cn, eidToElementId } from "../../../utils";
 import { useDashboardRoot } from "../DashboardRoot";
 import { sizeFormat } from "../DashboardRoot/utils";
+import { useScrollBarStyle } from "../DashboardRoot/styles";
 
 export const PositionDecoratorPreview = (
   props: PropsWithChildren<PositionDecoratorOptions>
@@ -50,10 +51,11 @@ export const PositionDecoratorPreview = (
 
     return s;
   }, [padding, style, zIndex]);
+  const { styles: scrollBarStyle } = useScrollBarStyle();
   return (
     <div
       id={elementId}
-      className={cn("positionDecoratorHandle", className)}
+      className={cn(scrollBarStyle, "positionDecoratorHandle", className)}
       style={{
         position: "absolute",
         width,

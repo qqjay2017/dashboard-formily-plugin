@@ -1,7 +1,8 @@
+import { TokenResult } from '@/style'
 import { EChartsOption } from 'echarts'
 import * as  echarts from 'echarts'
 
-export function getOption(constructionParticipant = []): EChartsOption {
+export function getOption(constructionParticipant = [], { token }: { token: TokenResult['token'] }): EChartsOption {
     // const max = constructionParticipant.reduce((memo, cur) => {
     //     if (cur.number > memo) {
     //         return cur.number
@@ -20,8 +21,9 @@ export function getOption(constructionParticipant = []): EChartsOption {
                 text: '单位：人',
                 textStyle: {
                     lineHeight: 12,
-                    color: 'rgba(195, 212, 229, 1)',
+                    color: token.colorTextSecondLabel,
                     fontSize: 12,
+                    fontWeight: 400,
 
 
                 },
@@ -36,11 +38,12 @@ export function getOption(constructionParticipant = []): EChartsOption {
                 text: '目前在册人数共计 {green|  6783 } 人',
                 textStyle: {
                     lineHeight: 12,
-                    color: 'rgba(195, 212, 229, 1)',
+                    color: token.colorTextSecondLabel,
                     fontSize: 12,
+                    fontWeight: 400,
                     rich: {
                         green: {
-                            color: "rgba(89, 255, 205, 1)",
+                            color: token.textNumGreen,
                             padding: [0, 2]
                         }
                     }
@@ -97,7 +100,7 @@ export function getOption(constructionParticipant = []): EChartsOption {
                     interval: 0,
                     show: true,
                     fontSize: 12,
-                    color: "rgba(195, 212, 229, 0.5)" //X轴文字颜色
+                    color: token.colorTextSecondLabel, //X轴文字颜色
 
                 },
 
@@ -120,7 +123,7 @@ export function getOption(constructionParticipant = []): EChartsOption {
             axisLabel: {
                 show: true,
                 fontSize: 12,
-                color: "rgba(195, 212, 229, 0.5)"
+                color: token.colorTextSecondLabel,
 
             }
         }],
@@ -147,7 +150,7 @@ export function getOption(constructionParticipant = []): EChartsOption {
             // 分隔
             type: "pictorialBar",
             itemStyle: {
-                color: "rgba(0, 45, 86, 1)"
+                color: token.nodeContentBg
 
             },
             tooltip: {

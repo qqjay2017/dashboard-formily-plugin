@@ -21,11 +21,13 @@ import {
 } from "./table";
 
 import useResizeObserver from "use-resize-observer";
+import { useToken } from "@/style";
 
 export function DataTable<TData, TValue>({
   columns = [],
   data,
 }: DataTableProps<TData, TValue>) {
+  const { token } = useToken();
   const { ref: tableContainerRef, width: tableContainerWidth = 0 } =
     useResizeObserver();
 
@@ -90,7 +92,8 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
                 style={{
-                  background: index % 2 ? "#093157" : "#012B52",
+                  backgroundColor:
+                    index % 2 ? "transparent" : token.table.colorRowBg,
                   height: "0.36rem",
                 }}
               >
