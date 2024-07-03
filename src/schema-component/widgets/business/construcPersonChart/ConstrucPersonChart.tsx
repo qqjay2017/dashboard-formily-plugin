@@ -5,6 +5,7 @@ import { useConstrucPersonChartOption } from "./useConstrucPersonChartOption";
 import { ConstrucPersonChartSchemeWrap } from "./ConstrucPersonChartSchemeWrap";
 import { ConstrucPersonChartMenuItem } from "./ConstrucPersonChartMenuItem";
 import { ConstrucPersonChartSettingSchema } from "./ConstrucPersonChartSettingSchema";
+import { observer } from "@formily/react";
 
 const constructionParticipant = [
   {
@@ -32,7 +33,8 @@ const constructionParticipant = [
     number: 82,
   },
 ];
-export const ConstrucPersonChart = () => {
+export const ConstrucPersonChart: any = observer((props: any) => {
+  console.log(props, "props");
   return (
     <div
       className={css`
@@ -49,7 +51,7 @@ export const ConstrucPersonChart = () => {
       />
     </div>
   );
-};
+});
 
 ConstrucPersonChart.displayName = "ConstrucPersonChart";
 

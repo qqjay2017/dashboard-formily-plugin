@@ -6,6 +6,17 @@ export function ConstrucPersonChartSchemeWrap(inject: any = {}) {
         ...commonInitSchema,
         "x-component": "ConstrucPersonChart",
         ...inject,
+        "x-reactions": {
+            dependencies: ['quarterSelect'],
+            when: "{{true}}",
+            fulfill: {
+                schema: {
+                    'x-component-props.quarterSelect': '{{$deps[0]}}'
+                },
+
+            },
+
+        },
         "x-decorator-props": {
             padding: [24, 24, 24, 24],
             w: 3,

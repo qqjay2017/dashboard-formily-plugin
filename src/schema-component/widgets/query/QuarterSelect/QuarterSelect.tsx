@@ -8,6 +8,7 @@ import { useField } from "@formily/react";
 import { useDashboardRoot } from "@/schema-component/components";
 import { sizeFormat } from "@/utils";
 import { css } from "@emotion/css";
+import { FormItemComponentProps } from "@/types";
 
 const quarter = [
   {
@@ -219,7 +220,7 @@ const quarter = [
     quarterName: "2032年4季度",
   },
 ];
-export const QuarterSelect = () => {
+export const QuarterSelect = ({ value, onChange }: FormItemComponentProps) => {
   const { colWidth } = useDashboardRoot();
   const { decoratorProps } = useField();
   const w = decoratorProps?.w || 0;
@@ -229,9 +230,12 @@ export const QuarterSelect = () => {
     <Select
       open={open}
       onOpenChange={setOpen}
-      defaultValue={""}
-      value={""}
-      onValueChange={(e) => {}}
+      value={value?.quarterId}
+      onValueChange={(e) => {
+        onChange({
+          quarterId: e,
+        });
+      }}
     >
       <SelectTrigger asChild>
         <QuaterSelectValue value={""} placeholder="请选择季度" open={open} />

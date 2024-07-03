@@ -203,15 +203,14 @@ export const useInsertSchemaComponent = () => {
           )
         : fieldSchema;
 
-    curFieldSchema.addProperty(
-      newId,
-      initFn({
-        "x-decorator-props": {
-          zIndex: 4,
-          ...position,
-        },
-      })
-    );
+    const s = initFn({
+      "x-decorator-props": {
+        zIndex: 4,
+        ...position,
+      },
+    });
+
+    curFieldSchema.addProperty(s.name || newId, s);
     // refresh && refresh();
     saveRemoteFieldSchema().then(() => {
       reset && reset();

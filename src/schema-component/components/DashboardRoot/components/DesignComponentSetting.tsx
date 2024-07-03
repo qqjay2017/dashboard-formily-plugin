@@ -35,7 +35,7 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
   const { locale } = useContext(ConfigProvider.ConfigContext);
 
   const dashboardRootConfig = globalForm.query(address).take();
-
+  console.log(dashboardRootConfig, "dashboardRootConfig");
   const { saveLocalFieldState, saveRemoteFieldSchema } =
     useSaveAllFieldSchema();
 
@@ -44,13 +44,14 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
       initialValues: {
         formId,
         ...dashboardRootConfig?.componentProps,
+
         decoratorProps: dashboardRootConfig?.decoratorProps,
         decoratorPadding: dashboardRootConfig?.decoratorProps?.padding || [],
         componentType,
         componentAddress: address,
       },
     });
-  }, [address, formId, dashboardRootConfig, componentType, address]);
+  }, [address, formId, dashboardRootConfig, componentType]);
 
   useEffect(() => {
     const onSchemaChange = () => {
