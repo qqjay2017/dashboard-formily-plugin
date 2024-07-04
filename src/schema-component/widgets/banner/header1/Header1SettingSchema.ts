@@ -14,7 +14,14 @@ export const Header1SettingSchema: ISchema = {
             "x-component": "Input",
 
         },
-        ...positionDecoratorFormItemSchema
+        ...positionDecoratorFormItemSchema,
+        dependencies: {
+            type: "object",
+            title: "查询",
+            required: false,
+            "x-decorator": "FormItem",
+            "x-component": "DepFieldSetFormItem",
+        },
 
     },
 };

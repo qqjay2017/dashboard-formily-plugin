@@ -1,4 +1,3 @@
-import React from 'react'
 
 export const commonInitSchema = {
 
@@ -9,6 +8,19 @@ export const commonInitSchema = {
     "x-settings": "settings:block",
     "x-decorator": "PositionDecorator",
     "x-component-props": {
+
+    },
+    "x-reactions": {
+        dependencies: {
+            'projectSelect': 'projectSelect'
+        },
+        when: true,
+        fulfill: {
+            schema: {
+                'x-component-props.query': '{{$deps}}'
+            },
+
+        },
 
     },
 

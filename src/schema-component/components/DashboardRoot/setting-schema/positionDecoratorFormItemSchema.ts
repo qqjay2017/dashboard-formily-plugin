@@ -1,6 +1,4 @@
-import { ISchema } from "@formily/react";
-import { DecoratorPaddingFormItem } from "./DecoratorPaddingFormItem";
-import { PositionDecoratorFormItem } from "./PositionDecoratorFormItem";
+
 
 export const positionDecoratorFormItemSchema = {
     decoratorProps: {

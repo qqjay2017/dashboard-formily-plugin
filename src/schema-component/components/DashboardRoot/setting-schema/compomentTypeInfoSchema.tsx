@@ -18,7 +18,7 @@ export function getCompomentTypeInfoSchema(properties: any = {}) {
       },
       ...properties,
       dependencies: {
-        type: "array",
+        type: "object",
         title: "查询",
         required: false,
         "x-decorator": "FormItem",

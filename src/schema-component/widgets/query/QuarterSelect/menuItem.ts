@@ -6,5 +6,5 @@ export const menuItem = {
     type: "QuarterSelect",
     previewBg: "/assets/query/WX20240703-230554@2x.png",
     category1: "查询",
-    category2: "时间维度",
+    category2: "时间",
 }

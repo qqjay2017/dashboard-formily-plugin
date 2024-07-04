@@ -1,5 +1,5 @@
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/ui";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { QuaterSelectValue } from "./QuaterSelectValue";
 import { getSchemeWrap } from "./getSchemeWrap";
 import { menuItem } from "./menuItem";
@@ -220,25 +220,43 @@ const quarter = [
     quarterName: "2032年4季度",
   },
 ];
+
+function findQuarterItem(quarterId = "") {
+  if (!quarterId) {
+    return null;
+  }
+  return quarter.find((q) => String(q.quarterId) === quarterId);
+}
 export const QuarterSelect = ({ value, onChange }: FormItemComponentProps) => {
   const { colWidth } = useDashboardRoot();
   const { decoratorProps } = useField();
   const w = decoratorProps?.w || 0;
 
   const [open, setOpen] = useState(false);
+
+  const curQuarterItem = useMemo(() => {
+    return findQuarterItem(value?.quarterId);
+  }, [value?.quarterId]);
+
   return (
     <Select
       open={open}
       onOpenChange={setOpen}
       value={value?.quarterId}
       onValueChange={(e) => {
+        const quarterItem = findQuarterItem(e) || {};
         onChange({
+          ...quarterItem,
           quarterId: e,
         });
       }}
     >
       <SelectTrigger asChild>
-        <QuaterSelectValue value={""} placeholder="请选择季度" open={open} />
+        <QuaterSelectValue
+          value={curQuarterItem?.quarterName || ""}
+          placeholder="请选择季度"
+          open={open}
+        />
       </SelectTrigger>
       <SelectContent
         sideOffset={5}

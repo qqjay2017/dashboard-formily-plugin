@@ -7,6 +7,7 @@ export function getSchemeWrap(inject: any = {}) {
         type: "object",
         name: 'quarterSelect',
         "x-component": "QuarterSelect",
+
         ...inject,
         "x-decorator-props": {
             padding: [0, 0, 0, 0],
@@ -15,5 +16,18 @@ export function getSchemeWrap(inject: any = {}) {
             ...inject?.["x-decorator-props"],
             // padding: 0
         },
+        "x-reactions": {
+            dependencies: {
+
+            },
+            when: true,
+            fulfill: {
+                schema: {
+                    'x-component-props.query': '{{$deps}}'
+                },
+
+            },
+
+        }
     });
 }

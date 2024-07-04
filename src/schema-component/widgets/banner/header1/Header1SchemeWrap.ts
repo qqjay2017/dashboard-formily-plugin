@@ -10,6 +10,18 @@ export function Header1SchemeWrap(inject: any = {}) {
         "x-component-props": {
             title: "标题文字",
         },
+        "x-reactions": {
+            dependencies: {
+            },
+            when: true,
+            fulfill: {
+                schema: {
+                    'x-component-props.query': '{{$deps}}'
+                },
+
+            },
+
+        },
 
         ...inject,
         "x-decorator-props": {

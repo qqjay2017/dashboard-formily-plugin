@@ -9,5 +9,6 @@ export const settingSchema: ISchema = getCompomentTypeInfoSchema({
         title: "查询类型",
         required: false,
         "x-decorator": "FormItem",
-    }
+    },
+
 })

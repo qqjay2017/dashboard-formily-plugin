@@ -1,10 +1,5 @@
 import { css } from "@emotion/css";
-import {
-  SchemaOptionsContext,
-  useField,
-  useFieldSchema,
-  useForm,
-} from "@formily/react";
+import { SchemaOptionsContext, useFieldSchema, useForm } from "@formily/react";
 import { ConfigProvider } from "antd";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useSaveAllFieldSchema } from "../../../hooks";
@@ -58,12 +53,14 @@ export const DesignComponentSetting = ({
       initialValues: {
         formId,
         ...dashboardRootConfig?.componentProps,
-        dependencies: schemaCompoenntId
+        dependencies: !schemaCompoenntId
           ? []
-          : get(
-              fieldSchema,
-              `properties.${schemaCompoenntId}.x-reactions.dependencies`,
-              []
+          : Object.keys(
+              get(
+                fieldSchema,
+                `properties.${schemaCompoenntId}.x-reactions.dependencies`,
+                []
+              )
             ),
         decoratorProps: dashboardRootConfig?.decoratorProps,
         decoratorPadding: dashboardRootConfig?.decoratorProps?.padding || [],
@@ -71,7 +68,7 @@ export const DesignComponentSetting = ({
         componentAddress: address,
       },
     });
-  }, [address, formId, componentType, pathname]);
+  }, [address, formId, componentType, pathname, schemaCompoenntId]);
 
   useEffect(() => {
     const onSchemaChange = () => {
@@ -82,8 +79,6 @@ export const DesignComponentSetting = ({
       document.removeEventListener("dispatchFieldSchemaChange", onSchemaChange);
     };
   }, []);
-
-  console.log(address, "address");
 
   return (
     <div
@@ -146,22 +141,39 @@ export const DesignComponentSetting = ({
                 onSubmit={async ({
                   decoratorProps,
                   decoratorPadding,
+                  dependencies = [],
                   ...values
                 }) => {
+                  const s: any = {
+                    "x-component-props": {
+                      ...values,
+                    },
+
+                    "x-decorator-props": {
+                      ...decoratorProps,
+                      padding:
+                        decoratorPadding ||
+                        decoratorProps?.padding ||
+                        undefined,
+                    },
+                  };
+                  if (schemaCompoenntId) {
+                    s["x-reactions"] = {
+                      dependencies: dependencies.reduce((memo, cur) => {
+                        memo[cur] = cur;
+                        return memo;
+                      }, {}),
+                      when: true,
+                      fulfill: {
+                        schema: {
+                          "x-component-props.query": "{{$deps}}",
+                        },
+                      },
+                    };
+                  }
                   saveLocalFieldState({
                     address,
-                    schema: {
-                      "x-component-props": {
-                        ...values,
-                      },
-                      "x-decorator-props": {
-                        ...decoratorProps,
-                        padding:
-                          decoratorPadding ||
-                          decoratorProps?.padding ||
-                          undefined,
-                      },
-                    },
+                    schema: s,
                   });
                   await saveRemoteFieldSchema();
                   dispatchInsert();

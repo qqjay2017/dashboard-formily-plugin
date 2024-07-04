@@ -6,6 +6,7 @@ import { DataSourceBindType } from "../../types";
 import { StatisticMenuItem } from "./StatisticMenuItem";
 import { StatisticSettingSchema } from "./StatisticSettingSchema";
 import { useDataBindFetch } from "@/schema-component/hooks";
+import { commonInitSchema } from "@/schema-component/core";
 export function Statistic({
   title = "",
   amount,
@@ -47,6 +48,7 @@ export function Statistic({
 
 export function StatisticSchemeWrap(inject: any = {}) {
   return new Schema({
+    ...commonInitSchema,
     _isJSONSchemaObject: true,
     version: "2.0",
     type: "void",

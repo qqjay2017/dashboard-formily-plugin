@@ -6,6 +6,8 @@ import { getSchemeWrap } from "./getSchemeWrap";
 import { menuItem } from "./menuItem";
 import { settingSchema } from "./settingSchema";
 import { useToken } from "@/style";
+import { SchemComponentQueryProps } from "@/types";
+import { get } from "lodash-es";
 
 const projectNum = 20;
 
@@ -18,8 +20,12 @@ const clocking = {
   unClockUserNum: 12,
 };
 
-export const ProjectAttendanceDataAna = () => {
+export const ProjectAttendanceDataAna = ({
+  query,
+}: SchemComponentQueryProps) => {
   const { token } = useToken();
+  const quarterName = get(query, "quarterSelect.quarterName", "");
+
   return (
     <div
       className={css`
@@ -82,6 +88,7 @@ export const ProjectAttendanceDataAna = () => {
             `}
           >{`${projectNum || 0}个`}</div>
         </div>
+        <div>季度查询:{quarterName}</div>
         <div
           className={css`
             flex: 1;
