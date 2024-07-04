@@ -69,8 +69,6 @@ export const ContentMenu = memo(() => {
     return _menuList;
   }, [allMenuItem.length]);
 
-  console.log(menuList, "menuList");
-
   return (
     <div
       className={css`

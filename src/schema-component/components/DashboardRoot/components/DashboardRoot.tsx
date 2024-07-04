@@ -56,6 +56,9 @@ import Moveable from "react-moveable";
 import { CanvasSetting } from "./CanvasSetting";
 import { cn, sizeFormat } from "@/utils";
 
+const viewWidth = 3840;
+const viewHeight = 2160;
+
 export const MemorizedRecursionField = memo(RecursionField);
 MemorizedRecursionField.displayName = "MemorizedRecursionField";
 
@@ -151,10 +154,11 @@ const DashboardRootMain = observer(
         <>
           {blockItems.map((schema) => {
             return (
-              <Fragment key={schema.name}>
-                {/* TODO 有的时候可能不能用memo */}
-                <MemorizedRecursionField name={schema.name} schema={schema} />
-              </Fragment>
+              <MemorizedRecursionField
+                key={schema.name}
+                name={schema.name}
+                schema={schema}
+              />
             );
           })}
         </>
@@ -165,9 +169,13 @@ const DashboardRootMain = observer(
       if (!scrollAreaRef.current) {
         return;
       }
+      const { width, height } = document
+        .getElementById("viewPort")!
+        .getBoundingClientRect();
 
-      scrollAreaRef.current.scrollLeft = designWidth - 50;
-      scrollAreaRef.current.scrollTop = designHeight / 2 + -50;
+      scrollAreaRef.current.scrollLeft = (viewWidth - width) / 2;
+
+      scrollAreaRef.current.scrollTop = (viewHeight - height) / 2;
     };
 
     const field = useField();
@@ -245,7 +253,7 @@ const DashboardRootMain = observer(
 
     useEffect(() => {
       handleViewPortFit();
-    }, []);
+    }, [designZoom]);
 
     useEffect(() => {
       if (isPc) {
@@ -339,6 +347,14 @@ const DashboardRootMain = observer(
                   >
                     {/* 画布滚动容器 */}
                     <div
+                      onScroll={(e: any) => {
+                        console.log(
+                          e,
+                          e.target.scrollTop,
+                          e.target.scrollLeft,
+                          "see"
+                        );
+                      }}
                       ref={scrollAreaRef}
                       className={css`
                         user-select: none;
@@ -356,8 +372,8 @@ const DashboardRootMain = observer(
                           position: absolute;
                           top: 0;
                           left: 0;
-                          height: 2160px;
-                          width: 3840px;
+                          width: ${viewWidth}px;
+                          height: ${viewHeight}px;
                         `}
                       >
                         {width && designable && (
@@ -374,8 +390,8 @@ const DashboardRootMain = observer(
                             position: absolute;
                             top: 50%;
                             left: 50%;
-                            transform-origin: 50% 0;
-                            transform: translateY(-50%);
+                            transform-origin: 50% 50%;
+                            transform: translateX(-50%) translateY(-50%);
                           `}
                         >
                           <div
@@ -479,7 +495,7 @@ const DashboardRootMain = observer(
                         </div>
                       </div>
                     </div>
-                    <CanvasSetting handleViewPortFit={handleViewPortFit} />
+                    <CanvasSetting />
                   </div>
                   {/* 右边 */}
                   <div

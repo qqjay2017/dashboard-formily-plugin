@@ -1,17 +1,10 @@
-import React from "react";
 import { useAPIClient } from "../../api-client";
-import {
-  ISchema,
-  Schema,
-  useField,
-  useFieldSchema,
-  useForm,
-} from "@formily/react";
+import { ISchema, Schema, useFieldSchema, useForm } from "@formily/react";
 import { useParams } from "react-router-dom";
 import { get, set } from "lodash-es";
 import { ElementsType } from "../components/DashboardRoot/components/ContentMenu";
 import { uid } from "@formily/shared";
-import { ClassicFrame, ClassicFrameSchemeWrap } from "../widgets";
+
 import { useSchemaComponentContext } from "./useSchemaComponentContext";
 import { allComponentTypInitSchema, useDashboardRoot } from "../components";
 import {
@@ -114,7 +107,7 @@ export const useSaveAllFieldSchema = () => {
 
 export const useInsertSchemaComponent = () => {
   const app = useApp();
-  const { reset } = useSchemaComponentContext();
+  const { reset, refresh } = useSchemaComponentContext();
   const apiClient = useAPIClient();
   const initSchema = {
     ...Object.keys(app.components).reduce((memo, curKey) => {
@@ -213,7 +206,7 @@ export const useInsertSchemaComponent = () => {
     curFieldSchema.addProperty(s.name || newId, s);
     // refresh && refresh();
     saveRemoteFieldSchema().then(() => {
-      reset && reset();
+      refresh && refresh();
       dispatchInsert();
     });
     // reset && reset();
@@ -240,5 +233,6 @@ export const useInsertSchemaComponent = () => {
     saveRemoteFieldSchema,
     insertSchemaComponent,
     reset,
+    refresh,
   };
 };

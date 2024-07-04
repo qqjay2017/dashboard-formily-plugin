@@ -67,7 +67,8 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
   const ctxOptions = useSchemaOptionsContext();
   const refresh = useUpdate();
   const [formId, setFormId] = useState(uid());
-  const form = useMemo(() => props.form || createForm(), [formId]);
+
+  const form = useMemo(() => props.form || createForm(), [formId, pathname]);
 
   const scope = useMemo(() => {
     return { ...props.scope, randomString };
@@ -91,10 +92,6 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (
   const reset = useCallback(() => {
     setFormId(uid());
   }, []);
-
-  useEffect(() => {
-    reset();
-  }, [pathname]);
 
   return (
     <SchemaComponentContext.Provider

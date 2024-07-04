@@ -1,6 +1,6 @@
 import { Plugin } from "../../application";
 
-import { PositionDecorator } from "../../schema-component";
+import { DataSourceBind, PositionDecorator } from "../../schema-component";
 import { ColorTypeSelect, IsDarkThemeSelect } from "../../schema-settings";
 
 /**
@@ -13,6 +13,7 @@ export class DashboardDesignerPlugin extends Plugin {
       IsDarkThemeSelect,
       // DashboardRoot,
       PositionDecorator,
+      DataSourceBind,
     });
   }
 }

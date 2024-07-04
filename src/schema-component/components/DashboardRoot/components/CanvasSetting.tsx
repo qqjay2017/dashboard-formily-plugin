@@ -5,12 +5,9 @@ import { css } from "@emotion/css";
 
 import { useDashboardRoot } from "../hooks";
 import { useDesignPageConext } from "../context";
+import { useEffect } from "react";
 
-export const CanvasSetting = ({
-  handleViewPortFit,
-}: {
-  handleViewPortFit: () => void;
-}) => {
+export const CanvasSetting = () => {
   const { designWidth } = useDashboardRoot();
   const { designZoom, setDesignZoom } = useDesignPageConext();
   const zoomFormatter = (designZoom) => `${(designZoom * 100).toFixed(0)}%`;
@@ -23,14 +20,11 @@ export const CanvasSetting = ({
     setDesignZoom(
       Math.min(viewPort.getBoundingClientRect().width / designWidth, 1)
     );
-    setTimeout(() => {
-      handleViewPortFit && handleViewPortFit();
-    }, 0);
   };
 
-  // useEffect(() => {
-  //   fitZoom();
-  // }, []);
+  useEffect(() => {
+    fitZoom();
+  }, []);
   return (
     <ConfigProvider
       theme={{

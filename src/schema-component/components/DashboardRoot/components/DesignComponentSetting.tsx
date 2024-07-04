@@ -10,8 +10,10 @@ import { allComponentTypeSettingSchema } from "../allComponentTypeSettingSchema"
 import { dispatchInsert } from "../utils";
 import { uid } from "@formily/shared";
 import { useApp } from "@/application";
+import { useLocation } from "react-router-dom";
 
 export const DesignComponentSetting = ({ address }: { address: string }) => {
+  const { pathname } = useLocation();
   const app = useApp();
   const [formId, setFormId] = useState(uid());
   const globalForm = useForm();
@@ -51,7 +53,7 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
         componentAddress: address,
       },
     });
-  }, [address, formId, dashboardRootConfig, componentType]);
+  }, [address, formId, dashboardRootConfig, componentType, pathname]);
 
   useEffect(() => {
     const onSchemaChange = () => {

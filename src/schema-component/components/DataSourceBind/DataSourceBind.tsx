@@ -16,7 +16,6 @@ interface DataSourceBindProps extends FormItemComponentProps {}
 
 export const DataSourceBind = observer(
   ({ value, onChange }: DataSourceBindProps) => {
-    console.log(value, "value");
     const [open, setOpen] = useState(false);
 
     const { data, refetch } = useRequest(`${apiBase}/api-manage/list`, {
@@ -61,7 +60,6 @@ export const DataSourceBind = observer(
                 <Select
                   value={value?.dataSourceId}
                   onChange={(e, option: any) => {
-                    console.log(e, "e");
                     value.dataSourceId = e;
                     value.dataSourceName = option?.label || "";
                     //   onChange && onChange(v=)

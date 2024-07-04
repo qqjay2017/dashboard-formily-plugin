@@ -17,6 +17,7 @@ const address = "dashboardRoot";
 import { ISchema } from "@formily/react";
 import { createForm, onFormValuesChange } from "@formily/core";
 import { useSaveAllFieldSchema } from "../../../hooks/useSaveAllFieldSchema";
+import { useLocation } from "react-router-dom";
 
 const dashboardRootFormSchema: ISchema = {
   type: "object",
@@ -59,6 +60,7 @@ const dashboardRootFormSchema: ISchema = {
 };
 
 export const RootComponentSetting = memo(() => {
+  const { pathname } = useLocation();
   const options = useContext(SchemaOptionsContext);
   const { locale } = useContext(ConfigProvider.ConfigContext);
   const outForm = useForm();
@@ -73,7 +75,7 @@ export const RootComponentSetting = memo(() => {
         ...dashboardRootConfig?.componentProps,
       },
     });
-  }, [dashboardRootConfig]);
+  }, [dashboardRootConfig, pathname]);
 
   return (
     <div

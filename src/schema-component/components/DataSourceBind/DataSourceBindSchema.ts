@@ -1,4 +1,4 @@
-import { DataSourceBind } from "./DataSourceBind"
+
 
 
 export function getDataSourceBindSchema() {
@@ -8,7 +8,7 @@ export function getDataSourceBindSchema() {
             title: "数据源",
             required: false,
             "x-decorator": "FormItem",
-            "x-component": DataSourceBind,
+            "x-component": "DataSourceBind",
         }
     }
 }

@@ -9,8 +9,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSchemaOptionsContext } from "@/schema-component/core";
 import { get } from "lodash-es";
 import { useReportShare } from "@/client-pages/home-list/useReportShare";
+import { useSchemaComponentContext } from "@/schema-component/hooks";
+import { useField, useForm } from "@formily/react";
+import { useDashboardRoot } from "../hooks";
+import { uid } from "@formily/shared";
+import { ClassicFrameSchemeWrap } from "@/schema-component/widgets";
 
 export const DesignPageHeader = () => {
+  const { rootFieldSchema } = useDashboardRoot();
+  const form = useForm();
+  const { reset, refresh } = useSchemaComponentContext();
   const { reportShare } = useReportShare();
   const { scope } = useSchemaOptionsContext();
   const name = get(scope, "dashboardDt.name");
@@ -97,6 +105,7 @@ export const DesignPageHeader = () => {
         </div>
       </div>
       <Space>
+        {/* <Button onClick={(e) => {}}>测试</Button> */}
         <Button
           onClick={() => {
             handleGenThumb();

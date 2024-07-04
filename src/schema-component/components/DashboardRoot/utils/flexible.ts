@@ -15,7 +15,7 @@ export function flexible(designWidth = 1920) {
   // set 1rem = viewWidth / 10
   function setRemUnit() {
     const rem = (docEl.clientWidth / designWidth) * 100;
-    docEl.style.fontSize = rem + "px";
+    docEl.style.fontSize = Math.min(rem, 100) + "px";
   }
 
   setRemUnit();

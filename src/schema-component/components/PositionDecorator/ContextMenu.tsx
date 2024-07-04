@@ -45,7 +45,7 @@ export const SchemaDeleteIcon: FC<SchemaSettingsIconProps> = memo(
 
 export const PositionContextMenu = () => {
   const { saveLocalFieldState } = useSaveAllFieldSchema();
-  const { saveRemoteFieldSchema, reset } = useInsertSchemaComponent();
+  const { saveRemoteFieldSchema, reset, refresh } = useInsertSchemaComponent();
   const { rootFieldSchema, scale } = useDashboardRoot();
   const field = useField();
   const fieldSchema = useFieldSchema();
@@ -59,7 +59,7 @@ export const PositionContextMenu = () => {
     fieldSchemaParent.removeProperty(fieldSchema.name);
 
     saveRemoteFieldSchema(rootFieldSchema).then(() => {
-      reset && reset();
+      refresh && refresh();
       dispatchInsert();
     });
   };
