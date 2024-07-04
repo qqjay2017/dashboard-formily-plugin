@@ -23,6 +23,14 @@ import { AppSchemaComponentProvider } from "./AppSchemaComponentProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { APIClientOptions } from "../sdk";
 import { message, notification } from "antd";
+
+import {
+  DashboardRoot,
+  PositionDecorator,
+  PositionDecoratorPreview,
+  DashboardRootPreview,
+} from "@/schema-component";
+
 export type ComponentAndProps<T = any> = [ComponentType, T];
 
 export interface ApplicationOptions {
@@ -67,7 +75,12 @@ export class Application {
       error: observable.ref,
     });
     this.scopes = merge(this.scopes, options.scopes);
-    this.components = merge(this.components, options.components);
+    this.components = merge(this.components, options.components, {
+      PositionDecorator: options.designable
+        ? PositionDecorator
+        : PositionDecoratorPreview,
+      DashboardRoot: options.designable ? DashboardRoot : DashboardRootPreview,
+    });
     this.apiClient =
       options.apiClient instanceof APIClient
         ? options.apiClient

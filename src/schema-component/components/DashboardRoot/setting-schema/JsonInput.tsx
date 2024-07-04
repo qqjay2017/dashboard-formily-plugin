@@ -1,6 +1,6 @@
-import { FormItemComponentProps } from "../../types";
+import { FormItemComponentProps } from "@/types";
 
-import { MonacoEditor } from "../../schema-component/components/DataSourceBind/MyEditorComponent";
+import { MonacoEditor } from "../../DataSourceBind/MyEditorComponent";
 
 export const JsonInput = ({ value, onChange }: FormItemComponentProps) => {
   return (

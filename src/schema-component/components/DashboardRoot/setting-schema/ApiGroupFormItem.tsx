@@ -1,58 +1,47 @@
-import React from "react";
-import { FormItemComponentProps } from "../../types";
 import { css } from "@emotion/css";
-import { Button, Select } from "antd";
-import { APiWrap, useAPIClient, useQuery } from "../../api-client";
-import { get } from "lodash-es";
-import { useFormDialog } from "../../schema-component";
-import { ISchema } from "@formily/react";
-import { apiBase } from "@/utils";
 
-const createApiBaseNameSchema: ISchema = {
+import { Button, Select } from "antd";
+import { useFormDialog } from "../../..";
+import { ISchema } from "@formily/react";
+import { APiWrap, useAPIClient } from "@/api-client";
+import { get } from "lodash-es";
+import { useGroupList } from "@/client-pages/data-source-center/useGroupList";
+import { apiBase } from "@/utils";
+import { FormItemComponentProps } from "@/types";
+
+const createApiGroupSchema: ISchema = {
   type: "object",
   properties: {
-    baseName: {
+    name: {
       type: "string",
-      title: "api前缀",
+      title: "分组名称",
       required: true,
       "x-decorator": "FormItem",
       "x-component": "Input",
-      "x-validator": {
-        type: "string",
-        pattern: "^/.*[^/]$",
-        message: "/开头,不以/结尾",
-      },
     },
   },
 };
 
-interface ApiBaseNameFormItemProps extends FormItemComponentProps {}
-export const ApiBaseNameFormItem = ({
+interface ApiGroupFormItemProps extends FormItemComponentProps {}
+
+export const ApiGroupFormItem = ({
   value,
   onChange,
   onBlur,
-}: ApiBaseNameFormItemProps) => {
+}: ApiGroupFormItemProps) => {
   const apiClient = useAPIClient();
 
-  const { data, refetch } = useQuery<any, APiWrap<{}[]>>({
-    queryKey: ["getApiBaseName"],
-    queryFn: () =>
-      apiClient.request({
-        url: `${apiBase}/api-manage/baseName/list`,
-        method: "get",
-      }),
-  });
+  const { data, refetch } = useGroupList();
 
   const options = get(data, "data.data", []).map((item) => {
     return {
       ...item,
-      label: item.baseName,
+      label: item.name,
       value: item.id,
     };
   });
 
   const { getFormDialog } = useFormDialog();
-
   return (
     <div>
       <div
@@ -74,7 +63,7 @@ export const ApiBaseNameFormItem = ({
         <Button
           type="primary"
           onClick={async () => {
-            const dialog = getFormDialog("新建前缀", createApiBaseNameSchema);
+            const dialog = getFormDialog("新建分组", createApiGroupSchema);
             dialog
               .forOpen((payload, next) => {
                 next({
@@ -82,15 +71,15 @@ export const ApiBaseNameFormItem = ({
                 });
               })
               .forConfirm(async (payload, next) => {
-                const { baseName } = payload.values;
+                const { name } = payload.values;
                 const res = await apiClient.request<
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `${apiBase}/api-manage/baseName`,
+                  url: `${apiBase}/api-manage/group`,
                   method: "POST",
                   data: {
-                    baseName: (baseName || "").trim(),
+                    name: (name || "").trim(),
                   },
                 });
 
@@ -105,7 +94,7 @@ export const ApiBaseNameFormItem = ({
               .open();
           }}
         >
-          新建前缀
+          新建分组
         </Button>
       </div>
     </div>

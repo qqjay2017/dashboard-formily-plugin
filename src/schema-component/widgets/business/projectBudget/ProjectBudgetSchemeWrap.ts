@@ -7,7 +7,7 @@ export function ProjectBudgetSchemeWrap(inject: any = {}) {
         "x-component": "ProjectBudget",
         ...inject,
         "x-decorator-props": {
-            padding: [24, 12, 24, 12],
+            padding: [12, 12, 12, 12],
             w: 3,
             h: 3,
             ...inject?.["x-decorator-props"],

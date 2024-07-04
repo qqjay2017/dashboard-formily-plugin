@@ -1,6 +1,18 @@
 import { Plugin } from "../../application";
 
-import { DataSourceBind, PositionDecorator } from "../../schema-component";
+import {
+  ApiBaseNameFormItem,
+  ApiGroupFormItem,
+  ApiHeadersFormItem,
+  ApiOriginFormItem,
+  ComponentAddressFormItem,
+  ComponentTypeFormItem,
+  DataSourceBind,
+  DecoratorPaddingFormItem,
+  DepFieldSetFormItem,
+  JsonInput,
+  PositionDecoratorFormItem,
+} from "../../schema-component";
 import { ColorTypeSelect, IsDarkThemeSelect } from "../../schema-settings";
 
 /**
@@ -9,10 +21,18 @@ import { ColorTypeSelect, IsDarkThemeSelect } from "../../schema-settings";
 export class DashboardDesignerPlugin extends Plugin {
   async load(): Promise<void> {
     this.app.addComponents({
+      JsonInput,
+      ApiHeadersFormItem,
+      ApiBaseNameFormItem,
+      ApiOriginFormItem,
+      ApiGroupFormItem,
+      ComponentAddressFormItem,
+      ComponentTypeFormItem,
+      DepFieldSetFormItem,
+      PositionDecoratorFormItem,
+      DecoratorPaddingFormItem,
       ColorTypeSelect,
       IsDarkThemeSelect,
-      // DashboardRoot,
-      PositionDecorator,
       DataSourceBind,
     });
   }

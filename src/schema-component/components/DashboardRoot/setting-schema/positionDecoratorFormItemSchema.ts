@@ -8,7 +8,7 @@ export const positionDecoratorFormItemSchema = {
         title: "位置/尺寸信息",
         required: false,
         "x-decorator": "FormItem",
-        "x-component": PositionDecoratorFormItem,
+        "x-component": "PositionDecoratorFormItem",
     },
     decoratorPadding: {
         name: 'decoratorProps',
@@ -16,6 +16,6 @@ export const positionDecoratorFormItemSchema = {
         title: "间距",
         required: false,
         "x-decorator": "FormItem",
-        "x-component": DecoratorPaddingFormItem,
+        "x-component": "DecoratorPaddingFormItem",
     }
 }

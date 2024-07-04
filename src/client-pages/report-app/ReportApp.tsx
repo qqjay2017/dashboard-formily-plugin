@@ -4,20 +4,14 @@ import {
   DashboardPreviewPlugin,
   KxgcAuthPlugin,
 } from "../../plugins";
-import { DashboardRootPreview } from "../../schema-component/components/DashboardRoot/components/DashboardRootPreview";
-import { PositionDecoratorPreview } from "../../schema-component/components/PositionDecorator/PositionDecoratorPreview";
+
 import { PreviewPage } from "../preview-page";
 
 export const application = new Application({
   providers: [],
   plugins: [AntdV5Plugin, DashboardPreviewPlugin, KxgcAuthPlugin],
-  designable: true,
-  components: {
-    // DashboardRoot,
-    // PositionDecorator,
-    PositionDecorator: PositionDecoratorPreview,
-    DashboardRoot: DashboardRootPreview,
-  },
+  designable: false,
+  components: {},
 
   router: {
     basename: "/report",

@@ -1,5 +1,10 @@
 import { css } from "@emotion/css";
-import { SchemaOptionsContext, useForm } from "@formily/react";
+import {
+  SchemaOptionsContext,
+  useField,
+  useFieldSchema,
+  useForm,
+} from "@formily/react";
 import { ConfigProvider } from "antd";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useSaveAllFieldSchema } from "../../../hooks";
@@ -11,11 +16,19 @@ import { dispatchInsert } from "../utils";
 import { uid } from "@formily/shared";
 import { useApp } from "@/application";
 import { useLocation } from "react-router-dom";
+import { get } from "lodash-es";
 
-export const DesignComponentSetting = ({ address }: { address: string }) => {
+export const DesignComponentSetting = ({
+  address,
+  schemaCompoenntId,
+}: {
+  address: string;
+  schemaCompoenntId?: string;
+}) => {
   const { pathname } = useLocation();
   const app = useApp();
   const [formId, setFormId] = useState(uid());
+  const fieldSchema = useFieldSchema();
   const globalForm = useForm();
   const compoennt = globalForm.query(address).take();
   const componentType = compoennt?.componentType;
@@ -37,7 +50,6 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
   const { locale } = useContext(ConfigProvider.ConfigContext);
 
   const dashboardRootConfig = globalForm.query(address).take();
-  console.log(dashboardRootConfig, "dashboardRootConfig");
   const { saveLocalFieldState, saveRemoteFieldSchema } =
     useSaveAllFieldSchema();
 
@@ -46,14 +58,20 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
       initialValues: {
         formId,
         ...dashboardRootConfig?.componentProps,
-
+        dependencies: schemaCompoenntId
+          ? []
+          : get(
+              fieldSchema,
+              `properties.${schemaCompoenntId}.x-reactions.dependencies`,
+              []
+            ),
         decoratorProps: dashboardRootConfig?.decoratorProps,
         decoratorPadding: dashboardRootConfig?.decoratorProps?.padding || [],
         componentType,
         componentAddress: address,
       },
     });
-  }, [address, formId, dashboardRootConfig, componentType, pathname]);
+  }, [address, formId, componentType, pathname]);
 
   useEffect(() => {
     const onSchemaChange = () => {
@@ -64,6 +82,8 @@ export const DesignComponentSetting = ({ address }: { address: string }) => {
       document.removeEventListener("dispatchFieldSchemaChange", onSchemaChange);
     };
   }, []);
+
+  console.log(address, "address");
 
   return (
     <div

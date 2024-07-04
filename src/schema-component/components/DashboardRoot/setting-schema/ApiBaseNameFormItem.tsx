@@ -1,44 +1,44 @@
-import React from "react";
-import { FormItemComponentProps } from "../../types";
+import { FormItemComponentProps } from "@/types";
 import { css } from "@emotion/css";
 import { Button, Select } from "antd";
-import { APiWrap, useAPIClient, useQuery } from "../../api-client";
+import { APiWrap, useAPIClient, useQuery } from "@/api-client";
 import { get } from "lodash-es";
-import { useFormDialog } from "../../schema-component";
+
 import { ISchema } from "@formily/react";
 import { apiBase } from "@/utils";
+import { useFormDialog } from "@/schema-component/antd";
 
-const createApiOriginSchema: ISchema = {
+const createApiBaseNameSchema: ISchema = {
   type: "object",
   properties: {
-    origin: {
+    baseName: {
       type: "string",
-      title: "api域名",
+      title: "api前缀",
       required: true,
       "x-decorator": "FormItem",
       "x-component": "Input",
       "x-validator": {
         type: "string",
-        pattern: "^http(?!/).*$",
-        message: "以http开头,不以/结尾",
+        pattern: "^/.*[^/]$",
+        message: "/开头,不以/结尾",
       },
     },
   },
 };
 
-interface ApiOriginFormItemProps extends FormItemComponentProps {}
-export const ApiOriginFormItem = ({
+interface ApiBaseNameFormItemProps extends FormItemComponentProps {}
+export const ApiBaseNameFormItem = ({
   value,
   onChange,
   onBlur,
-}: ApiOriginFormItemProps) => {
+}: ApiBaseNameFormItemProps) => {
   const apiClient = useAPIClient();
 
   const { data, refetch } = useQuery<any, APiWrap<{}[]>>({
-    queryKey: ["getApiOrigin"],
+    queryKey: ["getApiBaseName"],
     queryFn: () =>
       apiClient.request({
-        url: `${apiBase}/api-manage/origin/list`,
+        url: `${apiBase}/api-manage/baseName/list`,
         method: "get",
       }),
   });
@@ -46,7 +46,7 @@ export const ApiOriginFormItem = ({
   const options = get(data, "data.data", []).map((item) => {
     return {
       ...item,
-      label: item.origin,
+      label: item.baseName,
       value: item.id,
     };
   });
@@ -64,17 +64,17 @@ export const ApiOriginFormItem = ({
           allowClear
           options={options}
           value={value}
+          onBlur={onBlur}
           onChange={(e) => {
             onChange && onChange(e || null);
           }}
-          onBlur={onBlur}
         />
       </div>
       <div>
         <Button
           type="primary"
           onClick={async () => {
-            const dialog = getFormDialog("新建域名", createApiOriginSchema);
+            const dialog = getFormDialog("新建前缀", createApiBaseNameSchema);
             dialog
               .forOpen((payload, next) => {
                 next({
@@ -82,15 +82,15 @@ export const ApiOriginFormItem = ({
                 });
               })
               .forConfirm(async (payload, next) => {
-                const { origin } = payload.values;
+                const { baseName } = payload.values;
                 const res = await apiClient.request<
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `${apiBase}/api-manage/origin`,
+                  url: `${apiBase}/api-manage/baseName`,
                   method: "POST",
                   data: {
-                    origin: (origin || "").trim(),
+                    baseName: (baseName || "").trim(),
                   },
                 });
 
@@ -105,7 +105,7 @@ export const ApiOriginFormItem = ({
               .open();
           }}
         >
-          新建域名
+          新建前缀
         </Button>
       </div>
     </div>

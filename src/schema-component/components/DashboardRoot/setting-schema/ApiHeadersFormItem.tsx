@@ -1,5 +1,5 @@
 import { Button, Input } from "antd";
-import { FormItemComponentProps } from "../../types";
+import { FormItemComponentProps } from "@/types";
 import { nanoid } from "nanoid";
 import { css } from "@emotion/css";
 import { RiFormula } from "react-icons/ri";

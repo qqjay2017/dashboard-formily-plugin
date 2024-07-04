@@ -7,7 +7,7 @@ import {
   DashboardPreviewPlugin,
   KxgcAuthPlugin,
 } from "../plugins";
-import { DashboardRoot } from "../schema-component";
+
 import { DashboardLayout } from "../client-pages/DashboardLayout";
 import { HomeList } from "../client-pages/home-list";
 import { DataSourceCenter } from "../client-pages/data-source-center";
@@ -23,10 +23,7 @@ export const application = new Application({
     KxgcAuthPlugin,
   ],
   designable: true,
-  components: {
-    Hello,
-    DashboardRoot,
-  },
+  components: {},
 
   router: {
     type: "browser",

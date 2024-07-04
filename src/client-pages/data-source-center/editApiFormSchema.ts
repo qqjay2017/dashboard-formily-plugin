@@ -1,9 +1,8 @@
 import { ISchema } from '@formily/react';
-import { ApiGroupFormItem } from './ApiGroupFormItem';
-import { ApiBaseNameFormItem } from './ApiBaseNameFormItem';
-import { ApiOriginFormItem } from './ApiOriginFormItem';
-import { ApiHeadersFormItem } from './ApiHeadersFormItem';
-import { JsonInput } from './JsonInput';
+
+
+import { ApiHeadersFormItem } from '../../schema-component/components/DashboardRoot/setting-schema/ApiHeadersFormItem';
+import { JsonInput } from '../../schema-component/components/DashboardRoot/setting-schema/JsonInput';
 
 
 export const editApiFormSchema: ISchema = {
@@ -28,21 +27,21 @@ export const editApiFormSchema: ISchema = {
             title: "API分组",
             required: false,
             "x-decorator": "FormItem",
-            "x-component": ApiGroupFormItem,
+            "x-component": "ApiGroupFormItem",
         },
         originId: {
             type: 'string',
             title: "API域名",
             required: false,
             "x-decorator": "FormItem",
-            "x-component": ApiOriginFormItem,
+            "x-component": "ApiOriginFormItem",
         },
         baseNameId: {
             type: 'string',
             title: "API前缀",
             required: false,
             "x-decorator": "FormItem",
-            "x-component": ApiBaseNameFormItem,
+            "x-component": "ApiBaseNameFormItem",
         },
         url: {
             type: "string",
@@ -86,7 +85,7 @@ export const editApiFormSchema: ISchema = {
             title: "自定义请求头",
             required: false,
             "x-decorator": "FormItem",
-            "x-component": ApiHeadersFormItem,
+            "x-component": "ApiHeadersFormItem",
             "x-validator": {
                 type: 'array',
                 validator: (value: any) => {
@@ -156,7 +155,7 @@ export const editApiFormSchema: ISchema = {
             title: "mock数据",
             required: true,
             "x-decorator": "FormItem",
-            "x-component": JsonInput,
+            "x-component": "JsonInput",
 
         }
 

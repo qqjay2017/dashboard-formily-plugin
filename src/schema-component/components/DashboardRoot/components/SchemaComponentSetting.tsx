@@ -19,6 +19,10 @@ export const SchemaComponentSetting = observer(() => {
   if (!id) {
     return null;
   }
+  const elementId = elementIdToEid(id);
+  const last = elementId.split(".").pop();
 
-  return <DesignComponentSetting address={elementIdToEid(id)} />;
+  return (
+    <DesignComponentSetting address={elementId} schemaCompoenntId={last} />
+  );
 });
