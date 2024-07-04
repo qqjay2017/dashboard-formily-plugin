@@ -1,13 +1,15 @@
-import React, { PropsWithChildren, useEffect } from "react";
-import { cn } from "../../../../utils";
+import React, { PropsWithChildren, useEffect, useMemo } from "react";
+import { cn, sizeFormat } from "@/utils";
 import { useClassicFrameStyle } from "./styles";
 
-import { Schema, useField, useFieldSchema } from "@formily/react";
+import { Schema } from "@formily/react";
 import { css } from "@emotion/css";
-import { useDroppable } from "@dnd-kit/core";
+
 import { ClassicFrameMenuItem } from "./ClassicFrameMenuItem";
 import { ClassicFrameSettingSchema } from "./ClassicFrameSettingSchema";
 import { useToken } from "@/style";
+
+import { useDashboardRoot } from "@/schema-component/components";
 
 interface ClassicFramePropw extends PropsWithChildren {
   title?: string;
@@ -32,6 +34,7 @@ export function ClassicFrame({
   titleClassName,
   contentClassName,
 }: ClassicFramePropw) {
+  const { rowHeight } = useDashboardRoot();
   const { token } = useToken();
   // const fieldSchema = useFieldSchema();
   const hasTitle = title || extra;
@@ -48,6 +51,9 @@ export function ClassicFrame({
   // });
 
   //
+  const headerHeight = useMemo(() => {
+    return sizeFormat(rowHeight * 0.5111);
+  }, [rowHeight]);
 
   return (
     <div
@@ -55,7 +61,12 @@ export function ClassicFrame({
       style={style}
     >
       {hasTitle ? (
-        <div className={cn("nodeContentRendererTitle", titleClassName)}>
+        <div
+          className={cn("nodeContentRendererTitle", titleClassName)}
+          style={{
+            height: headerHeight,
+          }}
+        >
           <div className={cn("nodeContentRendererTitleBg")}></div>
           {title ? <div className={cn("nrtTitle")}>{title}</div> : null}
           {subTitle ? (
@@ -80,6 +91,9 @@ export function ClassicFrame({
           //   border-width: ${droppable.isOver ? "1px" : "0px"}!important;
           // `
         )}
+        style={{
+          height: `calc( 100% - ${headerHeight}px )`,
+        }}
         // ref={droppable.setNodeRef}
       >
         <div
