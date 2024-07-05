@@ -27,6 +27,7 @@ export const application = new Application({
 
   router: {
     type: "browser",
+    basename: "/dashboard",
     routes: {
       root: {
         path: "/",

@@ -1,0 +1,76 @@
+pipeline{
+  agent {
+    node {
+      label 'nodejs'
+    }
+  }
+
+  parameters {
+    string(name:'TAG_NAME',defaultValue: '',description:'tag版本号')
+  }
+
+  environment {
+    // 应用名称
+    APP_NAME = "dashboard-web"
+    // 编译模式
+    COMPILE_MODE = credentials('compile-mode')
+
+    // 主机地址
+    HOST_ADDR = credentials('host-addr')
+    // 主机端口
+    HOST_PORT = credentials('host-port')
+    // 主机登录凭证
+    HOST_AUTH = credentials('host-auth')
+
+    // 镜像仓库地址
+    DOCKERHUB_ADDR = credentials('dockerhub-addr')
+    // 镜像仓库登录凭证
+    DOCKERHUB_AUTH = credentials('dockerhub-auth')
+    // 命名空间
+    NAMESPACE = credentials('namespace')
+    // 镜像名称
+    IMAGE_NAME = "$DOCKERHUB_ADDR_USR/$NAMESPACE_USR/$APP_NAME"
+    // 镜像标签
+    IMAGE_TAG = "SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER$TAG_NAME"
+  }
+
+  stages {
+    stage ('checkout scm') {
+      steps {
+        checkout(scm)
+        sh 'git checkout $TAG_NAME'
+      }
+    }
+
+    stage('get dependencies') {
+      steps {
+        container('nodejs') {
+          // sh 'rm -rf node_modules'
+          sh 'node -v'
+          sh 'yarn install'
+        }
+      }
+    }
+
+    stage ('build & push') {
+      steps {
+        container ('nodejs') {
+          sh 'yarn build'
+          sh 'cp -rf dist cicd/docker-image'
+          sh 'cd cicd/docker-image && docker build -f Dockerfile -t $IMAGE_NAME:$IMAGE_TAG .'
+          sh 'echo "$DOCKERHUB_AUTH_PSW" | docker login $DOCKERHUB_ADDR_USR -u "$DOCKERHUB_AUTH_USR" --password-stdin'
+          sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
+        }
+      }
+    }
+
+    stage('deploy to k8s') {
+      steps{
+        script {
+          sh 'sshpass -p "$HOST_AUTH_PSW" ssh -o StrictHostKeyChecking=no $HOST_AUTH_USR@$HOST_ADDR_USR -p $HOST_PORT_USR -a "kubectl -n $NAMESPACE_USR set image deployment $APP_NAME $APP_NAME=$IMAGE_NAME:$IMAGE_TAG && sed -i s/SNAPSHOT-$BRANCH_NAME-.*/$IMAGE_TAG/ ~/ymsl/${APP_NAME}.yaml"'
+        }
+      }
+    }
+
+  }
+}
