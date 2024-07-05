@@ -40,11 +40,11 @@ export default defineConfig({
 
 
     proxy: {
-      '/huang-api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/huang-api/, ''),
-      },
+      // '/-api': {
+      //   target: 'http://localhost:3001',
+      //   changeOrigin: true,
+      //   rewrite: (path) => path.replace(/^\/huang-api/, ''),
+      // },
       "/api/": {
         target: "https://uat.kxgcc.com",
         changeOrigin: true,

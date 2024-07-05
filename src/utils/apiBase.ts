@@ -1,1 +1,1 @@
-export const apiBase = "/huang-api"
+export const apiBase = "/api/dashboard"
