@@ -18,6 +18,7 @@ const PagePlugin = (): PluginOption => ({
   },
 })
 export default defineConfig({
+  base: '/dashboard',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src') // 路径别名
@@ -25,6 +26,7 @@ export default defineConfig({
   },
   plugins: [react(), PagePlugin()],
   build: {
+
     rollupOptions: {
 
       input: {

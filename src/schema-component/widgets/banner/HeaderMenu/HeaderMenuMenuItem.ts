@@ -1,3 +1,4 @@
+import { rs } from "@/utils";
 
 
 export const HeaderMenuMenuItem = {
@@ -6,5 +7,5 @@ export const HeaderMenuMenuItem = {
     type: "HeaderMenu",
     category1: "导航",
     category2: "菜单",
-    previewBg: "/assets/header-menu/WX20240629-101659@2x.png",
+    previewBg: rs("/assets/header-menu/WX20240629-101659@2x.png"),
 }

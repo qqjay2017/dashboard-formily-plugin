@@ -8,6 +8,7 @@ import { settingSchema } from "./settingSchema";
 import { useToken } from "@/style";
 import { SchemComponentQueryProps } from "@/types";
 import { get } from "lodash-es";
+import { rs } from "@/utils";
 
 const projectNum = 20;
 
@@ -55,7 +56,7 @@ export const ProjectAttendanceDataAna = ({
             background-position: center bottom;
           `}
           style={{
-            backgroundImage: `url( "/assets/personInfoMng/zjxms.png" )`,
+            backgroundImage: `url( ${rs("/assets/personInfoMng/zjxms.png")} )`,
           }}
         >
           <div

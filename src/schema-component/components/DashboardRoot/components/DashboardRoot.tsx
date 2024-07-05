@@ -54,7 +54,8 @@ import Selecto from "react-selecto";
 import { Selectable } from "./Selectable";
 import Moveable from "react-moveable";
 import { CanvasSetting } from "./CanvasSetting";
-import { cn, sizeFormat } from "@/utils";
+import { cn, rs, sizeFormat } from "@/utils";
+import { fontStyle } from "./style";
 
 const viewWidth = 3840;
 const viewHeight = 2160;
@@ -437,29 +438,7 @@ const DashboardRootMain = observer(
                                     id="DashboardRoot"
                                     ref={ref}
                                     className={cn(
-                                      css`
-                                        @font-face {
-                                          font-family: "Lijin";
-                                          src: url("/assets/fonts/lijin.ttf")
-                                            format("truetype");
-                                          font-weight: normal;
-                                          font-style: normal;
-                                        }
-                                        @font-face {
-                                          font-family: "YouSheBiaoTiHei";
-                                          src: url("/assets/fonts/youshe.ttf")
-                                            format("truetype");
-                                          font-weight: normal;
-                                          font-style: normal;
-                                        }
-                                        @font-face {
-                                          font-family: "Digiface";
-                                          src: url("/assets/fonts/digiface.ttf")
-                                            format("truetype");
-                                          font-weight: normal;
-                                          font-style: normal;
-                                        }
-                                      `,
+                                      fontStyle,
                                       css`
                                         background-size: cover;
                                         background-position: center;

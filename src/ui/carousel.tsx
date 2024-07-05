@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { EmblaCarouselType } from "embla-carousel";
 import type { ComponentPropsWithRef } from "react";
-import { cn } from "@/utils";
+import { cn, rs } from "@/utils";
 import { css } from "@emotion/css";
 
 interface UsePrevNextButtonsType {
@@ -77,7 +77,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
     >
       {children || (
         <img
-          src={"/assets/header-menu/arrow-left.png"}
+          src={rs("/assets/header-menu/arrow-left.png")}
           style={{
             display: "block",
             width: "100%",
@@ -106,7 +106,7 @@ export const NextButton: React.FC<PropType> = (props) => {
     >
       {children || (
         <img
-          src={"/assets/header-menu/arrow-right.png"}
+          src={rs("/assets/header-menu/arrow-right.png")}
           style={{
             display: "block",
             width: "100%",

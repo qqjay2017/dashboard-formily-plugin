@@ -1,3 +1,4 @@
+import { rs } from "@/utils";
 
 
 export const Header1MenuItem = {
@@ -8,5 +9,5 @@ export const Header1MenuItem = {
     category1: "导航",
     category2: "头部",
 
-    previewBg: "/assets/schema-component/Header1/header1.png",
+    previewBg: rs("/assets/schema-component/Header1/header1.png"),
 }

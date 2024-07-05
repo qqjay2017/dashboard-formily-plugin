@@ -27,7 +27,7 @@ export const application = new Application({
 
   router: {
     type: "browser",
-    basename: "/dashboard",
+    basename: import.meta.env.BASE_URL || "/",
     routes: {
       root: {
         path: "/",

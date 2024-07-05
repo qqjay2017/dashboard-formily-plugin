@@ -32,7 +32,6 @@ export const PreviewPage = () => {
       scope={options.scope}
     >
       <Helmet>
-        <link rel="icon" href="/public/oss/kxgc_logo.png" />
         <title>{name}</title>
         <meta name="description" content={description} />
       </Helmet>

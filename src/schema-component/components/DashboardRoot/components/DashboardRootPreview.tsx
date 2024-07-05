@@ -9,7 +9,8 @@ import { useBreakpoints, useRowProperties } from "../hooks";
 import { useFieldSchema } from "@formily/react";
 import { css } from "@emotion/css";
 import { cn, sizeFormat } from "@/utils";
-import { useDashboardRootStyle, useScrollBarStyle } from "../styles";
+import { useDashboardRootStyle } from "../styles";
+import { fontStyle } from "./style";
 
 export const DashboardRootPreview = ({
   children,
@@ -135,28 +136,7 @@ export const DashboardRootPreview = ({
                     id="DashboardRoot"
                     ref={ref}
                     className={cn(
-                      css`
-                        @font-face {
-                          font-family: "Lijin";
-                          src: url("/assets/fonts/lijin.ttf") format("truetype");
-                          font-weight: normal;
-                          font-style: normal;
-                        }
-                        @font-face {
-                          font-family: "YouSheBiaoTiHei";
-                          src: url("/assets/fonts/youshe.ttf")
-                            format("truetype");
-                          font-weight: normal;
-                          font-style: normal;
-                        }
-                        @font-face {
-                          font-family: "Digiface";
-                          src: url("/assets/fonts/digiface.ttf")
-                            format("truetype");
-                          font-weight: normal;
-                          font-style: normal;
-                        }
-                      `,
+                      fontStyle,
                       css`
                         background-size: cover;
                         background-position: center;

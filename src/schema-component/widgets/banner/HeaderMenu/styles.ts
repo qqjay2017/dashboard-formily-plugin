@@ -1,7 +1,8 @@
+import { rs } from "@/utils";
 import { createStyles } from "antd-style";
 
 export const useMenuItemStyle = createStyles(({ css, token }, { active }: { active?: boolean; }) => {
-    const url = `/assets/header-menu/${token.themeAssetsPath}/main-bg.png`
+    const url = rs(`/assets/header-menu/${token.themeAssetsPath}/main-bg.png`)
 
     return css`
     width:100%;
