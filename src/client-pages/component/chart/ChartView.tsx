@@ -10,7 +10,7 @@ import { useDashboardRootStyle } from "@/schema-component/components/DashboardRo
 import { cn, cx } from "@/utils";
 import { useClassicFrameStyle } from "@/schema-component/widgets/frame/classic-frame/styles";
 import { AppError } from "@/application/components/defaultAppError";
-import { useApp } from "@/application";
+import { useApp } from "@/application/hooks";
 
 interface IChartViewCoreProps {
   option?: any;

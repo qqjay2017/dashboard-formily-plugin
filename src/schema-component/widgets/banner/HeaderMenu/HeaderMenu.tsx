@@ -12,7 +12,7 @@ import { useDataBindFetch, useReportId } from "@/schema-component/hooks";
 
 import { useToken } from "@/schema-component/antd/style";
 import { cn, rs, sizeFormat } from "@/utils";
-import { useReportShare } from "@/hooks";
+import { useReportShare } from "@/application/hooks";
 
 import {
   NextButton,

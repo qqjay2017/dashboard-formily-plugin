@@ -1,30 +1,30 @@
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from "react";
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from "react";
 
-import type { IAuthingParams } from 'ljcoreauth'
-import { Authing } from 'ljcoreauth'
-import { SchemaComponentOptions } from '../../schema-component/core'
-import { AuthContext } from './AuthContext'
+import type { IAuthingParams } from "ljcoreauth";
+import { Authing } from "ljcoreauth";
+import { SchemaComponentOptions } from "../../schema-component/core";
+import { AuthContext } from "./AuthContext";
 
-import { localDomainInject } from './localDomainInject'
-import { useAppSpin } from '@/application'
+import { localDomainInject } from "./localDomainInject";
+import { useAppSpin } from "@/application/hooks";
 
-export type AuthingParamsType = Partial<IAuthingParams>
+export type AuthingParamsType = Partial<IAuthingParams>;
 export interface IAuthContextProviderPorps extends PropsWithChildren {
   /**
    * 登录组件的属性
    *
    */
-  authingParams?: AuthingParamsType
+  authingParams?: AuthingParamsType;
 }
 
 export function AuthContextProvider({
   children,
   authingParams,
 }: IAuthContextProviderPorps) {
-  const appSpin = useAppSpin()
-  const manual = authingParams?.manual || false
+  const appSpin = useAppSpin();
+  const manual = authingParams?.manual || false;
 
   const authing = useMemo(() => {
     return new Authing({
@@ -33,29 +33,29 @@ export function AuthContextProvider({
       redirectUri: location.origin + location.pathname,
 
       ...authingParams,
-    })
-  }, [authingParams])
+    });
+  }, [authingParams]);
 
-  const [isLoading, setIsLoading] = useState(!Authing.getLoginState())
-  const [authenticated, setAuthenticated] = useState(Authing.getLoginState())
+  const [isLoading, setIsLoading] = useState(!Authing.getLoginState());
+  const [authenticated, setAuthenticated] = useState(Authing.getLoginState());
   const [userInfoFromSession, setUserInfoFromSession] = useState(
-    JSON.parse(sessionStorage.getItem('USER_INFO') || '{}'),
-  )
+    JSON.parse(sessionStorage.getItem("USER_INFO") || "{}")
+  );
 
   useEffect(() => {
     if (!authing) {
-      return
+      return;
     }
 
     if (Authing.isRedirectCallback() || (!manual && !Authing.getLoginState())) {
-      appSpin.render()
+      appSpin.render();
       authing.handleRedirectCallback().then((userInfo) => {
-        setIsLoading(!Authing.getLoginState())
-        setAuthenticated(Authing.getLoginState())
-        userInfo && userInfo.id && setUserInfoFromSession(userInfo)
-      })
+        setIsLoading(!Authing.getLoginState());
+        setAuthenticated(Authing.getLoginState());
+        userInfo && userInfo.id && setUserInfoFromSession(userInfo);
+      });
     }
-  }, [manual, authing, Authing, setUserInfoFromSession])
+  }, [manual, authing, Authing, setUserInfoFromSession]);
 
   return (
     <SchemaComponentOptions
@@ -79,5 +79,5 @@ export function AuthContextProvider({
           : children}
       </AuthContext.Provider>
     </SchemaComponentOptions>
-  )
+  );
 }

@@ -11,11 +11,11 @@ import { ImportApiBtn } from "./ImportApiBtn";
 import { ExportApiBtn } from "./ExportApiBtn";
 import { shortUid } from "@/utils/shortUid";
 import { apiBase, copyTextToClipboard } from "@/utils";
-import { useGroupList } from "@/hooks";
-import { FormDialogPortal } from "@/schema-component";
-import { useApp } from "@/application";
+import { useApp, useGroupList } from "@/application/hooks";
+
 import { CreateBtnWrap } from "@/themes/style-components";
 import { useRequest } from "@/api-client";
+import { FormDialogPortal } from "@/schema-component/antd";
 
 function ApiMain() {
   const app = useApp();

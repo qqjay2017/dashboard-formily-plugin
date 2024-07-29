@@ -10,7 +10,7 @@ import { GlobalRegistry } from "@/designable/core";
 import type { TreeNode } from "@/designable/core";
 import { cn } from "@/utils";
 import { AppError } from "@/application/components/defaultAppError";
-import { useApp } from "@/application";
+import { useApp } from "@/application/hooks";
 
 export interface IComponentTreeWidgetProps {
   style?: React.CSSProperties;

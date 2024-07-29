@@ -8,15 +8,15 @@ import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 import { editApiFormSchema } from "../main/editApiFormSchema";
 import { ApiTest } from "../main/ApiTest";
-import { FormButtonGroupWrap, FormDialogPortal } from "@/schema-component";
-import { useEditId } from "@/hooks";
+
+import { useApp, useEditId } from "@/application/hooks";
 import { useAPIClient, useRequest } from "@/api-client";
 import {
   SchemaComponent,
   SchemaComponentOptions,
 } from "@/schema-component/core";
 import { apiBase } from "@/utils";
-import { useApp } from "@/application";
+import { FormButtonGroupWrap, FormDialogPortal } from "@/schema-component/antd";
 
 function ApiEdit() {
   const app = useApp();

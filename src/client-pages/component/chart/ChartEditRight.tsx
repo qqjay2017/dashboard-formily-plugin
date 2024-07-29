@@ -3,11 +3,11 @@ import React from "react";
 import { ConfigProvider } from "antd";
 
 import { ChartView } from "./ChartView";
-import { MonacoEditor } from "@/schema-component";
 
 import { useCustomThemeToken } from "@/dashboard-themes";
-import { useApp } from "@/application";
+import { useApp } from "@/application/hooks";
 import { ThemeCSSVariableProvider } from "@/themes/css-variable";
+import { MonacoEditor } from "@/schema-component/components";
 
 function ChartEditRightMain({
   chartOptionEditorRef,

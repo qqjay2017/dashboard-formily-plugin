@@ -4,13 +4,13 @@ import { get } from "lodash-es";
 
 import type { ChartTemplateProps } from "./types";
 import { useFetchChartConfig } from "./hooks/useFetchChartConfig";
+import { useChartOption } from "./hooks";
 import { EmptyKit } from "@/themes/style-components";
 
 import {
-  useChartOption,
   useDataBindFetch,
   useQueryToBusParams,
-} from "@/schema-component";
+} from "@/schema-component/hooks";
 import { useToken } from "@/schema-component/antd/style";
 import chartDarkTheme from "@/themes/global-theme/chart-theme/dark";
 import chartLightTheme from "@/themes/global-theme/chart-theme/light";

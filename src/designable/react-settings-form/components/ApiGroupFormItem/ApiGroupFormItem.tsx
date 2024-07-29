@@ -1,29 +1,29 @@
-import { css } from '@emotion/css'
+import { css } from "@emotion/css";
 
-import { Button, Select } from 'antd'
+import { Button, Select } from "antd";
 
-import type { ISchema } from '@formily/react'
-import { get } from 'lodash-es'
-import type { APiWrap } from '@/api-client'
-import { useAPIClient } from '@/api-client'
+import type { ISchema } from "@formily/react";
+import { get } from "lodash-es";
+import type { APiWrap } from "@/api-client";
+import { useAPIClient } from "@/api-client";
 
-import { apiBase } from '@/utils'
-import type { FormItemComponentProps } from '@/types'
-import { useGroupList } from '@/hooks'
-import { useFormDialog } from '@/schema-component/antd'
+import { apiBase } from "@/utils";
+import type { FormItemComponentProps } from "@/types";
+import { useGroupList } from "@/application/hooks";
+import { useFormDialog } from "@/schema-component/antd";
 
 const createApiGroupSchema: ISchema = {
-  type: 'object',
+  type: "object",
   properties: {
     name: {
-      'type': 'string',
-      'title': '分组名称',
-      'required': true,
-      'x-decorator': 'FormItem',
-      'x-component': 'Input',
+      type: "string",
+      title: "分组名称",
+      required: true,
+      "x-decorator": "FormItem",
+      "x-component": "Input",
     },
   },
-}
+};
 
 interface ApiGroupFormItemProps extends FormItemComponentProps {}
 
@@ -32,19 +32,19 @@ export function ApiGroupFormItem({
   onChange,
   onBlur,
 }: ApiGroupFormItemProps) {
-  const apiClient = useAPIClient()
+  const apiClient = useAPIClient();
 
-  const { data, refetch } = useGroupList()
+  const { data, refetch } = useGroupList();
 
-  const options = (get(data, 'data.data', []) || []).map((item) => {
+  const options = (get(data, "data.data", []) || []).map((item) => {
     return {
       ...item,
       label: item.name,
       value: item.name,
-    }
-  })
+    };
+  });
 
-  const { getFormDialog } = useFormDialog()
+  const { getFormDialog } = useFormDialog();
   return (
     <div>
       <div
@@ -58,7 +58,7 @@ export function ApiGroupFormItem({
           value={value}
           onBlur={onBlur}
           onChange={(e) => {
-            onChange && onChange(e || null)
+            onChange && onChange(e || null);
           }}
         />
       </div>
@@ -68,44 +68,43 @@ export function ApiGroupFormItem({
           onClick={async () => {
             const dialog = getFormDialog(
               {
-                title: '新建分组',
+                title: "新建分组",
               },
-              createApiGroupSchema,
-            )
+              createApiGroupSchema
+            );
             dialog
               .forOpen((payload, next) => {
                 next({
                   initialValues: {},
-                })
+                });
               })
               .forConfirm(async (payload, next) => {
-                const { name } = payload.values
+                const { name } = payload.values;
                 const res = await apiClient.request<
                   any,
                   APiWrap<{ id: number }>
                 >({
                   url: `${apiBase}/api-manage/group`,
-                  method: 'POST',
+                  method: "POST",
                   data: {
-                    name: (name || '').trim(),
+                    name: (name || "").trim(),
                   },
-                })
+                });
 
-                const id = get(res, 'data.data.id')
+                const id = get(res, "data.data.id");
                 if (id) {
-                  refetch()
-                  return next(payload)
-                }
-                else {
-                  return Promise.reject()
+                  refetch();
+                  return next(payload);
+                } else {
+                  return Promise.reject();
                 }
               })
-              .open()
+              .open();
           }}
         >
           新建分组
         </Button>
       </div>
     </div>
-  )
+  );
 }

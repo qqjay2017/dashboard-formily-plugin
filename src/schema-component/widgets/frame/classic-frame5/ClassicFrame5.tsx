@@ -4,8 +4,7 @@ import { useClassicFrame5Style } from "./styles";
 
 import { cn } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
-
-import { useFrameSizeStyle } from "@/schema-component";
+import { useFrameSizeStyle } from "@/schema-component/hooks";
 
 interface ClassicFrame5Props extends ClassicFrameProps {}
 
@@ -23,7 +22,7 @@ export function ClassicFrame5({
 }: ClassicFrame5Props) {
   const { token } = useToken();
   // const fieldSchema = useFieldSchema();
-  const hasTitle = title || extra;
+  const hasTitle = !!(title || extra);
   const classicFrameStyle = useClassicFrame5Style({ hasTitle: !!hasTitle });
 
   const { headStyle, bodyStyle } = useFrameSizeStyle();

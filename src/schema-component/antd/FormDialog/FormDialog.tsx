@@ -1,14 +1,14 @@
-import type { IModalProps } from '@formily/antd-v5'
-import { FormDialog as AntdFormDialog, FormLayout } from '@formily/antd-v5'
+import type { IModalProps } from "@formily/antd-v5";
+import { FormDialog as AntdFormDialog, FormLayout } from "@formily/antd-v5";
 
-import type { ISchema } from '@formily/react'
-import { SchemaOptionsContext } from '@formily/react'
+import type { ISchema } from "@formily/react";
+import { SchemaOptionsContext } from "@formily/react";
 
-import { useContext } from 'react'
-import { SchemaField2 } from '@/schema-component'
+import { useContext } from "react";
+import { SchemaField2 } from "@/schema-component/core";
 
 export function useFormDialog() {
-  const options = useContext(SchemaOptionsContext)
+  const options = useContext(SchemaOptionsContext);
   const getFormDialog = (modalProps: IModalProps, schema: ISchema) =>
     AntdFormDialog(modalProps, () => {
       return (
@@ -19,9 +19,9 @@ export function useFormDialog() {
             schema={schema}
           />
         </FormLayout>
-      )
-    })
+      );
+    });
   return {
     getFormDialog,
-  }
+  };
 }

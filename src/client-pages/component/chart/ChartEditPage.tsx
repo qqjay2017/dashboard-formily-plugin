@@ -12,8 +12,7 @@ import { defaultChartTemplate } from "./consts";
 
 import { chartMockData, chartMockDataOptions } from "./chartMockData";
 import { ChartEditRight } from "./ChartEditRight";
-import type { MonacoEditorHandles } from "@/schema-component";
-import { MonacoEditor } from "@/schema-component";
+
 import { useAPIClient } from "@/api-client";
 import {
   apiBase,
@@ -23,9 +22,11 @@ import {
   getTotalNum,
   percentToDisplay,
 } from "@/utils";
-import { useApp } from "@/application";
+import { useApp } from "@/application/hooks";
 import { useCustomThemeToken } from "@/dashboard-themes";
 import { useToken } from "@/schema-component/antd/style";
+import type { MonacoEditorHandles } from "@/schema-component/components";
+import { MonacoEditor } from "@/schema-component/components";
 
 function ChartEditPage() {
   const { token: antdToken } = useToken();

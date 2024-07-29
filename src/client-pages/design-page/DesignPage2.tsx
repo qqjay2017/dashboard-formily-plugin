@@ -4,14 +4,14 @@ import { ExpressionScope, SchemaOptionsContext } from "@formily/react";
 import { useDashboardDt } from "./useDashboardDt";
 import { DesignEngine } from "./DesignEngine";
 
+import { useAppSpin } from "@/application/hooks";
 import {
   useAsyncProjectDataSource,
   useAsyncQuarterDataSource,
   useFetchChartAll,
   useProjectSelectScope,
-  useSchemaOptionsContext,
-} from "@/schema-component";
-import { useAppSpin } from "@/application";
+} from "@/schema-component/widgets";
+import { useSchemaOptionsContext } from "@/schema-component/core";
 
 function DesignPage2() {
   const { data, isLoading } = useDashboardDt();

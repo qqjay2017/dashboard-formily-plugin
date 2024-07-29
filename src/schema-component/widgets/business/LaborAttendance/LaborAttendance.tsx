@@ -3,15 +3,15 @@ import { useState } from "react";
 
 import { get } from "lodash-es";
 
+import { ChartTemplateWithOutData } from "../../chart";
 import { RecentDateSelect } from "./RecentDateSelect";
+
+import type { SchemComponentWithDataSourceProps } from "@/types";
 import {
-  ChartTemplateWithOutData,
   useDataBindFetch,
   useFrameSizeStyle,
   useQueryToBusParams,
-} from "@/schema-component";
-
-import type { SchemComponentWithDataSourceProps } from "@/types";
+} from "@/schema-component/hooks";
 
 export function LaborAttendance({ query }: SchemComponentWithDataSourceProps) {
   const [tabValue, setTabValue] = useState<string>("1");

@@ -6,7 +6,9 @@ import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { SchemaComponentContext } from "../context";
 import type { ISchemaComponentProvider } from "../types";
-import { useBreakpoints, useUpdate } from "..";
+
+import { useBreakpoints } from "../components";
+import { useUpdate } from "../hooks";
 import { SchemaComponentOptions } from "./SchemaComponentOptions";
 import { useSchemaOptionsContext } from "./useSchemaOptionsContext";
 

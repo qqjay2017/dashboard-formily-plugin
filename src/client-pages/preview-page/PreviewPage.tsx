@@ -12,14 +12,14 @@ import type { DashboardItem } from "../dashboard/types";
 import type { APiWrap } from "@/api-client";
 import { useRequest } from "@/api-client";
 import { RecursionSchemaComponentWrap } from "@/schema-component/core";
-import { useAppSpin } from "@/application";
+import { useAppSpin } from "@/application/hooks";
+import { useReportId } from "@/schema-component/hooks";
+import { apiBase } from "@/utils";
 import {
   useAsyncProjectDataSource,
   useAsyncQuarterDataSource,
   useProjectSelectScope,
-  useReportId,
-} from "@/schema-component";
-import { apiBase } from "@/utils";
+} from "@/schema-component/widgets";
 
 function PreviewPage() {
   const { reportId: shareURL } = useReportId();

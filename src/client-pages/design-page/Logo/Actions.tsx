@@ -2,8 +2,9 @@ import { observer } from "@formily/reactive-react";
 import { Button, Radio, Space, message } from "antd";
 import { useDesigner } from "@/designable/react";
 import { transformToSchema } from "@/designable/Field";
-import { useUpdateDashboard } from "@/schema-component";
-import { useReportShare } from "@/hooks";
+
+import { useReportShare } from "@/application/hooks";
+import { useUpdateDashboard } from "@/schema-component/hooks";
 
 export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
   const designer = useDesigner();

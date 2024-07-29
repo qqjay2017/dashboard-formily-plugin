@@ -19,7 +19,7 @@ import {
   FormilyQuarterSelect as QuarterSelect,
   FormilySmartHelmet as SmartHelmet,
   FormilyUnprocessedWarningList as UnprocessedWarningList,
-} from "@/schema-component";
+} from "@/schema-component/widgets";
 import {
   ComponentTreeWidget,
   CompositePanel,

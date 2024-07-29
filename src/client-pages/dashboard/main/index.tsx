@@ -10,8 +10,7 @@ import type { DashboardItem } from "../types";
 
 import { updateDashboardFormSchema } from "../schema/createDashboardFormSchema";
 import { CreateFormBtn } from "../CreateFormBtn";
-import { useApp } from "@/application";
-import { useReportShare } from "@/hooks";
+import { useApp, useReportShare } from "@/application/hooks";
 import { apiBase, copyTextToClipboard } from "@/utils";
 import { useAPIClient, useRequest } from "@/api-client/hooks";
 import type { APiWrap } from "@/api-client/hooks";

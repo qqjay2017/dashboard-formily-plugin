@@ -7,7 +7,7 @@ import { useClassicFrameStyle } from "./styles";
 import { cn } from "@/utils";
 import { useToken } from "@/schema-component/antd/style";
 
-import { useFrameSizeStyle } from "@/schema-component";
+import { useFrameSizeStyle } from "@/schema-component/hooks";
 
 export interface ClassicFrameProps extends PropsWithChildren {
   title?: string;

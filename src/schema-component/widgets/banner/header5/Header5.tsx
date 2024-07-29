@@ -14,12 +14,12 @@ import { Level2SubMenu } from "./Level2SubMenu";
 import { useToken } from "@/schema-component/antd/style";
 import { rs } from "@/utils";
 import {
-  useDashboardRoot,
   useDataBindFetch,
   useReportId,
   useStrHandlebars,
-} from "@/schema-component";
+} from "@/schema-component/hooks";
 import type { DataSourceBindType } from "@/schema-component/types";
+import { useDashboardRoot } from "@/schema-component/components";
 
 interface Header5Props extends PropsWithChildren {
   title?: string;

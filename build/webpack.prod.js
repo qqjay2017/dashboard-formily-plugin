@@ -1,34 +1,34 @@
 const path = require("node:path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+
 const TerserPlugin = require("terser-webpack-plugin");
-
-const WebpackBar = require("webpackbar");
-
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const NODE_ENV =
   process.env.NODE_ENV === "production" ? "production" : "development";
 const isProduct = NODE_ENV === "production";
 const publicPath = isProduct ? "/dashboard/" : "/";
-const CDN_LIST = [
-  isProduct ? "unpkg/react.production.min.js" : "unpkg/react.development.js",
-  isProduct
-    ? "unpkg/react-dom.production.min.js"
-    : "unpkg/react-dom.development.js",
+const CDN_LIST = isProduct
+  ? [
+      isProduct
+        ? "unpkg/react.production.min.js"
+        : "unpkg/react.development.js",
+      isProduct
+        ? "unpkg/react-dom.production.min.js"
+        : "unpkg/react-dom.development.js",
 
-  "unpkg/handlebars.js",
-  "unpkg/html2canvas.min.js",
-  "unpkg/echarts.min.js",
-  "unpkg/base64.min.js",
-  "unpkg/jsrsasign-all-min.js",
-].map((url) => publicPath + url);
+      "unpkg/handlebars.js",
+      "unpkg/html2canvas.min.js",
+      "unpkg/echarts.min.js",
+      "unpkg/base64.min.js",
+      "unpkg/jsrsasign-all-min.js",
+    ].map((url) => publicPath + url)
+  : [];
 function resolve(name) {
   return path.join(__dirname, name);
 }
@@ -37,11 +37,11 @@ const _target = "http://qzjg.kxgcc.com:30251";
 module.exports = {
   mode: NODE_ENV,
   devtool: isProduct ? false : "inline-source-map",
-
-  entry: {
-    main: resolve("../src/main.tsx"),
-    // report: resolve("../report/report-main.tsx"),
-  },
+  entry: resolve("../src/main.tsx"),
+  // entry: {
+  //   main: resolve("../src/main.tsx"),
+  //   // report: resolve("../report/report-main.tsx"),
+  // },
   output: {
     clean: true,
     filename: isProduct ? "[name].[contenthash].js" : "[name].js",
@@ -59,29 +59,37 @@ module.exports = {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.(tsx|ts)$/,
+      //   loader: "ts-loader",
+      //   exclude: /node_modules/,
+      // },
       {
-        test: /\.(tsx|ts)$/,
-        loader: "ts-loader",
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        test: /\.(js|jsx|ts|tsx)$/,
+        include: resolve("../src"),
         use: {
           loader: "babel-loader",
           options: {
             cacheDirectory: true,
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: [
+            presets: [
+              "@babel/preset-env",
+              "@babel/preset-typescript",
               [
-                "@emotion",
-                {
-                  sourceMap: !isProduct,
-                  autoLabel: "dev-only",
-                  labelFormat: "[local]",
-                  cssPropOptimization: true,
-                },
+                "@babel/preset-react",
+                { development: !isProduct, runtime: "automatic" },
               ],
+            ],
+            plugins: [
+              !isProduct && "react-refresh/babel",
+              // [
+              //   "@emotion",
+              //   {
+              //     sourceMap: !isProduct,
+              //     autoLabel: "dev-only",
+              //     labelFormat: "[local]",
+              //     cssPropOptimization: true,
+              //   },
+              // ],
             ].filter(Boolean),
           },
         },
@@ -139,63 +147,58 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-
-      cacheGroups: {
-        lodash: {
-          test: /[\\/]node_modules[\\/](lodash-es)[\\/]/,
-          name: "lodash-es",
+  optimization: isProduct
+    ? {
+        splitChunks: {
           chunks: "all",
-          reuseExistingChunk: true,
-          enforce: true,
-        },
 
-        antd: {
-          test: /[\\/]node_modules[\\/]_?antd(.*)/,
-          priority: 20,
-          name: "chunk-antd",
-        },
-        formily: {
-          test: /[\\/]node_modules[\\/]_?@formily(.*)/,
-          name: "chunk-formily",
-          chunks: "all",
-        },
-        libs: {
-          minChunks: 3,
-          name: "chunk-libs",
-          test: /[\\/]node_modules[\\/]/,
-          priority: 10,
-          chunks: "initial", // only package third parties that are initially dependent
-        },
-      },
-    },
-    minimize: isProduct,
-    minimizer: isProduct
-      ? [
-          new TerserPlugin({
-            parallel: true,
-          }),
-        ]
-      : [],
-  },
+          cacheGroups: {
+            lodash: {
+              test: /[\\/]node_modules[\\/](lodash-es)[\\/]/,
+              name: "lodash-es",
+              chunks: "all",
+              reuseExistingChunk: true,
+              enforce: true,
+            },
 
-  externals: {
-    handlebars: "Handlebars",
-    react: "React",
-    "react-dom": "ReactDOM",
-    html2canvas: "html2canvas",
-    echarts: "echarts",
-    jsrsasign: "window",
-    "js-base64": "Base64",
-  },
+            antd: {
+              test: /[\\/]node_modules[\\/]_?antd(.*)/,
+              priority: 20,
+              name: "chunk-antd",
+            },
+            formily: {
+              test: /[\\/]node_modules[\\/]_?@formily(.*)/,
+              name: "chunk-formily",
+              chunks: "all",
+            },
+            libs: {
+              minChunks: 3,
+              name: "chunk-libs",
+              test: /[\\/]node_modules[\\/]/,
+              priority: 10,
+              chunks: "initial", // only package third parties that are initially dependent
+            },
+          },
+        },
+        minimize: isProduct,
+        minimizer: isProduct
+          ? [
+              new TerserPlugin({
+                parallel: true,
+              }),
+            ]
+          : [],
+      }
+    : undefined,
+
   plugins: [
-    new CleanWebpackPlugin(),
+    !isProduct && new ReactRefreshPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
+    // new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: resolve("index.html"),
       filename: "index.html",
-      chunks: ["main"],
+
       CDN_LIST,
     }),
     // new HtmlWebpackPlugin({
@@ -220,11 +223,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isProduct ? "[name].[contenthash].css" : "[name].css",
     }),
-
-    new WebpackBar({}),
-    isAna && new BundleAnalyzerPlugin(),
   ].filter(Boolean),
   devServer: {
+    client: { overlay: false },
     historyApiFallback: true,
     //  {
     //   rewrites: [
@@ -234,7 +235,7 @@ module.exports = {
     // },
     port: 9522,
     open: false,
-    hot: true,
+    hot: !isProduct,
     proxy: [
       {
         context: [
@@ -260,4 +261,15 @@ module.exports = {
   cache: {
     type: "filesystem",
   },
+  externals: isProduct
+    ? {
+        handlebars: "Handlebars",
+        react: "React",
+        "react-dom": "ReactDOM",
+        html2canvas: "html2canvas",
+        echarts: "echarts",
+        jsrsasign: "window",
+        "js-base64": "Base64",
+      }
+    : {},
 };

@@ -21,8 +21,9 @@ import { cn, sizeFormat } from "@/utils";
 import { useCustomThemeToken } from "@/dashboard-themes";
 
 import { fontStyle } from "@/themes/global-theme/font-style";
-import type { DashboardRootProps } from "@/schema-component";
+
 import { ThemeCSSVariableProvider } from "@/themes/css-variable";
+import type { DashboardRootProps } from "@/schema-component/components";
 
 interface IRootProps extends DashboardRootProps {}
 export const Root: DnFC<IRootProps> = observer(

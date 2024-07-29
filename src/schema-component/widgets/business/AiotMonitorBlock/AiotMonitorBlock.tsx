@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/css";
 
 import { AiotTypeChange } from "./AiotTypeChange";
-import { useFrameSizeStyle } from "@/schema-component";
+import { useFrameSizeStyle } from "@/schema-component/hooks";
 
 export function AiotMonitorBlock() {
   const { headStyle, bodyStyle } = useFrameSizeStyle();

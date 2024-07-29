@@ -4,8 +4,9 @@ import { IconWidget } from "../IconWidget";
 import type { ITreeNode, TreeNode } from "@/designable/core";
 import { transformToTreeNode } from "@/designable/core";
 import { transformToSchema } from "@/designable/Field";
-import { MonacoEditor } from "@/schema-component";
+
 import { cn } from "@/utils";
+import { MonacoEditor } from "@/schema-component/components";
 
 export interface ISchemaEditorWidgetProps {
   tree: TreeNode;

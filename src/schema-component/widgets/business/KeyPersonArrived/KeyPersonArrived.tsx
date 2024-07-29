@@ -4,7 +4,10 @@ import { css } from "@emotion/css";
 import type { KeyPersonItemType } from "./types";
 import { KeyPersonnelItem } from "./KeyPersonnelItem";
 import type { SchemComponentWithDataSourceProps } from "@/types";
-import { useDataBindFetch, useQueryToBusParams } from "@/schema-component";
+import {
+  useDataBindFetch,
+  useQueryToBusParams,
+} from "@/schema-component/hooks";
 import { EmptyKit } from "@/themes/style-components";
 
 export function KeyPersonArrived({

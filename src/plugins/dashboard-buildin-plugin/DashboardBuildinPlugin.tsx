@@ -4,14 +4,12 @@ import {
   ChartTemplate,
   ClassicFrame,
   ClassicFrame5,
-  DashboardRootPreview,
   EmploymentCreditMng,
   Header1,
   Header5,
   HeaderMenu,
   KeyPersonArrived,
   LaborAttendance,
-  PositionDecoratorPreview,
   ProjectAttendanceAnaTable,
   ProjectAttendanceDataAna,
   ProjectBudget,
@@ -20,7 +18,11 @@ import {
   QuarterSelect,
   SmartHelmet,
   UnprocessedWarningList,
-} from "../../schema-component";
+} from "../../schema-component/widgets";
+import {
+  DashboardRootPreview,
+  PositionDecoratorPreview,
+} from "@/schema-component/components";
 
 export class DashboardBuildinPlugin extends Plugin {
   async load(): Promise<void> {

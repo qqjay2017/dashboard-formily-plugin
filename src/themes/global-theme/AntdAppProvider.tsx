@@ -1,7 +1,7 @@
 import { App } from "antd";
 import React, { memo, useEffect } from "react";
 import { useAPIClient } from "../../api-client";
-import { useApp } from "../../application";
+import { useApp } from "../../application/hooks";
 
 const AppInner = memo(({ children }: { children: React.ReactNode }) => {
   const app = useApp();

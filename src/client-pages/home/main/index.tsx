@@ -1,5 +1,9 @@
 function HomeMain() {
-  return <div>HomeMainH111omeMainHo</div>;
+  return (
+    <div>
+      <h1>首页</h1>
+    </div>
+  );
 }
 
 export default HomeMain;

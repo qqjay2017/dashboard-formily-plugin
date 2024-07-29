@@ -1,12 +1,12 @@
-import type { PropsWithChildren } from 'react'
-import React from 'react'
-import { get } from 'lodash-es'
-import { css } from '@emotion/css'
+import type { PropsWithChildren } from "react";
+import React from "react";
+import { get } from "lodash-es";
+import { css } from "@emotion/css";
 
-import { Tabs } from 'antd'
-import type { AxiosHeaders } from 'axios'
-import { useQuery, useReqApiProxy } from '@/api-client'
-import { MonacoEditor } from '@/schema-component'
+import { Tabs } from "antd";
+import type { AxiosHeaders } from "axios";
+import { useQuery, useReqApiProxy } from "@/api-client";
+import { MonacoEditor } from "@/schema-component/components";
 
 function ApiTestItemWrap({ children }: PropsWithChildren) {
   return (
@@ -21,40 +21,40 @@ function ApiTestItemWrap({ children }: PropsWithChildren) {
     >
       {children}
     </div>
-  )
+  );
 }
 
 const jsonEditProps: any = {
   scrollBeyondLastLine: true,
-  height: '490px',
-  theme: 'vs-dark',
-  language: 'json',
+  height: "490px",
+  theme: "vs-dark",
+  language: "json",
   readOnly: false,
-}
+};
 
 export function ApiTest({
   apiId,
   formValues,
 }: {
-  apiId?: string
-  formValues?: any
+  apiId?: string;
+  formValues?: any;
 }) {
-  const { request } = useReqApiProxy()
+  const { request } = useReqApiProxy();
   const { data, refetch, error, isError, isLoading } = useQuery({
-    queryKey: ['apiTest', apiId, ...Object.keys(formValues || {})],
+    queryKey: ["apiTest", apiId, ...Object.keys(formValues || {})],
     queryFn: () =>
       request({
         formValues,
         apiId,
         headers: {},
       }),
-  })
+  });
 
-  const resData = get(data, 'data', {})
+  const resData = get(data, "data", {});
 
-  const headers: AxiosHeaders = data?.headers as any as AxiosHeaders
+  const headers: AxiosHeaders = data?.headers as any as AxiosHeaders;
   if (isLoading) {
-    return null
+    return null;
   }
   return (
     <div
@@ -69,9 +69,9 @@ export function ApiTest({
         defaultActiveKey="body"
         items={[
           {
-            key: 'body',
-            tabKey: 'body',
-            label: 'Body',
+            key: "body",
+            tabKey: "body",
+            label: "Body",
             children: (
               <ApiTestItemWrap>
                 <MonacoEditor
@@ -82,9 +82,9 @@ export function ApiTest({
             ),
           },
           {
-            key: 'headers',
-            tabKey: 'headers',
-            label: 'Headers',
+            key: "headers",
+            tabKey: "headers",
+            label: "Headers",
             children: (
               <ApiTestItemWrap>
                 <MonacoEditor
@@ -92,16 +92,16 @@ export function ApiTest({
                   defaultValue={JSON.stringify(
                     headers && headers.toJSON
                       ? JSON.parse(JSON.stringify(headers.toJSON()))
-                      : {},
+                      : {}
                   )}
                 />
               </ApiTestItemWrap>
             ),
           },
           {
-            key: 'status',
-            tabKey: 'status',
-            label: 'Status',
+            key: "status",
+            tabKey: "status",
+            label: "Status",
             children: (
               <ApiTestItemWrap>
                 <MonacoEditor
@@ -117,5 +117,5 @@ export function ApiTest({
         ]}
       />
     </div>
-  )
+  );
 }

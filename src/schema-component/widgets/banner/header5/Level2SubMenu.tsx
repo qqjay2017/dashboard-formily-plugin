@@ -1,15 +1,15 @@
-import React from 'react'
-import { css } from '@emotion/css'
-import type { HeaderMenuItemType } from '../HeaderMenu/types'
-import { cx } from '@/utils'
-import { useReportShare } from '@/hooks'
+import React from "react";
+import { css } from "@emotion/css";
+import type { HeaderMenuItemType } from "../HeaderMenu/types";
+import { cx } from "@/utils";
+import { useReportShare } from "@/application/hooks";
 
 export function Level2SubMenu({
   subMenuList,
   reportId,
 }: {
-  subMenuList: HeaderMenuItemType[]
-  reportId: string
+  subMenuList: HeaderMenuItemType[];
+  reportId: string;
 }) {
   return (
     <div
@@ -26,32 +26,32 @@ export function Level2SubMenu({
             key={JSON.stringify(s) + index}
             menu={s}
           />
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 const activeStyle = css`
   color: #64e3ff;
-`
+`;
 function SubMenuItem({
   menu,
   reportId,
 }: {
-  menu: HeaderMenuItemType
-  reportId: string
+  menu: HeaderMenuItemType;
+  reportId: string;
 }) {
-  const isActive = reportId && menu.shareURL && reportId === menu.shareURL
-  const { reportShare } = useReportShare()
+  const isActive = reportId && menu.shareURL && reportId === menu.shareURL;
+  const { reportShare } = useReportShare();
 
   return (
     <div
       onClick={(e) => {
-        e.stopPropagation()
-        e.preventDefault()
+        e.stopPropagation();
+        e.preventDefault();
         reportShare(menu.shareURL, {
           isHref: true,
-        })
+        });
       }}
       className={cx(
         css`
@@ -71,10 +71,10 @@ function SubMenuItem({
             ${activeStyle}
           }
         `,
-        isActive && activeStyle,
+        isActive && activeStyle
       )}
     >
       {menu.label}
     </div>
-  )
+  );
 }

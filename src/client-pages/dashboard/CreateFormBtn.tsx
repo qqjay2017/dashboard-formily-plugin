@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { get } from "lodash-es";
 import { createDashboardFormSchema } from "./schema/createDashboardFormSchema";
 
-import { FormDialogPortal, useFormDialog } from "@/schema-component";
 import { type APiWrap, useAPIClient } from "@/api-client";
 
 import { apiBase, getDesignSize } from "@/utils";
+import { FormDialogPortal, useFormDialog } from "@/schema-component/antd";
 
 export function CreateFormBtn() {
   const navigate = useNavigate();

@@ -12,10 +12,11 @@ import { createChartSchema } from "./createChartSchema";
 import { ChartListItem } from "./ChartListItem";
 import type { IChartItem } from "./types";
 import { CreateBtnWrap } from "@/themes/style-components";
-import { FormDialogPortal, useFormDialog } from "@/schema-component";
+
 import type { APiWrap } from "@/api-client";
 import { useAPIClient, useRequest } from "@/api-client";
 import { apiBase } from "@/utils";
+import { FormDialogPortal, useFormDialog } from "@/schema-component/antd";
 
 export function ChartIndex() {
   const navigate = useNavigate();

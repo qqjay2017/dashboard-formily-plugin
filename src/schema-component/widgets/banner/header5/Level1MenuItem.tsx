@@ -1,9 +1,9 @@
-import { css } from '@emotion/css'
-import type { HeaderMenuItemType } from '../HeaderMenu/types'
-import { cx, rs } from '@/utils'
-import { useReportShare } from '@/hooks'
+import { css } from "@emotion/css";
+import type { HeaderMenuItemType } from "../HeaderMenu/types";
+import { cx, rs } from "@/utils";
+import { useReportShare } from "@/application/hooks";
 
-const activeBg = rs('/assets/schema-component/header5/activeMenuBg.png')
+const activeBg = rs("/assets/schema-component/header5/activeMenuBg.png");
 
 const activeStyle = css`
   color: #64e3ff;
@@ -20,9 +20,9 @@ const activeStyle = css`
     background-position: center center;
     background-repeat: no-repeat;
   }
-`
+`;
 interface ILevel1MenuItemProps extends HeaderMenuItemType {
-  reportId: string
+  reportId: string;
 }
 
 export function Level1MenuItem({
@@ -31,17 +31,17 @@ export function Level1MenuItem({
   shareURL,
   children = [],
 }: ILevel1MenuItemProps) {
-  const isActive = reportId && shareURL && reportId === shareURL
-  const { reportShare } = useReportShare()
+  const isActive = reportId && shareURL && reportId === shareURL;
+  const { reportShare } = useReportShare();
 
   return (
     <div
       onClick={(e) => {
-        e.stopPropagation()
-        e.preventDefault()
+        e.stopPropagation();
+        e.preventDefault();
         reportShare(children[0]?.shareURL || shareURL, {
           isHref: true,
-        })
+        });
       }}
       className={cx(
         css`
@@ -61,10 +61,10 @@ export function Level1MenuItem({
             ${activeStyle}
           }
         `,
-        isActive ? activeStyle : '',
+        isActive ? activeStyle : ""
       )}
     >
       {label}
     </div>
-  )
+  );
 }

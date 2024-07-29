@@ -12,7 +12,7 @@ import {
   SelectTrigger,
 } from "@/themes/style-components/ui";
 import { sizeFormat } from "@/utils";
-import { useDashboardRoot } from "@/schema-component";
+import { useDashboardRoot } from "@/schema-component/components";
 
 function ProjectSelectMain({
   value,
