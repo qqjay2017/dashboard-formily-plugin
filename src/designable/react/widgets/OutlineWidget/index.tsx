@@ -78,7 +78,7 @@ export const OutlineTreeWidget: React.FC<IOutlineTreeWidgetProps> = observer(
             ref={ref}
           >
             <OutlineTreeNode node={tree} workspaceId={workspaceId} />
-            <div
+            {/* <div
               className={cn(
                 `${prefix}-aux`,
                 css`
@@ -92,7 +92,7 @@ export const OutlineTreeWidget: React.FC<IOutlineTreeWidgetProps> = observer(
               }}
             >
               <Insertion workspaceId={workspaceId} />
-            </div>
+            </div> */}
           </div>
         </div>
       </NodeContext.Provider>

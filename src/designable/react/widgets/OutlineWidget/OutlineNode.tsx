@@ -123,10 +123,6 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
       );
     };
 
-    const renderActions = (node: TreeNode) => {
-      if (isFn(ctx.renderActions)) return ctx.renderActions(node);
-    };
-
     return (
       <div
         style={style}
@@ -147,7 +143,7 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
             min-width: 100%;
           `
         )}
-        // data-designer-outline-node-id={node.id}
+        data-designer-outline-node-id={node.id}
       >
         <div
           className={cn(
@@ -212,7 +208,7 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
                     }
                   }}
                 >
-                  <IconWidget infer="Expand" size={10} />
+                  <IconWidget infer="Expand" size={18} />
                 </div>
               )}
               <div className={`${prefix}-icon`}>{renderIcon(node)}</div>
@@ -222,7 +218,6 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
               className={`${prefix}-header-actions`}
               data-click-stop-propagation
             >
-              {renderActions(node)}
               {node !== node.root && (
                 <IconWidget
                   className={cls(`${prefix}-hidden-icon`, {
