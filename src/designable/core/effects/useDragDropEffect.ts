@@ -1,4 +1,5 @@
 import { get } from 'lodash-es'
+import { message } from 'antd'
 import {
   DragMoveEvent,
   DragStartEvent,
@@ -74,6 +75,15 @@ export function useDragDropEffect(engine: Engine) {
       }
       else if (sourceId) {
         const sourceNode = engine.findNodeById(sourceId)
+
+        const $id = get(sourceNode, 'children[0].props.$id')
+        if ($id) {
+          const findQueryNode = engine.findNodeById($id)
+          if (findQueryNode) {
+            message.warning('该查询已存在!')
+            return false
+          }
+        }
 
         if (sourceNode) {
           moveHelper.dragStart({ dragNodes: [sourceNode] })
