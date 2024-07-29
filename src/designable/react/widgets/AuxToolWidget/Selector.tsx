@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "antd";
 import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
+import { get } from "lodash-es";
 import { useHover, useSelection } from "../../hooks";
 
 import { NodeTitleWidget } from "../NodeTitleWidget";
@@ -128,7 +129,10 @@ export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
   //     setExpand(false);
   //   }
   // );
-
+  const nodeW = get(node, "props.x-decorator-props.w", 0);
+  if (nodeW < 2.5) {
+    return null;
+  }
   return (
     <div ref={ref} className={prefix}>
       <Button

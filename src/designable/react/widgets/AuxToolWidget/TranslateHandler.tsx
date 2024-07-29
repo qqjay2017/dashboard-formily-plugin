@@ -2,6 +2,7 @@ import React from "react";
 import cls from "classnames";
 import { injectGlobal } from "@emotion/css";
 import { RiDragDropFill } from "react-icons/ri";
+import { get } from "lodash-es";
 import { useDesigner } from "../../hooks";
 
 import type { TreeNode } from "@/designable/core";
@@ -35,6 +36,10 @@ export const TranslateHandler: React.FC<ITranslateHandlerProps> = (props) => {
     };
   };
   const allowTranslate = props.node.allowTranslate();
+  const nodeW = get(props.node, "props.x-decorator-props.w", 0);
+  if (nodeW < 2.5) {
+    return null;
+  }
   if (!allowTranslate) return null;
   return (
     <div {...createHandler("translate")}>
