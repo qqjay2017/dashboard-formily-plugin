@@ -1,19 +1,17 @@
 import {
   type PropsWithChildren,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
 } from "react";
 import { globalThisPolyfill } from "@formily/shared";
 import { css, cx } from "@emotion/css";
-import { useExpressionScope } from "@formily/react";
-import { useTree, useTreeNode, useTreeRootProps, useViewport } from "../hooks";
+
+import { useTreeRootProps, useViewport } from "../hooks";
 import { AuxToolWidget } from "../widgets";
 import type { Viewport as ViewportType } from "@/designable/core";
-import { cn } from "@/utils";
+
 import { requestIdle } from "@/designable/shared";
-import { useSchemaOptionsContext } from "@/schema-component";
 
 export interface IViewportProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "placeholder">,
@@ -64,8 +62,8 @@ export const Viewport: React.FC<IViewportProps> = ({
         "dn-viewport",
         props.className,
         css`
-          width: ${designWidth}px;
-          height: ${designHeight}px;
+          width: ${designWidth * viewport.designScale}px;
+          height: ${designHeight * viewport.designScale}px;
         `
       )}
       ref={ref}

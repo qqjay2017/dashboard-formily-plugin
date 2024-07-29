@@ -11,7 +11,12 @@ import {
 } from "@/schema-component/components/DashboardRoot/styles";
 import { DashboardRootContext } from "@/schema-component/components/DashboardRoot/context";
 import { createBehavior, createResource } from "@/designable/core";
-import { type DnFC, useDesigner, useTreeRootProps } from "@/designable/react";
+import {
+  type DnFC,
+  useDesigner,
+  useTreeRootProps,
+  useViewport,
+} from "@/designable/react";
 import { cn, sizeFormat } from "@/utils";
 import { useCustomThemeToken } from "@/dashboard-themes";
 
@@ -35,6 +40,7 @@ export const Root: DnFC<IRootProps> = observer(
       isDarkTheme,
       ...otherProps
     } = props;
+    const viewport = useViewport();
     const { designWidth = 1920, designHeight = 1080 } = useTreeRootProps();
     const [designZoom, setDesignZoom] = useState(1);
     const breakpoint = "desktop";
@@ -79,8 +85,9 @@ export const Root: DnFC<IRootProps> = observer(
         id="Root"
         {...designerProps}
         style={{
-          width: designWidth,
-          height: designHeight,
+          width: designWidth * viewport.designScale,
+          height: designHeight * viewport.designScale,
+          overflow: "hidden",
         }}
       >
         <ConfigProvider
@@ -98,7 +105,7 @@ export const Root: DnFC<IRootProps> = observer(
                 designWidth,
                 designHeight,
                 themeProvider,
-                scale: designZoom,
+                scale: viewport.designScale,
                 rootFieldSchema: new Schema({}),
                 mobileRowHeight,
               }}
@@ -111,16 +118,21 @@ export const Root: DnFC<IRootProps> = observer(
                     position: relative;
                     background-size: cover;
                     overflow-x: hidden;
-                    overflow-y: ${isPc ? "hidden" : "auto"};
+                    overflow-y: hidden;
                   `,
                   scrollBarStyle
                 )}
+                style={{
+                  width: designWidth,
+                  height: designHeight,
+                  transform: `scale( ${viewport.designScale} )`,
+                  transformOrigin: "0 0 ",
+                }}
               >
                 <div
                   className={css`
                     width: 100%;
                     height: 100%;
-                    min-height: 600px;
                     position: relative;
                   `}
                 >

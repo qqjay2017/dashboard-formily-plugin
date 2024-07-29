@@ -1,7 +1,7 @@
 import { type PropsWithChildren, useMemo } from "react";
 import { observer } from "@formily/reactive-react";
 import { css } from "@emotion/css";
-import { useDesigner, useViewport } from "../react";
+import { useDesigner, useTreeRootProps, useViewport } from "../react";
 import type { PositionDecoratorOptions } from "@/schema-component/components/PositionDecorator/types";
 import { cn, sizeFormat } from "@/utils";
 
@@ -20,10 +20,12 @@ export const PositionDecorator = observer((props: PositionDecoratorProps) => {
     padding = 12,
     className,
   } = props;
+  const { designWidth = 1920, designHeight = 1080 } = useTreeRootProps();
   const designer = useDesigner();
   const viewport = useViewport();
-  const colWidth = viewport.width / 12;
-  const rowHeight = viewport.height / 12;
+
+  const colWidth = designWidth / 12;
+  const rowHeight = designHeight / 12;
 
   const width = sizeFormat(colWidth * w);
   const height = sizeFormat(rowHeight * h);
@@ -54,6 +56,11 @@ export const PositionDecorator = observer((props: PositionDecoratorProps) => {
     [designer.props.nodeIdAttrName]: props["data-designer-node-id"],
   };
 
+  if (!viewport || !viewport.width || !viewport.height) {
+    return null;
+  }
+
+  console.log(viewport.width, "viewport.width 22");
   return (
     <div
       className={cn(
