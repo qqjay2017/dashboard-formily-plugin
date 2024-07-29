@@ -50,7 +50,7 @@ export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
     const handleEditorMount = (editor) => {
       editorRef.current = editor;
       setTimeout(() => {
-        editor.getAction("editor.action.formatDocument").run();
+        editor?.getAction("editor.action.formatDocument")?.run();
       }, 200);
     };
 
@@ -58,7 +58,7 @@ export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
       return {
         formatDocument: () => {
           setTimeout(() => {
-            editorRef.current?.getAction("editor.action.formatDocument").run();
+            editorRef.current?.getAction("editor.action.formatDocument")?.run();
           }, 500);
         },
       };

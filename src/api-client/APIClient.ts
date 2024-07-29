@@ -2,7 +2,7 @@ import { get } from 'lodash-es'
 import { message, notification } from 'antd'
 import React from 'react'
 
-import { APIClientSdk } from '../sdk/APIClient'
+import APIClientSdk from '../sdk/api-client/APIClient'
 import type Application from '@/application/Application'
 
 function handleErrorMessage(error, notification) {

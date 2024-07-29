@@ -27,6 +27,7 @@ import { useCustomThemeToken } from "@/dashboard-themes";
 import { useToken } from "@/schema-component/antd/style";
 import type { MonacoEditorHandles } from "@/schema-component/components";
 import { MonacoEditor } from "@/schema-component/components";
+import { htmlImgUtil } from "@/utils/htmlImgUtil";
 
 function ChartEditPage() {
   const { token: antdToken } = useToken();
@@ -114,18 +115,15 @@ function ChartEditPage() {
 
     async function save() {
       try {
-        const canvas = await html2canvas(
-          document.getElementById("ChartViewCore"),
-          {
-            scale: 1,
-          }
-        );
-        const coverThumbnail = canvas.toDataURL("image/webp", 0.8);
+        const imgSrc = await htmlImgUtil({
+          element: "ChartViewCore",
+        });
+
         await apiClient.request({
           url: `${apiBase}/chart/${id}`,
           method: "put",
           data: {
-            coverThumbnail,
+            coverThumbnail: imgSrc?.fileSrcUrl || undefined,
             template: newTemp,
           },
         });

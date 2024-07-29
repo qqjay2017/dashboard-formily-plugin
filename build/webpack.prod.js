@@ -21,14 +21,14 @@ const CDN_LIST = isProduct
       isProduct
         ? "unpkg/react-dom.production.min.js"
         : "unpkg/react-dom.development.js",
-
+      "unpkg/minio.umd.js",
       "unpkg/handlebars.js",
       "unpkg/html2canvas.min.js",
       "unpkg/echarts.min.js",
       "unpkg/base64.min.js",
       "unpkg/jsrsasign-all-min.js",
     ].map((url) => publicPath + url)
-  : [];
+  : ["/unpkg/minio.umd.js"];
 function resolve(name) {
   return path.join(__dirname, name);
 }

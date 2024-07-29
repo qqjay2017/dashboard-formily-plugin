@@ -1,67 +1,86 @@
-import { css } from '@emotion/css'
-import { Dropdown } from 'antd'
-import type { PropsWithChildren } from 'react'
-import { useLocation } from 'react-router-dom'
-import { MenuLabel } from './components/MenuLabel'
+import { css } from "@emotion/css";
+import { Dropdown } from "antd";
+import type { PropsWithChildren } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { MenuLabel } from "./components/MenuLabel";
 
 const homeMenu = [
   {
-    label: '首页',
-    path: '/home/main',
+    label: "首页",
+    path: "/home/main",
   },
   {
-    label: '仪表盘',
-    path: '/dashboard/main',
+    label: "仪表盘",
+    path: "/dashboard/main",
   },
   {
-    label: '组件',
-    path: '/component/',
+    label: "组件",
+    path: "/component/",
     children: [
       {
-        key: 'component-chart',
-        label: '图表组件',
-        path: '/component/chart',
+        key: "component-chart",
+        label: "图表组件",
+        path: "/component/chart",
       },
     ],
   },
   {
-    label: '素材',
-    path: '/assets/main',
+    label: "素材",
+    path: "/assets/main",
   },
   {
-    label: '模版',
-    path: '/template/main',
+    label: "模版",
+    path: "/template/main",
   },
   {
-    label: '数据工厂',
-    path: '/dapi/',
+    label: "数据工厂",
+    path: "/dapi/",
     children: [
       {
-        key: 'external-data',
-        label: '外部数据',
-        path: '/dapi/external-data',
+        key: "external-data",
+        label: "外部数据",
+        path: "/dapi/external-data",
       },
       {
-        key: 'magic-api',
-        label: 'magic-api',
-        path: '/dapi/magic-api',
+        key: "magic-api",
+        label: "magic-api",
+        path: "/dapi/magic-api",
       },
     ],
   },
   {
-    label: '插件',
-    path: '/plugin/main',
+    label: "插件",
+    path: "/plugin/main",
   },
   {
-    label: '数字孪生',
-    path: '/gis/main',
+    label: "数字孪生",
+    path: "/gis/main",
   },
-]
+];
 
 interface HomeMenuProps extends PropsWithChildren {}
 
+const titleStyle = css`
+  cursor: pointer;
+  height: 40px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  color: #2f2e3f;
+  line-height: 40px;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 230px;
+  margin-right: 12px;
+`;
+
 export function HomeMenu({ children }: HomeMenuProps) {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const params = useParams();
+  const hasParams = Object.keys(params).length > 0;
   return (
     <div
       className={css`
@@ -82,24 +101,24 @@ export function HomeMenu({ children }: HomeMenuProps) {
           align-items: center;
         `}
       >
+        {hasParams && (
+          <div
+            className={titleStyle}
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <IoMdArrowRoundBack />
+          </div>
+        )}
+
         <div
-          className={css`
-            cursor: pointer;
-            height: 40px;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            color: #2f2e3f;
-            line-height: 40px;
-            word-wrap: break-word;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 230px;
-            min-width: 130px;
-            margin-right: 24px;
-          `}
+          className={titleStyle}
+          onClick={() => {
+            navigate("/");
+          }}
         >
-          可视化大屏数字底座
+          孪生数字底座
         </div>
         <div
           className={css`
@@ -109,7 +128,7 @@ export function HomeMenu({ children }: HomeMenuProps) {
         >
           {homeMenu.map((menu) => {
             if (menu.children && menu.children.length) {
-              const isActive = pathname.includes(menu.path)
+              const isActive = pathname.includes(menu.path);
 
               return (
                 <Dropdown
@@ -129,27 +148,27 @@ export function HomeMenu({ children }: HomeMenuProps) {
                             `}
                           />
                         ),
-                      }
+                      };
                     }),
                   }}
                 >
                   <a
-                    onClick={e => e.preventDefault()}
+                    onClick={(e) => e.preventDefault()}
                     style={{
-                      color: isActive ? '#1677ff' : '#000',
+                      color: isActive ? "#1677ff" : "#000",
                     }}
                   >
                     {menu.label}
                   </a>
                 </Dropdown>
-              )
+              );
             }
-            return <MenuLabel key={menu.label + menu.path} menu={menu} />
+            return <MenuLabel key={menu.label + menu.path} menu={menu} />;
           })}
         </div>
       </div>
       {children}
       {/* <CreateFormBtn /> */}
     </div>
-  )
+  );
 }

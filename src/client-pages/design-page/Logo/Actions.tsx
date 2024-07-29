@@ -5,6 +5,7 @@ import { transformToSchema } from "@/designable/Field";
 
 import { useReportShare } from "@/application/hooks";
 import { useUpdateDashboard } from "@/schema-component/hooks";
+import { htmlImgUtil } from "@/utils/htmlImgUtil";
 
 export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
   const designer = useDesigner();
@@ -22,12 +23,15 @@ export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
   };
 
   const pubSchema = async () => {
+    const imgSrc = await htmlImgUtil({ element: "DashboardRoot" });
+
     const tree = designer.getCurrentTree();
 
     const schema = transformToSchema(tree);
 
     await updateDashboard({
       content: JSON.stringify(schema),
+      coverThumbnail: imgSrc?.fileSrcUrl || undefined,
     });
     message.success("发布成功");
   };
