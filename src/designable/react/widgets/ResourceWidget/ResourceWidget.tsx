@@ -35,22 +35,13 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
           key={node.id}
           data-designer-source-id={node.id}
         >
-          {thumb && <img className={`${prefix}-item-thumb`} src={thumb} />}
-          {icon && React.isValidElement(icon) ? (
-            <>{icon}</>
-          ) : (
-            <img
-              className={cn(
-                `${prefix}-item-icon`,
-                css`
-                  user-select: none;
-                  pointer-events: none;
-                `
-              )}
-              src={icon}
-              style={{ width: 100, height: 40, objectFit: "cover" }}
-            />
-          )}
+          <div
+            className={`${prefix}-item-thumb`}
+            style={{
+              backgroundImage: `url( ${thumb || icon} )`,
+            }}
+          ></div>
+
           <span className={`${prefix}-item-text`}>
             <TextWidget>
               {title || node.children[0]?.getMessage("title")}

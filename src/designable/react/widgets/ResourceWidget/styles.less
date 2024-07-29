@@ -39,7 +39,7 @@
   &.expand {
     .@{prefix-cls}-resource-content {
       display: grid;
-      grid-template-columns: repeat(3, 33.3333%);
+      grid-template-columns: repeat(2, 50%);
       grid-gap: 1px;
       background-color: var(--dn-panel-border-color);
       border-bottom: 1px solid var(--dn-panel-border-color);
@@ -70,7 +70,9 @@
     }
 
     &-icon {
-      margin: 12px 0;
+      width: 126px;
+      height: 126px;
+      margin: 12px 12px;
     }
 
     &-text {
@@ -82,6 +84,17 @@
 
     &-remain {
       background: var(--dn-resource-content-bg-color);
+    }
+
+    &-thumb {
+
+      width: 100%;
+
+      height: 100px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto;
     }
   }
 }
