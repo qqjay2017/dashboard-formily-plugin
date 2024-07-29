@@ -141,7 +141,7 @@ export function calcElementRotate(element: HTMLElement) {
 
 export function calcElementScale(element: HTMLElement) {
   const transform = element?.style?.transform
-  console.log(element, transform, 'transform')
+
   if (transform) {
     return Number(transform.match(/scale\(\s*([-\d.]+)/)?.[1] ?? 0)
   }

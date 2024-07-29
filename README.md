@@ -60,7 +60,6 @@ nodeContentForeground
 TODO
 
 发布逻辑，
-全屏逻辑
 
 ## webpack
 

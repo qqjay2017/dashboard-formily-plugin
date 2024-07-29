@@ -32,7 +32,7 @@ export function DashboardRootPreview({
     isDarkTheme,
     ...otherProps
   } = props;
-  console.log(props, "props preview");
+
   const [designZoom, setDesignZoom] = useState(1);
   const { breakpoint, width, height } = useBreakpoints(
     breakpoints,

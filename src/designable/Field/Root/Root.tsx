@@ -85,8 +85,8 @@ export const Root: DnFC<IRootProps> = observer(
         id="Root"
         {...designerProps}
         style={{
-          width: designWidth * viewport.designScale,
-          height: designHeight * viewport.designScale,
+          width: designWidth,
+          height: designHeight,
           overflow: "hidden",
         }}
       >
@@ -105,7 +105,7 @@ export const Root: DnFC<IRootProps> = observer(
                 designWidth,
                 designHeight,
                 themeProvider,
-                scale: viewport.designScale,
+                scale: 1,
                 rootFieldSchema: new Schema({}),
                 mobileRowHeight,
               }}
@@ -125,8 +125,6 @@ export const Root: DnFC<IRootProps> = observer(
                 style={{
                   width: designWidth,
                   height: designHeight,
-                  transform: `scale( ${viewport.designScale} )`,
-                  transformOrigin: "0 0 ",
                 }}
               >
                 <div

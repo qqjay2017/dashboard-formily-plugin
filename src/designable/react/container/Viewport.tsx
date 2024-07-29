@@ -58,19 +58,14 @@ export const Viewport: React.FC<IViewportProps> = ({
   return (
     <div
       {...props}
-      className={cx(
-        "dn-viewport",
-        props.className,
-        css`
-          width: ${designWidth * viewport.designScale}px;
-          height: ${designHeight * viewport.designScale}px;
-        `
-      )}
+      className={cx("dn-viewport", props.className)}
       ref={ref}
       style={{
         opacity: !loaded ? 0 : 1,
         overflow: "hidden",
         ...props.style,
+        width: designWidth,
+        height: designHeight,
       }}
     >
       {children}

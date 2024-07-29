@@ -1,24 +1,25 @@
-import { css } from '@emotion/css'
-import dayjs from 'dayjs'
-import { memo, useEffect, useState } from 'react'
-// import { useFullscreen } from "react-use";
+import { css } from "@emotion/css";
+import dayjs from "dayjs";
+import { memo, useEffect, useState } from "react";
 
-import { AiOutlineFullscreen, AiOutlineFullscreenExit } from 'react-icons/ai'
-import { week } from './consts'
+import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
+import { week } from "./consts";
+import { useFullscreen } from "@/schema-component/hooks";
 
 export const HeaderClock = memo(() => {
-  const [dateValue, setDateValue] = useState(new Date())
-  // const [show, toggle] = useToggle(false);
-  const isFullscreen = false
-  // const isFullscreen = useFullscreen(document.getElementById("root"), true, {});
-  const toggleFullscreen = () => {}
+  const [dateValue, setDateValue] = useState(new Date());
+
+  const [isFullscreen, { toggleFullscreen }] = useFullscreen(() =>
+    document.getElementById("root")
+  );
+
   useEffect(() => {
-    const interval = setInterval(() => setDateValue(new Date()), 1000)
+    const interval = setInterval(() => setDateValue(new Date()), 1000);
 
     return () => {
-      clearInterval(interval)
-    }
-  }, [])
+      clearInterval(interval);
+    };
+  }, []);
   return (
     <div
       className={css`
@@ -40,7 +41,7 @@ export const HeaderClock = memo(() => {
           min-width: 2rem;
         `}
       >
-        {dayjs(dateValue).format('YYYY-MM-DD HH:mm:ss')}
+        {dayjs(dateValue).format("YYYY-MM-DD HH:mm:ss")}
       </div>
       <div
         className={css`
@@ -55,9 +56,8 @@ export const HeaderClock = memo(() => {
       <div
         onClick={() => {
           try {
-            toggleFullscreen()
-          }
-          catch (error) {}
+            toggleFullscreen();
+          } catch (error) {}
         }}
         className={css`
           font-size: 0.2rem;
@@ -69,5 +69,5 @@ export const HeaderClock = memo(() => {
         {isFullscreen ? <AiOutlineFullscreenExit /> : <AiOutlineFullscreen />}
       </div>
     </div>
-  )
-})
+  );
+});

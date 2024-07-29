@@ -55,7 +55,7 @@ export class Viewport {
   width = 0
 
   height = 0
-  designScale = 0.5
+  designScale = 1
 
   mounted = false
 
@@ -172,7 +172,7 @@ export class Viewport {
       return 1
     const clientRect = this.viewportElement.getBoundingClientRect()
     const offsetWidth = this.viewportElement.offsetWidth
-    console.log(this.viewportElement, clientRect, offsetWidth, 'offsetWidth scale')
+
     if (!clientRect.width || !offsetWidth)
       return 1
     return Math.round(clientRect.width / offsetWidth)

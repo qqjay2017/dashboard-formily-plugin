@@ -60,7 +60,6 @@ export const PositionDecorator = observer((props: PositionDecoratorProps) => {
     return null;
   }
 
-  console.log(viewport.width, "viewport.width 22");
   return (
     <div
       className={cn(
