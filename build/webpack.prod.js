@@ -38,10 +38,6 @@ module.exports = {
   mode: NODE_ENV,
   devtool: isProduct ? false : "inline-source-map",
   entry: resolve("../src/main.tsx"),
-  // entry: {
-  //   main: resolve("../src/main.tsx"),
-  //   // report: resolve("../report/report-main.tsx"),
-  // },
   output: {
     clean: true,
     filename: isProduct ? "[name].[contenthash].js" : "[name].js",
@@ -59,11 +55,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.(tsx|ts)$/,
-      //   loader: "ts-loader",
-      //   exclude: /node_modules/,
-      // },
       {
         test: /\.(js|jsx|ts|tsx)$/,
         include: resolve("../src"),
@@ -81,15 +72,15 @@ module.exports = {
             ],
             plugins: [
               !isProduct && "react-refresh/babel",
-              // [
-              //   "@emotion",
-              //   {
-              //     sourceMap: !isProduct,
-              //     autoLabel: "dev-only",
-              //     labelFormat: "[local]",
-              //     cssPropOptimization: true,
-              //   },
-              // ],
+              [
+                "@emotion",
+                {
+                  sourceMap: !isProduct,
+                  autoLabel: "dev-only",
+                  labelFormat: "[local]",
+                  cssPropOptimization: true,
+                },
+              ],
             ].filter(Boolean),
           },
         },
@@ -194,22 +185,13 @@ module.exports = {
   plugins: [
     !isProduct && new ReactRefreshPlugin(),
     new ForkTsCheckerWebpackPlugin(),
-    // new CleanWebpackPlugin(),
+
     new HtmlWebpackPlugin({
       template: resolve("index.html"),
       filename: "index.html",
 
       CDN_LIST,
     }),
-    // new HtmlWebpackPlugin({
-    //   template: resolve("../report/index.html"),
-    //   filename: "report/index.html",
-    //   //   filename: "/report/index.html",
-    //   chunks: ["report"],
-    //   CDN_LIST,
-    //   //   publicPath: "/report/",
-    // }),
-
     isProduct
       ? new CopyPlugin({
           patterns: [{ from: "public", to: "" }],
@@ -219,7 +201,6 @@ module.exports = {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
       "process.env.BASE_URL": JSON.stringify(publicPath),
     }),
-    // new NodePolyfillPlugin(),
     new MiniCssExtractPlugin({
       filename: isProduct ? "[name].[contenthash].css" : "[name].css",
     }),
@@ -227,12 +208,6 @@ module.exports = {
   devServer: {
     client: { overlay: false },
     historyApiFallback: true,
-    //  {
-    //   rewrites: [
-    //     { from: /^\/$/, to: "/index.html" },
-    //     { from: /^\/report/, to: "/report/index.html" },
-    //   ],
-    // },
     port: 9522,
     open: false,
     hot: !isProduct,
