@@ -26,6 +26,8 @@ const CDN_LIST = [
   "unpkg/handlebars.js",
   "unpkg/html2canvas.min.js",
   "unpkg/echarts.min.js",
+  "unpkg/base64.min.js",
+  "unpkg/jsrsasign-all-min.js",
 ].map((url) => publicPath + url);
 function resolve(name) {
   return path.join(__dirname, name);
@@ -52,7 +54,7 @@ module.exports = {
     },
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
     fallback: {
-      net: false,
+      stream: require.resolve("stream-browserify"),
     },
   },
   module: {
@@ -185,6 +187,8 @@ module.exports = {
     "react-dom": "ReactDOM",
     html2canvas: "html2canvas",
     echarts: "echarts",
+    jsrsasign: "window",
+    "js-base64": "Base64",
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -212,7 +216,7 @@ module.exports = {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
       "process.env.BASE_URL": JSON.stringify(publicPath),
     }),
-    new NodePolyfillPlugin(),
+    // new NodePolyfillPlugin(),
     new MiniCssExtractPlugin({
       filename: isProduct ? "[name].[contenthash].css" : "[name].css",
     }),

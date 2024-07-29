@@ -55,6 +55,7 @@
     "react-use": "^17.5.1",
     "requestidlecallback": "^0.3.0",
     "screenfull": "^6.0.2",
+    "stream-browserify": "^3.0.0",
     "tailwind-merge": "^2.4.0",
     "use-resize-observer": "^9.1.0",
     "zustand": "^4.5.4"

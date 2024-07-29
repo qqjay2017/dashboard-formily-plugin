@@ -6285,6 +6285,7 @@ __metadata:
     react-use: "npm:^17.5.1"
     requestidlecallback: "npm:^0.3.0"
     screenfull: "npm:^6.0.2"
+    stream-browserify: "npm:^3.0.0"
     style-loader: "npm:^4.0.0"
     tailwind-merge: "npm:^2.4.0"
     terser-webpack-plugin: "npm:^5.3.10"
