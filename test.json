@@ -1,0 +1,542 @@
+{
+  "root": {
+    "designWidthEnum": "1920",
+    "cols": 12,
+    "rows": 12,
+    "rowheight": 80,
+    "designWidth": 1920,
+    "designHeight": 1080,
+    "breakpoints": {
+      "showroom": 2600,
+      "desktop": 1300,
+      "tablet": 500,
+      "mobile": 0
+    },
+    "themeProvider": "technologyBlue",
+    "isDarkTheme": true
+  },
+  "schema": {
+    "type": "object",
+    "properties": {
+      "nmr4866nq5c": {
+        "type": "void",
+        "x-component": "Header5",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": "{{ dashboardDt.name }}",
+          "dataSource": {
+            "dataSourceId": "65ae965c-1cdc-4b17-afe1-926ab28ee776",
+            "dataSourceName": "项目驾驶舱菜单"
+          }
+        },
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-decorator-props": {
+          "w": 12,
+          "h": 1.33,
+          "padding": "0px 0px 0px 0px",
+          "zIndex": 2,
+          "x": 0,
+          "y": 0
+        },
+        "x-designable-id": "nmr4866nq5c",
+        "x-index": 0
+      },
+      "2ja1l4antpj": {
+        "type": "void",
+        "x-component": "ClassicFrame5",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": "项目考勤数据分析"
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.8,
+          "h": 2.33,
+          "zIndex": 4,
+          "x": 0.15,
+          "y": 2.52
+        },
+        "x-designable-id": "2ja1l4antpj",
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 1
+      },
+      "quarterSelect": {
+        "type": "object",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "defaultCurrentQuarter": true
+        },
+        "x-reactions": ["{{useAsyncQuarterDataSource(currentQuarter)}}"],
+        "x-designable-id": "quarterSelect",
+        "x-component": "QuarterSelect",
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 1.5,
+          "h": 0.5,
+          "zIndex": 5,
+          "x": 0.15,
+          "y": 1.6
+        },
+        "x-index": 2
+      },
+      "2ncrau6hirc": {
+        "type": "void",
+        "x-component": "ClassicFrame5",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": "参建人员分布统计"
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.8,
+          "h": 3,
+          "zIndex": 6,
+          "x": 0.15,
+          "y": 5.11
+        },
+        "x-designable-id": "2ncrau6hirc",
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 3
+      },
+      "6vj3ef73fml": {
+        "type": "void",
+        "x-component": "ClassicFrame5",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": "合规风险预警分析"
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 7.75,
+          "h": 3.2,
+          "zIndex": 7,
+          "x": 0.15,
+          "y": 8.53
+        },
+        "x-designable-id": "6vj3ef73fml",
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 4
+      },
+      "y1d58tqvfik": {
+        "type": "void",
+        "x-component": "ChartTemplate",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "chartId": 3,
+          "dataSource": {
+            "dataSourceId": "81fa5e46-5eae-4d54-a318-c1dfa90ccf1d",
+            "dataSourceName": "mock系列参建人员分布统计mock"
+          }
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.8,
+          "h": 2.5,
+          "zIndex": 8,
+          "x": 0.15,
+          "y": 5.61
+        },
+        "x-designable-id": "y1d58tqvfik",
+        "x-reactions": {
+          "dependencies": {
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 5
+      },
+      "x45ci4o57dc": {
+        "type": "void",
+        "x-component": "ChartTemplate",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "chartId": 4,
+          "dataSource": {
+            "dataSourceId": "c91334f6-a710-4a98-ae21-84ebd1f6697e",
+            "dataSourceName": "mock系列 合规风险预警分析玫瑰图"
+          }
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.45,
+          "h": 2.7,
+          "zIndex": 9,
+          "x": 0.15,
+          "y": 9.03
+        },
+        "x-designable-id": "x45ci4o57dc",
+        "x-reactions": {
+          "dependencies": {
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 6
+      },
+      "n39g3wxxo3s": {
+        "type": "void",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "dataSource": {
+            "dataSourceId": "617bd9be-ca7c-4a55-b5ab-7f3a301b0560",
+            "dataSourceName": "mock系列项目考勤数据分析mock"
+          }
+        },
+        "x-reactions": {
+          "dependencies": {
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-component": "ProjectAttendanceDataAna",
+        "x-decorator-props": {
+          "padding": [24, 24, 24, 24],
+          "w": 3.8,
+          "h": 1.86,
+          "zIndex": 10,
+          "x": 0.15,
+          "y": 3
+        },
+        "x-designable-id": "n39g3wxxo3s",
+        "x-index": 7
+      },
+      "t5ifhbq9cdf": {
+        "type": "void",
+        "x-component": "ClassicFrame5",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": " 项目出勤情况分析"
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.8,
+          "h": 6.66,
+          "zIndex": 11,
+          "x": 4.1,
+          "y": 1.6
+        },
+        "x-designable-id": "t5ifhbq9cdf",
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 8
+      },
+      "yduvr5se39t": {
+        "type": "void",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "dataSource": {
+            "dataSourceId": "3dfdd700-ac8f-4342-be3b-d60a11260adb",
+            "dataSourceName": "mock系列项目出勤情况分析MOCK"
+          }
+        },
+        "x-reactions": {
+          "dependencies": {
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-component": "ProjectAttendanceAnaTable",
+        "x-decorator-props": {
+          "padding": [24, 24, 24, 24],
+          "w": 3.8,
+          "h": 6.16,
+          "zIndex": 12,
+          "x": 4.1,
+          "y": 2.1
+        },
+        "x-designable-id": "yduvr5se39t",
+        "x-index": 9
+      },
+      "cwjwabd1f0j": {
+        "type": "void",
+        "x-component": "ClassicFrame5",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": "关键人员今日到岗"
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.8,
+          "h": 2.33,
+          "zIndex": 13,
+          "x": 8.05,
+          "y": 1.6
+        },
+        "x-designable-id": "cwjwabd1f0j",
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 10
+      },
+      "kbrz6u9url7": {
+        "type": "void",
+        "x-component": "ClassicFrame5",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": "智能安全帽"
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.8,
+          "h": 4.06,
+          "zIndex": 14,
+          "x": 8.05,
+          "y": 4.2
+        },
+        "x-designable-id": "kbrz6u9url7",
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 11
+      },
+      "xzsx1ds97e8": {
+        "type": "void",
+        "x-component": "ClassicFrame5",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "title": "用工信用管理"
+        },
+        "x-decorator-props": {
+          "padding": [0, 0, 0, 0],
+          "w": 3.8,
+          "h": 3.2,
+          "zIndex": 15,
+          "x": 8.05,
+          "y": 8.53
+        },
+        "x-designable-id": "xzsx1ds97e8",
+        "x-reactions": {
+          "dependencies": {},
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-index": 12
+      },
+      "1hscq8fzv4d": {
+        "type": "void",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "dataSource": {
+            "dataSourceId": "8648f7e2-8dbd-4958-86b4-3f5b0b676c94",
+            "dataSourceName": "mock系列未处理预警"
+          }
+        },
+        "x-reactions": {
+          "dependencies": {
+            "projectSelect": "projectSelect",
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-component": "UnprocessedWarningList",
+        "x-decorator-props": {
+          "padding": [24, 24, 24, 24],
+          "w": 4.3,
+          "h": 2.7,
+          "zIndex": 16,
+          "x": 3.6,
+          "y": 9.02
+        },
+        "x-designable-id": "1hscq8fzv4d",
+        "x-index": 13
+      },
+      "85z2v5ngs6c": {
+        "type": "void",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "dataSource": {
+            "dataSourceId": "ae060448-a558-411b-a87e-ca60b21a9ecb",
+            "dataSourceName": "mock系列关键人员今日到岗MOCK"
+          }
+        },
+        "x-reactions": {
+          "dependencies": {
+            "projectSelect": "projectSelect",
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-component": "KeyPersonArrived",
+        "x-decorator-props": {
+          "padding": [12, 12, 12, 12],
+          "w": 3.8,
+          "h": 1.83,
+          "zIndex": 17,
+          "x": 8.05,
+          "y": 2.1
+        },
+        "x-designable-id": "85z2v5ngs6c",
+        "x-index": 14
+      },
+      "okcnjmg7mni": {
+        "type": "void",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "dataSource": {
+            "dataSourceId": "86445281-fc02-4451-957f-f0d582ab28fa",
+            "dataSourceName": "mock系列智能安全帽MOCK"
+          }
+        },
+        "x-reactions": {
+          "dependencies": {
+            "projectSelect": "projectSelect",
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-component": "SmartHelmet",
+        "x-decorator-props": {
+          "padding": [16, 16, 16, 16],
+          "w": 3.8,
+          "h": 3.56,
+          "zIndex": 18,
+          "x": 8.05,
+          "y": 4.7
+        },
+        "x-designable-id": "okcnjmg7mni",
+        "x-index": 15
+      },
+      "cj7lcm4d437": {
+        "type": "void",
+        "x-settings": "settings:block",
+        "x-decorator": "PositionDecorator",
+        "x-component-props": {
+          "dataSource": {
+            "dataSourceId": "ae9a44fa-b634-44aa-bba8-873fed9275c3",
+            "dataSourceName": "mock系列用工信用管理MOCK"
+          }
+        },
+        "x-reactions": {
+          "dependencies": {
+            "projectSelect": "projectSelect",
+            "quarterSelect": "quarterSelect"
+          },
+          "when": true,
+          "fulfill": {
+            "schema": {
+              "x-component-props.query": "{{$deps}}"
+            }
+          }
+        },
+        "x-component": "EmploymentCreditMng",
+        "x-decorator-props": {
+          "disOffsetHeaderSize": true,
+          "padding": "0px 0px 0px 0px",
+          "w": 3.75,
+          "h": 3.19,
+          "zIndex": 19,
+          "x": 8.05,
+          "y": 8.54
+        },
+        "x-designable-id": "cj7lcm4d437",
+        "x-index": 16
+      }
+    },
+    "x-designable-id": "xeah38wseli"
+  }
+}

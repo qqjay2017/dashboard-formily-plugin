@@ -1,0 +1,32 @@
+{
+    "code": 200,
+    "data": {
+        "constructionTotal": 175,
+        "chartListData": [
+            {
+                "name": "架子工",
+                "value": 4
+            },
+            {
+                "name": "木工班组",
+                "value": 27
+            },
+            {
+                "name": "塔吊班组",
+                "value": 12
+            },
+            {
+                "name": "杂工班组",
+                "value": 47
+            },
+            {
+                "name": "止水钢板班组",
+                "value": 3
+            },
+            {
+                "name": "桩基班组",
+                "value": 82
+            }
+        ]
+    }
+}

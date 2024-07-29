@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+ 
+    <title>可视化大屏数字底座</title>
+     <%  htmlWebpackPlugin.options.CDN_LIST.forEach(function(item){ %>
+            <script type="text/javascript" src="<%= item %>"></script>
+    <% }) %>
+  </head>
+  <body>
+   
+    <div id="root"></div>
+  </body>
+</html>
