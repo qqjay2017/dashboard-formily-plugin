@@ -32,7 +32,11 @@ function DashboardMain() {
   const list = get(data, "data.data", []) || [];
 
   return (
-    <div>
+    <div
+      className={css`
+        width: 100vw;
+      `}
+    >
       <CreateBtnWrap>
         <CreateFormBtn />
       </CreateBtnWrap>
