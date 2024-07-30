@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { createForm, onFieldReact, onFieldValueChange } from '@formily/core'
 import { useProjectSelectScope } from '../widgets'
 
-import { isNeedQueryInject, isSelectName } from '@/designable/core'
+import { isNeedQueryInject } from '@/designable/core'
 
 export function useDashboardFormInstance() {
   const projectSelectScope = useProjectSelectScope()

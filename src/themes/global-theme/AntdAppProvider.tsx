@@ -1,7 +1,8 @@
-import { App } from "antd";
+import { App, ConfigProvider } from "antd";
 import React, { memo, useEffect } from "react";
-import { useAPIClient } from "../../api-client";
+import zh_CN from "antd/locale/zh_CN";
 import { useApp } from "../../application/hooks";
+import { useAPIClient } from "@/api-client";
 
 const AppInner = memo(({ children }: { children: React.ReactNode }) => {
   const app = useApp();
@@ -11,6 +12,13 @@ const AppInner = memo(({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     try {
+      ConfigProvider.config({
+        holderRender: (children) => (
+          <ConfigProvider locale={zh_CN}>
+            <App>{children}</App>
+          </ConfigProvider>
+        ),
+      });
       apiClient.notification = notification;
       apiClient.message = message;
       (app as any).notification = notification;

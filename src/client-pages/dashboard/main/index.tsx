@@ -168,13 +168,15 @@ function FormCard({
                     return;
                   }
                   if (key === "delete") {
-                    await showConfirmPromisify({});
-                    await apiClient.request({
-                      url: `${apiBase}/dashboard/${dashboard.id}`,
-                      method: "delete",
-                    });
-                    refetch && refetch();
-                    return;
+                    try {
+                      await showConfirmPromisify({});
+                      await apiClient.request({
+                        url: `${apiBase}/dashboard/${dashboard.id}`,
+                        method: "delete",
+                      });
+                      refetch && refetch();
+                      return;
+                    } catch (error) {}
                   }
                   if (key === "preview") {
                     return reportShare(dashboard.shareURL, {

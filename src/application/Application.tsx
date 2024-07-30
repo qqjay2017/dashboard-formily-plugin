@@ -106,6 +106,7 @@ class Application {
         },
       }),
     });
+    this.use(AntdAppProvider);
     this.use(APIClientProvider, { apiClient: this.apiClient });
 
     this.use(GlobalThemeProvider);
@@ -116,7 +117,6 @@ class Application {
       components: this.components,
       scope: this.scopes,
     });
-    this.use(AntdAppProvider);
   }
 
   private addReactRouterComponents() {
