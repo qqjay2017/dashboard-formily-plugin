@@ -16,6 +16,7 @@ import { useComponents, useDesigner, useTreeNode } from "../react";
 import { createBehavior } from "../core";
 import { each, isArr, isStr, reduce } from "../shared";
 import { PositionDecorator } from "./PositionDecorator";
+import { useSchemaOptionsContext } from "@/schema-component/core";
 
 const ObjectContainer: React.FC<PropsWithChildren> = observer((props) => {
   return <>{props.children}</>;
@@ -40,6 +41,7 @@ const SchemaStateMap = {
   "x-hidden": "hidden",
   "x-display": "display",
   "x-pattern": "pattern",
+  "x-reactions": "reactions",
 };
 
 const NeedShownExpression = {
@@ -88,7 +90,10 @@ function toDesignableFieldProps(
   const results: any = {};
   each(SchemaStateMap, (fieldKey, schemaKey) => {
     const value = schema[schemaKey];
-    if (isExpression(value)) {
+
+    if (fieldKey === "reactions" && value) {
+      results[fieldKey] = value;
+    } else if (isExpression(value)) {
       if (!NeedShownExpression[schemaKey]) return;
       if (value) {
         results[fieldKey] = value;
@@ -132,6 +137,7 @@ export const Field: DnFC<{
   title?: string;
   type?: string;
 }> = observer((props) => {
+  const { scope } = useSchemaOptionsContext();
   const designer = useDesigner();
   const components = useComponents();
   const node = useTreeNode();
@@ -143,6 +149,26 @@ export const Field: DnFC<{
     designer.props.nodeIdAttrName,
     node.id
   );
+
+  // const compileReactionsSchema = (reactions = "") => {
+  //   if (!reactions || !Array.isArray(reactions)) {
+  //     return [];
+  //   }
+  //   return reactions.map((reaction) => {
+  //     console.log(reaction, "reaction");
+  //     try {
+  //       const keys = Object.keys(scope);
+  //       // eslint-disable-next-line no-new-func
+  //       const schemaFn = new Function(...keys, `return ${reaction}`);
+  //       const compileRes = schemaFn(...keys.map((key) => scope[key]));
+  //       console.log(compileRes, "compileRes");
+  //       return compileRes;
+  //     } catch (error) {
+  //       console.log(error, "error 编译报错");
+  //       return [];
+  //     }
+  //   });
+  // };
 
   if (props.type === "object") {
     return (

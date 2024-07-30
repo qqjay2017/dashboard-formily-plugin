@@ -17,6 +17,7 @@ export function useFormDialog() {
         bodyProps: {
           style: {
             padding: 10,
+            minHeight: "400px",
           },
         },
         transitionName: "",

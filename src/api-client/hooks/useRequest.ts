@@ -29,6 +29,7 @@ export function useRequest<D = any>(url?: string, options: UseRequestOptions = {
     data,
     refreshDeps = [],
     headers,
+    enabled,
     ...other
   } = options
 
@@ -38,6 +39,7 @@ export function useRequest<D = any>(url?: string, options: UseRequestOptions = {
       method,
       ...refreshDeps,
     ],
+    enabled,
 
     queryFn: () => app.apiClient.request<any, D>({
       url,

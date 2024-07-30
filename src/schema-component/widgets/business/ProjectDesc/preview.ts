@@ -1,56 +1,57 @@
-import { connect } from "@formily/react";
-import { ProjectDesc } from "./ProjectDesc";
-import type { DnFC } from "@/designable/react";
-import { createBehavior, createResource } from "@/designable/core";
-import { rs } from "@/utils";
-import { createFieldSchema } from "@/designable/Field";
+import { connect } from '@formily/react'
+import { ProjectDesc } from './ProjectDesc'
+import type { DnFC } from '@/designable/react'
+import { createBehavior, createResource } from '@/designable/core'
+import { rs } from '@/utils'
+import { createFieldSchema } from '@/designable/Field'
+import mapGlobalProps from '@/schema-component/core/mapGlobalProps'
 
-export const FormilyProjectDesc: DnFC<any> = connect(ProjectDesc);
+export const FormilyProjectDesc: DnFC<any> = connect(ProjectDesc, mapGlobalProps())
 
 FormilyProjectDesc.Resource = createResource({
-  title: "项目简介",
+  title: '项目简介',
 
-  icon: rs("/assets/schema-component/ProjectDesc/WX20240723-152828.png"),
+  icon: rs('/assets/schema-component/ProjectDesc/WX20240723-152828.png'),
   elements: [
     {
-      componentName: "Field",
+      componentName: 'Field',
       props: {
-        type: "void",
-        "x-component": "ProjectDesc",
-        "x-decorator": "PositionDecorator",
-        "x-decorator-props": {
-          padding: "0px 0px 0px 0px",
+        'type': 'void',
+        'x-component': 'ProjectDesc',
+        'x-decorator': 'PositionDecorator',
+        'x-decorator-props': {
+          padding: '0px 0px 0px 0px',
           w: 3,
           h: 3,
         },
 
-        "x-reactions": {
+        'x-reactions': {
           dependencies: {
-            projectSelect: "projectSelect",
-            quarterSelect: "quarterSelect",
+            projectSelect: 'projectSelect',
+            quarterSelect: 'quarterSelect',
           },
           when: true,
           fulfill: {
             schema: {
-              "x-component-props.query": "{{$deps}}",
+              'x-component-props.query': '{{$deps}}',
             },
           },
         },
       },
     },
   ],
-});
+})
 FormilyProjectDesc.Behavior = createBehavior({
-  name: "ProjectDesc",
-  selector: (node) =>
-    node.componentName === "Field" &&
-    node.props["x-component"] === "ProjectDesc",
+  name: 'ProjectDesc',
+  selector: node =>
+    node.componentName === 'Field'
+    && node.props['x-component'] === 'ProjectDesc',
   designerProps: {
-    title: "项目简介",
+    title: '项目简介',
     draggable: true,
     droppable: false,
     resizable: {},
     translatable: {},
     propsSchema: createFieldSchema({}),
   },
-});
+})
