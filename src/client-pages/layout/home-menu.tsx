@@ -86,7 +86,6 @@ export function HomeMenu({ children }: HomeMenuProps) {
     if (e.key) {
       navigate(e.key);
     }
-    console.log("click ", e);
   };
 
   // const currentMenuKey = useMemo(() => {
