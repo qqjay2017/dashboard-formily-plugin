@@ -33,6 +33,7 @@ export function CreateFormBtn() {
                 isDarkTheme,
                 designWidthEnum,
               } = payload.values;
+
               const { designWidth, designHeight } =
                 getDesignSize(designWidthEnum);
               const res = await apiClient.request<any, APiWrap<{ id: number }>>(
@@ -43,6 +44,7 @@ export function CreateFormBtn() {
                     userId: "123",
                     name,
                     description,
+                    designWidthEnum,
                     content: JSON.stringify({
                       root: {
                         designWidthEnum,
