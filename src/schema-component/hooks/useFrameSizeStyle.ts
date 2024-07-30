@@ -5,7 +5,7 @@ import { sizeFormat } from '@/utils'
 
 export function useFrameSizeStyle() {
   const { rowHeight } = useDashboardRoot()
-  console.log(rowHeight, 'rowHeight')
+
   const headerHeight = useMemo(() => {
     return sizeFormat(rowHeight * 0.5111, 2)
   }, [rowHeight])

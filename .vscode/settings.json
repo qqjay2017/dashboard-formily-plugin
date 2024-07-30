@@ -13,6 +13,14 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/*.yarn": true,
+    "**/public": true,
+    "**/**.csv": true
+  },
 
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [
