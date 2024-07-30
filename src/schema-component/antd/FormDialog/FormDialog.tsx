@@ -10,17 +10,32 @@ import { SchemaField2 } from "@/schema-component/core";
 export function useFormDialog() {
   const options = useContext(SchemaOptionsContext);
   const getFormDialog = (modalProps: IModalProps, schema: ISchema) =>
-    AntdFormDialog(modalProps, () => {
-      return (
-        <FormLayout labelCol={6} wrapperCol={18}>
-          <SchemaField2
-            components={options?.components}
-            scope={options?.scope}
-            schema={schema}
-          />
-        </FormLayout>
-      );
-    });
+    AntdFormDialog(
+      {
+        width: "70%",
+        centered: true,
+        bodyProps: {
+          style: {
+            padding: 10,
+          },
+        },
+        transitionName: "",
+        maskTransitionName: "",
+        destroyOnClose: true,
+        ...modalProps,
+      },
+      () => {
+        return (
+          <FormLayout labelCol={6} wrapperCol={18}>
+            <SchemaField2
+              components={options?.components}
+              scope={options?.scope}
+              schema={schema}
+            />
+          </FormLayout>
+        );
+      }
+    );
   return {
     getFormDialog,
   };

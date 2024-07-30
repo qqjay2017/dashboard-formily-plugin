@@ -233,7 +233,7 @@ yarn add @babel/core @babel/preset-env babel-loader @babel/preset-react -D
 
 ## 使用接口id请求接口
 
-```
+```js
 const { data: dataRes } = useDataBindFetch(
   {
     dataSourceId: "38a353fc-d871-40ec-957a-69073e7128bc",
@@ -241,6 +241,6 @@ const { data: dataRes } = useDataBindFetch(
   {
     ...queryParams,
     dateType: tabValue,
-  },
+  }
 );
 ```
