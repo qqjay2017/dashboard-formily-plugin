@@ -1,17 +1,17 @@
 import { get } from "lodash-es";
 
-import { ExpressionScope, SchemaOptionsContext } from "@formily/react";
+import { FormProvider, SchemaOptionsContext } from "@formily/react";
+
 import { useDashboardDt } from "./useDashboardDt";
 import { DesignEngine } from "./DesignEngine";
 
 import { useAppSpin } from "@/application/hooks";
 import {
-  useAsyncProjectDataSource,
-  useAsyncQuarterDataSource,
   useFetchChartAll,
   useProjectSelectScope,
 } from "@/schema-component/widgets";
 import { useSchemaOptionsContext } from "@/schema-component/core";
+import { useDashboardFormInstance } from "@/schema-component/hooks";
 
 function DesignPage2() {
   const { data, isLoading } = useDashboardDt();
@@ -21,35 +21,35 @@ function DesignPage2() {
   const shareURL = get(data, "data.data.shareURL", "");
   const chartAll: any[] = get(chartAllRes, "data.data");
 
-  const projectSelectScope = useProjectSelectScope();
   const { scope, ...schemaOptions } = useSchemaOptionsContext();
   const { render } = useAppSpin();
 
-  if (!schema || isLoading || !projectSelectScope || isChartAllLoading) {
+  const form = useDashboardFormInstance();
+
+  if (!schema || isLoading || isChartAllLoading || !form) {
     return render();
   }
 
   return (
-    <SchemaOptionsContext.Provider
-      value={{
-        ...schemaOptions,
-        scope: {
-          ...scope,
-          ...projectSelectScope,
-          useAsyncProjectDataSource,
-          useAsyncQuarterDataSource,
-          dashboardDt: get(data, "data.data", {}) || {},
-          chartIdMap: (chartAll || []).reduce((memo, cur) => {
-            memo[cur.id] = {
-              ...cur,
-            };
-            return memo;
-          }, {}),
-        },
-      }}
-    >
-      <DesignEngine schema={schema} shareURL={shareURL} chartAll={chartAll} />
-    </SchemaOptionsContext.Provider>
+    <FormProvider form={form}>
+      <SchemaOptionsContext.Provider
+        value={{
+          ...schemaOptions,
+          scope: {
+            ...scope,
+            dashboardDt: get(data, "data.data", {}) || {},
+            chartIdMap: (chartAll || []).reduce((memo, cur) => {
+              memo[cur.id] = {
+                ...cur,
+              };
+              return memo;
+            }, {}),
+          },
+        }}
+      >
+        <DesignEngine schema={schema} shareURL={shareURL} chartAll={chartAll} />
+      </SchemaOptionsContext.Provider>
+    </FormProvider>
   );
 }
 

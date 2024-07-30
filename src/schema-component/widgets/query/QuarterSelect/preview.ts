@@ -24,8 +24,6 @@ FormilyQuarterSelect.Resource = createResource({
           w: 1.5,
           h: 0.5,
         },
-
-        'x-reactions': ['{{useAsyncQuarterDataSource(currentQuarter)}}'],
       },
     },
   ],

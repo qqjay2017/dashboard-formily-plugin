@@ -194,7 +194,7 @@ Root.Behavior = createBehavior({
       isDarkTheme: true,
     },
     propsSchema: {
-      type: "object",
+      type: "void",
       properties: {
         themeProvider: {
           type: "string",

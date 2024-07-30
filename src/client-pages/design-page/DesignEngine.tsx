@@ -115,19 +115,6 @@ export function DesignEngine({
                             w: 3,
                             h: 3,
                           },
-
-                          "x-reactions": {
-                            dependencies: {
-                              projectSelect: "projectSelect",
-                              quarterSelect: "quarterSelect",
-                            },
-                            when: true,
-                            fulfill: {
-                              schema: {
-                                "x-component-props.query": "{{$deps}}",
-                              },
-                            },
-                          },
                         },
                       },
                     ],

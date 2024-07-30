@@ -41,7 +41,6 @@ const SchemaStateMap = {
   "x-hidden": "hidden",
   "x-display": "display",
   "x-pattern": "pattern",
-  "x-reactions": "reactions",
 };
 
 const NeedShownExpression = {

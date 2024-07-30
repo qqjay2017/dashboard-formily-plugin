@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 
 import {
   FormProvider,
@@ -7,19 +7,18 @@ import {
 } from "@formily/react";
 import { get } from "lodash-es";
 import { Helmet } from "react-helmet";
-import { createForm } from "@formily/core";
+
 import type { DashboardItem } from "../dashboard/types";
+
 import type { APiWrap } from "@/api-client";
 import { useRequest } from "@/api-client";
 import { RecursionSchemaComponentWrap } from "@/schema-component/core";
 import { useAppSpin } from "@/application/hooks";
-import { useReportId } from "@/schema-component/hooks";
-import { apiBase } from "@/utils";
 import {
-  useAsyncProjectDataSource,
-  useAsyncQuarterDataSource,
-  useProjectSelectScope,
-} from "@/schema-component/widgets";
+  useDashboardFormInstance,
+  useReportId,
+} from "@/schema-component/hooks";
+import { apiBase } from "@/utils";
 
 function PreviewPage() {
   const { reportId: shareURL } = useReportId();
@@ -37,9 +36,8 @@ function PreviewPage() {
   const description = get(data, "data.data.description");
   const schema = get(data, "data.data.content", "{}") || "{}";
 
-  const projectSelectScope = useProjectSelectScope();
-  const form = useMemo(() => createForm(), [schema]);
-  if (!schema || isLoading || !projectSelectScope) {
+  const form = useDashboardFormInstance();
+  if (!schema || isLoading || !form) {
     return render();
   }
 
@@ -87,9 +85,6 @@ function PreviewPage() {
         }}
         scope={{
           ...options?.scope,
-          ...projectSelectScope,
-          useAsyncProjectDataSource,
-          useAsyncQuarterDataSource,
           dashboardDt: get(data, "data.data", {}) || {},
         }}
       >

@@ -7,12 +7,12 @@ import { rs } from "@/utils";
 import { createFieldSchema } from "@/designable/Field";
 
 export const FormilyProjectSelect: DnFC<any> = connect((props) => {
-  const projectScope = useProjectSelectScope();
+  // const projectScope = useProjectSelectScope();
   return (
     <ProjectSelect
       {...props}
-      dataSource={projectScope?.projectList}
-      value={projectScope?.firstProject}
+      // dataSource={projectScope?.projectList}
+      // value={projectScope?.firstProject}
     />
   );
 });
@@ -35,10 +35,6 @@ FormilyProjectSelect.Resource = createResource({
           w: 2,
           h: 0.55,
         },
-
-        "x-reactions": [
-          "{{useAsyncProjectDataSource(projectList,firstProject)}}",
-        ],
       },
     },
   ],
@@ -54,8 +50,6 @@ FormilyProjectSelect.Behavior = createBehavior({
     droppable: false,
     resizable: {},
     translatable: {},
-    propsSchema: createFieldSchema(undefined, undefined, {
-      "x-reactions": undefined,
-    }),
+    propsSchema: createFieldSchema(undefined, undefined, {}),
   },
 });

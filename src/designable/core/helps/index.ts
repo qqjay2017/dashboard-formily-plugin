@@ -1,1 +1,2 @@
-export * from "./transformToTreeNode";
+export * from './transformToTreeNode'
+export * from './isSelectName'

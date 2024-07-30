@@ -25,15 +25,6 @@ FormilyHeader5.Resource = createResource({
           h: 1.3,
           padding: "0px 0px 0px 0px",
         },
-        "x-reactions": {
-          dependencies: {},
-          when: true,
-          fulfill: {
-            schema: {
-              "x-component-props.query": "{{$deps}}",
-            },
-          },
-        },
       },
     },
   ],

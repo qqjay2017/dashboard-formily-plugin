@@ -2,6 +2,7 @@ import { type ISchema, Schema } from '@formily/react'
 
 import { uid } from '@formily/shared'
 import type { ITreeNode } from '../models'
+import { isSelectName } from './isSelectName'
 
 export interface IFormilySchema {
   schema?: ISchema
@@ -42,8 +43,10 @@ export function transformToTreeNode(
   const appendTreeNode = (parent: ITreeNode, schema: Schema) => {
     if (!schema)
       return
+
+    const isSelect = isSelectName(schema.name as string)
     const current = {
-      id: schema['x-designable-id'] || uid(),
+      id: isSelect ? String(schema.name) : schema['x-designable-id'] || uid(),
       componentName: realOptions.designableFieldName,
       props: cleanProps(schema.toJSON(false)),
       children: [],
