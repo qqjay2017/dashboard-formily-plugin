@@ -3,6 +3,8 @@ import { BASE_URL } from "./env";
 
 import Application from "@/application/Application";
 import { DashboardBuildinPlugin, KxgcAuthPlugin } from "@/plugins";
+import DashboardLayout from "@/client-pages/DashboardLayout";
+import NavigateHome from "@/client-pages/home-list/NavigateHome";
 
 const AssetsMain = lazy(() => import("@/client-pages/assets/main"));
 const ApiMagic = lazy(() => import("@/client-pages/api/magic/ApiMagic"));
@@ -12,14 +14,9 @@ const ComponentMain = lazy(() => import("@/client-pages/component/main"));
 const ChartIndex = lazy(
   () => import("@/client-pages/component/chart/ChartIndex")
 );
-
 const DashboardMain = lazy(() => import("@/client-pages/dashboard/main"));
 const HomeMain = lazy(() => import("@/client-pages/home/main"));
 const PluginMain = lazy(() => import("@/client-pages/plugin/main"));
-const DashboardLayout = lazy(() => import("@/client-pages/DashboardLayout"));
-const NavigateHome = lazy(
-  () => import("@/client-pages/home-list/NavigateHome")
-);
 
 const PreviewPage = lazy(
   () => import("@/client-pages/preview-page/PreviewPage")

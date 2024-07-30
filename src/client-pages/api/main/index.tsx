@@ -69,7 +69,11 @@ function ApiMain() {
 
   return (
     <FormDialogPortal>
-      <div>
+      <div
+        className={css`
+          width: 100vw;
+        `}
+      >
         <CreateBtnWrap>
           <ExportApiBtn />
           <ImportApiBtn />

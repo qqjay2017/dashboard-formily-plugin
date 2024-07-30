@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { cx } from "@/utils";
 
 const logoStyle = css`
-  padding-left: 24px;
-  height: 42px;
-  line-height: 42px;
+  padding-left: 12px;
+
   font-size: 16px;
   font-weight: 600;
   color: var(--dn-composite-panel-tabs-header-color);
@@ -24,6 +23,9 @@ export function Logo() {
           logoStyle,
           css`
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           `
         )}
       >

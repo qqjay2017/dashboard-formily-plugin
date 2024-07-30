@@ -79,6 +79,7 @@ export function useDragDropEffect(engine: Engine) {
         const $id = get(sourceNode, 'children[0].props.$id')
         if ($id) {
           const findQueryNode = engine.findNodeById($id)
+          console.log(findQueryNode, 'findQueryNode')
           if (findQueryNode) {
             message.warning('该查询已存在!')
             return false

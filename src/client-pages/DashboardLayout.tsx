@@ -2,25 +2,15 @@ import { css } from "@emotion/css";
 
 import { Outlet } from "react-router-dom";
 import { HomeMenu } from "./layout";
+import { Layout, StudioPanel } from "@/designable/react";
 
 function DashboardLayout() {
   return (
-    <div
-      className={css`
-        width: 100vw;
-        height: 100vh;
-      `}
-    >
-      <HomeMenu />
-      <div
-        className={css`
-          width: 100vw;
-          height: calc(100vh - 50px);
-        `}
-      >
+    <Layout theme="light">
+      <StudioPanel logo={<HomeMenu />}>
         <Outlet />
-      </div>
-    </div>
+      </StudioPanel>
+    </Layout>
   );
 }
 export default DashboardLayout;
