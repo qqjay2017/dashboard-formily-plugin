@@ -30,6 +30,7 @@ import { RouterManager } from "./RouterManager";
 import type { ComponentTypeAndString, RouterOptions } from "./RouterManager";
 
 import { CSSVariableProvider } from "@/themes/css-variable";
+import { FormDialogPortal } from "@/schema-component/antd";
 
 export type ComponentAndProps<T = any> = [ComponentType, T];
 
@@ -117,6 +118,7 @@ class Application {
       components: this.components,
       scope: this.scopes,
     });
+    this.use(FormDialogPortal);
   }
 
   private addReactRouterComponents() {

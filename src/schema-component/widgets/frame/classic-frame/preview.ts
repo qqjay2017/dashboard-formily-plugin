@@ -43,7 +43,18 @@ FormilyClassicFrame.Behavior = createBehavior({
     resizable: {},
     translatable: {},
     propsSchema: createFieldSchema({
-      title: {},
+      title: {
+        'type': 'string',
+        'title': '标题',
+        'x-decorator': 'FormItem',
+        'x-component': 'Input',
+      },
+      subTitle: {
+        'type': 'string',
+        'title': '副标题',
+        'x-decorator': 'FormItem',
+        'x-component': 'Input',
+      },
     }),
   },
 })

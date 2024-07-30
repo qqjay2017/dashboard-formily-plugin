@@ -22,8 +22,8 @@ export function ClassicFrame5({
 }: ClassicFrame5Props) {
   const { token } = useToken();
   // const fieldSchema = useFieldSchema();
-  const hasTitle = !!(title || extra);
-  const classicFrameStyle = useClassicFrame5Style({ hasTitle: !!hasTitle });
+  // const hasTitle = !!(title || extra);
+  const classicFrameStyle = useClassicFrame5Style({ hasTitle: true });
 
   const { headStyle, bodyStyle } = useFrameSizeStyle();
 
@@ -36,25 +36,23 @@ export function ClassicFrame5({
       )}
       style={style}
     >
-      {hasTitle ? (
-        <div
-          className={cn("nodeContent5RendererTitle", titleClassName)}
-          style={headStyle}
-        >
-          {title ? <div className={cn("nrtTitle")}>{title}</div> : null}
-          {subTitle ? (
-            <div
-              className={cn("nrtSubTitle")}
-              style={{
-                color: token.textCommon,
-              }}
-            >
-              {subTitle}
-            </div>
-          ) : null}
-          {extra ? <div className={cn("nrtExtra")}>{extra}</div> : null}
-        </div>
-      ) : null}
+      <div
+        className={cn("nodeContent5RendererTitle", titleClassName)}
+        style={headStyle}
+      >
+        {title ? <div className={cn("nrtTitle")}>{title}</div> : null}
+        {subTitle ? (
+          <div
+            className={cn("nrtSubTitle")}
+            style={{
+              color: token.textCommon,
+            }}
+          >
+            {subTitle}
+          </div>
+        ) : null}
+        {extra ? <div className={cn("nrtExtra")}>{extra}</div> : null}
+      </div>
 
       <div
         className={cn(

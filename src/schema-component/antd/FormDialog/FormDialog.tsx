@@ -32,7 +32,6 @@ export function useFormDialog() {
             labelWidth={120}
             labelAlign="left"
             wrapperAlign="right"
-            feedbackLayout="none"
             tooltipLayout="text"
           >
             <SchemaField2

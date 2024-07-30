@@ -42,6 +42,13 @@ FormilyHeader1.Behavior = createBehavior({
     droppable: false,
     resizable: {},
     translatable: {},
-    propsSchema: createFieldSchema({}),
+    propsSchema: createFieldSchema({
+      title: {
+        'type': 'string',
+        'title': '标题',
+        'x-decorator': 'FormItem',
+        'x-component': 'Input',
+      },
+    }),
   },
 })

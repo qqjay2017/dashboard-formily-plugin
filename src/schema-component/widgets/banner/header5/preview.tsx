@@ -48,13 +48,6 @@ FormilyHeader5.Behavior = createBehavior({
         "x-decorator": "FormItem",
         "x-component": "Input",
       },
-      subTitle: {
-        type: "string",
-        title: "副标题",
-        required: false,
-        "x-decorator": "FormItem",
-        "x-component": "Input",
-      },
     }),
   },
 });

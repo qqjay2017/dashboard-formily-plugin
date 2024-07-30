@@ -153,11 +153,9 @@ export function ChartIndex() {
           `}
         >
           <CreateBtnWrap>
-            <FormDialogPortal>
-              <Button type="primary" onClick={createChart}>
-                新建
-              </Button>
-            </FormDialogPortal>
+            <Button type="primary" onClick={createChart}>
+              新建
+            </Button>
           </CreateBtnWrap>
           <div
             className={css`

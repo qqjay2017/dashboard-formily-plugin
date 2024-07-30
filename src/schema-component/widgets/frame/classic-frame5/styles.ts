@@ -37,7 +37,9 @@ export const useClassicFrame5Style = createStyles(
         color: var(--node-content-foreground);
       }
       .nrtSubTitle {
-        font-size: 12px;
+        font-size: .14rem;
+        margin-left:0.08rem;
+        margin-top:0.02rem;
       }
       .nrtExtra {
         height: 0.46rem;

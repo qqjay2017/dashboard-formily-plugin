@@ -68,140 +68,138 @@ function ApiMain() {
   }, []);
 
   return (
-    <FormDialogPortal>
+    <div
+      className={css`
+        width: 100vw;
+      `}
+    >
+      <CreateBtnWrap>
+        <ExportApiBtn />
+        <ImportApiBtn />
+        <CreateApiBtn />
+      </CreateBtnWrap>
       <div
         className={css`
-          width: 100vw;
+          padding: 24px;
+          padding-top: 0;
         `}
       >
-        <CreateBtnWrap>
-          <ExportApiBtn />
-          <ImportApiBtn />
-          <CreateApiBtn />
-        </CreateBtnWrap>
-        <div
-          className={css`
-            padding: 24px;
-            padding-top: 0;
-          `}
-        >
-          <Table
-            scroll={{
-              x: 1800,
-              y: 600,
-            }}
-            pagination={false}
-            dataSource={dataSource}
-            rowKey="id"
-            columns={[
-              {
-                title: "标识码",
-                dataIndex: "id",
-                width: 160,
-                render: (_, record) => {
-                  return (
-                    <Space>
-                      <Tooltip title={record.id}>
-                        <div>{shortUid(record.id)}</div>
-                      </Tooltip>
-                      <Button
-                        type="link"
-                        onClick={() => {
-                          copyTextToClipboard(record.id);
-                        }}
-                      >
-                        复制
-                      </Button>
-                    </Space>
-                  );
-                },
+        <Table
+          scroll={{
+            x: 1800,
+            y: 600,
+          }}
+          pagination={false}
+          dataSource={dataSource}
+          rowKey="id"
+          columns={[
+            {
+              title: "标识码",
+              dataIndex: "id",
+              width: 160,
+              render: (_, record) => {
+                return (
+                  <Space>
+                    <Tooltip title={record.id}>
+                      <div>{shortUid(record.id)}</div>
+                    </Tooltip>
+                    <Button
+                      type="link"
+                      onClick={() => {
+                        copyTextToClipboard(record.id);
+                      }}
+                    >
+                      复制
+                    </Button>
+                  </Space>
+                );
               },
-              {
-                title: "名称",
-                dataIndex: "name",
-                width: 200,
-                render: (_, record) => {
-                  return (
-                    <Space>
-                      <div>{record.name}</div>
-                      {record.isMock ? <Tag color="green">MOCK</Tag> : null}
-                    </Space>
-                  );
-                },
+            },
+            {
+              title: "名称",
+              dataIndex: "name",
+              width: 200,
+              render: (_, record) => {
+                return (
+                  <Space>
+                    <div>{record.name}</div>
+                    {record.isMock ? <Tag color="green">MOCK</Tag> : null}
+                  </Space>
+                );
               },
-              {
-                title: "分组",
+            },
+            {
+              title: "分组",
 
-                dataIndex: "group",
-                filters: groupFilterOptions,
+              dataIndex: "group",
+              filters: groupFilterOptions,
 
-                onFilter: (value, record) => {
-                  return record?.group === value;
-                },
+              onFilter: (value, record) => {
+                return record?.group === value;
               },
-              {
-                title: "域名",
-                dataIndex: "origin",
+            },
+            {
+              title: "域名",
+              dataIndex: "origin",
+            },
+            {
+              title: "前缀",
+              dataIndex: "baseName",
+            },
+            {
+              title: "url",
+              dataIndex: "url",
+            },
+            {
+              title: "请求方式",
+              dataIndex: "method",
+              width: 100,
+            },
+            {
+              title: "创建时间",
+              dataIndex: "createdAt",
+              render: (_, record) => {
+                return dayjs(record.createdAt).format("YYYY-MM-DD HH:mm:ss");
               },
-              {
-                title: "前缀",
-                dataIndex: "baseName",
+            },
+            {
+              title: "修改时间",
+              dataIndex: "updateAt",
+              render: (_, record) => {
+                return dayjs(record.updateAt).format("YYYY-MM-DD HH:mm:ss");
               },
-              {
-                title: "url",
-                dataIndex: "url",
-              },
-              {
-                title: "请求方式",
-                dataIndex: "method",
-                width: 100,
-              },
-              {
-                title: "创建时间",
-                dataIndex: "createdAt",
-                render: (_, record) => {
-                  return dayjs(record.createdAt).format("YYYY-MM-DD HH:mm:ss");
-                },
-              },
-              {
-                title: "修改时间",
-                dataIndex: "updateAt",
-                render: (_, record) => {
-                  return dayjs(record.updateAt).format("YYYY-MM-DD HH:mm:ss");
-                },
-              },
-              {
-                title: "操作",
-                dataIndex: "options",
-                fixed: "right",
-                width: 120,
-                render: (_, row) => {
-                  return (
-                    <Space>
-                      <a
-                        onClick={() => {
-                          handleTestApi({ apiId: row.id });
-                        }}
-                      >
-                        测试
-                      </a>
+            },
+            {
+              title: "操作",
+              dataIndex: "options",
+              fixed: "right",
+              width: 120,
+              render: (_, row) => {
+                return (
+                  <Space>
+                    <a
+                      onClick={() => {
+                        handleTestApi({ apiId: row.id });
+                      }}
+                    >
+                      测试
+                    </a>
 
-                      <a
-                        onClick={() => {
-                          navigate(`/dapi/edit?id=${row.id}`);
-                        }}
-                      >
-                        编辑
-                      </a>
-                    </Space>
-                  );
-                },
+                    <a
+                      onClick={() => {
+                        navigate(`/dapi/edit?id=${row.id}`);
+                      }}
+                    >
+                      编辑
+                    </a>
+                  </Space>
+                );
               },
-            ]}
-          />
-        </div>
+            },
+          ]}
+        />
       </div>
-    </FormDialogPortal>
+    </div>
   );
 }
 export default ApiMain;

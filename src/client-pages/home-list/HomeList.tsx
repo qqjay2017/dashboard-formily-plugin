@@ -114,115 +114,113 @@ function FormCard({
           >
             {dashboard.name}
           </div>
-          <FormDialogPortal>
-            <Dropdown
-              trigger={["click"]}
-              menu={{
-                onClick: async ({ key }) => {
-                  if (key === "share") {
-                    const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL}`;
-                    const dialog = FormDialog(
-                      {
-                        title: "分享链接",
 
-                        footer: null,
-                      },
-                      () => {
-                        return (
-                          <div>
-                            <Input.TextArea value={url} disabled />
-                            <Button
-                              block
-                              type="primary"
-                              style={{
-                                marginTop: "16px",
-                              }}
-                              onClick={() => {
-                                copyTextToClipboard(url);
-                              }}
-                            >
-                              复制链接
-                            </Button>
-                          </div>
-                        );
-                      }
-                    );
-                    dialog.open();
-                    return;
-                  }
-                  if (key === "delete") {
-                    await showConfirmPromisify({});
-                    await apiClient.request({
-                      url: `${apiBase}/dashboard/${dashboard.id}`,
-                      method: "delete",
-                    });
-                    refetch && refetch();
-                    return;
-                  }
-                  if (key === "preview") {
-                    return reportShare(dashboard.shareURL, {
-                      isHref: false,
-                    });
-                  }
-                  if (key === "edit") {
-                    const dialog = getFormDialog(
-                      {
-                        title: "新建",
-                      },
-                      updateDashboardFormSchema
-                    );
-                    dialog
-                      .forOpen((payload, next) => {
-                        next({
-                          initialValues: {
-                            name: dashboard.name,
-                            description: dashboard.description,
-                          },
-                        });
-                      })
-                      .forConfirm(async (payload, next) => {
-                        const { name, description } = payload.values;
-                        await app.apiClient.request<
-                          any,
-                          APiWrap<{ id: number }>
-                        >({
+          <Dropdown
+            trigger={["click"]}
+            menu={{
+              onClick: async ({ key }) => {
+                if (key === "share") {
+                  const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL}`;
+                  const dialog = FormDialog(
+                    {
+                      title: "分享链接",
+
+                      footer: null,
+                    },
+                    () => {
+                      return (
+                        <div>
+                          <Input.TextArea value={url} disabled />
+                          <Button
+                            block
+                            type="primary"
+                            style={{
+                              marginTop: "16px",
+                            }}
+                            onClick={() => {
+                              copyTextToClipboard(url);
+                            }}
+                          >
+                            复制链接
+                          </Button>
+                        </div>
+                      );
+                    }
+                  );
+                  dialog.open();
+                  return;
+                }
+                if (key === "delete") {
+                  await showConfirmPromisify({});
+                  await apiClient.request({
+                    url: `${apiBase}/dashboard/${dashboard.id}`,
+                    method: "delete",
+                  });
+                  refetch && refetch();
+                  return;
+                }
+                if (key === "preview") {
+                  return reportShare(dashboard.shareURL, {
+                    isHref: false,
+                  });
+                }
+                if (key === "edit") {
+                  const dialog = getFormDialog(
+                    {
+                      title: "新建",
+                    },
+                    updateDashboardFormSchema
+                  );
+                  dialog
+                    .forOpen((payload, next) => {
+                      next({
+                        initialValues: {
+                          name: dashboard.name,
+                          description: dashboard.description,
+                        },
+                      });
+                    })
+                    .forConfirm(async (payload, next) => {
+                      const { name, description } = payload.values;
+                      await app.apiClient.request<any, APiWrap<{ id: number }>>(
+                        {
                           url: `${apiBase}/dashboard/${dashboard.id}`,
                           method: "PUT",
                           data: {
                             name,
                             description,
                           },
-                        });
-                        message.success("修改成功");
-                        refetch && refetch();
-                        next(payload);
-                      })
-                      .open();
-                  }
+                        }
+                      );
+                      message.success("修改成功");
+                      refetch && refetch();
+                      next(payload);
+                    })
+                    .open();
+                }
+              },
+              items: [
+                {
+                  key: "preview",
+                  label: "预览",
                 },
-                items: [
-                  {
-                    key: "preview",
-                    label: "预览",
-                  },
-                  {
-                    key: "share",
-                    label: "分享",
-                  },
-                  {
-                    key: "edit",
-                    label: "编辑",
-                  },
-                  {
-                    key: "delete",
-                    label: "删除",
-                  },
-                ],
-              }}
-            >
-              <IoIosMore />
-            </Dropdown>
-          </FormDialogPortal>
+                {
+                  key: "share",
+                  label: "分享",
+                },
+                {
+                  key: "edit",
+                  label: "编辑",
+                },
+                {
+                  key: "delete",
+                  label: "删除",
+                },
+              ],
+            }}
+          >
+            <IoIosMore />
+          </Dropdown>
         </div>
       </div>
     </div>

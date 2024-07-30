@@ -58,7 +58,6 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
               labelWidth={120}
               labelAlign="left"
               wrapperAlign="right"
-              feedbackLayout="none"
               tooltipLayout="text"
             >
               {props.children}
