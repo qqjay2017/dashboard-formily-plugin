@@ -101,6 +101,7 @@ class Application {
       client: new QueryClient({
         defaultOptions: {
           queries: {
+            staleTime: 1000 * 60 * 5,
             refetchOnWindowFocus: false,
             retry: false,
           },

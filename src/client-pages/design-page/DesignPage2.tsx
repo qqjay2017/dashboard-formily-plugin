@@ -24,7 +24,9 @@ function DesignPage2() {
   const { scope, ...schemaOptions } = useSchemaOptionsContext();
   const { render } = useAppSpin();
 
-  const form = useDashboardFormInstance();
+  const form = useDashboardFormInstance({
+    designable: true,
+  });
 
   if (!schema || isLoading || isChartAllLoading || !form) {
     return render();

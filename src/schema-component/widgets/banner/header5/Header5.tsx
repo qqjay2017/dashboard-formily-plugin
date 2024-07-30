@@ -24,11 +24,11 @@ import { useDashboardRoot } from "@/schema-component/components";
 interface Header5Props extends PropsWithChildren {
   title?: string;
   subTitle?: string;
-  dataSource?: DataSourceBindType;
+  apiInfo?: DataSourceBindType;
 }
 
 export function Header5(props: Header5Props) {
-  const { title, dataSource, subTitle } = props;
+  const { title, apiInfo, subTitle } = props;
 
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
@@ -40,7 +40,7 @@ export function Header5(props: Header5Props) {
   );
   const titleStr = useStrHandlebars(title);
   const subTitleStr = useStrHandlebars(subTitle);
-  const { data, isLoading } = useDataBindFetch(dataSource);
+  const { data, isLoading } = useDataBindFetch(apiInfo);
   const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
   const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
 

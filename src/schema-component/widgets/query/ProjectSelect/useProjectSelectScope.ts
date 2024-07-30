@@ -1,24 +1,14 @@
 import { get } from 'lodash-es'
 import { useEffect, useState } from 'react'
-import { useJfGlobalProjectStore } from './useJfGlobalProjectStore'
+
 import { useRequest } from '@/api-client'
 import { getCompanyId } from '@/utils'
+import { useFetchProjectList, useJfGlobalProjectStore } from '@/schema-component/hooks'
 
 export function useProjectSelectScope() {
   const { projectId, setProject, quarter } = useJfGlobalProjectStore()
-  const { data, isFetched } = useRequest('/api/project-system/v1/project/table', {
-    method: 'POST',
-    headers: {
-      'system-id': '1',
-    },
-
-    data: {
-      authFlag: true,
-      companyId: getCompanyId(),
-      pageNum: 1,
-      pageSize: 200,
-    },
-
+  const { data, isFetched } = useFetchProjectList({
+    staleTime: false,
   })
 
   const projectList = get(data, 'data.data.table.rows', []) || []

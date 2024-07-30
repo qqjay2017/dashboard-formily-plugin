@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import type { SchemaQueryType } from '../types'
+import { useJfGlobalProjectStore } from './useJfGlobalProjectStore'
 
 export function useQueryToBusParams(query: SchemaQueryType): null | {
   quarterId?: string
@@ -7,19 +8,19 @@ export function useQueryToBusParams(query: SchemaQueryType): null | {
   projectId?: string
   projectName?: string
 } {
+  const { quarter, project } = useJfGlobalProjectStore()
   return useMemo(() => {
-    if (!query?.quarterSelect?.quarterId && !query?.projectSelect?.id) {
+    if (!quarter && !project) {
       return null
     }
     return {
-      quarterId: query?.quarterSelect?.quarterId || undefined,
-      quarterName: query?.quarterSelect?.quarterName || undefined,
-      projectId: query?.projectSelect?.id || undefined,
-      projectName: query?.projectSelect?.name || undefined,
+      quarterId: quarter?.quarterId || undefined,
+      quarterName: quarter?.quarterName || undefined,
+      projectId: project?.id || undefined,
+      projectName: project?.name || undefined,
     }
   }, [
-    query?.quarterSelect?.quarterId,
-    query?.projectSelect?.id,
-    query?.projectSelect?.name,
+    quarter,
+    project,
   ])
 }

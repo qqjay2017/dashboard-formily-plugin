@@ -16,7 +16,7 @@ FormilyQuarterSelect.Resource = createResource({
       componentName: 'Field',
       props: {
         'type': 'void',
-        '$id': 'quarterSelect',
+
         'x-component': 'QuarterSelect',
         'x-decorator': 'PositionDecorator',
         'x-decorator-props': {

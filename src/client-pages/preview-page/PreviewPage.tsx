@@ -36,7 +36,9 @@ function PreviewPage() {
   const description = get(data, "data.data.description");
   const schema = get(data, "data.data.content", "{}") || "{}";
 
-  const form = useDashboardFormInstance();
+  const form = useDashboardFormInstance({
+    designable: false,
+  });
   if (!schema || isLoading || !form) {
     return render();
   }

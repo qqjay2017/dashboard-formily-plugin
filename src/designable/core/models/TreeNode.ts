@@ -741,7 +741,7 @@ export class TreeNode {
   clone(parent?: TreeNode) {
     const newNode = new TreeNode(
       {
-        id: this.props.$id || uid(),
+        id: uid(),
         componentName: this.componentName,
         sourceName: this.sourceName,
         props: toJS(this.props),

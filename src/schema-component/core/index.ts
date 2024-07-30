@@ -7,3 +7,4 @@ export * from './SchemaComponentProvider'
 export * from './SchemaField2'
 
 export * from './useSchemaOptionsContext'
+export * from './takeFirstApiInfo'

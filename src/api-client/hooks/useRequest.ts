@@ -14,6 +14,7 @@ export interface UseRequestOptions {
   refreshDeps?: any[]
   headers?: any
   enabled?: boolean
+  staleTime?: number
 
 }
 
@@ -30,6 +31,7 @@ export function useRequest<D = any>(url?: string, options: UseRequestOptions = {
     refreshDeps = [],
     headers,
     enabled,
+    staleTime,
     ...other
   } = options
 
@@ -40,7 +42,7 @@ export function useRequest<D = any>(url?: string, options: UseRequestOptions = {
       ...refreshDeps,
     ],
     enabled,
-
+    staleTime,
     queryFn: () => app.apiClient.request<any, D>({
       url,
       method,

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useField } from "@formily/react";
 import { css } from "@emotion/css";
-import { useJfGlobalProjectStore } from "../ProjectSelect/useJfGlobalProjectStore";
+
 import { QuaterSelectValue } from "./QuaterSelectValue";
 
 import type { QuarterItemType } from "./types";
@@ -14,8 +14,9 @@ import {
 import { useDashboardRoot } from "@/schema-component/components";
 import { sizeFormat } from "@/utils";
 import type { FormItemComponentProps } from "@/types";
+import { useJfGlobalProjectStore } from "@/schema-component/hooks";
 
-const quarter: QuarterItemType[] = [
+const quarterList: QuarterItemType[] = [
   {
     quarterId: 20201,
     quarterName: "2020年1季度",
@@ -235,7 +236,7 @@ function findQuarterItem(quarterId = "") {
   if (!quarterId) {
     return null;
   }
-  const item = quarter.find((q) => String(q.quarterId) === quarterId);
+  const item = quarterList.find((q) => String(q.quarterId) === quarterId);
   if (!item) {
     return null;
   }
@@ -244,8 +245,9 @@ function findQuarterItem(quarterId = "") {
     quarterId: String(item.quarterId),
   } as QuarterItemType;
 }
-export function QuarterSelect({ value, onChange }: FormItemComponentProps) {
-  const { setQuarter } = useJfGlobalProjectStore();
+export function QuarterSelect(props: FormItemComponentProps) {
+  const { setQuarter, quarter } = useJfGlobalProjectStore();
+  const value = quarter;
   const { colWidth } = useDashboardRoot();
   const { decoratorProps } = useField();
   const w = decoratorProps?.w || 0;
@@ -265,10 +267,6 @@ export function QuarterSelect({ value, onChange }: FormItemComponentProps) {
         const quarterItem = findQuarterItem(e);
         if (quarterItem) {
           setQuarter(quarterItem);
-          onChange({
-            ...quarterItem,
-            quarterId: e,
-          });
         }
       }}
     >
@@ -285,7 +283,7 @@ export function QuarterSelect({ value, onChange }: FormItemComponentProps) {
           width: sizeFormat(colWidth * w),
         }}
       >
-        {quarter.map((q) => {
+        {quarterList.map((q) => {
           return (
             <SelectItem
               key={`${q.quarterId}-${q.quarterName}`}

@@ -1,20 +1,13 @@
 import { connect, mapProps } from "@formily/react";
 import { ProjectSelect } from "./ProjectSelect";
-import { useProjectSelectScope } from "./useProjectSelectScope";
+
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { rs } from "@/utils";
 import { createFieldSchema } from "@/designable/Field";
 
 export const FormilyProjectSelect: DnFC<any> = connect((props) => {
-  // const projectScope = useProjectSelectScope();
-  return (
-    <ProjectSelect
-      {...props}
-      // dataSource={projectScope?.projectList}
-      // value={projectScope?.firstProject}
-    />
-  );
+  return <ProjectSelect {...props} />;
 });
 
 FormilyProjectSelect.Resource = createResource({
@@ -27,7 +20,7 @@ FormilyProjectSelect.Resource = createResource({
       componentName: "Field",
       props: {
         type: "object",
-        $id: "qrojectSelect",
+
         "x-component": "ProjectSelect",
         "x-decorator": "PositionDecorator",
         "x-decorator-props": {

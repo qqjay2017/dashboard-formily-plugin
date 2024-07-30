@@ -14,11 +14,11 @@ import type { SchemComponentWithDataSourceProps } from "@/types";
 import { EmptyKit } from "@/themes/style-components";
 
 export function EmploymentCreditMng({
-  dataSource,
+  apiInfo,
   query,
 }: SchemComponentWithDataSourceProps) {
   const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(dataSource, busParams);
+  const { data, isLoading } = useDataBindFetch(apiInfo, busParams);
   const { headStyle, bodyStyle } = useFrameSizeStyle();
   const [tabValue, setTabValue] = useState<string>("1");
   const list: EmploymentType[] = get(data, "data.data", []) || [];

@@ -7,6 +7,24 @@ import { createFieldSchema } from '@/designable/Field'
 
 export const FormilyChartTemplate: DnFC<any> = connect(ChartTemplate)
 
+FormilyChartTemplate.Resource = createResource({
+
+  elements: [
+    {
+      componentName: 'Field',
+
+      props: {
+        'type': 'void',
+        'x-component': 'ChartTemplate',
+
+        'x-decorator': 'PositionDecorator',
+
+      },
+    },
+  ],
+
+})
+
 FormilyChartTemplate.Behavior = createBehavior({
   name: 'ChartTemplate',
   selector: node =>

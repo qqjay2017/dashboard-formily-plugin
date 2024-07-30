@@ -12,10 +12,10 @@ import { EmptyKit } from "@/themes/style-components";
 
 export function UnprocessedWarningList({
   query,
-  dataSource,
+  apiInfo,
 }: SchemComponentWithDataSourceProps) {
   const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(dataSource, busParams);
+  const { data, isLoading } = useDataBindFetch(apiInfo, busParams);
   const warnList: UnprocessedWarningItem[] = get(data, "data.data", []) || [];
   return (
     <div

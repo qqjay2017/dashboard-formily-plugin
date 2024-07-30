@@ -23,6 +23,7 @@ import {
 import type { SchemComponentWithDataSourceProps } from "@/types";
 
 import ConetentSpin from "@/schema-component/components/ConetentSpin/ConetentSpin";
+import { takeFirstApiInfo } from "@/schema-component/core";
 
 const emptyCss = css`
   width: 100%;
@@ -177,8 +178,8 @@ const MenuItem = forwardRef<
     </Select.Root>
   );
 });
-export function HeaderMenu({ dataSource }: SchemComponentWithDataSourceProps) {
-  const { data, isLoading } = useDataBindFetch(dataSource);
+export function HeaderMenu({ apiInfo }: SchemComponentWithDataSourceProps) {
+  const { data, isLoading } = useDataBindFetch(apiInfo);
   const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
   const { reportId } = useReportId();
   const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
@@ -205,7 +206,9 @@ export function HeaderMenu({ dataSource }: SchemComponentWithDataSourceProps) {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
-  if (!dataSource || !dataSource.dataSourceId) {
+  const firstApiInfo = takeFirstApiInfo(apiInfo);
+
+  if (!firstApiInfo || !firstApiInfo.dataSourceId) {
     return <div className={emptyCss}>请绑定数据源</div>;
   }
   if (!isLoading && !menuList.length) {

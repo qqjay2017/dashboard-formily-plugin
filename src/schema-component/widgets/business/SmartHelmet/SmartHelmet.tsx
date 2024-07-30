@@ -12,10 +12,10 @@ import type { SchemComponentWithDataSourceProps } from "@/types";
 
 export function SmartHelmet({
   query,
-  dataSource,
+  apiInfo,
 }: SchemComponentWithDataSourceProps) {
   const busParams = useQueryToBusParams(query);
-  const { data: dataRes } = useDataBindFetch(dataSource, query);
+  const { data: dataRes } = useDataBindFetch(apiInfo, query);
   const safetyProject: SafetyProjectType = get(
     dataRes,
     "data.data.safetyProject",

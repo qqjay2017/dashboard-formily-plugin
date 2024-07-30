@@ -11,11 +11,11 @@ import {
 import { EmptyKit } from "@/themes/style-components";
 
 export function KeyPersonArrived({
-  dataSource,
+  apiInfo,
   query,
 }: SchemComponentWithDataSourceProps) {
   const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(dataSource, busParams);
+  const { data, isLoading } = useDataBindFetch(apiInfo, busParams);
   const list: KeyPersonItemType[] = get(data, "data.data", []) || [];
 
   return (

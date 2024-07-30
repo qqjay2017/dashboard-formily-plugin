@@ -2,8 +2,9 @@ import { css } from "@emotion/css";
 import { useState } from "react";
 import { connect, mapProps, useField } from "@formily/react";
 
+import { get } from "lodash-es";
 import { ProjectSelectValue } from "./ProjectSelectValue";
-import { useJfGlobalProjectStore } from "./useJfGlobalProjectStore";
+
 import type { FormItemComponentProps } from "@/types";
 import {
   Select,
@@ -13,14 +14,20 @@ import {
 } from "@/themes/style-components/ui";
 import { sizeFormat } from "@/utils";
 import { useDashboardRoot } from "@/schema-component/components";
+import {
+  useFetchProjectList,
+  useJfGlobalProjectStore,
+} from "@/schema-component/hooks";
 
-function ProjectSelectMain({
-  value,
-  onChange,
-  dataSource = [],
-  ...props
-}: FormItemComponentProps) {
-  const { setProject } = useJfGlobalProjectStore();
+function ProjectSelectMain(props: FormItemComponentProps) {
+  const { data, isFetched } = useFetchProjectList({
+    staleTime: true,
+  });
+
+  const projectList = get(data, "data.data.table.rows", []) || [];
+  const { setProject, project } = useJfGlobalProjectStore();
+  const value = project;
+  const onChange = setProject;
   const [open, setOpen] = useState(false);
   const { colWidth } = useDashboardRoot();
   const { decoratorProps } = useField();
@@ -38,11 +45,10 @@ function ProjectSelectMain({
         onOpenChange={setOpen}
         value={value?.id}
         onValueChange={(e) => {
-          const findProject = dataSource.find((pro) => pro.id === e);
+          const findProject = projectList.find((pro) => pro.id === e);
           if (!findProject) {
             return false;
           }
-          setProject(findProject);
           onChange(findProject);
         }}
       >
@@ -55,7 +61,7 @@ function ProjectSelectMain({
             width: sizeFormat(colWidth * w),
           }}
         >
-          {dataSource.map((project) => {
+          {projectList.map((project) => {
             return (
               <SelectItem
                 disabled={project.id === value?.id}
@@ -79,12 +85,4 @@ function ProjectSelectMain({
   );
 }
 
-export const ProjectSelect = connect(
-  ProjectSelectMain,
-  mapProps({}, (props, field: any) => {
-    return {
-      dataSource: field.dataSource,
-      ...props,
-    };
-  })
-);
+export const ProjectSelect = connect(ProjectSelectMain);

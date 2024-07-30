@@ -23,11 +23,11 @@ interface ClockingData {
 
 export function ProjectAttendanceDataAna({
   query,
-  dataSource,
+  apiInfo,
 }: SchemComponentWithDataSourceProps) {
   const { token } = useToken();
   const queryParams = useQueryToBusParams(query);
-  const { data: dataRes } = useDataBindFetch(dataSource, queryParams);
+  const { data: dataRes } = useDataBindFetch(apiInfo, queryParams);
   const clocking: ClockingData = get(dataRes, "data.data", {}) || {};
 
   return (

@@ -16,11 +16,12 @@ import { apiBase } from "@/utils";
 interface DataSourceBindProps extends FormItemComponentProps {}
 
 export const DataSourceBind = observer((props: DataSourceBindProps) => {
-  const { value, onChange } = props;
+  const { value } = props;
   const [open, setOpen] = useState(false);
 
   const { data, refetch } = useRequest(`${apiBase}/api-manage/list`, {
     method: "GET",
+    enabled: open,
   });
   const dataSourceApiOptions = (get(data, "data.data", []) || []).map(
     (item) => {
@@ -66,7 +67,6 @@ export const DataSourceBind = observer((props: DataSourceBindProps) => {
                 onChange={(e, option: any) => {
                   value.dataSourceId = e;
                   value.dataSourceName = option?.label || "";
-                  //   onChange && onChange(v=)
                 }}
                 className={css`
                   width: 400px;

@@ -2,17 +2,20 @@ import dayjs from 'dayjs'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-import type { QuarterItemType } from '../QuarterSelect'
+import type { QuarterItemType } from '../widgets/query'
+import type { ProjectRow } from '../types'
 
 dayjs.extend(quarterOfYear)
+
 interface ProjectState {
   projectId: string
   projectName: string
   projectCode: string
-  project?: any | null
+  project?: ProjectRow | null
   quarter: QuarterItemType
   setQuarter: (qua: QuarterItemType) => void
   setProject: (pro: any) => void
+
 }
 export const useJfGlobalProjectStore = create<ProjectState>()(
   persist(
@@ -35,9 +38,9 @@ export const useJfGlobalProjectStore = create<ProjectState>()(
           project:
             state.project?.id && state.project.id === pro.id
               ? {
-                  ...state.project,
-                  ...pro,
-                }
+                ...state.project,
+                ...pro,
+              }
               : pro,
         })),
       setQuarter: qua =>

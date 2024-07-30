@@ -17,11 +17,11 @@ interface ProjectAttendanceItem {
 }
 
 export function ProjectAttendanceAnaTable({
-  dataSource,
+  apiInfo,
   query,
 }: SchemComponentWithDataSourceProps) {
   const queryParams = useQueryToBusParams(query);
-  const { data } = useDataBindFetch(dataSource, queryParams);
+  const { data } = useDataBindFetch(apiInfo, queryParams);
   const projectAttendance: ProjectAttendanceItem[] = (
     get(data, "data.data", []) || []
   ).map((d, index) => {

@@ -58,7 +58,7 @@ export function LaborAttendance({ query }: SchemComponentWithDataSourceProps) {
         >
           <ChartTemplateWithOutData
             chartId="38"
-            dataSource={null}
+            apiInfo={null}
             query={null}
             busData={busData}
           />

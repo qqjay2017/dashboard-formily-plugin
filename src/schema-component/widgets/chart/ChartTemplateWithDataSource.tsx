@@ -17,7 +17,7 @@ import chartLightTheme from "@/themes/global-theme/chart-theme/light";
 
 export function ChartTemplateWithDataSource({
   chartId,
-  dataSource,
+  apiInfo,
   query,
 }: ChartTemplateProps) {
   const { token } = useToken();
@@ -26,7 +26,7 @@ export function ChartTemplateWithDataSource({
   const chartDataTemplate = get(chartDataRes, "data.data.template");
   const queryParams = useQueryToBusParams(query);
   const { data: busDataRes, isLoading: isBusDataLoading } = useDataBindFetch(
-    dataSource,
+    apiInfo,
     queryParams
   );
   const busData = get(busDataRes, "data.data");

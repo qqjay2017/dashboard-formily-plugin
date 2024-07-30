@@ -64,3 +64,47 @@ export type SchemaQueryType = {
     name: string
   }
 } | null
+
+export interface ProjectRow {
+
+  id: string
+  code: string
+  name: string
+  bizNum: number
+  chainNum: number
+  createdDatetime: number
+  address: string
+  province: string
+  provinceName: string
+  city: string
+  cityName: string
+  county: string
+  countyName: string
+  approveState: number
+  ownerType: number
+  ownerCompId: string
+  createdCompanyName: string
+  confirmCompId: string
+  confirmCompName: string
+  chainStatus: number
+  type: number
+  stageId: string
+  stageName: string
+  statusId: string
+  statusName: string
+  planStartDate: number
+  planFinishDate: number
+  projectCost: number
+  categoryType: string
+  companyRole: number
+  createdId: string
+  enterFlag: number
+  enterType: number
+  enterWay: number
+  authorityModel?: any
+  constructionNature: string
+  dataOrigin: string
+  picUrl?: string
+  [property: string]: any
+
+}

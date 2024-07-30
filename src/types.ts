@@ -4,6 +4,7 @@ export interface FormItemComponentProps<V = any> {
   onChange?: (v: V) => void
   value?: V
   onBlur?: any
+  apiInfo?: any[]
   dataSource?: any[]
 }
 
@@ -14,6 +15,7 @@ export interface ApiGroupItem {
 }
 
 export interface SchemComponentWithDataSourceProps {
-  dataSource: DataSourceBindType
+
+  apiInfo?: null | DataSourceBindType | (DataSourceBindType[])
   query: SchemaQueryType
 }
