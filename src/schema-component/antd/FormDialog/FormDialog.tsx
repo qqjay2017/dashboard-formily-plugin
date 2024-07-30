@@ -27,7 +27,14 @@ export function useFormDialog() {
       },
       () => {
         return (
-          <FormLayout labelCol={6} wrapperCol={18}>
+          <FormLayout
+            colon={false}
+            labelWidth={120}
+            labelAlign="left"
+            wrapperAlign="right"
+            feedbackLayout="none"
+            tooltipLayout="text"
+          >
             <SchemaField2
               components={options?.components}
               scope={options?.scope}

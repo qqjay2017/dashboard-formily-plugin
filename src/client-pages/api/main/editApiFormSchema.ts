@@ -149,6 +149,9 @@ export const editApiFormSchema: ISchema = {
       'required': true,
       'x-decorator': 'FormItem',
       'x-component': 'JsonInput',
+      'x-component-props': {
+        height: '500px',
+      },
     },
   },
 }

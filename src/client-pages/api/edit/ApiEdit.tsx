@@ -1,7 +1,7 @@
 import { useContext, useMemo } from "react";
 import { SchemaOptionsContext } from "@formily/react";
 import { ConfigProvider } from "antd";
-import { Form, FormButtonGroup, FormDialog, Submit } from "@formily/antd-v5";
+import { FormDialog, FormLayout, Submit } from "@formily/antd-v5";
 import { createForm } from "@formily/core";
 import { css } from "@emotion/css";
 import { get } from "lodash-es";
@@ -11,10 +11,7 @@ import { ApiTest } from "../main/ApiTest";
 
 import { useApp, useEditId } from "@/application/hooks";
 import { useAPIClient, useRequest } from "@/api-client";
-import {
-  SchemaComponent,
-  SchemaComponentOptions,
-} from "@/schema-component/core";
+import { FormProvider, SchemaField2 } from "@/schema-component/core";
 import { apiBase } from "@/utils";
 import { FormButtonGroupWrap, FormDialogPortal } from "@/schema-component/antd";
 
@@ -93,32 +90,17 @@ function ApiEdit() {
         overflow: hidden scroll;
       `}
     >
-      <SchemaComponentOptions
-        inherit
-        scope={options.scope}
-        components={options.components}
-      >
-        <ConfigProvider locale={locale}>
-          <Form form={form as any} labelCol={6} wrapperCol={12}>
-            <SchemaComponent
-              components={options.components}
-              scope={options.scope}
-              schema={editApiFormSchema}
-            />
-
-            <FormButtonGroupWrap>
-              <FormButtonGroup gutter={24} align="right">
-                <FormDialogPortal>
-                  <Submit onSubmit={onTest} type="default">
-                    测试
-                  </Submit>
-                </FormDialogPortal>
-                <Submit onSubmit={onSubmit}>提交</Submit>
-              </FormButtonGroup>
-            </FormButtonGroupWrap>
-          </Form>
-        </ConfigProvider>
-      </SchemaComponentOptions>
+      <FormProvider form={form}>
+        <FormLayout
+          colon={false}
+          labelWidth={120}
+          labelAlign="left"
+          wrapperAlign="right"
+          tooltipLayout="text"
+        >
+          <SchemaField2 schema={editApiFormSchema} />
+        </FormLayout>
+      </FormProvider>
     </div>
   );
 }
