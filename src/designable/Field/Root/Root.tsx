@@ -5,10 +5,7 @@ import { Schema } from "@formily/react";
 import { observer } from "@formily/reactive-react";
 
 import { defaultBreakpoints, flexible } from "@/utils/utils";
-import {
-  useDashboardRootStyle,
-  useScrollBarStyle,
-} from "@/schema-component/components/DashboardRoot/styles";
+import { useDashboardRootStyle } from "@/schema-component/components/DashboardRoot/styles";
 import { DashboardRootContext } from "@/schema-component/components/DashboardRoot/context";
 import { createBehavior, createResource } from "@/designable/core";
 import {
@@ -24,6 +21,7 @@ import { fontStyle } from "@/themes/global-theme/font-style";
 
 import { ThemeCSSVariableProvider } from "@/themes/css-variable";
 import type { DashboardRootProps } from "@/schema-component/components";
+import { useScrollBarStyle } from "@/schema-component/hooks";
 
 interface IRootProps extends DashboardRootProps {}
 export const Root: DnFC<IRootProps> = observer(

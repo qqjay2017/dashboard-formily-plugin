@@ -16,7 +16,7 @@ import { useComponents, useDesigner, useTreeNode } from "../react";
 import { createBehavior } from "../core";
 import { each, isArr, isStr, reduce } from "../shared";
 import { PositionDecorator } from "./PositionDecorator";
-import { useSchemaOptionsContext } from "@/schema-component/core";
+import { useSchemaOptionsContext } from "@/schema-component/hooks";
 
 const ObjectContainer: React.FC<PropsWithChildren> = observer((props) => {
   return <>{props.children}</>;
@@ -142,32 +142,13 @@ export const Field: DnFC<{
   const node = useTreeNode();
 
   if (!node) return null;
+
   const fieldProps = toDesignableFieldProps(
     props,
     components,
     designer.props.nodeIdAttrName,
     node.id
   );
-
-  // const compileReactionsSchema = (reactions = "") => {
-  //   if (!reactions || !Array.isArray(reactions)) {
-  //     return [];
-  //   }
-  //   return reactions.map((reaction) => {
-  //     console.log(reaction, "reaction");
-  //     try {
-  //       const keys = Object.keys(scope);
-  //       // eslint-disable-next-line no-new-func
-  //       const schemaFn = new Function(...keys, `return ${reaction}`);
-  //       const compileRes = schemaFn(...keys.map((key) => scope[key]));
-  //       console.log(compileRes, "compileRes");
-  //       return compileRes;
-  //     } catch (error) {
-  //       console.log(error, "error 编译报错");
-  //       return [];
-  //     }
-  //   });
-  // };
 
   if (props.type === "object") {
     return (

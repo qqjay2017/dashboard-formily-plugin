@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import Handlebars from 'handlebars'
-import { useSchemaOptionsContext } from '../core'
+import { useSchemaOptionsContext } from './useSchemaOptionsContext'
 
 export function useStrHandlebars(titleStr = '') {
   const { scope } = useSchemaOptionsContext()

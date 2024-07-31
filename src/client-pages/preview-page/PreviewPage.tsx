@@ -43,6 +43,7 @@ import { apiBase } from "@/utils";
 import {
   DashboardRootPreview,
   PositionDecoratorPreview,
+  SchemaComponentOptions,
 } from "@/schema-component/components";
 
 function PreviewPage() {
@@ -106,8 +107,11 @@ function PreviewPage() {
 
   return (
     <FormProvider form={form}>
-      <SchemaComponentsContext.Provider
-        value={{
+      <SchemaComponentOptions
+        scope={{
+          dashboardDt: get(data, "data.data", {}) || {},
+        }}
+        components={{
           Header1,
           Header5,
           HeaderMenu,
@@ -132,17 +136,8 @@ function PreviewPage() {
           PositionDecorator: PositionDecoratorPreview,
         }}
       >
-        <ExpressionScope
-          value={{
-            scope: {
-              dashboardDt: get(data, "data.data", {}) || {},
-            },
-          }}
-        >
-          <RecursionField schema={renderShema} name="DashboardRootPreview" />
-        </ExpressionScope>
-      </SchemaComponentsContext.Provider>
-
+        <RecursionField schema={renderShema} name="DashboardRootPreview" />
+      </SchemaComponentOptions>
       <Helmet>
         <title>{name}</title>
         <meta name="description" content={description} />

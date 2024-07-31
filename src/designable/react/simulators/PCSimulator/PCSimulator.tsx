@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from "react";
 
 import { css } from "@emotion/css";
-import { cn } from "@/utils";
+import { cn, cx } from "@/utils";
+import { designScrollBarStyle } from "@/designable/styles";
 
 export interface IPCSimulatorProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -13,8 +14,9 @@ export const PCSimulator: React.FC<IPCSimulatorProps> = (props) => {
   return (
     <div
       id="dn-pc-simulator"
-      className={cn(
+      className={cx(
         "dn-pc-simulator-overlay",
+        designScrollBarStyle,
         css`
           position: absolute;
           top: 0;

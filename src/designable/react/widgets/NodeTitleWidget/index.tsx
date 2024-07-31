@@ -1,8 +1,8 @@
 import React from "react";
 import { observer } from "@formily/reactive-react";
 import { get } from "lodash-es";
-import { GlobalRegistry, type TreeNode } from "@/designable/core";
-import { useSchemaOptionsContext } from "@/schema-component/core";
+import type { TreeNode } from "@/designable/core";
+import { useSchemaOptionsContext } from "@/schema-component/hooks";
 
 export interface INodeTitleWidgetProps {
   node: TreeNode;

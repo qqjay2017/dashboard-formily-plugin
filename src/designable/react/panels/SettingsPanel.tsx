@@ -4,9 +4,10 @@ import { observer } from "@formily/reactive-react";
 import cls from "classnames";
 import { css } from "@emotion/css";
 import { IconWidget, TextWidget } from "../widgets";
-import { useWorkbench } from "../hooks";
+import { usePrefix, useWorkbench } from "../hooks";
 import { requestIdle } from "@/designable/shared";
 import { cn } from "@/utils";
+import "./styles.less";
 
 export interface ISettingPanelProps extends PropsWithChildren {
   title?: React.ReactNode;
@@ -14,7 +15,7 @@ export interface ISettingPanelProps extends PropsWithChildren {
 }
 
 export const SettingsPanel: React.FC<ISettingPanelProps> = observer((props) => {
-  const prefix = "settings-panel";
+  const prefix = usePrefix("settings-panel");
   const workbench = useWorkbench();
   const [innerVisible, setInnerVisible] = useState(true);
   const [pinning, setPinning] = useState(false);

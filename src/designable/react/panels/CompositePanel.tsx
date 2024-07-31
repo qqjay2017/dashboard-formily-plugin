@@ -3,7 +3,9 @@ import React, { useRef } from "react";
 
 import { type PropsWithChildren, useState } from "react";
 import { IconWidget, TextWidget } from "../widgets";
+import { usePrefix } from "../hooks";
 import { cn } from "@/utils";
+import { designScrollBarStyle } from "@/designable/styles";
 
 export interface ICompositePanelProps extends PropsWithChildren {
   direction?: "left" | "right";
@@ -56,7 +58,7 @@ function getDefaultKey(children: React.ReactNode) {
 export const CompositePanel: React.FC<ICompositePanelProps> & {
   Item: React.FC<ICompositePanelItemProps>;
 } = ({ children, ...props }: ICompositePanelProps) => {
-  const prefix = "composite-panel";
+  const prefix = usePrefix("composite-panel");
   const [activeKey, setActiveKey] = useState<string | number>(
     props.defaultActiveKey ?? getDefaultKey(children)
   );
@@ -95,8 +97,8 @@ export const CompositePanel: React.FC<ICompositePanelProps> & {
             css`
               padding: 14px 7px;
               color: var(--dn-composite-panel-tabs-header-color);
-              line-height: 18px;
-              font-size: 16px;
+
+              font-size: 14px;
               border-bottom: 1px solid var(--dn-panel-border-color);
               display: flex;
               justify-content: space-between;
@@ -107,7 +109,7 @@ export const CompositePanel: React.FC<ICompositePanelProps> & {
             className={cn(
               `${prefix}-tabs-header-title`,
               css`
-                font-size: 16px;
+                font-size: 20px;
               `
             )}
           >
@@ -144,8 +146,9 @@ export const CompositePanel: React.FC<ICompositePanelProps> & {
           </div>
         </div>
         <div
-          className={cn(
+          className={cx(
             `${prefix}-tabs-body`,
+            designScrollBarStyle,
             css`
               flex-grow: 2;
               flex-shrink: 2;

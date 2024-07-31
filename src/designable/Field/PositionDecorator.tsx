@@ -56,10 +56,6 @@ export const PositionDecorator = observer((props: PositionDecoratorProps) => {
     [designer.props.nodeIdAttrName]: props["data-designer-node-id"],
   };
 
-  if (!viewport || !viewport.width || !viewport.height) {
-    return null;
-  }
-
   return (
     <div
       className={cn(
