@@ -8,13 +8,12 @@ import { Button, Card, Modal, Tag, Tooltip } from "antd";
 
 import type { IReaction } from "./types";
 
-import { initDeclaration } from "./declarations";
 import { TextWidget, usePrefix } from "@/designable/react";
 
 import { requestIdle } from "@/designable/shared";
 
 import "./styles.less";
-import { DepFieldSetFormItem } from "@/designable/react-settings-form";
+import { DepFieldSetFormItem } from "@/designable/react-settings-form/components";
 
 export interface IReactionsSetterProps {
   value?: IReaction;
@@ -129,7 +128,7 @@ const FieldStateValueTypes = {
   validating: "boolean",
 };
 
-export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
+const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [innerVisible, setInnerVisible] = useState(false);
   const prefix = usePrefix("reactions-setter");
@@ -148,7 +147,7 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
     if (modalVisible) {
       requestIdle(
         () => {
-          initDeclaration().then(() => {
+          Promise.resolve().then(() => {
             setInnerVisible(true);
           });
         },
@@ -225,3 +224,5 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
     </>
   );
 };
+
+export default ReactionsSetter;

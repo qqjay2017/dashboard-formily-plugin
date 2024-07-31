@@ -5,7 +5,8 @@ import { FormItem } from "@formily/antd-v5";
 import { observer, useField } from "@formily/react";
 import { observable } from "@formily/reactive";
 import cls from "classnames";
-import { IconWidget, usePrefix } from "@/designable/react";
+import { usePrefix } from "@/designable/react";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import "./styles.less";
 
 const ExpandedMap = new Map<string, boolean>();

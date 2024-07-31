@@ -3,7 +3,7 @@ import { Button, InputNumber } from "antd";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
 import { useCursor, useHistory, useScreen, useWorkbench } from "../../hooks";
-import { IconWidget } from "../IconWidget";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 
 import "./styles.less";
 

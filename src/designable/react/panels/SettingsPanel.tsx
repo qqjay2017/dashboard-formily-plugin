@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
 import { css } from "@emotion/css";
-import { IconWidget, TextWidget } from "../widgets";
+import { TextWidget } from "../widgets";
 import { usePrefix, useWorkbench } from "../hooks";
 import { requestIdle } from "@/designable/shared";
 import { cn } from "@/utils";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import "./styles.less";
 
 export interface ISettingPanelProps extends PropsWithChildren {

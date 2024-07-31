@@ -6,7 +6,8 @@ import { FoldItem } from "../FoldItem";
 import { InputItems } from "../InputItems";
 import { SizeInput } from "../SizeInput";
 import { ColorInput } from "../ColorInput";
-import { IconWidget, usePrefix } from "@/designable/react";
+import { usePrefix } from "@/designable/react";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 
 export interface IFontStyleSetterProps {
   className?: string;

@@ -1,6 +1,6 @@
 import type { ISchema } from '@formily/react'
 import { clone } from '@formily/shared'
-import { ReactionsSetter } from '../setters'
+
 import type { IFormilySchema, ITransformerOptions, ITreeNode } from '../core'
 import { positionDecoratorPropsSchema } from './positionDecoratorPropsSchema'
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "antd";
-import { IconWidget } from "../IconWidget";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import { TreeNode } from "@/designable/core";
 
 export interface IDeleteProps {

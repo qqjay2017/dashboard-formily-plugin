@@ -189,6 +189,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: resolve("index.html"),
       filename: "index.html",
+      inject: "body",
 
       CDN_LIST,
     }),

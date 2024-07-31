@@ -1,7 +1,8 @@
 import React, { PropsWithChildren, useContext } from "react";
-import { usePrefix, IconWidget } from "@/designable/react";
+import { usePrefix } from "@/designable/react";
 import cls from "classnames";
 import "./styles.less";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 
 export interface IInputItemsContext {
   width?: string | number;

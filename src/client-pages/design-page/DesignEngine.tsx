@@ -33,7 +33,6 @@ import {
   StudioPanel,
   ToolbarPanel,
   ViewPanel,
-  ViewToolsWidget,
   ViewportPanel,
   Workbench,
   WorkspacePanel,
@@ -45,8 +44,10 @@ import {
   createResource,
   transformToTreeNode,
 } from "@/designable/core";
-import { SettingsForm } from "@/designable/react-settings-form";
+
 import { Root } from "@/designable/Field/Root";
+import { SettingsForm } from "@/designable/react-settings-form/SettingsForm";
+import ViewToolsWidget from "@/designable/react/widgets/ViewToolsWidget";
 
 export function DesignEngine({
   schema,

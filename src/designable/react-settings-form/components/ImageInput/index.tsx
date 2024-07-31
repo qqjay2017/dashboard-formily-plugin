@@ -3,7 +3,8 @@ import type { InputProps } from "antd/lib/input";
 import { Input, Upload } from "antd";
 import cls from "classnames";
 import { SettingsFormContext } from "../../shared/context";
-import { IconWidget, usePrefix } from "@/designable/react";
+import { usePrefix } from "@/designable/react";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import "./styles.less";
 
 export interface ImageInputProps extends Omit<InputProps, "onChange"> {

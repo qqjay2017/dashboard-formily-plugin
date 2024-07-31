@@ -1,4 +1,3 @@
-import { observer } from "@formily/reactive-react";
 import { Tooltip, type TooltipProps } from "antd";
 import React from "react";
 import { CgComponents, CgDisplayFlex, CgDisplaySpacing } from "react-icons/cg";
@@ -79,49 +78,47 @@ const allIconMap = {
   Save: FaRegSave,
 };
 
-export const IconWidget = observer(
-  ({
-    infer,
-    className,
-    style,
-    size = 20,
-    tooltip,
-    title,
-    ...props
-  }: IIconWidgetProps) => {
-    const renderTooltips = (
-      children: React.ReactElement
-    ): React.ReactElement => {
-      if (tooltip && title) {
-        return (
-          <Tooltip {...tooltip} title={title}>
-            {children}
-          </Tooltip>
-        );
-      }
-      return children;
-    };
-
-    if (typeof infer === "string") {
-      const Com = allIconMap[infer];
-      if (Com) {
-        return renderTooltips(
-          React.createElement(Com, {
-            ...props,
-            className: cn(className, "iconWidget", `iconWidget-${infer}`),
-            style: {
-              // color: "var(--dn-composite-panel-tabs-color)",
-              ...style,
-              fontSize: size,
-              width: size,
-              height: size,
-            },
-          })
-        );
-      } else {
-        console.log(infer);
-      }
+function IconWidget({
+  infer,
+  className,
+  style,
+  size = 20,
+  tooltip,
+  title,
+  ...props
+}: IIconWidgetProps) {
+  const renderTooltips = (children: React.ReactElement): React.ReactElement => {
+    if (tooltip && title) {
+      return (
+        <Tooltip {...tooltip} title={title}>
+          {children}
+        </Tooltip>
+      );
     }
-    return infer || null;
+    return children;
+  };
+
+  if (typeof infer === "string") {
+    const Com = allIconMap[infer];
+    if (Com) {
+      return renderTooltips(
+        React.createElement(Com, {
+          ...props,
+          className: cn(className, "iconWidget", `iconWidget-${infer}`),
+          style: {
+            // color: "var(--dn-composite-panel-tabs-color)",
+            ...style,
+            fontSize: size,
+            width: size,
+            height: size,
+          },
+        })
+      );
+    } else {
+      console.log(infer);
+    }
   }
-);
+  return infer || null;
+}
+
+export default IconWidget;

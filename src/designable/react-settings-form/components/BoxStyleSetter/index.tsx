@@ -4,7 +4,9 @@ import cls from "classnames";
 import { FoldItem } from "../FoldItem";
 import { SizeInput } from "../SizeInput";
 import { InputItems } from "../InputItems";
-import { IconWidget, usePrefix } from "@/designable/react";
+
+import { usePrefix } from "@/designable/react/hooks";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 
 type Position = "top" | "right" | "left" | "bottom" | "all";
 export interface IMarginStyleSetterProps {

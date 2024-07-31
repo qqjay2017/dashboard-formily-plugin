@@ -1,6 +1,7 @@
 import React from "react";
-import { observer, useField } from "@formily/react";
+import { observer } from "@formily/reactive-react";
 import cls from "classnames";
+import { useField } from "@formily/react";
 import { FoldItem } from "../FoldItem";
 import { ColorInput } from "../ColorInput";
 import { SizeInput } from "../SizeInput";

@@ -17,8 +17,7 @@ import { useApp, useEditId } from "@/application/hooks";
 import { useAPIClient, useRequest } from "@/api-client";
 
 import { apiBase, cn } from "@/utils";
-
-import { SchemaField } from "@/designable/react-settings-form";
+import { SchemaField } from "@/designable/react-settings-form/SchemaField";
 
 /**
  * 汇聚出表单页面规范

@@ -6387,6 +6387,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     prettier-eslint: "npm:^16.3.0"
     qs: "npm:^6.12.1"
+    rc-menu: "npm:^9.14.1"
     react: "npm:^18.2.0"
     react-color: "npm:^2.19.3"
     react-countup: "npm:^6.5.3"
@@ -11611,7 +11612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-menu@npm:~9.14.0, rc-menu@npm:~9.14.1":
+"rc-menu@npm:^9.14.1, rc-menu@npm:~9.14.0, rc-menu@npm:~9.14.1":
   version: 9.14.1
   resolution: "rc-menu@npm:9.14.1"
   dependencies:

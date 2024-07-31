@@ -3,7 +3,8 @@ import { Field, observer, useField } from "@formily/react";
 import { Radio } from "@formily/antd-v5";
 import cls from "classnames";
 import { InputItems } from "../InputItems";
-import { IconWidget, usePrefix } from "@/designable/react";
+import { usePrefix } from "@/designable/react";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import "./styles.less";
 
 export interface IFlexStyleSetterProps {

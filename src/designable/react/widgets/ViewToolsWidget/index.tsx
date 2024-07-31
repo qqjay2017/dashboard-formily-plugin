@@ -2,8 +2,10 @@ import React from "react";
 import { Button } from "antd";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
-import { IconWidget } from "../IconWidget";
+
 import { usePrefix, useWorkbench } from "../../hooks";
+
+import IconWidget from "../IconWidget";
 import type { WorkbenchTypes } from "@/designable/core";
 
 export interface IViewToolsWidget {
@@ -12,8 +14,8 @@ export interface IViewToolsWidget {
   className?: string;
 }
 
-export const ViewToolsWidget: React.FC<IViewToolsWidget> = observer(
-  ({ use, style, className }) => {
+const ViewToolsWidget: React.FC<IViewToolsWidget> = observer(
+  ({ use = ["DESIGNABLE", "JSONTREE", "PREVIEW"], style, className }) => {
     const workbench = useWorkbench();
     const prefix = usePrefix("view-tools");
     return (
@@ -67,6 +69,4 @@ export const ViewToolsWidget: React.FC<IViewToolsWidget> = observer(
   }
 );
 
-ViewToolsWidget.defaultProps = {
-  use: ["DESIGNABLE", "JSONTREE", "PREVIEW"],
-};
+export default ViewToolsWidget;

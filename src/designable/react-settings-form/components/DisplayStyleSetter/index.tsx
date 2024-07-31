@@ -5,7 +5,8 @@ import { FormItem } from "@formily/antd-v5";
 import { Radio } from "antd";
 import cls from "classnames";
 import { FlexStyleSetter } from "../FlexStyleSetter";
-import { IconWidget, usePrefix } from "@/designable/react";
+import { usePrefix } from "@/designable/react";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import "./styles.less";
 
 export interface IDisplayStyleSetterProps {

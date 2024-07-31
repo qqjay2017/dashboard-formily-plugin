@@ -17,7 +17,8 @@ import {
   TimePicker,
 } from "@formily/antd-v5";
 import { Slider } from "antd";
-import { ReactionsSetter } from "../setters";
+
+import ReactionsSetter from "../setters/ReactionsSetter";
 import {
   ApiBaseNameFormItem,
   ApiGroupFormItem,

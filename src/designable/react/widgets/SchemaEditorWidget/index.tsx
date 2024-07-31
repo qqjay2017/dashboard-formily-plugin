@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 import { useState } from "react";
-import { IconWidget } from "../IconWidget";
+
+import IconWidget from "../IconWidget";
 import type { ITreeNode, TreeNode } from "@/designable/core";
 import { transformToTreeNode } from "@/designable/core";
 import { transformToSchema } from "@/designable/Field";

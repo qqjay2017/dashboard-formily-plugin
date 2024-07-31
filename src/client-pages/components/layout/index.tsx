@@ -22,7 +22,7 @@ const menuItems: MenuItem[] = [
     children: [
       {
         label: "图表组件",
-        key: "/component/chart",
+        key: "/charts/all",
       },
     ],
   },
@@ -77,7 +77,7 @@ const titleStyle = css`
   text-align: left;
 `;
 
-export function HomeMenu({ children }: HomeMenuProps) {
+function HomeMenu({ children }: HomeMenuProps) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -151,3 +151,5 @@ export function HomeMenu({ children }: HomeMenuProps) {
     </div>
   );
 }
+
+export default HomeMenu;

@@ -6,7 +6,7 @@ import { get } from "lodash-es";
 import { useHover, useSelection } from "../../hooks";
 
 import { NodeTitleWidget } from "../NodeTitleWidget";
-import { IconWidget } from "../IconWidget";
+
 import type { TreeNode } from "@/designable/core";
 import { cn } from "@/utils";
 

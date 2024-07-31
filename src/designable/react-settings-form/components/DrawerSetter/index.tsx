@@ -5,7 +5,8 @@ import { FormLayout } from "@formily/antd-v5";
 import type { ButtonProps } from "antd";
 import { Button } from "antd";
 import cls from "classnames";
-import { IconWidget, usePrefix, useTreeNode } from "@/designable/react";
+import { usePrefix, useTreeNode } from "@/designable/react";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import "./styles.less";
 
 export interface IDrawerSetterProps {

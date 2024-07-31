@@ -4,9 +4,9 @@ import { FormDialog as AntdFormDialog, FormLayout } from "@formily/antd-v5";
 import type { ISchema } from "@formily/react";
 
 import { css } from "@emotion/css";
-import { SchemaField } from "@/designable/react-settings-form";
 
 import { cx } from "@/utils";
+import { SchemaField } from "@/designable/react-settings-form/SchemaField";
 
 /**
  * 弹窗表单规范

@@ -2,12 +2,10 @@ import { css } from "@emotion/css";
 import { Button } from "antd";
 
 import { get } from "lodash-es";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-import { LuDatabase } from "react-icons/lu";
+import { defaultChartTemplate } from "./consts";
 
-import { allChartType, defaultChartTemplate } from "./consts";
-import { ChartTypeItem } from "./ChartTypeItem";
 import { createChartSchema } from "./createChartSchema";
 import { ChartListItem } from "./ChartListItem";
 import type { IChartItem } from "./types";
@@ -16,13 +14,14 @@ import { CreateBtnWrap } from "@/themes/style-components";
 import type { APiWrap } from "@/api-client";
 import { useAPIClient, useRequest } from "@/api-client";
 import { apiBase } from "@/utils";
-import { FormDialogPortal, useFormDialog } from "@/schema-component/antd";
+import { useFormDialog } from "@/schema-component/antd";
 
 export function ChartIndex() {
   const navigate = useNavigate();
+  const { type } = useParams();
   const apiClient = useAPIClient();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const chartType = searchParams.get("type") || "";
+
+  const chartType = !type || type === "all" ? undefined : type;
 
   const { data, refetch } = useRequest(`${apiBase}/chart`, {
     method: "GET",
@@ -100,84 +99,31 @@ export function ChartIndex() {
   const chartList: IChartItem[] = get(data, "data.data", []) || [];
 
   return (
-    <div
-      className={css`
-        width: 100%;
-        height: 100%;
-      `}
-    >
+    <>
+      <CreateBtnWrap>
+        <Button type="primary" onClick={createChart}>
+          新建
+        </Button>
+      </CreateBtnWrap>
       <div
         className={css`
-          width: 100vw;
-          height: calc(100vh - 5px);
           display: flex;
+          flex-wrap: wrap;
         `}
       >
-        <div
-          className={css`
-            width: 200px;
-            height: 100%;
-            overflow: hidden auto;
-            background-color: #fff;
-          `}
-        >
-          {[
-            {
-              label: "全部",
-              name: "",
-              icon: <LuDatabase />,
-            },
-            ...allChartType,
-          ].map((type, index) => {
-            return (
-              <ChartTypeItem
-                key={type.name + index}
-                {...type}
-                isActive={chartType === type.name}
-                onClick={() => {
-                  setSearchParams({
-                    type: type.name,
-                  });
-                }}
-              />
-            );
-          })}
-        </div>
-        <div
-          className={css`
-            height: 100%;
-            width: calc(100% - 200px);
-            background-color: rgb(243, 244, 250);
-            overflow: hidden auto;
-            padding-bottom: 80px;
-          `}
-        >
-          <CreateBtnWrap>
-            <Button type="primary" onClick={createChart}>
-              新建
-            </Button>
-          </CreateBtnWrap>
-          <div
-            className={css`
-              display: flex;
-              flex-wrap: wrap;
-            `}
-          >
-            {chartList.map((c) => {
-              return (
-                <ChartListItem
-                  key={c.id}
-                  {...c}
-                  onEditClick={() => {
-                    editChart(c);
-                  }}
-                />
-              );
-            })}
-          </div>
-        </div>
+        {chartList.map((c) => {
+          return (
+            <ChartListItem
+              key={c.id}
+              {...c}
+              onEditClick={() => {
+                editChart(c);
+              }}
+            />
+          );
+        })}
       </div>
-    </div>
+    </>
   );
 }
 export default ChartIndex;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 
-import { IconWidget } from "../IconWidget";
+import IconWidget from "../IconWidget";
 import { useTreeNode } from "../../hooks";
 import { TreeNode } from "@/designable/core";
 

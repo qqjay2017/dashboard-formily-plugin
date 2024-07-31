@@ -8,8 +8,8 @@ import {
   useSelectedNode,
   useSelection,
 } from "../../hooks";
-import { IconWidget } from "../IconWidget";
 import { NodeTitleWidget } from "../NodeTitleWidget";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import { cn } from "@/utils";
 
 export interface INodePathWidgetProps {

@@ -2,9 +2,10 @@ import { css, cx } from "@emotion/css";
 import React, { useRef } from "react";
 
 import { type PropsWithChildren, useState } from "react";
-import { IconWidget, TextWidget } from "../widgets";
+import { TextWidget } from "../widgets";
 import { usePrefix } from "../hooks";
 import { cn } from "@/utils";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import { designScrollBarStyle } from "@/designable/styles";
 
 export interface ICompositePanelProps extends PropsWithChildren {

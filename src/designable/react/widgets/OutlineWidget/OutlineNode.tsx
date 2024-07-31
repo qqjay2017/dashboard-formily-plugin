@@ -9,9 +9,9 @@ import {
   useMoveHelper,
   useSelection,
 } from "../../hooks";
-import { IconWidget } from "../IconWidget";
 import { NodeTitleWidget } from "../NodeTitleWidget";
 import { NodeContext } from "./context";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import {
   ClosestPosition,
   CursorStatus,

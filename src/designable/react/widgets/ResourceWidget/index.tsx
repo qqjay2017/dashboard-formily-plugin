@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { observer } from "@formily/reactive-react";
 import cls from "classnames";
 
-import { css } from "@emotion/css";
-import { IconWidget } from "../IconWidget";
+import IconWidget from "../IconWidget";
 import { TextWidget } from "../TextWidget";
 import { isResourceHost, isResourceList } from "@/designable/core";
 import { isFn } from "@/designable/shared";
 import type { IResource, IResourceLike } from "@/designable/core";
 import "./styles.less";
-import { cn } from "@/utils";
 
 export type SourceMapper = (resource: IResource) => React.ReactChild;
 

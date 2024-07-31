@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "antd";
 import cls from "classnames";
-import { IconWidget, usePrefix } from "@/designable/react";
+import { usePrefix } from "@/designable/react";
+import IconWidget from "@/designable/react/widgets/IconWidget";
 import "./styles.less";
 
 export interface IInput {
