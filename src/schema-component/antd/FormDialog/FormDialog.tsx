@@ -2,31 +2,43 @@ import type { IModalProps } from "@formily/antd-v5";
 import { FormDialog as AntdFormDialog, FormLayout } from "@formily/antd-v5";
 
 import type { ISchema } from "@formily/react";
-import { SchemaOptionsContext } from "@formily/react";
 
-import { useContext } from "react";
-import { SchemaField2 } from "@/schema-component/core";
+import { css } from "@emotion/css";
+import { SchemaField } from "@/designable/react-settings-form";
 
-export function useFormDialog() {
-  const options = useContext(SchemaOptionsContext);
-  const getFormDialog = (modalProps: IModalProps, schema: ISchema) =>
-    AntdFormDialog(
-      {
-        width: "70%",
-        centered: true,
-        bodyProps: {
-          style: {
-            padding: 10,
-            minHeight: "400px",
-          },
+import { cx } from "@/utils";
+
+/**
+ * 弹窗表单规范
+ * @param modalProps
+ * @param schema
+ * @returns
+ */
+
+export function getFormDialog(modalProps: IModalProps, schema: ISchema) {
+  return AntdFormDialog(
+    {
+      width: "70%",
+      centered: true,
+      bodyProps: {
+        style: {
+          padding: 10,
+          minHeight: "400px",
         },
-        transitionName: "",
-        maskTransitionName: "",
-        destroyOnClose: true,
-        ...modalProps,
       },
-      () => {
-        return (
+      transitionName: "",
+      maskTransitionName: "",
+      destroyOnClose: true,
+      ...modalProps,
+    },
+    () => {
+      return (
+        <div
+          className={cx(css`
+            font-size: 13px;
+            line-height: 1.5714285714285714;
+          `)}
+        >
           <FormLayout
             colon={false}
             labelWidth={120}
@@ -34,16 +46,10 @@ export function useFormDialog() {
             wrapperAlign="right"
             tooltipLayout="text"
           >
-            <SchemaField2
-              components={options?.components}
-              scope={options?.scope}
-              schema={schema}
-            />
+            <SchemaField schema={schema} />
           </FormLayout>
-        );
-      }
-    );
-  return {
-    getFormDialog,
-  };
+        </div>
+      );
+    }
+  );
 }

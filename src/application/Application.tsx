@@ -16,7 +16,7 @@ import type { APIClientOptions } from "../sdk";
 
 import { AntdAppProvider, GlobalThemeProvider } from "../themes/global-theme";
 import { APIClient, APIClientProvider } from "../api-client";
-import { AppSchemaComponentProvider } from "./AppSchemaComponentProvider";
+
 import { compose, normalizeContainer } from "./utils";
 import { PluginManager } from "./PluginManager";
 import type { PluginType } from "./PluginManager";
@@ -113,12 +113,12 @@ class Application {
 
     this.use(GlobalThemeProvider);
     this.use(CSSVariableProvider);
-    this.use(AppSchemaComponentProvider, {
-      designable: this.options.designable,
-      appName: this.name,
-      components: this.components,
-      scope: this.scopes,
-    });
+    // this.use(AppSchemaComponentProvider, {
+    //   designable: this.options.designable,
+    //   appName: this.name,
+    //   components: this.components,
+    //   scope: this.scopes,
+    // });
     this.use(FormDialogPortal);
   }
 

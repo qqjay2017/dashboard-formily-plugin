@@ -11,14 +11,17 @@ export function useDashboardDt() {
   // const { reset } = useSchemaComponentContext()
 
   const params = useRequest<APiWrap<DashboardItem>>(
-        `${apiBase}/dashboard/${id}`,
-        {
-          method: 'GET',
-          refreshDeps: [id],
-        },
+    `${apiBase}/dashboard/${id}`,
+    {
+      method: 'GET',
+      refreshDeps: [id],
+    },
   )
 
-  return params
+  return {
+    ...params,
+    id,
+  }
   //
   // useEffect(() => {
   //     function refetchApi() {

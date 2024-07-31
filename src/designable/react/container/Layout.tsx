@@ -33,6 +33,7 @@ injectGlobal`
   `;
 
 const lightStyle = css`
+  --border-color-split: rgba(0, 0, 0, 0.06);
   --dn-aux-cover-rect-dragging-color: var(--dn-brand-dragging);
   --dn-aux-cover-rect-dropping-color: var(--dn-brand-dropping);
   --dn-aux-free-selection-background-color: var(--dn-brand-color);
@@ -110,6 +111,7 @@ const lightStyle = css`
 `;
 
 const darkStyle = css`
+  --border-color-split: #303030;
   --dn-aux-cover-rect-dragging-color: var(--dn-brand-dragging);
   --dn-aux-cover-rect-dropping-color: var(--dn-brand-dropping);
   --dn-aux-free-selection-background-color: var(--dn-brand-color);

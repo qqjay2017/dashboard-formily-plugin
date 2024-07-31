@@ -201,7 +201,7 @@ Root.Behavior = createBehavior({
           title: "主题颜色",
           required: true,
           "x-decorator": "FormItem",
-          "x-component": "ColorTypeSelect",
+          "x-component": "ColorTypeSelect2",
         },
         isDarkTheme: {
           type: "boolearn",

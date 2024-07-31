@@ -1,24 +1,49 @@
 import { useContext } from "react";
 
 import {
+  ExpressionScope,
   FormProvider,
   RecursionField,
+  SchemaComponentsContext,
   SchemaOptionsContext,
 } from "@formily/react";
 import { get } from "lodash-es";
 import { Helmet } from "react-helmet";
-
 import type { DashboardItem } from "../dashboard/types";
+import {
+  AiotMonitorBlock,
+  ChartTemplate,
+  ClassicFrame,
+  ClassicFrame5,
+  EmploymentCreditMng,
+  Header1,
+  Header5,
+  HeaderMenu,
+  KeyPersonArrived,
+  LaborAttendance,
+  ProjectAttendanceAnaTable,
+  ProjectAttendanceDataAna,
+  ProjectBudget,
+  ProjectDesc,
+  ProjectSelect,
+  QuarterSelect,
+  SmartHelmet,
+  UnprocessedWarningList,
+} from "@/schema-component/widgets";
 
 import type { APiWrap } from "@/api-client";
 import { useRequest } from "@/api-client";
-import { RecursionSchemaComponentWrap } from "@/schema-component/core";
+
 import { useAppSpin } from "@/application/hooks";
 import {
   useDashboardFormInstance,
   useReportId,
 } from "@/schema-component/hooks";
 import { apiBase } from "@/utils";
+import {
+  DashboardRootPreview,
+  PositionDecoratorPreview,
+} from "@/schema-component/components";
 
 function PreviewPage() {
   const { reportId: shareURL } = useReportId();
@@ -47,14 +72,14 @@ function PreviewPage() {
   const renderShema = {
     type: "void",
     properties: {
-      dashboardRoot: {
+      DashboardRootPreview: {
         _isJSONSchemaObject: true,
         version: "2.0",
         type: "void",
 
-        name: "dashboardRoot",
+        name: "DashboardRootPreview",
 
-        "x-component": "DashboardRoot",
+        "x-component": "DashboardRootPreview",
         "x-settings": "settings:root",
         "x-component-props": {
           designWidthEnum: "1920",
@@ -81,22 +106,47 @@ function PreviewPage() {
 
   return (
     <FormProvider form={form}>
-      <RecursionSchemaComponentWrap
-        components={{
-          ...options?.components,
-        }}
-        scope={{
-          ...options?.scope,
-          dashboardDt: get(data, "data.data", {}) || {},
+      <SchemaComponentsContext.Provider
+        value={{
+          Header1,
+          Header5,
+          HeaderMenu,
+          LaborAttendance,
+          ProjectDesc,
+          EmploymentCreditMng,
+          SmartHelmet,
+          KeyPersonArrived,
+          UnprocessedWarningList,
+          ClassicFrame,
+          ClassicFrame5,
+
+          ProjectBudget,
+
+          ProjectAttendanceDataAna,
+          ProjectAttendanceAnaTable,
+          QuarterSelect,
+          ProjectSelect,
+          ChartTemplate,
+          AiotMonitorBlock,
+          DashboardRootPreview,
+          PositionDecorator: PositionDecoratorPreview,
         }}
       >
-        <Helmet>
-          <title>{name}</title>
-          <meta name="description" content={description} />
-        </Helmet>
+        <ExpressionScope
+          value={{
+            scope: {
+              dashboardDt: get(data, "data.data", {}) || {},
+            },
+          }}
+        >
+          <RecursionField schema={renderShema} name="DashboardRootPreview" />
+        </ExpressionScope>
+      </SchemaComponentsContext.Provider>
 
-        <RecursionField schema={renderShema} name="DashboardRootPreview" />
-      </RecursionSchemaComponentWrap>
+      <Helmet>
+        <title>{name}</title>
+        <meta name="description" content={description} />
+      </Helmet>
     </FormProvider>
   );
 }

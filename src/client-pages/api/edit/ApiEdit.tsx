@@ -1,28 +1,35 @@
-import { useContext, useMemo } from "react";
-import { SchemaOptionsContext } from "@formily/react";
-import { ConfigProvider } from "antd";
-import { FormDialog, FormLayout, Submit } from "@formily/antd-v5";
+import { useMemo } from "react";
+import { FormProvider, SchemaOptionsContext } from "@formily/react";
+
+import {
+  FormButtonGroup,
+  FormDialog,
+  FormLayout,
+  Submit,
+} from "@formily/antd-v5";
 import { createForm } from "@formily/core";
 import { css } from "@emotion/css";
 import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 import { editApiFormSchema } from "../main/editApiFormSchema";
-import { ApiTest } from "../main/ApiTest";
 
 import { useApp, useEditId } from "@/application/hooks";
 import { useAPIClient, useRequest } from "@/api-client";
-import { FormProvider, SchemaField2 } from "@/schema-component/core";
-import { apiBase } from "@/utils";
-import { FormButtonGroupWrap, FormDialogPortal } from "@/schema-component/antd";
 
+import { apiBase, cn } from "@/utils";
+
+import { SchemaField } from "@/designable/react-settings-form";
+
+/**
+ * 汇聚出表单页面规范
+ * @returns
+ */
 function ApiEdit() {
-  const app = useApp();
   const id = useEditId();
   const apiClient = useAPIClient();
-  const options = useContext(SchemaOptionsContext);
-  const { locale } = useContext(ConfigProvider.ConfigContext);
+
   const navigate = useNavigate();
-  const Providers = useMemo(() => app.getComposeProviders(), [app]);
+
   const { data } = useRequest(`${apiBase}/api-manage/${id}`, {
     enabled: !!id,
     method: "GET",
@@ -65,30 +72,31 @@ function ApiEdit() {
   };
 
   const onTest = async (values) => {
-    const dialog = FormDialog(
-      {
-        title: "测试API",
-        width: "80vw",
-      },
-      () => {
-        return (
-          <Providers>
-            <ApiTest formValues={values} />
-          </Providers>
-        );
-      }
-    );
-    dialog.open();
+    try {
+      const dialog = FormDialog(
+        {
+          title: "测试API",
+          width: "80vw",
+        },
+        () => {
+          return <div>123</div>;
+        }
+      );
+      dialog.open();
+    } catch (error) {}
   };
 
   return (
     <div
-      className={css`
-        padding: 24px;
-        width: 100%;
-        height: 100%;
-        overflow: hidden scroll;
-      `}
+      className={cn(
+        "form-page",
+        css`
+          padding: 24px;
+          width: 100%;
+          height: 100%;
+          overflow: hidden scroll;
+        `
+      )}
     >
       <FormProvider form={form}>
         <FormLayout
@@ -98,8 +106,13 @@ function ApiEdit() {
           wrapperAlign="right"
           tooltipLayout="text"
         >
-          <SchemaField2 schema={editApiFormSchema} />
+          <SchemaField schema={editApiFormSchema} />
         </FormLayout>
+
+        <FormButtonGroup.FormItem>
+          <Submit onSubmit={onTest}>测试</Submit>
+          <Submit onSubmit={onSubmit}>提交</Submit>
+        </FormButtonGroup.FormItem>
       </FormProvider>
     </div>
   );

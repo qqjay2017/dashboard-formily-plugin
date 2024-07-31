@@ -6,7 +6,7 @@ import { createDashboardFormSchema } from "./schema/createDashboardFormSchema";
 import { type APiWrap, useAPIClient } from "@/api-client";
 
 import { apiBase, getDesignSize } from "@/utils";
-import { FormDialogPortal, useFormDialog } from "@/schema-component/antd";
+import { useFormDialog } from "@/schema-component/antd";
 
 export function CreateFormBtn() {
   const navigate = useNavigate();

@@ -5,8 +5,10 @@ import { useProjectSelectScope } from '../widgets'
 
 export function useDashboardFormInstance({
   designable,
+  deps = [],
 }: {
   designable?: boolean
+  deps?: any
 }) {
   /**
    * 初始化好数据
@@ -18,7 +20,7 @@ export function useDashboardFormInstance({
       effects: () => {
       },
     })
-  }, [])
+  }, deps)
   if (!projectSelectScope) {
     return null
   }

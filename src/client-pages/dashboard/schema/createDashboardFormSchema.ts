@@ -32,7 +32,22 @@ export const createDashboardFormSchema: ISchema = {
       'required': true,
       'default': '1920',
       'x-decorator': 'FormItem',
-      'x-component': 'DesignWidthEnumSelect',
+      'enum': [
+
+        {
+          label: '1024 * 768',
+          value: '1024',
+        },
+        {
+          label: '1920 * 1080',
+          value: '1920',
+        },
+        {
+          label: '3840 * 1080',
+          value: '3840',
+        },
+      ],
+      'x-component': 'Select',
     },
     description: {
       'type': 'string',

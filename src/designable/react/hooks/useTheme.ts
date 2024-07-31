@@ -1,5 +1,5 @@
-import { useLayout } from "./useLayout";
+import { useLayout } from './useLayout'
 
 export function useTheme() {
-  return useLayout()?.theme;
+  return useLayout()?.theme
 }

@@ -6,15 +6,12 @@ import { useDashboardDt } from "./useDashboardDt";
 import { DesignEngine } from "./DesignEngine";
 
 import { useAppSpin } from "@/application/hooks";
-import {
-  useFetchChartAll,
-  useProjectSelectScope,
-} from "@/schema-component/widgets";
+import { useFetchChartAll } from "@/schema-component/widgets";
 import { useSchemaOptionsContext } from "@/schema-component/core";
 import { useDashboardFormInstance } from "@/schema-component/hooks";
 
 function DesignPage2() {
-  const { data, isLoading } = useDashboardDt();
+  const { data, isLoading, id } = useDashboardDt();
   const { data: chartAllRes, isLoading: isChartAllLoading } =
     useFetchChartAll();
   const schema = get(data, "data.data.content", "");
@@ -26,6 +23,7 @@ function DesignPage2() {
 
   const form = useDashboardFormInstance({
     designable: true,
+    deps: [schema, id],
   });
 
   if (!schema || isLoading || isChartAllLoading || !form) {
@@ -37,6 +35,7 @@ function DesignPage2() {
       <SchemaOptionsContext.Provider
         value={{
           ...schemaOptions,
+
           scope: {
             ...scope,
             dashboardDt: get(data, "data.data", {}) || {},

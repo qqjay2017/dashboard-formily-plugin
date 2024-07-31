@@ -3,6 +3,7 @@ import { observer } from "@formily/reactive-react";
 
 import { css } from "@emotion/css";
 import { ErrorBoundary } from "react-error-boundary";
+import { SchemaComponentsContext } from "@formily/react";
 import { useComponents, useDesigner, useTree } from "../../hooks";
 import { DesignerComponentsContext, TreeNodeContext } from "../../context";
 import type { IDesignerComponents } from "../../types";
@@ -81,7 +82,7 @@ export const TreeNodeWidget: React.FC<ITreeNodeWidgetProps> = observer(
   }
 );
 
-export const ComponentTreeWidget: React.FC<IComponentTreeWidgetProps> =
+export const ComponentTreeWidgetInner: React.FC<IComponentTreeWidgetProps> =
   observer((props: IComponentTreeWidgetProps) => {
     const tree = useTree();
     const app = useApp();
@@ -119,4 +120,12 @@ export const ComponentTreeWidget: React.FC<IComponentTreeWidgetProps> =
     );
   });
 
-ComponentTreeWidget.displayName = "ComponentTreeWidget";
+export const ComponentTreeWidget = observer(
+  (props: IComponentTreeWidgetProps) => {
+    return (
+      <SchemaComponentsContext.Provider value={props.components}>
+        <ComponentTreeWidgetInner {...props} />
+      </SchemaComponentsContext.Provider>
+    );
+  }
+);

@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { BASE_URL } from "./env";
 
 import Application from "@/application/Application";
-import { DashboardBuildinPlugin, KxgcAuthPlugin } from "@/plugins";
+import { KxgcAuthPlugin } from "@/plugins";
 import DashboardLayout from "@/client-pages/DashboardLayout";
 import NavigateHome from "@/client-pages/home-list/NavigateHome";
 
@@ -30,7 +30,7 @@ const ChartEditPage = lazy(
 );
 const application = new Application({
   providers: [],
-  plugins: [DashboardBuildinPlugin, KxgcAuthPlugin],
+  plugins: [KxgcAuthPlugin],
   designable: true,
   components: {},
 

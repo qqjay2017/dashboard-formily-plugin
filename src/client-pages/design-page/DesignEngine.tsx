@@ -39,7 +39,7 @@ import {
   WorkspacePanel,
 } from "@/designable/react";
 
-import { Field } from "@/designable/Field";
+import { Field, PositionDecorator } from "@/designable/Field";
 import {
   createDesigner,
   createResource,
@@ -182,6 +182,7 @@ export function DesignEngine({
                       QuarterSelect,
                       ChartTemplate,
                       UnprocessedWarningList,
+                      PositionDecorator,
                     }}
                   />
                 )}

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import type { IAuthingParams } from "ljcoreauth";
 import { Authing } from "ljcoreauth";
-import { SchemaComponentOptions } from "../../schema-component/core";
+
 import { AuthContext } from "./AuthContext";
 
 import { localDomainInject } from "./localDomainInject";
@@ -58,26 +58,18 @@ export function AuthContextProvider({
   }, [manual, authing, Authing, setUserInfoFromSession]);
 
   return (
-    <SchemaComponentOptions
-      scope={{
+    <AuthContext.Provider
+      value={{
         authing,
+        isLoading,
+        setIsLoading,
+        authenticated,
+        setAuthenticated,
+        userInfoFromSession,
+        setUserInfoFromSession,
       }}
     >
-      <AuthContext.Provider
-        value={{
-          authing,
-          isLoading,
-          setIsLoading,
-          authenticated,
-          setAuthenticated,
-          userInfoFromSession,
-          setUserInfoFromSession,
-        }}
-      >
-        {Authing.isRedirectCallback() || (!manual && isLoading)
-          ? null
-          : children}
-      </AuthContext.Provider>
-    </SchemaComponentOptions>
+      {Authing.isRedirectCallback() || (!manual && isLoading) ? null : children}
+    </AuthContext.Provider>
   );
 }
