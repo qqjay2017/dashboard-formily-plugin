@@ -8,7 +8,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+// const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const NODE_ENV =
   process.env.NODE_ENV === "production" ? "production" : "development";
@@ -73,15 +75,15 @@ module.exports = {
             ],
             plugins: [
               !isProduct && "react-refresh/babel",
-              [
-                "@emotion",
-                {
-                  sourceMap: !isProduct,
-                  autoLabel: "dev-only",
-                  labelFormat: "[local]",
-                  cssPropOptimization: true,
-                },
-              ],
+              // [
+              //   "@emotion",
+              //   {
+              //     sourceMap: !isProduct,
+              //     autoLabel: "dev-only",
+              //     labelFormat: "[local]",
+              //     cssPropOptimization: true,
+              //   },
+              // ],
             ].filter(Boolean),
           },
         },
@@ -154,9 +156,28 @@ module.exports = {
             },
 
             antd: {
-              test: /[\\/]node_modules[\\/]_?antd(.*)/,
-              priority: 20,
+              test(module) {
+                return (
+                  module.resource &&
+                  (module.resource.includes("antd") ||
+                    module.resource.includes("ant-design") ||
+                    module.resource.indexOf("rc-") === 0 ||
+                    module.resource.includes("@rc-component"))
+                );
+              },
               name: "chunk-antd",
+              chunks: "all",
+              reuseExistingChunk: true,
+              enforce: true,
+            },
+            babel: {
+              test(module) {
+                return module.resource && module.resource.includes("@babel");
+              },
+              name: "chunk-babel-runtime",
+              chunks: "all",
+              reuseExistingChunk: true,
+              enforce: true,
             },
             formily: {
               test: /[\\/]node_modules[\\/]_?@formily(.*)/,
@@ -207,6 +228,7 @@ module.exports = {
       filename: isProduct ? "[name].[contenthash].css" : "[name].css",
     }),
     // isProduct && new MonacoWebpackPlugin(),
+    isAna && new BundleAnalyzerPlugin(),
   ].filter(Boolean),
   devServer: {
     client: { overlay: false },
