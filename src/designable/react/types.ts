@@ -7,6 +7,7 @@ export interface IDesignerLayoutProps extends PropsWithChildren {
   theme?: 'dark' | 'light' | (string & {})
   variables?: Record<string, string>
   position?: 'fixed' | 'absolute' | 'relative'
+  className?: string
 }
 export interface IDesignerProps extends IDesignerLayoutProps {
   engine: Engine

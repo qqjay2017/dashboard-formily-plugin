@@ -38,13 +38,31 @@ const menuItems: MenuItem[] = [
     label: "数据工厂",
     key: "/dapi/main",
   },
+  // {
+  //   label: "插件",
+  //   key: "/plugin",
+  // },
+  // {
+  //   label: "数字孪生",
+  //   key: "/gis",
+  // },
   {
-    label: "插件",
-    key: "/plugin",
-  },
-  {
-    label: "数字孪生",
-    key: "/gis",
+    label: "系统管理",
+    key: "/system",
+    children: [
+      {
+        label: "数据源管理",
+        key: "/system/datasource",
+      },
+      {
+        label: "过滤器管理",
+        key: "/system/filter",
+      },
+      {
+        label: "应用分类管理",
+        key: "/system/appname",
+      },
+    ],
   },
 ];
 

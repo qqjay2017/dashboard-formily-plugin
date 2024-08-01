@@ -1,18 +1,30 @@
-import { type PropsWithChildren, useContext, useState } from "react";
+import { type PropsWithChildren, useContext, useMemo, useState } from "react";
 import { PageLayoutContext } from "./context";
 
-interface IPageLayoutProps extends PropsWithChildren {}
+interface IPageLayoutProps extends PropsWithChildren {
+  hasSiderMenu?: boolean;
+}
 
-function PageLayout({ children }: IPageLayoutProps) {
+function PageLayout({ children, hasSiderMenu = true }: IPageLayoutProps) {
   const value = useContext(PageLayoutContext);
   const [collapsed, seCollapsed] = useState(false);
+  const [hasFooterToolbar, setHasFooterToolbar] = useState(true);
 
   return (
     <PageLayoutContext.Provider
       value={{
+        ...value,
+        hasSiderMenu,
         menuCollapsed: collapsed,
         setMenuCollapsed: seCollapsed,
-        ...value,
+        siderWidth: useMemo(() => {
+          if (collapsed) {
+            return 60;
+          }
+          return 200;
+        }, [collapsed]),
+        hasFooterToolbar,
+        setHasFooterToolbar,
       }}
     >
       {children}

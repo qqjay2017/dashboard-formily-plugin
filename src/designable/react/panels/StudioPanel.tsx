@@ -70,6 +70,7 @@ export function StudioPanel({
               css`
                 display: flex;
                 align-items: center;
+                min-width: 70%;
               `
             )}
           >

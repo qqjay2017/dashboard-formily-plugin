@@ -9,19 +9,18 @@ import { sideMenuWrapStyle } from "@/designable/styles";
 interface ILayoutMenuWrapProps extends MenuProps {}
 
 export default function LayoutMenuWrap(props: ILayoutMenuWrapProps) {
-  const { menuCollapsed } = usePageLayoutContext();
+  const { menuCollapsed, siderWidth } = usePageLayoutContext();
 
-  const size = menuCollapsed ? "80" : "200";
   return (
     <div
       className={cx(
         sideMenuWrapStyle,
 
         css`
-          flex: 0 0 ${size}px;
-          max-width: ${size}px;
-          min-width: ${size}px;
-          width: ${size}px;
+          flex: 0 0 ${siderWidth}px;
+          max-width: ${siderWidth}px;
+          min-width: ${siderWidth}px;
+          width: ${siderWidth}px;
         `
       )}
       style={{

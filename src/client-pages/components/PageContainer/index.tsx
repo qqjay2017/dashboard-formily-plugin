@@ -1,6 +1,8 @@
 import { type PropsWithChildren, type ReactNode, useContext } from "react";
 import { css, cx } from "@emotion/css";
+import type { IPageLayoutContextProps } from "../PageLayout/context";
 import { PageLayoutContext } from "../PageLayout/context";
+import { usePageLayoutContext } from "../PageLayout/usePageLayoutContext";
 import type { FooterToolbarProps } from "./FooterToolbar";
 import { FooterToolbar } from "./FooterToolbar";
 import type { PageHeaderProps } from "./PageHeader";
@@ -60,7 +62,7 @@ function renderPageHeader(
 
 function memoRenderPageHeader(
   props: IPageContainerProps & {
-    value: any;
+    value: IPageLayoutContextProps;
     hashId: string;
   }
 ) {
@@ -140,7 +142,11 @@ function PageContainer(props: IPageContainerProps) {
 
     ...restProps
   } = props;
-  const value = useContext(PageLayoutContext) || {};
+
+  const { hasFooterToolbar } = usePageLayoutContext();
+
+  const value = usePageLayoutContext();
+
   const pageHeaderDom = memoRenderPageHeader({
     ...restProps,
     ghost: true,
@@ -154,7 +160,7 @@ function PageContainer(props: IPageContainerProps) {
         {pageHeaderDom}
         <div
           className={css`
-            padding: 0 24px 89px 24px;
+            padding: 0 24px ${hasFooterToolbar ? "89px" : "32px"} 24px;
           `}
         >
           {children}

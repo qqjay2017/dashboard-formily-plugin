@@ -6,6 +6,10 @@ import AdminLayoutPlugin from "./plugins/AdminLayoutPlugin";
 import ChartLayout from "./client-pages/component/chart/ChartLayout";
 import DashboardLayout from "./client-pages/dashboard/DashboardLayout";
 import ApiLayout from "./client-pages/api/ApiLayout";
+import SystemLayout from "./client-pages/system/SystemLayout";
+import SystemDatasource from "./client-pages/system/data-source";
+import SystemFilter from "./client-pages/system/filter";
+import SystemAppName from "./client-pages/system/app-name";
 import Application from "@/application/Application";
 import { KxgcAuthPlugin } from "@/plugins";
 
@@ -87,8 +91,8 @@ const application = new Application({
         Component: ApiMain,
       },
 
-      "dapi.edit": {
-        path: "/dapi/edit",
+      dapiedit: {
+        path: "/dapi-edit",
         Component: ApiEdit,
       },
 
@@ -105,6 +109,22 @@ const application = new Application({
       gis: {
         path: "/gis",
         Component: PluginMain,
+      },
+      system: {
+        path: "/system",
+        Component: SystemLayout,
+      },
+      "system.datasource": {
+        path: "/system/datasource",
+        Component: SystemDatasource,
+      },
+      "system.filter": {
+        path: "/system/filter",
+        Component: SystemFilter,
+      },
+      "system.appname": {
+        path: "/system/appname",
+        Component: SystemAppName,
       },
       dashboarddesign: {
         path: "/dashboard-design/:id",

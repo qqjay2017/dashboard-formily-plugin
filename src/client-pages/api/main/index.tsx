@@ -1,22 +1,22 @@
 import { get } from "lodash-es";
-import { Button, Space, Table, Tag, Tooltip } from "antd";
+import { Button, Space, Tag, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FormDialog } from "@formily/antd-v5";
 import dayjs from "dayjs";
-import { css } from "@emotion/css";
+
 import { useEffect, useMemo } from "react";
 import { ApiTest } from "./ApiTest";
 import { CreateApiBtn } from "./CreateApiBtn";
-import { ImportApiBtn } from "./ImportApiBtn";
-import { ExportApiBtn } from "./ExportApiBtn";
+
 import { shortUid } from "@/utils/shortUid";
 import { apiBase, copyTextToClipboard } from "@/utils";
 import { useApp, useGroupList } from "@/application/hooks";
 
-import { CreateBtnWrap } from "@/themes/style-components";
 import { useRequest } from "@/api-client";
-import { FormDialogPortal } from "@/schema-component/antd";
+
 import PageContainer from "@/client-pages/components/PageContainer";
+
+import InternalTable from "@/client-pages/components/InternalTable";
 
 function ApiMain() {
   const app = useApp();
@@ -71,16 +71,10 @@ function ApiMain() {
   return (
     <PageContainer
       title="数据工厂"
-      extra={[
-        <ExportApiBtn key="ExportApiBtn" />,
-        <ImportApiBtn key="ImportApiBtn" />,
-        <CreateApiBtn key="CreateApiBtn" />,
-      ]}
+      extra={[<CreateApiBtn key="CreateApiBtn" />]}
     >
-      <Table
-        pagination={false}
+      <InternalTable
         dataSource={dataSource}
-        rowKey="id"
         columns={[
           {
             title: "标识码",
@@ -176,7 +170,7 @@ function ApiMain() {
 
                   <a
                     onClick={() => {
-                      navigate(`/dapi/edit?id=${row.id}`);
+                      navigate(`/dapi-edit?id=${row.id}`);
                     }}
                   >
                     编辑

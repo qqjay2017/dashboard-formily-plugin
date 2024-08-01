@@ -1,23 +1,22 @@
 import { useMemo } from "react";
-import { FormProvider, SchemaOptionsContext } from "@formily/react";
+import { FormProvider } from "@formily/react";
 
-import {
-  FormButtonGroup,
-  FormDialog,
-  FormLayout,
-  Submit,
-} from "@formily/antd-v5";
+import { FormDialog } from "@formily/antd-v5";
 import { createForm } from "@formily/core";
-import { css } from "@emotion/css";
+
 import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
+
 import { editApiFormSchema } from "../main/editApiFormSchema";
 
-import { useApp, useEditId } from "@/application/hooks";
+import { useEditId } from "@/application/hooks";
 import { useAPIClient, useRequest } from "@/api-client";
 
 import { apiBase, cn } from "@/utils";
-import { SchemaField } from "@/designable/react-settings-form/SchemaField";
+
+import PageContainer from "@/client-pages/components/PageContainer";
+import InternalFormLayout from "@/client-pages/components/InternalFormLayout";
+import Submit from "@/client-pages/components/Submit";
 
 /**
  * 汇聚出表单页面规范
@@ -66,7 +65,7 @@ function ApiEdit() {
     });
     const resId = get(res, "data.data.id", "");
     if (resId) {
-      navigate("/dapi/main");
+      navigate(-1);
     }
   };
 
@@ -86,34 +85,21 @@ function ApiEdit() {
   };
 
   return (
-    <div
-      className={cn(
-        "form-page",
-        css`
-          padding: 24px;
-          width: 100%;
-          height: 100%;
-          overflow: hidden scroll;
-        `
-      )}
-    >
-      <FormProvider form={form}>
-        <FormLayout
-          colon={false}
-          labelWidth={120}
-          labelAlign="left"
-          wrapperAlign="right"
-          tooltipLayout="text"
-        >
-          <SchemaField schema={editApiFormSchema} />
-        </FormLayout>
-
-        <FormButtonGroup.FormItem>
-          <Submit onSubmit={onTest}>测试</Submit>
-          <Submit onSubmit={onSubmit}>提交</Submit>
-        </FormButtonGroup.FormItem>
-      </FormProvider>
-    </div>
+    <FormProvider form={form}>
+      <PageContainer
+        title="新建数据配置"
+        footer={[
+          <Submit key="test" onSubmit={onTest}>
+            测试
+          </Submit>,
+          <Submit key="submit" type="primary" onSubmit={onSubmit}>
+            提交
+          </Submit>,
+        ]}
+      >
+        <InternalFormLayout schema={editApiFormSchema} />
+      </PageContainer>
+    </FormProvider>
   );
 }
 export default ApiEdit;

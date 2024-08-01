@@ -8,7 +8,7 @@ export function CreateApiBtn() {
     <Button
       type="primary"
       onClick={() => {
-        navigate("/dapi/edit");
+        navigate("/dapi-edit");
       }}
     >
       新增API
