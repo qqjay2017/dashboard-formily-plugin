@@ -1,9 +1,10 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import React, { useContext, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
-import { ConfigProvider } from "antd";
+import { Button, ConfigProvider } from "antd";
 import { css } from "@emotion/css";
 import { usePageLayoutContext } from "../PageLayout/usePageLayoutContext";
+import BackBtn from "./BackBtn";
 import { cn, cx } from "@/utils";
 
 export interface FooterToolbarProps extends PropsWithChildren {
@@ -17,6 +18,7 @@ export interface FooterToolbarProps extends PropsWithChildren {
   prefixCls?: string;
   children?: React.ReactNode;
   portalDom?: boolean;
+  hasBackBtn?: boolean;
 }
 const baseClassName = `ant-footer-bar`;
 export function FooterToolbar(props: FooterToolbarProps) {
@@ -27,6 +29,7 @@ export function FooterToolbar(props: FooterToolbarProps) {
     portalDom = true,
     style,
     renderContent,
+    hasBackBtn = true,
     ...restProps
   } = props;
   const { getTargetContainer } = useContext(ConfigProvider.ConfigContext);
@@ -76,6 +79,7 @@ export function FooterToolbar(props: FooterToolbarProps) {
           `
         )}
       >
+        {hasBackBtn && <BackBtn />}
         {children}
       </div>
     </>

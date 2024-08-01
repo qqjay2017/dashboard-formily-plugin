@@ -8,6 +8,8 @@ import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 
 import { editApiFormSchema } from "./editApiFormSchema";
+import { ApiTest } from "./ApiTest";
+import { openApiTestDialog } from "./openApiTestDialog";
 import { useEditId } from "@/application/hooks";
 import { useAPIClient, useRequest } from "@/api-client";
 
@@ -16,6 +18,7 @@ import { apiBase } from "@/utils";
 import PageContainer from "@/client-pages/components/PageContainer";
 import InternalFormLayout from "@/client-pages/components/InternalFormLayout";
 import Submit from "@/client-pages/components/Submit";
+import { getModalDialog } from "@/schema-component/antd";
 
 /**
  * 汇聚出表单页面规范
@@ -68,27 +71,18 @@ function ApiEditPage() {
     }
   };
 
-  // const onTest = async (values) => {
-  //   try {
-  //     const dialog = FormDialog(
-  //       {
-  //         title: "测试API",
-  //         width: "80vw",
-  //       },
-  //       () => {
-  //         return <div>123</div>;
-  //       }
-  //     );
-  //     dialog.open();
-  //   } catch (error) {}
-  // };
+  const onTest = async (values) => {
+    openApiTestDialog(id, values);
+  };
 
   return (
     <FormProvider form={form}>
       <PageContainer
-        title="新建数据配置"
+        title={id ? "编辑数据配置" : "新建数据配置"}
         footer={[
-          <Submit key="test">测试</Submit>,
+          <Submit key="test" onSubmit={onTest}>
+            连接
+          </Submit>,
           <Submit key="submit" type="primary" onSubmit={onSubmit}>
             提交
           </Submit>,

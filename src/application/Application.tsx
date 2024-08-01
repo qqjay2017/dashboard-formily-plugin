@@ -27,6 +27,7 @@ import {
 } from "./components";
 import { RouterManager } from "./RouterManager";
 import type { ComponentTypeAndString, RouterOptions } from "./RouterManager";
+import InternalQueryClientProvider from "./components/InternalQueryClientProvider";
 import {
   AntdAppProvider,
   GlobalThemeProvider,
@@ -100,17 +101,7 @@ class Application {
   }
 
   private addDefaultProviders() {
-    this.use(QueryClientProvider, {
-      client: new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 1000 * 60 * 5,
-            refetchOnWindowFocus: false,
-            retry: false,
-          },
-        },
-      }),
-    });
+    this.use(InternalQueryClientProvider);
     this.use(AntdAppProvider);
     this.use(APIClientProvider, { apiClient: this.apiClient });
 

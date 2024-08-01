@@ -1,13 +1,14 @@
 import { get } from "lodash-es";
 import { Button, Space, Tag, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
-import { FormDialog } from "@formily/antd-v5";
+
 import dayjs from "dayjs";
 
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import { CreateApiBtn } from "./CreateApiBtn";
 
+import { openApiTestDialog } from "./openApiTestDialog";
 import { shortUid } from "@/utils/shortUid";
 import { apiBase, copyTextToClipboard } from "@/utils";
 import { useApp, useGroupList } from "@/application/hooks";
@@ -129,13 +130,13 @@ function ApiIndex() {
             render: (_, row) => {
               return (
                 <Space>
-                  {/* <a
+                  <a
                     onClick={() => {
-                      handleTestApi({ apiId: row.id });
+                      openApiTestDialog(row.id, {});
                     }}
                   >
-                    测试
-                  </a> */}
+                    连接
+                  </a>
 
                   <a
                     onClick={() => {
