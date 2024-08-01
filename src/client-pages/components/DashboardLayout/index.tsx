@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import HomeMenu from "../layout";
+import HomeMenu from "../HomeMenu";
 import { Layout, StudioPanel } from "@/designable/react";
 
 function DashboardLayout(props: PropsWithChildren) {

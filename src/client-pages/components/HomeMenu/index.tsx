@@ -10,15 +10,15 @@ type MenuItem = Required<MenuProps>["items"][number];
 const menuItems: MenuItem[] = [
   {
     label: "首页",
-    key: "/home/main",
+    key: "/home",
   },
   {
     label: "仪表盘",
-    key: "/dashboard/main",
+    key: "/dashboard/all",
   },
   {
     label: "组件",
-    key: "/component/",
+    key: "component",
     children: [
       {
         label: "图表组件",
@@ -28,33 +28,23 @@ const menuItems: MenuItem[] = [
   },
   {
     label: "素材",
-    key: "/assets/main",
+    key: "/assets",
   },
   {
     label: "模版",
-    key: "/template/main",
+    key: "/template",
   },
   {
     label: "数据工厂",
-    key: "/dapi/",
-    children: [
-      {
-        label: "外部数据",
-        key: "/dapi/external-data",
-      },
-      {
-        label: "magic-api",
-        key: "/dapi/magic-api",
-      },
-    ],
+    key: "/dapi/external-data",
   },
   {
     label: "插件",
-    key: "/plugin/main",
+    key: "/plugin",
   },
   {
     label: "数字孪生",
-    key: "/gis/main",
+    key: "/gis",
   },
 ];
 

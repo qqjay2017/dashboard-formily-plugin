@@ -4,6 +4,7 @@ import { BASE_URL } from "./env";
 import AdminLayoutPlugin from "./plugins/AdminLayoutPlugin";
 
 import ChartLayout from "./client-pages/component/chart/ChartLayout";
+import DashboardLayout from "./client-pages/dashboard/DashboardLayout";
 import Application from "@/application/Application";
 import { KxgcAuthPlugin } from "@/plugins";
 
@@ -13,7 +14,7 @@ const AssetsMain = lazy(() => import("@/client-pages/assets/main"));
 const ApiMagic = lazy(() => import("@/client-pages/api/magic/ApiMagic"));
 const ApiEdit = lazy(() => import("@/client-pages/api/edit/ApiEdit"));
 const ApiMain = lazy(() => import("@/client-pages/api/main"));
-const ComponentMain = lazy(() => import("@/client-pages/component/main"));
+
 const ChartIndex = lazy(
   () => import("@/client-pages/component/chart/ChartIndex")
 );
@@ -44,13 +45,17 @@ const application = new Application({
         Component: NavigateHome,
       },
 
-      "home.main": {
-        path: "/home/main",
+      home: {
+        path: "/home",
         Component: HomeMain,
       },
 
-      "dashboard.main": {
-        path: "/dashboard/main",
+      dashboard: {
+        path: "/dashboard",
+        Component: DashboardLayout,
+      },
+      "dashboard.all": {
+        path: "/dashboard/all",
         Component: DashboardMain,
       },
 
@@ -62,13 +67,13 @@ const application = new Application({
         path: "/charts/:type",
         Component: ChartIndex,
       },
-      "component.chartEdit": {
-        path: "/component/chart-edit/:id",
+      chartEdit: {
+        path: "/chart-edit/:id",
         Component: ChartEditPage,
       },
 
-      "assets.main": {
-        path: "/assets/main",
+      assets: {
+        path: "/assets",
         Component: AssetsMain,
       },
 
@@ -85,18 +90,18 @@ const application = new Application({
         Component: ApiEdit,
       },
 
-      "plugin.main": {
-        path: "/plugin/main",
+      plugin: {
+        path: "/plugin",
         Component: PluginMain,
       },
 
-      "template.main": {
-        path: "/template/main",
+      template: {
+        path: "/template",
         Component: PluginMain,
       },
 
-      "gis.main": {
-        path: "/gis/main",
+      gis: {
+        path: "/gis",
         Component: PluginMain,
       },
       dashboarddesign: {

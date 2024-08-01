@@ -20,6 +20,9 @@ import {
   useFormDialog,
 } from "@/schema-component/antd";
 import { CreateBtnWrap } from "@/themes/style-components";
+import PageLayout from "@/client-pages/components/PageLayout";
+import PageContainer from "@/client-pages/components/PageContainer";
+import CardList from "@/client-pages/components/CardList";
 
 function DashboardMain() {
   const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
@@ -32,29 +35,14 @@ function DashboardMain() {
   const list = get(data, "data.data", []) || [];
 
   return (
-    <div
-      className={css`
-        width: 100vw;
-      `}
-    >
-      <CreateBtnWrap>
-        <CreateFormBtn />
-      </CreateBtnWrap>
-      <div
-        className={css`
-          display: flex;
-          flex-wrap: wrap;
-        `}
-      >
-        {list.map((dashboard, index) => (
-          <FormCard
-            dashboard={dashboard}
-            key={`${dashboard.id}-${index}`}
-            refetch={refetch}
-          ></FormCard>
-        ))}
-      </div>
-    </div>
+    <PageContainer extra={<CreateFormBtn />}>
+      <CardList
+        list={list}
+        itemRender={(item) => {
+          return <FormCard dashboard={item} refetch={refetch} />;
+        }}
+      />
+    </PageContainer>
   );
 }
 
@@ -73,174 +61,165 @@ function FormCard({
   return (
     <div
       className={css`
-        margin: 16px;
-        width: 270px;
+        width: 100%;
+        height: 207px;
+        border: 1px solid #e9ecf1;
+        background-color: #fff;
+        box-sizing: border-box;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        &:hover {
+          box-shadow: 0 6px 18px #1d293924;
+        }
       `}
     >
       <div
+        onClick={() => {
+          navigate(`/dashboard-design/${dashboard.id}`);
+        }}
         className={css`
           width: 100%;
-          height: 207px;
-          border: 1px solid #e9ecf1;
-          background-color: #fff;
-          box-sizing: border-box;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.3s ease;
+          height: 151px;
+          background: #f5f5f5;
+          background-image: url(${dashboard.coverThumbnail});
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center center;
+        `}
+      ></div>
+      <div
+        className={css`
+          width: 100%;
+          height: 56px;
+          padding: 11px 12px 11px 16px;
           display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          &:hover {
-            box-shadow: 0 6px 18px #1d293924;
-          }
+          align-items: center;
+          box-sizing: border-box;
+          justify-content: space-between;
+          border-top: 1px solid #e9ecf1;
         `}
       >
         <div
-          onClick={() => {
-            navigate(`/dashboard-design/${dashboard.id}`);
-          }}
           className={css`
-            width: 100%;
-            height: 151px;
-            background: #f5f5f5;
-            background-image: url(${dashboard.coverThumbnail});
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center center;
-          `}
-        ></div>
-        <div
-          className={css`
-            width: 100%;
-            height: 56px;
-            padding: 11px 12px 11px 16px;
-            display: flex;
-            align-items: center;
-            box-sizing: border-box;
-            justify-content: space-between;
-            border-top: 1px solid #e9ecf1;
+            flex: 1;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
           `}
         >
-          <div
-            className={css`
-              flex: 1;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
-            `}
-          >
-            {dashboard.name}
-          </div>
-
-          <Dropdown
-            trigger={["click"]}
-            menu={{
-              onClick: async ({ key }) => {
-                if (key === "share") {
-                  const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL}`;
-                  const dialog = FormDialog(
-                    {
-                      title: "分享链接",
-
-                      footer: null,
-                    },
-                    () => {
-                      return (
-                        <div>
-                          <Input.TextArea value={url} disabled />
-                          <Button
-                            block
-                            type="primary"
-                            style={{
-                              marginTop: "16px",
-                            }}
-                            onClick={() => {
-                              copyTextToClipboard(url);
-                            }}
-                          >
-                            复制链接
-                          </Button>
-                        </div>
-                      );
-                    }
-                  );
-                  dialog.open();
-                  return;
-                }
-                if (key === "delete") {
-                  try {
-                    await showConfirmPromisify({});
-                    await apiClient.request({
-                      url: `${apiBase}/dashboard/${dashboard.id}`,
-                      method: "delete",
-                    });
-                    refetch && refetch();
-                    return;
-                  } catch (error) {}
-                }
-                if (key === "preview") {
-                  return reportShare(dashboard.shareURL, {
-                    isHref: false,
-                  });
-                }
-                if (key === "edit") {
-                  const dialog = getFormDialog(
-                    {
-                      title: "编辑",
-                    },
-                    updateDashboardFormSchema
-                  );
-                  dialog
-                    .forOpen((payload, next) => {
-                      next({
-                        initialValues: {
-                          name: dashboard.name,
-                          description: dashboard.description,
-                        },
-                      });
-                    })
-                    .forConfirm(async (payload, next) => {
-                      const { name, description } = payload.values;
-                      await app.apiClient.request<any, APiWrap<{ id: number }>>(
-                        {
-                          url: `${apiBase}/dashboard/${dashboard.id}`,
-                          method: "PUT",
-                          data: {
-                            name,
-                            description,
-                          },
-                        }
-                      );
-                      message.success("修改成功");
-                      refetch && refetch();
-                      next(payload);
-                    })
-                    .open();
-                }
-              },
-              items: [
-                {
-                  key: "preview",
-                  label: "预览",
-                },
-                {
-                  key: "share",
-                  label: "分享",
-                },
-                {
-                  key: "edit",
-                  label: "编辑",
-                },
-                {
-                  key: "delete",
-                  label: "删除",
-                },
-              ],
-            }}
-          >
-            <IoIosMore />
-          </Dropdown>
+          {dashboard.name}
         </div>
+
+        <Dropdown
+          trigger={["click"]}
+          menu={{
+            onClick: async ({ key }) => {
+              if (key === "share") {
+                const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL}`;
+                const dialog = FormDialog(
+                  {
+                    title: "分享链接",
+
+                    footer: null,
+                  },
+                  () => {
+                    return (
+                      <div>
+                        <Input.TextArea value={url} disabled />
+                        <Button
+                          block
+                          type="primary"
+                          style={{
+                            marginTop: "16px",
+                          }}
+                          onClick={() => {
+                            copyTextToClipboard(url);
+                          }}
+                        >
+                          复制链接
+                        </Button>
+                      </div>
+                    );
+                  }
+                );
+                dialog.open();
+                return;
+              }
+              if (key === "delete") {
+                try {
+                  await showConfirmPromisify({});
+                  await apiClient.request({
+                    url: `${apiBase}/dashboard/${dashboard.id}`,
+                    method: "delete",
+                  });
+                  refetch && refetch();
+                  return;
+                } catch (error) {}
+              }
+              if (key === "preview") {
+                return reportShare(dashboard.shareURL, {
+                  isHref: false,
+                });
+              }
+              if (key === "edit") {
+                const dialog = getFormDialog(
+                  {
+                    title: "编辑",
+                  },
+                  updateDashboardFormSchema
+                );
+                dialog
+                  .forOpen((payload, next) => {
+                    next({
+                      initialValues: {
+                        name: dashboard.name,
+                        description: dashboard.description,
+                      },
+                    });
+                  })
+                  .forConfirm(async (payload, next) => {
+                    const { name, description } = payload.values;
+                    await app.apiClient.request<any, APiWrap<{ id: number }>>({
+                      url: `${apiBase}/dashboard/${dashboard.id}`,
+                      method: "PUT",
+                      data: {
+                        name,
+                        description,
+                      },
+                    });
+                    message.success("修改成功");
+                    refetch && refetch();
+                    next(payload);
+                  })
+                  .open();
+              }
+            },
+            items: [
+              {
+                key: "preview",
+                label: "预览",
+              },
+              {
+                key: "share",
+                label: "分享",
+              },
+              {
+                key: "edit",
+                label: "编辑",
+              },
+              {
+                key: "delete",
+                label: "删除",
+              },
+            ],
+          }}
+        >
+          <IoIosMore />
+        </Dropdown>
       </div>
     </div>
   );

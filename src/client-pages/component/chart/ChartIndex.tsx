@@ -12,16 +12,17 @@ import type { IChartItem } from "./types";
 import type { APiWrap } from "@/api-client";
 import { useAPIClient, useRequest } from "@/api-client";
 import { apiBase } from "@/utils";
-import { useFormDialog } from "@/schema-component/antd";
+import { getFormDialog, useFormDialog } from "@/schema-component/antd";
 import PageContainer from "@/client-pages/components/PageContainer";
 import CardList from "@/client-pages/components/CardList";
+import { useTypeParam } from "@/client-pages/hooks";
 
 export function ChartIndex() {
   const navigate = useNavigate();
-  const { type } = useParams();
+  const { typeParam } = useTypeParam("all");
   const apiClient = useAPIClient();
 
-  const chartType = !type || type === "all" ? undefined : type;
+  const chartType = !typeParam || typeParam === "all" ? undefined : typeParam;
 
   const { data, refetch } = useRequest(`${apiBase}/chart`, {
     method: "GET",
@@ -31,7 +32,6 @@ export function ChartIndex() {
 
     refreshDeps: [chartType],
   });
-  const { getFormDialog } = useFormDialog();
 
   const createChart = () => {
     const dialog = getFormDialog(
@@ -64,7 +64,7 @@ export function ChartIndex() {
   const editChart = ({ id: chartId, name, type, description }: IChartItem) => {
     const dialog = getFormDialog(
       {
-        title: "新建",
+        title: "编辑",
       },
       createChartSchema
     );

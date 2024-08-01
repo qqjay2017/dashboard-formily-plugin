@@ -39,7 +39,7 @@ export function ChartListItem({
       >
         <div
           onClick={() => {
-            navigate(`/component/chart-edit/${id}`);
+            navigate(`/chart-edit/${id}`);
           }}
           className={css`
             width: 100%;
