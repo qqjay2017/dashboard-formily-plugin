@@ -14,13 +14,8 @@ import { useApp, useReportShare } from "@/application/hooks";
 import { apiBase, copyTextToClipboard } from "@/utils";
 import { useAPIClient, useRequest } from "@/api-client/hooks";
 import type { APiWrap } from "@/api-client/hooks";
-import {
-  FormDialogPortal,
-  showConfirmPromisify,
-  useFormDialog,
-} from "@/schema-component/antd";
-import { CreateBtnWrap } from "@/themes/style-components";
-import PageLayout from "@/client-pages/components/PageLayout";
+import { showConfirmPromisify, useFormDialog } from "@/schema-component/antd";
+
 import PageContainer from "@/client-pages/components/PageContainer";
 import CardList from "@/client-pages/components/CardList";
 
@@ -35,7 +30,7 @@ function DashboardMain() {
   const list = get(data, "data.data", []) || [];
 
   return (
-    <PageContainer extra={<CreateFormBtn />}>
+    <PageContainer title="仪表盘" extra={<CreateFormBtn />}>
       <CardList
         list={list}
         itemRender={(item) => {

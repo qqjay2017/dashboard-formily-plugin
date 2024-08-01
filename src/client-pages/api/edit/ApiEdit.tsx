@@ -66,7 +66,7 @@ function ApiEdit() {
     });
     const resId = get(res, "data.data.id", "");
     if (resId) {
-      navigate("/dapi/external-data");
+      navigate("/dapi/main");
     }
   };
 

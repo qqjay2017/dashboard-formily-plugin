@@ -36,7 +36,7 @@ const menuItems: MenuItem[] = [
   },
   {
     label: "数据工厂",
-    key: "/dapi/external-data",
+    key: "/dapi/main",
   },
   {
     label: "插件",

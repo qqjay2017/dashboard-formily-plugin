@@ -152,7 +152,13 @@ function PageContainer(props: IPageContainerProps) {
     <>
       <div style={style} className={containerClassName}>
         {pageHeaderDom}
-        {children}
+        <div
+          className={css`
+            padding: 0 24px 89px 24px;
+          `}
+        >
+          {children}
+        </div>
       </div>
       {footer && (
         <FooterToolbar {...footerToolBarProps}>{footer}</FooterToolbar>

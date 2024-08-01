@@ -5,13 +5,14 @@ import AdminLayoutPlugin from "./plugins/AdminLayoutPlugin";
 
 import ChartLayout from "./client-pages/component/chart/ChartLayout";
 import DashboardLayout from "./client-pages/dashboard/DashboardLayout";
+import ApiLayout from "./client-pages/api/ApiLayout";
 import Application from "@/application/Application";
 import { KxgcAuthPlugin } from "@/plugins";
 
 import NavigateHome from "@/client-pages/home-list/NavigateHome";
 
 const AssetsMain = lazy(() => import("@/client-pages/assets/main"));
-const ApiMagic = lazy(() => import("@/client-pages/api/magic/ApiMagic"));
+
 const ApiEdit = lazy(() => import("@/client-pages/api/edit/ApiEdit"));
 const ApiMain = lazy(() => import("@/client-pages/api/main"));
 
@@ -76,15 +77,16 @@ const application = new Application({
         path: "/assets",
         Component: AssetsMain,
       },
+      dapi: {
+        path: "/dapi",
+        Component: ApiLayout,
+      },
 
       "dapi.main": {
-        path: "/dapi/external-data",
+        path: "/dapi/main",
         Component: ApiMain,
       },
-      "dapi.magic": {
-        path: "/dapi/magic-api",
-        Component: ApiMagic,
-      },
+
       "dapi.edit": {
         path: "/dapi/edit",
         Component: ApiEdit,

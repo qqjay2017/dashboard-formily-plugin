@@ -18,5 +18,6 @@ export const layoutRightContentStyle = cx(
   css`
             flex-grow: 1;
             overflow: hidden auto;
+           
           `,
 )

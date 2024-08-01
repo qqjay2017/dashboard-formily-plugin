@@ -23,11 +23,7 @@ function CardList<T = any>({
     );
   }
   return (
-    <Row
-      className={css`
-        padding: 0 16px;
-      `}
-    >
+    <Row>
       {list.map((item) => {
         return (
           <Col
