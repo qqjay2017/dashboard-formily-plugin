@@ -18,7 +18,6 @@ import CardList from "@/client-pages/components/CardList";
 import { useTypeParam } from "@/client-pages/hooks";
 
 export function ChartIndex() {
-  const navigate = useNavigate();
   const { typeParam } = useTypeParam("all");
   const apiClient = useAPIClient();
 
@@ -33,38 +32,17 @@ export function ChartIndex() {
     refreshDeps: [chartType],
   });
 
-  const createChart = () => {
+  const editChart = (
+    { id: chartId = "", name, type, description }: Partial<IChartItem>,
+    {
+      isCreate,
+    }: {
+      isCreate?: boolean;
+    }
+  ) => {
     const dialog = getFormDialog(
       {
-        title: "新建",
-      },
-      createChartSchema
-    );
-
-    dialog
-      .forConfirm(async (payload, next) => {
-        const values = payload.values;
-        const res = await apiClient.request<any, APiWrap<{ id: number }>>({
-          url: `${apiBase}/chart`,
-          method: "POST",
-          data: {
-            ...values,
-            template: defaultChartTemplate,
-          },
-        });
-        const id = get(res, "data.data.id");
-        if (id) {
-          navigate(`/component/chart-edit/${id}`);
-        }
-        next(payload);
-      })
-      .open({});
-  };
-
-  const editChart = ({ id: chartId, name, type, description }: IChartItem) => {
-    const dialog = getFormDialog(
-      {
-        title: "编辑",
+        title: isCreate ? "新建" : "编辑",
       },
       createChartSchema
     );
@@ -83,9 +61,10 @@ export function ChartIndex() {
         const values = payload.values;
         const res = await apiClient.request<any, APiWrap<{ id: number }>>({
           url: `${apiBase}/chart/${chartId}`,
-          method: "PUT",
+          method: isCreate ? "POST" : "PUT",
           data: {
             ...values,
+            template: isCreate ? defaultChartTemplate : values.template,
           },
         });
         const id = get(res, "data.data.id");
@@ -102,7 +81,20 @@ export function ChartIndex() {
     <PageContainer
       title="图表组件"
       extra={[
-        <Button type="primary" onClick={createChart} key="createChartBtn">
+        <Button
+          type="primary"
+          onClick={() =>
+            editChart(
+              {
+                type: chartType,
+              },
+              {
+                isCreate: true,
+              }
+            )
+          }
+          key="createChartBtn"
+        >
           新建
         </Button>,
       ]}
@@ -114,7 +106,9 @@ export function ChartIndex() {
             <ChartListItem
               {...item}
               onEditClick={() => {
-                editChart(item);
+                editChart(item, {
+                  isCreate: false,
+                });
               }}
             />
           );
