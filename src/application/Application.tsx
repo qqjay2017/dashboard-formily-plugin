@@ -33,8 +33,7 @@ import {
 } from "@/dashboard-themes/global-theme";
 
 import { CSSVariableProvider } from "@/dashboard-themes/css-variable";
-
-import { SchemaComponentOptions } from "@/schema-component/components";
+import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
 
 export type ComponentAndProps<T = any> = [ComponentType, T];
 

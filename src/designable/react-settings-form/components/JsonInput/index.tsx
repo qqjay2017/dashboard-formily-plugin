@@ -1,4 +1,4 @@
-import { MonacoEditor } from "@/schema-component/components";
+import MonacoEditor from "@/schema-component/components/MonacoEditor";
 import type { FormItemComponentProps } from "@/types";
 
 export function JsonInput({

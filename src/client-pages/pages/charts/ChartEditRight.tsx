@@ -7,7 +7,7 @@ import { ChartView } from "./ChartView";
 import { useCustomThemeToken } from "@/dashboard-themes";
 import { useApp } from "@/application/hooks";
 import { ThemeCSSVariableProvider } from "@/dashboard-themes/css-variable";
-import { MonacoEditor } from "@/schema-component/components";
+import MonacoEditor from "@/schema-component/components/MonacoEditor";
 
 function ChartEditRightMain({
   chartOptionEditorRef,

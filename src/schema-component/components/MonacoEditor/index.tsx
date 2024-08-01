@@ -46,7 +46,7 @@ export interface MonacoEditorHandles {
   formatDocument: Function;
 }
 
-export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
+const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
   (props, reff) => {
     const {
       value,
@@ -185,3 +185,5 @@ export const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
     );
   }
 );
+
+export default MonacoEditor;

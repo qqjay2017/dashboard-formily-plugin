@@ -1,32 +1,30 @@
-import type {
-  BreakpointKey,
-  Breakpoints,
-} from "../../schema-component/components/PositionDecorator/types";
+import type { BreakpointKey, Breakpoints } from '@/schema-component/types'
 
 export function sortBreakpoints(breakpoints: Breakpoints): Array<string> {
   const keys: Array<BreakpointKey> = Object.keys(
-    breakpoints
-  ) as Array<BreakpointKey>;
+    breakpoints,
+  ) as Array<BreakpointKey>
   return keys.sort((a, b) => {
-    return breakpoints[a] - breakpoints[b];
-  });
+    return breakpoints[a] - breakpoints[b]
+  })
 }
 
 export function getBreakpointFromWidth(
   breakpoints: Breakpoints,
-  width: number
+  width: number,
 ): BreakpointKey {
   if (!width) {
-    return "desktop";
+    return 'desktop'
   }
-  const sorted = sortBreakpoints(breakpoints);
-  let matching = sorted[0] as BreakpointKey;
+  const sorted = sortBreakpoints(breakpoints)
+  let matching = sorted[0] as BreakpointKey
   if (!matching) {
-    return "desktop";
+    return 'desktop'
   }
   for (let i = 1, len = sorted.length; i < len; i++) {
-    const breakpointName = sorted[i] as BreakpointKey;
-    if (width > breakpoints[breakpointName]) matching = breakpointName;
+    const breakpointName = sorted[i] as BreakpointKey
+    if (width > breakpoints[breakpointName])
+      matching = breakpointName
   }
-  return matching;
+  return matching
 }

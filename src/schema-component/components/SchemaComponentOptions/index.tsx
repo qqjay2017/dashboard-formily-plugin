@@ -14,8 +14,8 @@ export interface ISchemaComponentOptionsProps {
   children?: React.ReactNode;
 }
 
-export const SchemaComponentOptions: React.FC<ISchemaComponentOptionsProps> =
-  memo((props) => {
+const SchemaComponentOptions: React.FC<ISchemaComponentOptionsProps> = memo(
+  (props) => {
     const { children } = props;
     const options = useSchemaOptionsContext();
     const components = useMemo(() => {
@@ -37,6 +37,7 @@ export const SchemaComponentOptions: React.FC<ISchemaComponentOptionsProps> =
         </SchemaComponentsContext.Provider>
       </SchemaOptionsContext.Provider>
     );
-  });
+  }
+);
 
-SchemaComponentOptions.displayName = "SchemaComponentOptions";
+export default SchemaComponentOptions;

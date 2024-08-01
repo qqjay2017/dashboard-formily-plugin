@@ -6,7 +6,7 @@ import { css } from "@emotion/css";
 import { Tabs } from "antd";
 import type { AxiosHeaders } from "axios";
 import { useQuery, useReqApiProxy } from "@/api-client";
-import { MonacoEditor } from "@/schema-component/components";
+import MonacoEditor from "@/schema-component/components/MonacoEditor";
 
 function ApiTestItemWrap({ children }: PropsWithChildren) {
   return (

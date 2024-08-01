@@ -9,8 +9,8 @@ import { useProjectBudgetOption } from "./useProjectBudgetOption";
 
 import { useToken } from "@/schema-component/antd/style";
 import { useRequest } from "@/api-client";
-import ConetentSpin from "@/schema-component/components/ConetentSpin/ConetentSpin";
-import CountTo from "@/schema-component/components/CountTo/CountTo";
+import CountTo from "@/schema-component/components/CountTo";
+import { EmptyKit } from "@/dashboard-themes/style-components";
 
 export function ProjectBudget({ query }) {
   const { token } = useToken();
@@ -25,7 +25,7 @@ export function ProjectBudget({ query }) {
   //   return null;
   // }
   return (
-    <ConetentSpin isLoading={isLoading}>
+    <EmptyKit loading={isLoading}>
       <div
         className={css`
           width: 100%;
@@ -72,6 +72,6 @@ export function ProjectBudget({ query }) {
           option={option}
         />
       </div>
-    </ConetentSpin>
+    </EmptyKit>
   );
 }

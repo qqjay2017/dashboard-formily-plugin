@@ -1,10 +1,8 @@
 import { useContext } from "react";
 
 import {
-  ExpressionScope,
   FormProvider,
   RecursionField,
-  SchemaComponentsContext,
   SchemaOptionsContext,
 } from "@formily/react";
 import { get } from "lodash-es";
@@ -41,11 +39,10 @@ import {
   useReportId,
 } from "@/schema-component/hooks";
 import { apiBase } from "@/utils";
-import {
-  PositionDecoratorPreview,
-  SchemaComponentOptions,
-} from "@/schema-component/components";
-import DashboardRootPreview from "@/schema-component/components/DashboardRoot/components/DashboardRootPreview";
+
+import DashboardRootPreview from "@/schema-component/components/DashboardRootPreview";
+import PositionDecoratorPreview from "@/schema-component/components/PositionDecorator";
+import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
 
 function PreviewPage() {
   const { reportId: shareURL } = useReportId();

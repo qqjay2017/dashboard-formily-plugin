@@ -13,8 +13,9 @@ import {
   SelectTrigger,
 } from "@/dashboard-themes/ui";
 import { sizeFormat } from "@/utils";
-import { useDashboardRoot } from "@/schema-component/components";
+
 import {
+  useDashboardRoot,
   useFetchProjectList,
   useJfGlobalProjectStore,
 } from "@/schema-component/hooks";

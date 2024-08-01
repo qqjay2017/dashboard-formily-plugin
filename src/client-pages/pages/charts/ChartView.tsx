@@ -4,13 +4,13 @@ import ReactECharts from "echarts-for-react";
 
 import { ErrorBoundary } from "react-error-boundary";
 
-import { useDashboardRootStyle } from "@/schema-component/components/DashboardRoot/styles";
 import { cn, cx } from "@/utils";
 import { useClassicFrameStyle } from "@/schema-component/widgets/frame/classic-frame/styles";
 import { AppError } from "@/application/components/defaultAppError";
 import { useApp } from "@/application/hooks";
 import chartDarkTheme from "@/dashboard-themes/global-theme/chart-theme/dark";
 import chartLightTheme from "@/dashboard-themes/global-theme/chart-theme/light";
+import { useDashboardRootStyle } from "@/schema-component/hooks";
 
 interface IChartViewCoreProps {
   option?: any;

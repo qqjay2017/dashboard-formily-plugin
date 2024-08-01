@@ -25,9 +25,10 @@ import {
 import { useApp } from "@/application/hooks";
 import { useCustomThemeToken } from "@/dashboard-themes";
 import { useToken } from "@/schema-component/antd/style";
-import type { MonacoEditorHandles } from "@/schema-component/components";
-import { MonacoEditor } from "@/schema-component/components";
+
 import { htmlImgUtil } from "@/utils/htmlImgUtil";
+import type { MonacoEditorHandles } from "@/schema-component/components/MonacoEditor";
+import MonacoEditor from "@/schema-component/components/MonacoEditor";
 
 function ChartEditPage() {
   const { token: antdToken } = useToken();

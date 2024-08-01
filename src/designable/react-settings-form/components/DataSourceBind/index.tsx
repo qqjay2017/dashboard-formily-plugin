@@ -8,10 +8,12 @@ import { IoIosRefresh, IoMdAdd } from "react-icons/io";
 import { observer } from "@formily/reactive-react";
 import type { FormItemComponentProps } from "../../../../types";
 import { FuncText } from "./FuncText";
-import { MonacoEditor } from "@/schema-component/components/MonacoEditor";
+
 import { useRequest } from "@/api-client";
-import CardItem from "@/schema-component/components/CardItem/CardItem";
+
 import { apiBase } from "@/utils";
+import CardItem from "@/schema-component/components/CardItem";
+import MonacoEditor from "@/schema-component/components/MonacoEditor";
 
 interface DataSourceBindProps extends FormItemComponentProps {}
 

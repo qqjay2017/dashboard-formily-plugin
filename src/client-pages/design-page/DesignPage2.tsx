@@ -13,8 +13,8 @@ import {
   useProjectSelectScope,
 } from "@/schema-component/widgets";
 
-import { SchemaComponentOptions } from "@/schema-component/components";
 import { Field, PositionDecorator } from "@/designable/Field";
+import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
 
 function DesignPage2() {
   const { data, isLoading, id } = useDashboardDt();

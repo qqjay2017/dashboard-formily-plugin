@@ -7,7 +7,7 @@ import { transformToTreeNode } from "@/designable/core";
 import { transformToSchema } from "@/designable/Field";
 
 import { cn } from "@/utils";
-import { MonacoEditor } from "@/schema-component/components";
+import MonacoEditor from "@/schema-component/components/MonacoEditor";
 
 export interface ISchemaEditorWidgetProps {
   tree: TreeNode;

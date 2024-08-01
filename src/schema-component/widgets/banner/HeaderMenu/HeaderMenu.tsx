@@ -22,8 +22,8 @@ import {
 
 import type { SchemComponentWithDataSourceProps } from "@/types";
 
-import ConetentSpin from "@/schema-component/components/ConetentSpin/ConetentSpin";
 import { takeFirstApiInfo } from "@/schema-component/shared";
+import { EmptyKit } from "@/dashboard-themes/style-components";
 
 const emptyCss = css`
   width: 100%;
@@ -216,7 +216,7 @@ export function HeaderMenu({ apiInfo }: SchemComponentWithDataSourceProps) {
   }
 
   return (
-    <ConetentSpin isLoading={isLoading}>
+    <EmptyKit loading={isLoading}>
       <div
         ref={ref}
         className={css`
@@ -276,6 +276,6 @@ export function HeaderMenu({ apiInfo }: SchemComponentWithDataSourceProps) {
           </div>
         </div>
       </div>
-    </ConetentSpin>
+    </EmptyKit>
   );
 }

@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { DashboardComponentContext } from '../context'
+import { DashboardComponentContext } from '@/schema-component/components/context'
 
 export function useDashboardComponent() {
   const ctx = useContext(DashboardComponentContext)

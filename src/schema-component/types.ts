@@ -6,7 +6,6 @@ import type {
 } from '@formily/react'
 import type { PropsWithChildren } from 'react'
 import type React from 'react'
-import type { BreakpointKey } from './components/PositionDecorator/types'
 
 export interface ISchemaComponentContext {
   formId?: string
@@ -108,3 +107,9 @@ export interface ProjectRow {
   [property: string]: any
 
 }
+
+export type DashboardRootProps = any
+
+export type BreakpointKey = 'showroom' | 'desktop' | 'tablet' | 'mobile'
+
+export type Breakpoints = Record<BreakpointKey, number>

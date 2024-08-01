@@ -1,6 +1,7 @@
 import type React from 'react'
 import { useMemo } from 'react'
-import { useDashboardRoot } from '../components'
+
+import { useDashboardRoot } from './hooks'
 import { sizeFormat } from '@/utils'
 
 export function useFrameSizeStyle() {

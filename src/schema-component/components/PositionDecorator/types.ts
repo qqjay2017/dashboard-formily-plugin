@@ -1,9 +1,6 @@
 import type { Schema } from '@formily/react'
 import type { PropsWithChildren } from 'react'
-
-export type BreakpointKey = 'showroom' | 'desktop' | 'tablet' | 'mobile'
-
-export type Breakpoints = Record<BreakpointKey, number>
+import type { BreakpointKey } from '@/schema-component/types'
 
 export interface DashboardRootRendererContextValue {
   breakpoint: BreakpointKey
@@ -16,15 +13,6 @@ export interface DashboardRootRendererContextValue {
   scale: number
   rootFieldSchema: Schema
   mobileRowHeight: number
-}
-
-export interface DashboardComponentContextValue {
-  refresh?: () => void
-  designable?: boolean
-  setDesignable?: (value: boolean) => void
-  distributed?: boolean
-  handleIds?: string[]
-  setHandleIds?: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 export interface PositionDecoratorOptions {
