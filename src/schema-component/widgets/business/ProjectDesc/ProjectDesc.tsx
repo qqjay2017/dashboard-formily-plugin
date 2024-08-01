@@ -9,7 +9,7 @@ import {
 } from "./style";
 import { useAutoScroll, useQueryToBusParams } from "@/schema-component/hooks";
 import type { SchemComponentWithDataSourceProps } from "@/types";
-import { EmptyKit } from "@/themes/style-components";
+import { EmptyKit } from "@/dashboard-themes/style-components";
 
 export function ProjectDesc({ query }: SchemComponentWithDataSourceProps) {
   const busParams = useQueryToBusParams(query);

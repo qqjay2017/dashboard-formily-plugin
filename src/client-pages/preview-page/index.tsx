@@ -9,7 +9,8 @@ import {
 } from "@formily/react";
 import { get } from "lodash-es";
 import { Helmet } from "react-helmet";
-import type { DashboardItem } from "../dashboard/types";
+
+import type { DashboardItem } from "../pages/dashboard/types";
 import {
   AiotMonitorBlock,
   ChartTemplate,

@@ -85,6 +85,12 @@ const titleStyle = css`
   text-align: left;
 `;
 
+/**
+ * 第一层,横向菜单封装
+ * @param param0
+ * @returns
+ */
+
 function HomeMenu({ children }: HomeMenuProps) {
   const { pathname } = useLocation();
   const navigate = useNavigate();

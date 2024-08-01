@@ -12,7 +12,7 @@ import { uid } from "@formily/shared";
 import type { FormItemComponentProps } from "../../../types";
 import { format } from "./format";
 import { initMonaco } from "./config";
-import { BASE_URL } from "@/env";
+import { BASE_URL } from "@/utils/env";
 
 import "./styles.less";
 import { usePrefix, useTheme } from "@/designable/react";

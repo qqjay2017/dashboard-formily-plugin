@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { useLocation } from "react-router-dom";
-import DashboardLayout from "@/client-pages/components/DashboardLayout";
+import AdminLayoutContainer from "@/client-pages/components/AdminLayoutContainer";
 
 export function AdminLayout(props: PropsWithChildren) {
   const { pathname } = useLocation();
@@ -9,5 +9,5 @@ export function AdminLayout(props: PropsWithChildren) {
     return props.children;
   }
 
-  return <DashboardLayout>{props.children}</DashboardLayout>;
+  return <AdminLayoutContainer>{props.children}</AdminLayoutContainer>;
 }

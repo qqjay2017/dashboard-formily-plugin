@@ -4,7 +4,7 @@ import type { DnFC } from '@/designable/react'
 import { createBehavior, createResource } from '@/designable/core'
 import { rs } from '@/utils'
 import { createFieldSchema } from '@/designable/Field'
-import mapGlobalProps from '@/schema-component/core/mapGlobalProps'
+import mapGlobalProps from '@/schema-component/shared/mapGlobalProps'
 
 export const FormilyProjectDesc: DnFC<any> = connect(ProjectDesc, mapGlobalProps())
 

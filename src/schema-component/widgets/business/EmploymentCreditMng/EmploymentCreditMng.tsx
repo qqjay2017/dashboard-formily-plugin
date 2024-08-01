@@ -11,7 +11,7 @@ import {
   useQueryToBusParams,
 } from "@/schema-component/hooks";
 import type { SchemComponentWithDataSourceProps } from "@/types";
-import { EmptyKit } from "@/themes/style-components";
+import { EmptyKit } from "@/dashboard-themes/style-components";
 
 export function EmploymentCreditMng({
   apiInfo,

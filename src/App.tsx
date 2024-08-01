@@ -1,40 +1,29 @@
 import { lazy } from "react";
-import { BASE_URL } from "./env";
+import { BASE_URL } from "./utils/env";
 
 import AdminLayoutPlugin from "./plugins/AdminLayoutPlugin";
 
-import ChartLayout from "./client-pages/component/chart/ChartLayout";
-import DashboardLayout from "./client-pages/dashboard/DashboardLayout";
-import ApiLayout from "./client-pages/api/ApiLayout";
-import SystemLayout from "./client-pages/system/SystemLayout";
-import SystemDatasource from "./client-pages/system/data-source";
-import SystemFilter from "./client-pages/system/filter";
-import SystemAppName from "./client-pages/system/app-name";
+import {
+  ApiEditPage,
+  ApiIndex,
+  ApiLayout,
+  AppNameIndex,
+  ChartEditPage,
+  ChartsIndex,
+  ChartsLayout,
+  DashboardIndex,
+  DashboardLayout,
+  DataSourceIndex,
+  DesignPage2,
+  FilterIndex,
+  HomeIndex,
+  NavigateHome,
+  PreviewPage,
+  SystemLayout,
+} from "./client-pages/pages";
 import Application from "@/application/Application";
 import { KxgcAuthPlugin } from "@/plugins";
 
-import NavigateHome from "@/client-pages/home-list/NavigateHome";
-
-const AssetsMain = lazy(() => import("@/client-pages/assets/main"));
-
-const ApiEdit = lazy(() => import("@/client-pages/api/edit/ApiEdit"));
-const ApiMain = lazy(() => import("@/client-pages/api/main"));
-
-const ChartIndex = lazy(
-  () => import("@/client-pages/component/chart/ChartIndex")
-);
-const DashboardMain = lazy(() => import("@/client-pages/dashboard/main"));
-const HomeMain = lazy(() => import("@/client-pages/home/main"));
-const PluginMain = lazy(() => import("@/client-pages/plugin/main"));
-
-const PreviewPage = lazy(() => import("@/client-pages/preview-page"));
-
-const DesignPage2 = lazy(
-  () => import("./client-pages/design-page/DesignPage2")
-);
-const ChartEditPage = lazy(
-  () => import("@/client-pages/component/chart/ChartEditPage")
-);
 const application = new Application({
   providers: [],
   plugins: [KxgcAuthPlugin, AdminLayoutPlugin],
@@ -52,7 +41,7 @@ const application = new Application({
 
       home: {
         path: "/home",
-        Component: HomeMain,
+        Component: HomeIndex,
       },
 
       dashboard: {
@@ -61,26 +50,22 @@ const application = new Application({
       },
       "dashboard.all": {
         path: "/dashboard/all",
-        Component: DashboardMain,
+        Component: DashboardIndex,
       },
 
       chart: {
         path: "/charts",
-        Component: ChartLayout,
+        Component: ChartsLayout,
       },
       "chart.type": {
         path: "/charts/:type",
-        Component: ChartIndex,
+        Component: ChartsIndex,
       },
       chartEdit: {
         path: "/chart-edit/:id",
         Component: ChartEditPage,
       },
 
-      assets: {
-        path: "/assets",
-        Component: AssetsMain,
-      },
       dapi: {
         path: "/dapi",
         Component: ApiLayout,
@@ -88,43 +73,29 @@ const application = new Application({
 
       "dapi.main": {
         path: "/dapi/main",
-        Component: ApiMain,
+        Component: ApiIndex,
       },
 
       dapiedit: {
         path: "/dapi-edit",
-        Component: ApiEdit,
+        Component: ApiEditPage,
       },
 
-      plugin: {
-        path: "/plugin",
-        Component: PluginMain,
-      },
-
-      template: {
-        path: "/template",
-        Component: PluginMain,
-      },
-
-      gis: {
-        path: "/gis",
-        Component: PluginMain,
-      },
       system: {
         path: "/system",
         Component: SystemLayout,
       },
       "system.datasource": {
         path: "/system/datasource",
-        Component: SystemDatasource,
+        Component: DataSourceIndex,
       },
       "system.filter": {
         path: "/system/filter",
-        Component: SystemFilter,
+        Component: FilterIndex,
       },
       "system.appname": {
         path: "/system/appname",
-        Component: SystemAppName,
+        Component: AppNameIndex,
       },
       dashboarddesign: {
         path: "/dashboard-design/:id",

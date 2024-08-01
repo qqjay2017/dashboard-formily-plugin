@@ -1,4 +1,9 @@
-import { type PropsWithChildren, type ReactNode, useContext } from "react";
+import {
+  Fragment,
+  type PropsWithChildren,
+  type ReactNode,
+  useContext,
+} from "react";
 import { css, cx } from "@emotion/css";
 import type { IPageLayoutContextProps } from "../PageLayout/context";
 import { PageLayoutContext } from "../PageLayout/context";
@@ -7,6 +12,7 @@ import type { FooterToolbarProps } from "./FooterToolbar";
 import { FooterToolbar } from "./FooterToolbar";
 import type { PageHeaderProps } from "./PageHeader";
 import PageHeader from "./PageHeader";
+import { FormDialogPortal } from "@/schema-component/antd";
 
 export type IPageContainerProps = {
   containerClassName?: string;
@@ -23,6 +29,7 @@ export type IPageContainerProps = {
   pageHeaderRender?: false | Function;
   children?: ReactNode | undefined;
   hashId?: string;
+  withFormDialog?: boolean;
 } & Omit<
   PageHeaderProps,
   "title" | "footer" | "breadcrumbRender" | "breadcrumb"
@@ -131,6 +138,12 @@ function memoRenderPageHeader(
   );
 }
 
+/**
+ * 通用页面容器封装
+ * @param props
+ * @returns
+ */
+
 function PageContainer(props: IPageContainerProps) {
   const {
     footer,
@@ -140,6 +153,7 @@ function PageContainer(props: IPageContainerProps) {
     children,
     hashId = "",
 
+    withFormDialog = false,
     ...restProps
   } = props;
 
@@ -154,9 +168,15 @@ function PageContainer(props: IPageContainerProps) {
     prefixCls: undefined,
     value,
   });
+
+  const Wrap = withFormDialog ? FormDialogPortal : Fragment;
+
   return (
-    <>
-      <div style={style} className={containerClassName}>
+    <Wrap>
+      <div
+        style={style}
+        className={cx("pageContainerDomWrap", containerClassName)}
+      >
         {pageHeaderDom}
         <div
           className={css`
@@ -169,7 +189,7 @@ function PageContainer(props: IPageContainerProps) {
       {footer && (
         <FooterToolbar {...footerToolBarProps}>{footer}</FooterToolbar>
       )}
-    </>
+    </Wrap>
   );
 }
 export default PageContainer;

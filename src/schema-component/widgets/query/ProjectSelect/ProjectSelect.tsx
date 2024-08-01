@@ -11,7 +11,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@/themes/style-components/ui";
+} from "@/dashboard-themes/ui";
 import { sizeFormat } from "@/utils";
 import { useDashboardRoot } from "@/schema-component/components";
 import {

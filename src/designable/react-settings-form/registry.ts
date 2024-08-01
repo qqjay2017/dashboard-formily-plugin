@@ -1,5 +1,5 @@
 import loader from '@monaco-editor/loader'
-import { BASE_URL } from '@/env'
+import { BASE_URL } from '@/utils/env'
 
 const Registry = {
   cdn: `${window.origin}${BASE_URL}npm`,

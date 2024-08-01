@@ -14,7 +14,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { message, notification } from "antd";
 import type { APIClientOptions } from "../sdk";
 
-import { AntdAppProvider, GlobalThemeProvider } from "../themes/global-theme";
 import { APIClient, APIClientProvider } from "../api-client";
 
 import { compose, normalizeContainer } from "./utils";
@@ -28,9 +27,13 @@ import {
 } from "./components";
 import { RouterManager } from "./RouterManager";
 import type { ComponentTypeAndString, RouterOptions } from "./RouterManager";
+import {
+  AntdAppProvider,
+  GlobalThemeProvider,
+} from "@/dashboard-themes/global-theme";
 
-import { CSSVariableProvider } from "@/themes/css-variable";
-import { FormDialogPortal } from "@/schema-component/antd";
+import { CSSVariableProvider } from "@/dashboard-themes/css-variable";
+
 import { SchemaComponentOptions } from "@/schema-component/components";
 
 export type ComponentAndProps<T = any> = [ComponentType, T];
@@ -120,7 +123,7 @@ class Application {
     //   components: this.components,
     //   scope: this.scopes,
     // });
-    this.use(FormDialogPortal);
+
     this.use(SchemaComponentOptions, {
       components: this.components,
       scope: this.scopes,

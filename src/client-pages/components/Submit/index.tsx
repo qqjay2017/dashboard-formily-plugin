@@ -10,6 +10,12 @@ export interface ISubmitProps extends ButtonProps {
   onSubmitFailed?: (feedbacks: IFormFeedback[]) => void;
 }
 
+/**
+ * 提交按钮封装
+ * @param param0
+ * @returns
+ */
+
 export default function Submit({
   onSubmit,
   onSubmitSuccess,
@@ -22,13 +28,14 @@ export default function Submit({
     <Button
       {...props}
       loading={props.loading !== undefined ? props.loading : form.submitting}
-      onClick={(e) => {
+      onClick={async (e) => {
         try {
           if (props.onClick) {
             if (props.onClick(e) === false) return false;
           }
           if (onSubmit) {
-            form.submit(onSubmit).then(onSubmitSuccess).catch(onSubmitFailed);
+            const values = await form.submit(onSubmit);
+            onSubmitSuccess && onSubmitSuccess(values);
           }
         } catch (error) {
           console.log(error, "Submit error");

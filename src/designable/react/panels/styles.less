@@ -9,10 +9,14 @@
   position: relative;
   overflow: hidden;
 
-  >* {
+  >.pageContainerDomWrap {
     width: 100%;
-    overflow: hidden auto;
+    overflow: auto;
     flex-grow: 1;
+  }
+
+  .pageContainerDomWrap {
+    min-height: 100%;
   }
 
   &-container {

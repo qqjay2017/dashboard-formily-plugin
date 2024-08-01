@@ -17,7 +17,9 @@ export const layoutRightContentStyle = cx(
   designScrollBarStyle,
   css`
             flex-grow: 1;
-            overflow: hidden auto;
+            overflow:hidden  auto;
+            position:relative;
+            z-index:2;
            
           `,
 )

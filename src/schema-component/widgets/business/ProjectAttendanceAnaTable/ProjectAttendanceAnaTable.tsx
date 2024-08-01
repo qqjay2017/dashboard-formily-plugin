@@ -1,12 +1,12 @@
 import { css } from "@emotion/css";
 import { get } from "lodash-es";
 
-import { DataTable } from "@/themes/style-components/ui";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import {
   useDataBindFetch,
   useQueryToBusParams,
 } from "@/schema-component/hooks";
+import { DataTable } from "@/dashboard-themes/ui";
 
 interface ProjectAttendanceItem {
   projectName: string;

@@ -5,15 +5,16 @@ import { get } from "lodash-es";
 import type { ChartTemplateProps } from "./types";
 import { useFetchChartConfig } from "./hooks/useFetchChartConfig";
 import { useChartOption } from "./hooks";
-import { EmptyKit } from "@/themes/style-components";
 
 import {
   useDataBindFetch,
   useQueryToBusParams,
 } from "@/schema-component/hooks";
 import { useToken } from "@/schema-component/antd/style";
-import chartDarkTheme from "@/themes/global-theme/chart-theme/dark";
-import chartLightTheme from "@/themes/global-theme/chart-theme/light";
+
+import { EmptyKit } from "@/dashboard-themes/style-components";
+import chartDarkTheme from "@/dashboard-themes/global-theme/chart-theme/dark";
+import chartLightTheme from "@/dashboard-themes/global-theme/chart-theme/light";
 
 export function ChartTemplateWithDataSource({
   chartId,

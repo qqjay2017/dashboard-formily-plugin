@@ -1,11 +1,17 @@
 import { css, cx } from "@emotion/css";
 import type { TableProps } from "antd";
 import { Table } from "antd";
-import { tableDefaultProps } from "@/client-pages/utils";
+import { tableDefaultProps } from "@/utils";
 
 interface IInternalTableProps extends TableProps {
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
 }
+
+/**
+ * 通用table封装
+ * @param param0
+ * @returns
+ */
 
 export default function InternalTable({
   containerProps,

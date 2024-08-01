@@ -1,4 +1,4 @@
-import { BASE_URL, isProduct } from '@/env'
+import { BASE_URL, isProduct } from '@/utils/env'
 
 export function resolveStatic(path = '') {
   if (isProduct) {

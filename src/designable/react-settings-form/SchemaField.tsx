@@ -16,7 +16,7 @@ import {
   Switch,
   TimePicker,
 } from "@formily/antd-v5";
-import { Slider } from "antd";
+import { Card, Slider } from "antd";
 
 import ReactionsSetter from "../setters/ReactionsSetter";
 import {
@@ -60,7 +60,7 @@ export const SchemaField = createSchemaField({
     SizeInput,
     ColorInput,
     ImageInput,
-
+    Card,
     PositionInput,
     CornerInput,
     BackgroundImageInput,

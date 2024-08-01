@@ -8,6 +8,12 @@ interface IInternalFormLayoutProps extends IFormLayoutProps, PropsWithChildren {
   schema?: ISchema;
 }
 
+/**
+ * 通用form封装
+ * @param param0
+ * @returns
+ */
+
 export default function InternalFormLayout({
   schema,
   children,

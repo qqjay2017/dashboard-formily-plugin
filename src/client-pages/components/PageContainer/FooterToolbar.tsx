@@ -27,7 +27,6 @@ export function FooterToolbar(props: FooterToolbarProps) {
     portalDom = true,
     style,
     renderContent,
-
     ...restProps
   } = props;
   const { getTargetContainer } = useContext(ConfigProvider.ConfigContext);
@@ -90,7 +89,7 @@ export function FooterToolbar(props: FooterToolbarProps) {
       value?.setHasFooterToolbar?.(false);
     };
   }, []);
-  console.log(width, "width");
+
   const renderDom = (
     <div
       className={cx(
@@ -109,7 +108,6 @@ export function FooterToolbar(props: FooterToolbarProps) {
           line-height: 64px;
           background-color: rgba(255, 255, 255, 0.6);
           border-block-start: 1px solid rgba(5, 5, 5, 0.06);
-
           backdrop-filter: blur(8px);
           color: rgba(0, 0, 0, 0.88);
           transition: all 0.2s ease 0s;

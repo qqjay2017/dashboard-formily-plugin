@@ -18,12 +18,12 @@ import {
   NextButton,
   PrevButton,
   usePrevNextButtons,
-} from "@/themes/style-components/ui";
+} from "@/dashboard-themes/ui";
 
 import type { SchemComponentWithDataSourceProps } from "@/types";
 
 import ConetentSpin from "@/schema-component/components/ConetentSpin/ConetentSpin";
-import { takeFirstApiInfo } from "@/schema-component/core";
+import { takeFirstApiInfo } from "@/schema-component/shared";
 
 const emptyCss = css`
   width: 100%;

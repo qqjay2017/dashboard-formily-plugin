@@ -1,12 +1,13 @@
 import ReactECharts from "echarts-for-react";
 import { get } from "lodash-es";
 import { useChartOption, useFetchChartConfig } from "./hooks";
-import { EmptyKit } from "@/themes/style-components";
+
 import { useToken } from "@/schema-component/antd/style";
 
-import chartDarkTheme from "@/themes/global-theme/chart-theme/dark";
-import chartLightTheme from "@/themes/global-theme/chart-theme/light";
 import type { SchemComponentWithDataSourceProps } from "@/types";
+import { EmptyKit } from "@/dashboard-themes/style-components";
+import chartDarkTheme from "@/dashboard-themes/global-theme/chart-theme/dark";
+import chartLightTheme from "@/dashboard-themes/global-theme/chart-theme/light";
 
 interface ChartTemplateWithOutDataProps
   extends SchemComponentWithDataSourceProps {

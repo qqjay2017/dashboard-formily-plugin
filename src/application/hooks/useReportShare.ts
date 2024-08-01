@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { BASE_URL, isProduct } from '@/env'
+import { BASE_URL, isProduct } from '@/utils/env'
 
 export function useReportShare() {
   const navigate = useNavigate()

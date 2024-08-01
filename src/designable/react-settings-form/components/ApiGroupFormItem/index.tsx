@@ -10,7 +10,7 @@ import { useAPIClient } from "@/api-client";
 import { apiBase } from "@/utils";
 import type { FormItemComponentProps } from "@/types";
 import { useGroupList } from "@/application/hooks";
-import { useFormDialog } from "@/schema-component/antd";
+import { getFormDialog } from "@/schema-component/antd";
 
 const createApiGroupSchema: ISchema = {
   type: "object",
@@ -44,7 +44,6 @@ export function ApiGroupFormItem({
     };
   });
 
-  const { getFormDialog } = useFormDialog();
   return (
     <div>
       <div

@@ -5,7 +5,7 @@ import { ChartTemplateWithDataSource } from "./ChartTemplateWithDataSource";
 import { ChartTemplateWithOutData } from "./ChartTemplateWithOutData";
 
 import type { SchemComponentWithDataSourceProps } from "@/types";
-import { takeFirstApiInfo } from "@/schema-component/core";
+import { takeFirstApiInfo } from "@/schema-component/shared";
 
 interface ChartTemplateProps extends SchemComponentWithDataSourceProps {
   chartId?: string;

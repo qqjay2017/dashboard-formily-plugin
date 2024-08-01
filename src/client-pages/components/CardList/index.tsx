@@ -9,6 +9,12 @@ interface ICardListProps<T = any> {
   itemRender?: (item: T) => React.ReactNode;
 }
 
+/**
+ * 卡片页面封装
+ * @param param0
+ * @returns
+ */
+
 function CardList<T = any>({
   list = [],
   rowKey = "id",

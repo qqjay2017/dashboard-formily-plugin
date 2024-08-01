@@ -10,7 +10,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@/themes/style-components/ui";
+} from "@/dashboard-themes/ui";
 import { useDashboardRoot } from "@/schema-component/components";
 import { sizeFormat } from "@/utils";
 import type { FormItemComponentProps } from "@/types";

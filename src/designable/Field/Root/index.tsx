@@ -17,9 +17,9 @@ import {
 import { cn, sizeFormat } from "@/utils";
 import { useCustomThemeToken } from "@/dashboard-themes";
 
-import { fontStyle } from "@/themes/global-theme/font-style";
+import { fontStyle } from "@/dashboard-themes/global-theme/font-style";
 
-import { ThemeCSSVariableProvider } from "@/themes/css-variable";
+import { ThemeCSSVariableProvider } from "@/dashboard-themes/css-variable";
 import type { DashboardRootProps } from "@/schema-component/components";
 import { useScrollBarStyle } from "@/schema-component/hooks";
 

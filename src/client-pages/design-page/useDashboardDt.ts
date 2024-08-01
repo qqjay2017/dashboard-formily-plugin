@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
-// import { useEffect, useState } from 'react';
-import type { DashboardItem } from '../dashboard/types'
+
+import type { DashboardItem } from '../pages/dashboard/types'
 import type { APiWrap } from '@/api-client'
 import { useRequest } from '@/api-client'
 

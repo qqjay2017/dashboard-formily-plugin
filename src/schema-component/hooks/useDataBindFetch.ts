@@ -1,7 +1,7 @@
 import { get } from 'lodash-es'
 import { useMemo } from 'react'
 import type { DataSourceBindType } from '../types'
-import { takeFirstApiInfo } from '../core'
+import { takeFirstApiInfo } from '../shared'
 import { useQuery, useReqApiProxy } from '@/api-client'
 
 /**

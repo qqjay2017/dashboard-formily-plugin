@@ -7,7 +7,7 @@ import { useAPIClient, useQuery } from "@/api-client";
 
 import type { FormItemComponentProps } from "@/types";
 import { apiBase } from "@/utils";
-import { useFormDialog } from "@/schema-component/antd";
+import { getFormDialog } from "@/schema-component/antd";
 
 const createApiBaseNameSchema: ISchema = {
   type: "object",
@@ -51,8 +51,6 @@ export function ApiBaseNameFormItem({
       value: item.baseName,
     };
   });
-
-  const { getFormDialog } = useFormDialog();
 
   return (
     <div>

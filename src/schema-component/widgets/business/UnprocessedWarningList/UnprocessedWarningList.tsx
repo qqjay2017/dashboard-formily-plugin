@@ -8,7 +8,7 @@ import {
   useDataBindFetch,
   useQueryToBusParams,
 } from "@/schema-component/hooks";
-import { EmptyKit } from "@/themes/style-components";
+import { EmptyKit } from "@/dashboard-themes/style-components";
 
 export function UnprocessedWarningList({
   query,
