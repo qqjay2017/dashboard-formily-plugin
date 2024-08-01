@@ -203,6 +203,9 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
       <div
         ref={ref}
         className={cx(
+          css`
+            font-size: 14px;
+          `,
           // scrollBarStyle.styles,
           _theme === "light" ? lightStyle : darkStyle
         )}

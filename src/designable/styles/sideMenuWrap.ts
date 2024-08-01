@@ -7,15 +7,15 @@ export const sideMenuWrapStyle = css` flex-grow: 0;
           height: 100%;
           width: 200px;
           position: relative;
-          
+            transition: all 0.2s;
           .ant-menu {
             min-height:100%;
           }
           `
 
 export const layoutRightContentStyle = cx(
-    designScrollBarStyle,
-    css`
+  designScrollBarStyle,
+  css`
             flex-grow: 1;
             overflow: hidden auto;
           `,

@@ -8,35 +8,29 @@ import {
 import { LuDatabase } from "react-icons/lu";
 import PageLayout from "../components/PageLayout";
 import { useTypeParam } from "../hooks";
+import LayoutMenuWrap from "../components/layout/LayoutMenuWrap";
 import {
   layoutRightContentStyle,
   sideMenuWrapStyle,
 } from "@/designable/styles";
 
 function DashboardLayout() {
-  const navigate = useNavigate();
-
-  const { type: paramType } = useParams<{ type: string }>();
   const { typeParam, setTypeParam } = useTypeParam("all");
   return (
     <PageLayout>
-      <div className={sideMenuWrapStyle}>
-        <Menu
-          selectedKeys={[typeParam]}
-          defaultSelectedKeys={[paramType]}
-          onClick={({ key }) => {
-            setTypeParam(key);
-          }}
-          mode="inline"
-          items={[
-            {
-              label: "全部",
-              key: "all",
-              icon: <LuDatabase />,
-            },
-          ]}
-        />
-      </div>
+      <LayoutMenuWrap
+        selectedKeys={[typeParam]}
+        onClick={({ key }) => {
+          setTypeParam(key);
+        }}
+        items={[
+          {
+            label: "全部",
+            key: "all",
+            icon: <LuDatabase />,
+          },
+        ]}
+      />
       <div className={layoutRightContentStyle}>
         <Outlet />
       </div>

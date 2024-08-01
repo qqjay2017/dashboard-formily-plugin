@@ -1,7 +1,6 @@
 import { Button } from "antd";
 
 import { get } from "lodash-es";
-import { useNavigate, useParams } from "react-router-dom";
 
 import { defaultChartTemplate } from "./consts";
 

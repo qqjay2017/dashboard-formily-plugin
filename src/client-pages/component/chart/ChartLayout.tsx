@@ -1,40 +1,35 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import { LuDatabase } from "react-icons/lu";
-import { Menu } from "antd";
+
 import { allChartType } from "./consts";
 
 import PageLayout from "@/client-pages/components/PageLayout";
 
-import {
-  layoutRightContentStyle,
-  sideMenuWrapStyle,
-} from "@/designable/styles";
+import { layoutRightContentStyle } from "@/designable/styles";
 import { useTypeParam } from "@/client-pages/hooks";
 
-function ChartLayout() {
-  const navigate = useNavigate();
-  const { typeParam, setTypeParam } = useTypeParam("all");
+import LayoutMenuWrap from "@/client-pages/components/layout/LayoutMenuWrap";
 
+function ChartLayout() {
+  const { typeParam, setTypeParam } = useTypeParam("all");
   return (
     <PageLayout>
-      <div className={sideMenuWrapStyle}>
-        <Menu
-          selectedKeys={[typeParam]}
-          onClick={({ key }) => {
-            setTypeParam(key);
-          }}
-          mode="inline"
-          items={[
-            {
-              label: "全部",
-              key: "all",
-              icon: <LuDatabase />,
-            },
-            ...allChartType,
-          ]}
-        />
-      </div>
+      <LayoutMenuWrap
+        selectedKeys={[typeParam]}
+        onClick={({ key }) => {
+          setTypeParam(key);
+        }}
+        items={[
+          {
+            label: "全部",
+            key: "all",
+            icon: <LuDatabase />,
+          },
+          ...allChartType,
+        ]}
+      />
+
       <div className={layoutRightContentStyle}>
         <Outlet />
       </div>
