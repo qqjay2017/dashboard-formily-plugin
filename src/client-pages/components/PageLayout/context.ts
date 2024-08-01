@@ -4,4 +4,4 @@ interface IPageLayoutContextProps {
 
 }
 
-export const PageLayoutContext = createContext<IPageLayoutContextProps>(null)
+export const PageLayoutContext = createContext<IPageLayoutContextProps>({})

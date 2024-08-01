@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Button } from "antd";
+import { Button, Col, Row } from "antd";
 
 import { get } from "lodash-es";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -15,6 +15,7 @@ import type { APiWrap } from "@/api-client";
 import { useAPIClient, useRequest } from "@/api-client";
 import { apiBase } from "@/utils";
 import { useFormDialog } from "@/schema-component/antd";
+import PageContainer from "@/client-pages/components/PageContainer";
 
 export function ChartIndex() {
   const navigate = useNavigate();
@@ -99,31 +100,48 @@ export function ChartIndex() {
   const chartList: IChartItem[] = get(data, "data.data", []) || [];
 
   return (
-    <>
-      <CreateBtnWrap>
-        <Button type="primary" onClick={createChart}>
+    <PageContainer
+      title="图表组件"
+      extra={[
+        <Button type="primary" onClick={createChart} key="createChartBtn">
           新建
-        </Button>
-      </CreateBtnWrap>
-      <div
+        </Button>,
+      ]}
+    >
+      <Row
         className={css`
-          display: flex;
-          flex-wrap: wrap;
+          padding: 0 16px;
         `}
       >
         {chartList.map((c) => {
           return (
-            <ChartListItem
+            <Col
+              span={24}
+              xs={24}
+              sm={12}
+              md={12}
+              lg={8}
+              xl={6}
               key={c.id}
-              {...c}
-              onEditClick={() => {
-                editChart(c);
-              }}
-            />
+              className={css`
+                /* padding: 0 8px; */
+                margin-block: 8px;
+                margin-inline: 0;
+                padding-block: 0;
+                padding-inline: 8px;
+              `}
+            >
+              <ChartListItem
+                {...c}
+                onEditClick={() => {
+                  editChart(c);
+                }}
+              />
+            </Col>
           );
         })}
-      </div>
-    </>
+      </Row>
+    </PageContainer>
   );
 }
 export default ChartIndex;

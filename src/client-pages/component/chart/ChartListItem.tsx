@@ -1,10 +1,10 @@
-import { css } from '@emotion/css'
-import { useNavigate } from 'react-router-dom'
-import { FaRegEdit } from 'react-icons/fa'
-import type { IChartItem } from './types'
+import { css } from "@emotion/css";
+import { useNavigate } from "react-router-dom";
+import { FaRegEdit } from "react-icons/fa";
+import type { IChartItem } from "./types";
 
 interface IChartListItemProps extends IChartItem {
-  onEditClick?: Function
+  onEditClick?: Function;
 }
 
 export function ChartListItem({
@@ -14,12 +14,11 @@ export function ChartListItem({
   description,
   onEditClick,
 }: IChartListItemProps) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div
       className={css`
-        width: 270px;
-        margin: 16px;
+        /* width: 100%; */
         &:hover {
           box-shadow: rgba(29, 41, 57, 0.14) 0px 6px 18px;
         }
@@ -40,7 +39,7 @@ export function ChartListItem({
       >
         <div
           onClick={() => {
-            navigate(`/component/chart-edit/${id}`)
+            navigate(`/component/chart-edit/${id}`);
           }}
           className={css`
             width: 100%;
@@ -74,7 +73,7 @@ export function ChartListItem({
               cursor: pointer;
             `}
             onClick={() => {
-              onEditClick && onEditClick()
+              onEditClick && onEditClick();
             }}
           >
             <FaRegEdit />
@@ -101,5 +100,5 @@ export function ChartListItem({
         </div>
       </div>
     </div>
-  )
+  );
 }
