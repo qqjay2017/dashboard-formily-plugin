@@ -42,10 +42,10 @@ import {
 } from "@/schema-component/hooks";
 import { apiBase } from "@/utils";
 import {
-  DashboardRootPreview,
   PositionDecoratorPreview,
   SchemaComponentOptions,
 } from "@/schema-component/components";
+import DashboardRootPreview from "@/schema-component/components/DashboardRoot/components/DashboardRootPreview";
 
 function PreviewPage() {
   const { reportId: shareURL } = useReportId();

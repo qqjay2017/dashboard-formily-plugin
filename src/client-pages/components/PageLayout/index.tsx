@@ -13,7 +13,7 @@ interface IPageLayoutProps extends PropsWithChildren {
 function PageLayout({ children, hasSiderMenu = true }: IPageLayoutProps) {
   const value = useContext(PageLayoutContext);
   const [collapsed, seCollapsed] = useState(false);
-  const [hasFooterToolbar, setHasFooterToolbar] = useState(true);
+  const [hasFooterToolbar, setHasFooterToolbar] = useState(false);
 
   return (
     <PageLayoutContext.Provider

@@ -15,10 +15,7 @@ import { cn, cx, sizeFormat } from "@/utils";
 import { ThemeCSSVariableProvider } from "@/dashboard-themes/css-variable";
 import { useScrollBarStyle } from "@/schema-component/hooks";
 
-export function DashboardRootPreview({
-  children,
-  ...props
-}: DashboardRootProps) {
+function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
   const {
     breakpoints = defaultBreakpoints,
     designWidth = 1920,
@@ -186,3 +183,5 @@ export function DashboardRootPreview({
     </DesignPageConext.Provider>
   );
 }
+
+export default DashboardRootPreview;
