@@ -1,21 +1,20 @@
-import { css } from "@emotion/css";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 
 import { get } from "lodash-es";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { defaultChartTemplate } from "./consts";
 
 import { createChartSchema } from "./createChartSchema";
 import { ChartListItem } from "./ChartListItem";
 import type { IChartItem } from "./types";
-import { CreateBtnWrap } from "@/themes/style-components";
 
 import type { APiWrap } from "@/api-client";
 import { useAPIClient, useRequest } from "@/api-client";
 import { apiBase } from "@/utils";
 import { useFormDialog } from "@/schema-component/antd";
 import PageContainer from "@/client-pages/components/PageContainer";
+import CardList from "@/client-pages/components/CardList";
 
 export function ChartIndex() {
   const navigate = useNavigate();
@@ -108,39 +107,19 @@ export function ChartIndex() {
         </Button>,
       ]}
     >
-      <Row
-        className={css`
-          padding: 0 16px;
-        `}
-      >
-        {chartList.map((c) => {
+      <CardList
+        list={chartList}
+        itemRender={(item) => {
           return (
-            <Col
-              span={24}
-              xs={24}
-              sm={12}
-              md={12}
-              lg={8}
-              xl={6}
-              key={c.id}
-              className={css`
-                /* padding: 0 8px; */
-                margin-block: 8px;
-                margin-inline: 0;
-                padding-block: 0;
-                padding-inline: 8px;
-              `}
-            >
-              <ChartListItem
-                {...c}
-                onEditClick={() => {
-                  editChart(c);
-                }}
-              />
-            </Col>
+            <ChartListItem
+              {...item}
+              onEditClick={() => {
+                editChart(item);
+              }}
+            />
           );
-        })}
-      </Row>
+        }}
+      />
     </PageContainer>
   );
 }

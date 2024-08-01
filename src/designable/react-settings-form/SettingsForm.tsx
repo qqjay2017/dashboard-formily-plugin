@@ -101,48 +101,6 @@ export const SettingsForm: React.FC<ISettingFormProps> = observer(
         }}
       />
     );
-
-    // const render = () => {
-    //   if (!isEmpty) {
-    //     return (
-    //       <div
-    //         className={cls(prefix, props.className)}
-    //         style={props.style}
-    //         key={node.id}
-    //       >
-    //         <SettingsFormContext.Provider value={props}>
-    //           <Form
-    //             form={form}
-    //             colon={false}
-    //             labelWidth={120}
-    //             labelAlign="left"
-    //             wrapperAlign="right"
-    //             feedbackLayout="none"
-    //             tooltipLayout="text"
-    //           >
-    //             <SchemaField
-    //               schema={schema}
-    //               components={props.components}
-    //               scope={{ $node: node, ...props.scope }}
-    //             />
-    //           </Form>
-    //         </SettingsFormContext.Provider>
-    //       </div>
-    //     );
-    //   }
-    //   return (
-    //     <div className={prefix + "-empty"}>
-    //       <Empty />
-    //     </div>
-    //   );
-    // };
-
-    // return (
-    //   <div className={prefix + "-wrapper"}>
-    //     {!isEmpty && <NodePathWidget workspaceId={currentWorkspaceId} />}
-    //     <div className={prefix + "-content"}>{render()}</div>
-    //   </div>
-    // );
   },
   {
     scheduler: (update) => {

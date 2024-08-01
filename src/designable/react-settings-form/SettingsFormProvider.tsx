@@ -11,10 +11,10 @@ import { Empty } from "antd";
 import { css, cx } from "@emotion/css";
 import { cancelIdle, requestIdle } from "../shared";
 import { usePrefix } from "../react/hooks";
+import { emptyWrapStyle } from "../styles";
 import type { ISettingFormProps } from "./types";
 import { SettingsFormContext } from "./shared/context";
 import { SchemaField } from "./SchemaField";
-
 import "./styles.less";
 
 const GlobalState = {
@@ -81,7 +81,7 @@ const SettingsFormProvider = observer(
         );
       }
       return (
-        <div className={`${prefix}-empty`}>
+        <div className={emptyWrapStyle}>
           <Empty />
         </div>
       );

@@ -1,6 +1,8 @@
 import { css } from "@emotion/css";
 import type { PropsWithChildren } from "react";
+import { usePrefix } from "../hooks";
 import { cn, cx } from "@/utils";
+import "./styles.less";
 
 interface IStudioPanelProps extends PropsWithChildren {
   style?: React.CSSProperties;
@@ -21,13 +23,14 @@ const mainPanelStyle = css`
   position: relative;
   overflow: hidden;
 `;
-const prefix = "main-panel";
+
 export function StudioPanel({
   children,
   logo,
   actions,
   className,
 }: IStudioPanelProps) {
+  const prefix = usePrefix("main-panel");
   if (logo || actions) {
     return (
       <div

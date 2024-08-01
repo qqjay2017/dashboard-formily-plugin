@@ -1,16 +1,17 @@
-import loader from "@monaco-editor/loader";
+import loader from '@monaco-editor/loader'
+import { BASE_URL } from '@/env'
 
 const Registry = {
-  cdn: "//cdn.jsdelivr.net/npm",
-};
+  cdn: `${window.origin}${BASE_URL}npm`,
+}
 
 export function setNpmCDNRegistry(registry: string) {
-  Registry.cdn = registry;
+  Registry.cdn = registry
   loader.config({
     paths: {
       vs: `${registry}/monaco-editor@0.30.1/min/vs`,
     },
-  });
+  })
 }
 
-export const getNpmCDNRegistry = () => String(Registry.cdn).replace(/\/$/, "");
+export const getNpmCDNRegistry = () => String(Registry.cdn).replace(/\/$/, '')

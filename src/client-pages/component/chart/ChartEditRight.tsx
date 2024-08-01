@@ -23,7 +23,7 @@ function ChartEditRightMain({
     <div
       className={css`
         width: 450px;
-        height: calc(100vh - 80px);
+        height: 100%;
       `}
     >
       <div
