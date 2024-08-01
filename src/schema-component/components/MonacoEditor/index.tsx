@@ -7,8 +7,9 @@ import {
   useRef,
   useState,
 } from "react";
-import type * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+
 import { uid } from "@formily/shared";
+import type { IDisposable } from "monaco-editor";
 import type { FormItemComponentProps } from "../../../types";
 import { format } from "./format";
 import { initMonaco } from "./config";
@@ -69,7 +70,7 @@ const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
     const editorRef = useRef(null);
     const uidRef = useRef(uid());
     const monacoRef = useRef<Monaco>();
-    const extraLibRef = useRef<monaco.IDisposable>(null);
+    const extraLibRef = useRef<IDisposable>(null);
     const computedLanguage = useRef<string>(language || defaultLanguage);
     const prefix = usePrefix("monaco-input");
     const formatDocument = () => {
@@ -92,10 +93,7 @@ const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
       }
     };
     // 初始化后自动格式化
-    const onMountHandler = (
-      editor: monaco.editor.IStandaloneCodeEditor,
-      monaco: Monaco
-    ) => {
+    const onMountHandler = (editor: any, monaco: Monaco) => {
       editorRef.current = editor;
       monacoRef.current = monaco;
       const model = editor.getModel();

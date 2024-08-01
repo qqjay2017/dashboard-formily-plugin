@@ -122,21 +122,6 @@ function ApiEditPage() {
     }
   };
 
-  // const onTest = async (values) => {
-  //   try {
-  //     const dialog = FormDialog(
-  //       {
-  //         title: "测试API",
-  //         width: "80vw",
-  //       },
-  //       () => {
-  //         return <div>123</div>;
-  //       }
-  //     );
-  //     dialog.open();
-  //   } catch (error) {}
-  // };
-
   return (
     <FormProvider form={form}>
       <PageContainer

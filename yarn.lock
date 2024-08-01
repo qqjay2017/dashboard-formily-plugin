@@ -24,6 +24,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ant-design/cssinjs-utils@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@ant-design/cssinjs-utils@npm:1.0.3"
+  dependencies:
+    "@ant-design/cssinjs": "npm:^1.21.0"
+    "@babel/runtime": "npm:^7.23.2"
+    rc-util: "npm:^5.38.0"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: de464e477128ae8ace06db18c743048633451db6553f8cb505f32fb23f6441ecb0cbe0f9d97b541c71b895b250e15626acf04b4e7929181f6d2cba074190ab49
+  languageName: node
+  linkType: hard
+
 "@ant-design/cssinjs@npm:^1.18.5, @ant-design/cssinjs@npm:^1.21.0, @ant-design/cssinjs@npm:^1.3.1":
   version: 1.21.0
   resolution: "@ant-design/cssinjs@npm:1.21.0"
@@ -62,6 +76,22 @@ __metadata:
     react: ">=16.0.0"
     react-dom: ">=16.0.0"
   checksum: dc6c8baaf866fca6c6e5e66706b3c3a36d6d5ba41c444a6d885225d910ab74a8cf8b2662dcf4025958569cbfca3b0dabc05d725c15fc1d47980c973c89dcddc3
+  languageName: node
+  linkType: hard
+
+"@ant-design/icons@npm:^5.4.0":
+  version: 5.4.0
+  resolution: "@ant-design/icons@npm:5.4.0"
+  dependencies:
+    "@ant-design/colors": "npm:^7.0.0"
+    "@ant-design/icons-svg": "npm:^4.4.0"
+    "@babel/runtime": "npm:^7.24.8"
+    classnames: "npm:^2.2.6"
+    rc-util: "npm:^5.31.1"
+  peerDependencies:
+    react: ">=16.0.0"
+    react-dom: ">=16.0.0"
+  checksum: 5f0b3f22b21221d9cebd0626a4596002f541842d345b7832a7a981ada095b61a1866b38514703ad6967735bfdd5fd6d1897d893f980f7b5792133cae15efc52f
   languageName: node
   linkType: hard
 
@@ -1713,6 +1743,15 @@ __metadata:
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: eeee7be22d986e64577fc9eb72e2ed815c181882d79789bee5f427feba2046c4bb7c696c0180ac46f15972d1436c4c9be21ad9dd71ab95f747c33c846893f8f5
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.24.8":
+  version: 7.25.0
+  resolution: "@babel/runtime@npm:7.25.0"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: cda39952b20fe0858754fc978c58710908196c1c377ee52ad46bb372aee71a48c56a8e7894580ff1dc0d35641cfe3c2fea12c8b3d079198862904b0b32108df8
   languageName: node
   linkType: hard
 
@@ -5052,15 +5091,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^5.19.2":
-  version: 5.19.2
-  resolution: "antd@npm:5.19.2"
+"antd@npm:^5.19.4":
+  version: 5.19.4
+  resolution: "antd@npm:5.19.4"
   dependencies:
     "@ant-design/colors": "npm:^7.1.0"
     "@ant-design/cssinjs": "npm:^1.21.0"
-    "@ant-design/icons": "npm:^5.3.7"
+    "@ant-design/cssinjs-utils": "npm:^1.0.3"
+    "@ant-design/icons": "npm:^5.4.0"
     "@ant-design/react-slick": "npm:~1.1.2"
-    "@babel/runtime": "npm:^7.24.7"
+    "@babel/runtime": "npm:^7.24.8"
     "@ctrl/tinycolor": "npm:^3.6.1"
     "@rc-component/color-picker": "npm:~1.5.3"
     "@rc-component/mutate-observer": "npm:^1.1.0"
@@ -5090,7 +5130,7 @@ __metadata:
     rc-rate: "npm:~2.13.0"
     rc-resize-observer: "npm:^1.4.0"
     rc-segmented: "npm:~2.3.0"
-    rc-select: "npm:~14.15.0"
+    rc-select: "npm:~14.15.1"
     rc-slider: "npm:~10.6.2"
     rc-steps: "npm:~6.0.1"
     rc-switch: "npm:~4.1.0"
@@ -5103,11 +5143,11 @@ __metadata:
     rc-upload: "npm:~4.6.0"
     rc-util: "npm:^5.43.0"
     scroll-into-view-if-needed: "npm:^3.1.0"
-    throttle-debounce: "npm:^5.0.0"
+    throttle-debounce: "npm:^5.0.2"
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: e35a58f8e29ba6ed65468ac981000d627699ebfbb5b28da6da28b351fbb75d887c920fbb890ff82dd123a37710c8ff7003398ecb8afde130dbf9e2ef8c33398a
+  checksum: c6b60cb4d6b8fa0669cb119b0c9853677d8edbad363ce57a4ed81495d3c49574b2452dd614f802047fb7253ab429fbad02332cfb3afe30ca983ebf6f4797afff
   languageName: node
   linkType: hard
 
@@ -6352,7 +6392,7 @@ __metadata:
     "@types/webpack-bundle-analyzer": "npm:^4"
     "@types/webpack-plugin-serve": "npm:^1"
     "@typescript-eslint/parser": "npm:5"
-    antd: "npm:^5.19.2"
+    antd: "npm:^5.19.4"
     antd-style: "npm:^3.6.2"
     axios: "npm:^1.7.2"
     babel-loader: "npm:^9.1.3"
@@ -6382,12 +6422,12 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     mini-css-extract-plugin: "npm:^2.9.0"
     monaco-editor: "npm:^0.50.0"
+    monaco-editor-webpack-plugin: "npm:^7.1.0"
     nanoid: "npm:4"
     node-polyfill-webpack-plugin: "npm:^4.0.0"
     prettier: "npm:^3.3.3"
     prettier-eslint: "npm:^16.3.0"
     qs: "npm:^6.12.1"
-    rc-menu: "npm:^9.14.1"
     react: "npm:^18.2.0"
     react-color: "npm:^2.19.3"
     react-countup: "npm:^6.5.3"
@@ -6404,7 +6444,6 @@ __metadata:
     screenfull: "npm:^6.0.2"
     stream-browserify: "npm:^3.0.0"
     style-loader: "npm:^4.0.0"
-    tailwind-merge: "npm:^2.4.0"
     terser-webpack-plugin: "npm:^5.3.10"
     typescript: "npm:^5.2.2"
     use-resize-observer: "npm:^9.1.0"
@@ -9793,7 +9832,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^2.0.3, loader-utils@npm:^2.0.4":
+"loader-utils@npm:^2.0.2, loader-utils@npm:^2.0.3, loader-utils@npm:^2.0.4":
   version: 2.0.4
   resolution: "loader-utils@npm:2.0.4"
   dependencies:
@@ -10318,6 +10357,18 @@ __metadata:
     pkg-types: "npm:^1.1.1"
     ufo: "npm:^1.5.3"
   checksum: 9f1362f615021a19d604b259c3b636a8396801260e461cddf8f3d5092f0d1dfe40c835f9290fb63fddf014c2c9f345a5b5425859ea53cf17cce9f284e0303f59
+  languageName: node
+  linkType: hard
+
+"monaco-editor-webpack-plugin@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "monaco-editor-webpack-plugin@npm:7.1.0"
+  dependencies:
+    loader-utils: "npm:^2.0.2"
+  peerDependencies:
+    monaco-editor: ">= 0.31.0"
+    webpack: ^4.5.0 || 5.x
+  checksum: 63aaaf2bb66eda1ad853ab11d6cddb9c4b6068cfc0affbfec5c89e40625f5e16b7c4509546d392c5d8a2cf14fdb27e5f672da9f79d2cd7894a64f5a16b6e8e01
   languageName: node
   linkType: hard
 
@@ -11612,7 +11663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-menu@npm:^9.14.1, rc-menu@npm:~9.14.0, rc-menu@npm:~9.14.1":
+"rc-menu@npm:~9.14.0, rc-menu@npm:~9.14.1":
   version: 9.14.1
   resolution: "rc-menu@npm:9.14.1"
   dependencies:
@@ -11790,6 +11841,24 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: fdfec2dc884979ea8397d3ab6b150b4d53861a615ab40391ea73ae4359a4a80eb746d82441428e272f6d554e9272cbd3cdd3cf1319410cb4c8d54beacc56cd48
+  languageName: node
+  linkType: hard
+
+"rc-select@npm:~14.15.1":
+  version: 14.15.1
+  resolution: "rc-select@npm:14.15.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.10.1"
+    "@rc-component/trigger": "npm:^2.1.1"
+    classnames: "npm:2.x"
+    rc-motion: "npm:^2.0.1"
+    rc-overflow: "npm:^1.3.1"
+    rc-util: "npm:^5.16.1"
+    rc-virtual-list: "npm:^3.5.2"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: c21228d65ab0611aef05081c5a9d5d8983c4ea9c3ffecf6c9f040685e4e22e77e2a66e558a304dc1f62edb44e43369411109ffaf382f730ce616f7e352e4f61d
   languageName: node
   linkType: hard
 
@@ -13499,13 +13568,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "tailwind-merge@npm:2.4.0"
-  checksum: 55618a8515e3e658fe2b8eb487483a6a76905d46696301c43c03d8172cee33e8d39347f356b3372d1c99f57bc7d0caff800840e3e8cdacfc73209d8f08cbdd59
-  languageName: node
-  linkType: hard
-
 "tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.0, tapable@npm:^2.2.1":
   version: 2.2.1
   resolution: "tapable@npm:2.2.1"
@@ -13595,7 +13657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"throttle-debounce@npm:^5.0.0":
+"throttle-debounce@npm:^5.0.0, throttle-debounce@npm:^5.0.2":
   version: 5.0.2
   resolution: "throttle-debounce@npm:5.0.2"
   checksum: 76f5b394ebedb5df83d1f0b4d95bbd38d1ae38b80d6693ef0e9139edc21f52888aedc9d8420d74eb2e3f77bdefa09e833cef5c5524f4db95131235003865f1f0

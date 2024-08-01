@@ -1,4 +1,3 @@
-import { lazy } from "react";
 import { BASE_URL } from "./utils/env";
 
 import AdminLayoutPlugin from "./plugins/AdminLayoutPlugin";

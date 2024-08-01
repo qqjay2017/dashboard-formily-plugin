@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 const NODE_ENV =
   process.env.NODE_ENV === "production" ? "production" : "development";
@@ -205,6 +206,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isProduct ? "[name].[contenthash].css" : "[name].css",
     }),
+    // isProduct && new MonacoWebpackPlugin(),
   ].filter(Boolean),
   devServer: {
     client: { overlay: false },
