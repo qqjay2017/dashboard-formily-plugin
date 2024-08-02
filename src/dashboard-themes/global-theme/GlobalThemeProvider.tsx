@@ -7,6 +7,7 @@ import defaultTheme from "./defaultTheme";
 import { addCustomAlgorithmToTheme } from "./customAlgorithm";
 import { GlobalThemeContext } from "./useGlobalTheme";
 import compatOldTheme from "./compatOldTheme";
+import { globalFormConfig } from "@/utils";
 
 export function GlobalThemeProvider({ children, theme: themeFromProps }) {
   const [theme, setTheme] = React.useState<ThemeConfig>(
@@ -72,6 +73,7 @@ export function GlobalThemeProvider({ children, theme: themeFromProps }) {
           },
         }}
         locale={zh_CN}
+        form={globalFormConfig}
       >
         {children}
       </ConfigProvider>

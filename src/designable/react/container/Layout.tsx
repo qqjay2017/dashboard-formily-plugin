@@ -2,10 +2,11 @@ import React, { Fragment, useContext, useRef } from "react";
 
 import { css, injectGlobal } from "@emotion/css";
 import { ConfigProvider, theme } from "antd";
+import zh_CN from "antd/locale/zh_CN";
 import { DesignerLayoutContext } from "../context";
 import type { IDesignerLayoutProps } from "../types";
 
-import { cx } from "@/utils";
+import { cx, globalFormConfig } from "@/utils";
 
 injectGlobal` 
   :root {
@@ -199,6 +200,8 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
         algorithm:
           _theme === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
+      form={globalFormConfig}
+      locale={zh_CN}
     >
       <div
         ref={ref}

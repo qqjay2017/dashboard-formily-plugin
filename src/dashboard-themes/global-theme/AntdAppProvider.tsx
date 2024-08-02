@@ -3,6 +3,7 @@ import React, { memo, useEffect } from "react";
 import zh_CN from "antd/locale/zh_CN";
 import { useApp } from "../../application/hooks";
 import { useAPIClient } from "@/api-client";
+import { globalFormConfig } from "@/utils";
 
 const AppInner = memo(({ children }: { children: React.ReactNode }) => {
   const app = useApp();
@@ -14,7 +15,7 @@ const AppInner = memo(({ children }: { children: React.ReactNode }) => {
     try {
       ConfigProvider.config({
         holderRender: (children) => (
-          <ConfigProvider locale={zh_CN}>
+          <ConfigProvider locale={zh_CN} form={globalFormConfig}>
             <App>{children}</App>
           </ConfigProvider>
         ),
