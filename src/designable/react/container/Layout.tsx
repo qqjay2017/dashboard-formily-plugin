@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useRef } from "react";
 
 import { css, injectGlobal } from "@emotion/css";
 import { ConfigProvider, theme } from "antd";
-import zh_CN from "antd/locale/zh_CN";
+import zh_CN from "antd/es/locale/zh_CN";
 import { DesignerLayoutContext } from "../context";
 import type { IDesignerLayoutProps } from "../types";
 

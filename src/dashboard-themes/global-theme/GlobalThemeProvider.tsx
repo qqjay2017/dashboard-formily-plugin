@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from "react";
 import { ConfigProvider, theme as antdTheme } from "antd";
 import { cloneDeep } from "lodash-es";
-import zh_CN from "antd/locale/zh_CN";
+import zh_CN from "antd/es/locale/zh_CN";
 import type { ThemeConfig, ThemeItem } from "./type";
 import defaultTheme from "./defaultTheme";
 import { addCustomAlgorithmToTheme } from "./customAlgorithm";

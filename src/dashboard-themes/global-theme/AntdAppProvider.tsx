@@ -1,6 +1,6 @@
 import { App, ConfigProvider } from "antd";
 import React, { memo, useEffect } from "react";
-import zh_CN from "antd/locale/zh_CN";
+import zh_CN from "antd/es/locale/zh_CN";
 import { useApp } from "../../application/hooks";
 import { useAPIClient } from "@/api-client";
 import { globalFormConfig } from "@/utils";
