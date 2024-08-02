@@ -16,10 +16,9 @@ export function useRowProperties(props?: {
 }) {
   const fieldSchema = useFieldSchema();
 
+  console.log(fieldSchema, "fieldSchema");
+
   return useMemo<Schema[]>(() => {
-    if (props && !props.width) {
-      return [];
-    }
     if (!props || props.isPc) {
       return fieldSchema.reduceProperties((buf, s) => {
         if (!s["x-hidden"]) {

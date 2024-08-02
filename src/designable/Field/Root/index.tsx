@@ -109,7 +109,7 @@ export const Root: DnFC<IRootProps> = observer(
                 designHeight,
                 themeProvider,
                 scale: 1,
-                rootFieldSchema: new Schema({}),
+
                 mobileRowHeight,
               }}
             >

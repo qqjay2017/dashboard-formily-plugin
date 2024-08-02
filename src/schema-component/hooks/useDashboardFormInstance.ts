@@ -5,9 +5,11 @@ import { useProjectSelectScope } from '../widgets'
 
 export function useDashboardFormInstance({
   designable,
+  deps = [],
 
 }: {
   designable?: boolean
+  deps?: any[]
 
 }) {
   /**
@@ -20,7 +22,7 @@ export function useDashboardFormInstance({
       effects: () => {
       },
     })
-  }, [])
+  }, [...deps])
   if (!projectSelectScope) {
     return null
   }

@@ -59,6 +59,7 @@ export default function PreviewSchemaComponent({
         ProjectSelect,
         ChartTemplate,
         AiotMonitorBlock,
+        DashboardRoot: DashboardRootPreview,
         DashboardRootPreview,
         PositionDecorator: PositionDecoratorPreview,
         PositionDecoratorPreview,

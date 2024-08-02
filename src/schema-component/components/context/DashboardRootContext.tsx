@@ -7,12 +7,13 @@ export interface DashboardRootRendererContextValue {
   colWidth: number;
   rowHeight: number;
   isPc: boolean;
-  designWidth: number;
-  designHeight: number;
-  themeProvider: string;
+  designWidth?: number;
+  designHeight?: number;
+  themeProvider?: string;
   scale: number;
-  rootFieldSchema?: Schema;
+
   mobileRowHeight: number;
+  width?: number;
 }
 
 export const DashboardRootContext =
