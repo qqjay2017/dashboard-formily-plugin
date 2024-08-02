@@ -7,7 +7,7 @@ import { css } from "@emotion/css";
 
 import type { ReactElement, ReactNode } from "react";
 import { cx } from "@/utils";
-import { SchemaField } from "@/designable/react-settings-form/SchemaField";
+import SchemaField from "@/designable/react-settings-form/SchemaField";
 import InternalQueryClientProvider from "@/application/components/InternalQueryClientProvider";
 
 /**

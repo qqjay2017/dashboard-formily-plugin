@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { createForm } from "@formily/core";
-import { Form } from "@formily/antd-v5";
+
 import { observer } from "@formily/reactive-react";
 import { requestIdle, cancelIdle } from "@/designable/shared";
 import {
@@ -11,7 +11,7 @@ import {
   useWorkbench,
   NodePathWidget,
 } from "@/designable/react";
-import { SchemaField } from "./SchemaField";
+
 import { ISettingFormProps } from "./types";
 
 import { useSnapshot } from "./effects";

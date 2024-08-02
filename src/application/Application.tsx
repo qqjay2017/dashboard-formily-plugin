@@ -10,7 +10,7 @@ import { get, merge, set } from "lodash-es";
 import { Link, NavLink, Navigate } from "react-router-dom";
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { message, notification } from "antd";
 import type { APIClientOptions } from "../sdk";
 
@@ -61,8 +61,8 @@ class Application {
   };
 
   public pluginManager: PluginManager;
-  public notification = notification;
-  public message = message;
+  public notification: typeof notification = notification;
+  public message: typeof message = message;
   public name: string = "app";
 
   loading = true;

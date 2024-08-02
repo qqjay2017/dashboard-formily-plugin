@@ -6,7 +6,7 @@ import { get } from "lodash-es";
 import { IoIosRefresh, IoMdAdd } from "react-icons/io";
 
 import { observer } from "@formily/reactive-react";
-import type { FormItemComponentProps } from "../../../../types";
+
 import { FuncText } from "./FuncText";
 
 import { useRequest } from "@/api-client";
@@ -14,10 +14,11 @@ import { useRequest } from "@/api-client";
 import { apiBase } from "@/utils";
 import CardItem from "@/schema-component/components/CardItem";
 import MonacoEditor from "@/schema-component/components/MonacoEditor";
+import type { FormItemComponentProps } from "@/types";
 
 interface DataSourceBindProps extends FormItemComponentProps {}
 
-export const DataSourceBind = observer((props: DataSourceBindProps) => {
+const DataSourceBind = observer((props: DataSourceBindProps) => {
   const { value } = props;
   const [open, setOpen] = useState(false);
 
@@ -125,3 +126,5 @@ export const DataSourceBind = observer((props: DataSourceBindProps) => {
     </>
   );
 });
+
+export default DataSourceBind;

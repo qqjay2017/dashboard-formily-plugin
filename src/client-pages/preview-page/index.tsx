@@ -1,34 +1,9 @@
-import { useContext } from "react";
-
-import {
-  FormProvider,
-  RecursionField,
-  SchemaOptionsContext,
-} from "@formily/react";
+import { FormProvider, RecursionField } from "@formily/react";
 import { get } from "lodash-es";
 import { Helmet } from "react-helmet";
 
 import type { DashboardItem } from "../pages/dashboard/types";
-import {
-  AiotMonitorBlock,
-  ChartTemplate,
-  ClassicFrame,
-  ClassicFrame5,
-  EmploymentCreditMng,
-  Header1,
-  Header5,
-  HeaderMenu,
-  KeyPersonArrived,
-  LaborAttendance,
-  ProjectAttendanceAnaTable,
-  ProjectAttendanceDataAna,
-  ProjectBudget,
-  ProjectDesc,
-  ProjectSelect,
-  QuarterSelect,
-  SmartHelmet,
-  UnprocessedWarningList,
-} from "@/schema-component/widgets";
+import PreviewSchemaComponent from "./PreviewSchemaComponent";
 
 import type { APiWrap } from "@/api-client";
 import { useRequest } from "@/api-client";
@@ -40,15 +15,11 @@ import {
 } from "@/schema-component/hooks";
 import { apiBase } from "@/utils";
 
-import DashboardRootPreview from "@/schema-component/components/DashboardRootPreview";
-import PositionDecoratorPreview from "@/schema-component/components/PositionDecorator";
-import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
-
 function PreviewPage() {
   const { reportId: shareURL } = useReportId();
 
   const { render } = useAppSpin();
-  const options = useContext(SchemaOptionsContext);
+
   const { data, isLoading } = useRequest<APiWrap<DashboardItem>>(
     `${apiBase}/dashboard/preview/${shareURL}`,
     {
@@ -105,37 +76,13 @@ function PreviewPage() {
 
   return (
     <FormProvider form={form}>
-      <SchemaComponentOptions
+      <PreviewSchemaComponent
         scope={{
           dashboardDt: get(data, "data.data", {}) || {},
         }}
-        components={{
-          Header1,
-          Header5,
-          HeaderMenu,
-          LaborAttendance,
-          ProjectDesc,
-          EmploymentCreditMng,
-          SmartHelmet,
-          KeyPersonArrived,
-          UnprocessedWarningList,
-          ClassicFrame,
-          ClassicFrame5,
-
-          ProjectBudget,
-
-          ProjectAttendanceDataAna,
-          ProjectAttendanceAnaTable,
-          QuarterSelect,
-          ProjectSelect,
-          ChartTemplate,
-          AiotMonitorBlock,
-          DashboardRootPreview,
-          PositionDecorator: PositionDecoratorPreview,
-        }}
       >
         <RecursionField schema={renderShema} name="DashboardRootPreview" />
-      </SchemaComponentOptions>
+      </PreviewSchemaComponent>
       <Helmet>
         <title>{name}</title>
         <meta name="description" content={description} />

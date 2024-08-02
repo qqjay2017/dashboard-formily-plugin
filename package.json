@@ -1,12 +1,18 @@
 {
-  "name": "dashboard-web",
+  "name": "@core/dashboard-sdk",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "files": [
+    "lib"
+  ],
+  "module": "dist/preview-sdk.js",
+  "types": "dist/preview-sdk.d.ts",
   "scripts": {
     "dev": "cross-env NODE_ENV=development  webpack-dev-server --config build/webpack.prod.js --mode development",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=3000  NODE_ENV=production    webpack --config build/webpack.prod.js --mode production",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "build:lib": "cross-env   NODE_ENV=production tsup  --format esm,cjs   --dts --treeshake"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
@@ -84,6 +90,7 @@
     "copy-webpack-plugin": "^12.0.2",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
+    "esbuild-plugin-less": "^1.3.8",
     "eslint": "^9.7.0",
     "eslint-plugin-format": "^0.1.2",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -101,6 +108,7 @@
     "react-refresh": "^0.14.2",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
+    "tsup": "^8.2.3",
     "typescript": "^5.2.2",
     "webpack": "^5.93.0",
     "webpack-bundle-analyzer": "^4.10.2",
@@ -108,6 +116,16 @@
     "webpack-dev-server": "^5.0.4",
     "webpack-plugin-serve": "^1.6.0",
     "webpackbar": "^6.0.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "6"
+  },
+  "author": "huang",
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://bscs.d3ata.com:8081/repository/npm-l/"
   },
   "packageManager": "yarn@3.2.4"
 }

@@ -18,6 +18,7 @@ import {
 } from "@formily/antd-v5";
 import { Card, Slider } from "antd";
 
+import type { FC } from "react";
 import ReactionsSetter from "../setters/ReactionsSetter";
 import {
   ApiBaseNameFormItem,
@@ -35,7 +36,6 @@ import {
   ColorTypeSelect,
   ColorTypeSelect2,
   CornerInput,
-  DataSourceBind,
   DecoratorPaddingFormItem,
   DepFieldSetFormItem,
   DisplayStyleSetter,
@@ -50,8 +50,9 @@ import {
   SizeInput,
   ValueInput,
 } from "./components";
+import DataSourceBind from "./components/DataSourceBind";
 
-export const SchemaField = createSchemaField({
+const SchemaField2: FC<any> = createSchemaField({
   components: {
     FormItem,
     CollapseItem,
@@ -103,3 +104,5 @@ export const SchemaField = createSchemaField({
     ReactionsSetter,
   },
 });
+
+export default SchemaField2;
