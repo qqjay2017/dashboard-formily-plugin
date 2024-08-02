@@ -74,6 +74,11 @@ function createComponentSchema(
         'x-component-props': {
           type: 'object',
           properties: {
+            queryKeys: {
+              'type': 'array',
+              'x-decorator': 'FormItem',
+              'x-component': 'ReactionsSetter',
+            },
             apiInfo: {
               'type': 'object',
               'x-decorator': 'FormItem',
@@ -111,18 +116,18 @@ export function createFieldSchema(
   return {
     type: 'object',
     properties: {
-      'field-group': {
-        'title': '字段属性',
-        'type': 'void',
-        'x-component': 'CollapseItem',
-        'properties': {
-          'x-reactions': {
-            'x-decorator': 'FormItem',
-            'x-component': 'ReactionsSetter',
-          },
-          ...(field as any),
-        },
-      },
+      // 'field-group': {
+      //   'title': '字段属性',
+      //   'type': 'void',
+      //   'x-component': 'CollapseItem',
+      //   'properties': {
+      //     'x-reactions': {
+      //       'x-decorator': 'FormItem',
+      //       'x-component': 'ReactionsSetter',
+      //     },
+      //     ...(field as any),
+      //   },
+      // },
       ...createComponentSchema(component, decorator),
     },
   }

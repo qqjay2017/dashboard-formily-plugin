@@ -18,15 +18,7 @@ export function DepFieldSetFormItem({
         },
       ]}
       value={Object.keys(value)}
-      onChange={(e) => {
-        onChange &&
-          onChange(
-            e.reduce((memo, cur) => {
-              memo[cur] = cur;
-              return memo;
-            }, {})
-          );
-      }}
+      onChange={onChange}
     />
   );
 }

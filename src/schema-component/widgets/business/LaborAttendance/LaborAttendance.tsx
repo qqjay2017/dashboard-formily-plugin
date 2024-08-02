@@ -12,22 +12,15 @@ import {
   useFrameSizeStyle,
   useQueryToBusParams,
 } from "@/schema-component/hooks";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
-export function LaborAttendance({ query }: SchemComponentWithDataSourceProps) {
+function LaborAttendanceMain({
+  busDataRes,
+}: SchemComponentWithDataSourceProps) {
   const [tabValue, setTabValue] = useState<string>("1");
   const { headStyle, bodyStyle } = useFrameSizeStyle();
-  const queryParams = useQueryToBusParams(query);
-  const { data: dataRes } = useDataBindFetch(
-    {
-      dataSourceId: "38a353fc-d871-40ec-957a-69073e7128bc",
-    },
-    {
-      ...queryParams,
-      dateType: tabValue,
-    }
-  );
 
-  const busData = get(dataRes, "data.data");
+  const busData = get(busDataRes, "data.data");
 
   return (
     <>
@@ -59,7 +52,7 @@ export function LaborAttendance({ query }: SchemComponentWithDataSourceProps) {
           <ChartTemplateWithOutData
             chartId="38"
             apiInfo={null}
-            query={null}
+            queryKeys={[]}
             busData={busData}
           />
         </div>
@@ -67,3 +60,5 @@ export function LaborAttendance({ query }: SchemComponentWithDataSourceProps) {
     </>
   );
 }
+
+export const LaborAttendance = injectApiInfo(LaborAttendanceMain);

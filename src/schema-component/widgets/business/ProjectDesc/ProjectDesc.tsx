@@ -7,14 +7,13 @@ import {
   ProjectDescImgWrap,
   TextBgWrap,
 } from "./style";
-import { useAutoScroll, useQueryToBusParams } from "@/schema-component/hooks";
+import { useAutoScroll } from "@/schema-component/hooks";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import { EmptyKit } from "@/dashboard-themes/style-components";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
-export function ProjectDesc({ query }: SchemComponentWithDataSourceProps) {
-  const busParams = useQueryToBusParams(query);
-
-  const projectId = busParams?.projectId;
+function ProjectDescMain({ queryParams }: SchemComponentWithDataSourceProps) {
+  const projectId = queryParams?.projectId;
 
   const { data, isLoading } = useFetchProjectDt(projectId);
   const projectDt = get(data, "data.data");
@@ -34,3 +33,5 @@ export function ProjectDesc({ query }: SchemComponentWithDataSourceProps) {
     </EmptyKit>
   );
 }
+
+export const ProjectDesc = injectApiInfo(ProjectDescMain);

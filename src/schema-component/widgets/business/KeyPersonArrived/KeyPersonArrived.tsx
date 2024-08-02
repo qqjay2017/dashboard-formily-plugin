@@ -9,17 +9,16 @@ import {
   useQueryToBusParams,
 } from "@/schema-component/hooks";
 import { EmptyKit } from "@/dashboard-themes/style-components";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
-export function KeyPersonArrived({
-  apiInfo,
-  query,
+function KeyPersonArrivedMain({
+  busDataRes,
+  isBusDataLoading,
 }: SchemComponentWithDataSourceProps) {
-  const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(apiInfo, busParams);
-  const list: KeyPersonItemType[] = get(data, "data.data", []) || [];
+  const list: KeyPersonItemType[] = get(busDataRes, "data.data", []) || [];
 
   return (
-    <EmptyKit loading={isLoading} empty={!list.length}>
+    <EmptyKit loading={isBusDataLoading} empty={!list.length}>
       <div
         className={css`
           width: 100%;
@@ -38,3 +37,5 @@ export function KeyPersonArrived({
     </EmptyKit>
   );
 }
+
+export const KeyPersonArrived = injectApiInfo(KeyPersonArrivedMain);

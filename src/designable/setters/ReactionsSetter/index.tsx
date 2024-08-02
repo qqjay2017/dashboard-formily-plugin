@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { clone, uid } from "@formily/shared";
-import { createForm, isVoidField } from "@formily/core";
+import { clone } from "@formily/shared";
+import { createForm } from "@formily/core";
 import { createSchemaField } from "@formily/react";
 
-import { Form, FormCollapse, FormItem, Input, Select } from "@formily/antd-v5";
-import { Button, Card, Modal, Tag, Tooltip } from "antd";
+import { Checkbox, Form, FormItem } from "@formily/antd-v5";
+import { Button, Modal, Tag, Tooltip } from "antd";
 
 import type { IReaction } from "./types";
 
@@ -13,7 +13,6 @@ import { TextWidget, usePrefix } from "@/designable/react";
 import { requestIdle } from "@/designable/shared";
 
 import "./styles.less";
-import { DepFieldSetFormItem } from "@/designable/react-settings-form/components";
 
 export interface IReactionsSetterProps {
   value?: IReaction;
@@ -45,14 +44,9 @@ function TypeView({ value }) {
 
 const SchemaField = createSchemaField({
   components: {
-    Card,
-    FormCollapse,
-    Input,
+    Checkbox,
 
-    Select,
     FormItem,
-
-    DepFieldSetFormItem,
   },
 });
 
@@ -133,14 +127,14 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
   const [innerVisible, setInnerVisible] = useState(false);
   const prefix = usePrefix("reactions-setter");
   const form = useMemo(() => {
+    console.log(clone(props.value), " clone(props.value),");
     return createForm({
-      values: clone(props.value),
+      values: {
+        queryKeys: clone(props.value),
+      },
     });
   }, [modalVisible, props.value]);
-  const formCollapse = useMemo(
-    () => FormCollapse.createFormCollapse(["deps"]),
-    [modalVisible]
-  );
+
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
   useEffect(() => {
@@ -162,11 +156,7 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
 
   return (
     <>
-      <Button
-        block
-        onClick={openModal}
-        disabled={props.value && Array.isArray(props.value)}
-      >
+      <Button block onClick={openModal}>
         <TextWidget token="配置查询项" />
       </Button>
       <Modal
@@ -185,7 +175,7 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
         destroyOnClose
         onOk={() => {
           form.submit((values) => {
-            props.onChange?.(values);
+            props.onChange?.(values.queryKeys);
           });
           closeModal();
         }}
@@ -194,28 +184,21 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
           {innerVisible && (
             <Form form={form}>
               <SchemaField>
-                <SchemaField.Void
-                  x-component="FormCollapse"
-                  x-component-props={{
-                    formCollapse,
-                    defaultActiveKey: ["deps", "state"],
-                    style: { marginBottom: 10 },
-                  }}
-                >
-                  <SchemaField.Void
-                    x-component="FormCollapse.CollapsePanel"
-                    x-component-props={{
-                      key: "deps",
-                      header: "依赖字段",
-                    }}
-                  >
-                    <SchemaField.Object
-                      name="dependencies"
-                      default={{}}
-                      x-component="DepFieldSetFormItem"
-                    ></SchemaField.Object>
-                  </SchemaField.Void>
-                </SchemaField.Void>
+                <SchemaField.Array
+                  name="queryKeys"
+                  x-decorator="FormItem"
+                  x-component="Checkbox.Group"
+                  enum={[
+                    {
+                      label: "时间查询",
+                      value: "quarterSelect",
+                    },
+                    {
+                      label: "项目查询",
+                      value: "projectSelect",
+                    },
+                  ]}
+                />
               </SchemaField>
             </Form>
           )}

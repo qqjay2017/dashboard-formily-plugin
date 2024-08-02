@@ -10,6 +10,7 @@ import {
   useDataBindFetch,
   useQueryToBusParams,
 } from "@/schema-component/hooks";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
 interface ClockingData {
   projectNum?: number;
@@ -21,14 +22,12 @@ interface ClockingData {
   unClockUserNum?: number;
 }
 
-export function ProjectAttendanceDataAna({
-  query,
-  apiInfo,
+function ProjectAttendanceDataAnaMain({
+  busDataRes,
 }: SchemComponentWithDataSourceProps) {
   const { token } = useToken();
-  const queryParams = useQueryToBusParams(query);
-  const { data: dataRes } = useDataBindFetch(apiInfo, queryParams);
-  const clocking: ClockingData = get(dataRes, "data.data", {}) || {};
+
+  const clocking: ClockingData = get(busDataRes, "data.data", {}) || {};
 
   return (
     <div
@@ -169,3 +168,7 @@ export function ProjectAttendanceDataAna({
     </div>
   );
 }
+
+export const ProjectAttendanceDataAna = injectApiInfo(
+  ProjectAttendanceDataAnaMain
+);

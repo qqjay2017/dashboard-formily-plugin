@@ -17,5 +17,11 @@ export interface ApiGroupItem {
 export interface SchemComponentWithDataSourceProps {
 
   apiInfo?: null | DataSourceBindType | (DataSourceBindType[])
-  query: SchemaQueryType
+  queryKeys?: string[]
+  queryParams?: any
+  busData?: any
+  busDataRes?: any
+  isBusDataLoading?: boolean
+  loading?: boolean
+  empty?: boolean
 }

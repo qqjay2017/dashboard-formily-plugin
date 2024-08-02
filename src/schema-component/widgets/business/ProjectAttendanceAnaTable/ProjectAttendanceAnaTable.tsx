@@ -7,6 +7,7 @@ import {
   useQueryToBusParams,
 } from "@/schema-component/hooks";
 import { DataTable } from "@/dashboard-themes/ui";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
 interface ProjectAttendanceItem {
   projectName: string;
@@ -16,14 +17,11 @@ interface ProjectAttendanceItem {
   shutFlag: number;
 }
 
-export function ProjectAttendanceAnaTable({
-  apiInfo,
-  query,
+function ProjectAttendanceAnaTableMain({
+  busDataRes,
 }: SchemComponentWithDataSourceProps) {
-  const queryParams = useQueryToBusParams(query);
-  const { data } = useDataBindFetch(apiInfo, queryParams);
   const projectAttendance: ProjectAttendanceItem[] = (
-    get(data, "data.data", []) || []
+    get(busDataRes, "data.data", []) || []
   ).map((d, index) => {
     return {
       ...d,
@@ -69,4 +67,6 @@ export function ProjectAttendanceAnaTable({
   );
 }
 
-ProjectAttendanceAnaTable.displayName = "ProjectAttendanceAnaTable";
+export const ProjectAttendanceAnaTable = injectApiInfo(
+  ProjectAttendanceAnaTableMain
+);

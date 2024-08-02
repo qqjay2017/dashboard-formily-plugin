@@ -1,22 +1,16 @@
 import { css } from "@emotion/css";
-import { get } from "lodash-es";
 
-import type { UnprocessedWarningItem } from "./types";
 import { WarnListItem } from "./WarnListItem";
 import type { SchemComponentWithDataSourceProps } from "@/types";
-import {
-  useDataBindFetch,
-  useQueryToBusParams,
-} from "@/schema-component/hooks";
-import { EmptyKit } from "@/dashboard-themes/style-components";
 
-export function UnprocessedWarningList({
-  query,
-  apiInfo,
+import { EmptyKit } from "@/dashboard-themes/style-components";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
+
+function UnprocessedWarningListMain({
+  busData,
+  isBusDataLoading,
 }: SchemComponentWithDataSourceProps) {
-  const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(apiInfo, busParams);
-  const warnList: UnprocessedWarningItem[] = get(data, "data.data", []) || [];
+  const warnList = busData || [];
   return (
     <div
       className={css`
@@ -43,7 +37,7 @@ export function UnprocessedWarningList({
           margin-top: 0.16rem;
         `}
       >
-        <EmptyKit loading={isLoading} empty={!warnList.length}>
+        <EmptyKit loading={isBusDataLoading} empty={!warnList.length}>
           <div
             className={css`
               width: 100%;
@@ -60,3 +54,5 @@ export function UnprocessedWarningList({
     </div>
   );
 }
+
+export const UnprocessedWarningList = injectApiInfo(UnprocessedWarningListMain);

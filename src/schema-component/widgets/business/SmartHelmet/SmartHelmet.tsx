@@ -9,20 +9,16 @@ import {
   useQueryToBusParams,
 } from "@/schema-component/hooks";
 import type { SchemComponentWithDataSourceProps } from "@/types";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
-export function SmartHelmet({
-  query,
-  apiInfo,
-}: SchemComponentWithDataSourceProps) {
-  const busParams = useQueryToBusParams(query);
-  const { data: dataRes } = useDataBindFetch(apiInfo, query);
+function SmartHelmetMain({ busDataRes }: SchemComponentWithDataSourceProps) {
   const safetyProject: SafetyProjectType = get(
-    dataRes,
+    busDataRes,
     "data.data.safetyProject",
     {}
   );
   const applicationAnalysis: ApplicationAnalysiItem[] =
-    get(dataRes, "data.data.applicationAnalysis", []) || [];
+    get(busDataRes, "data.data.applicationAnalysis", []) || [];
 
   return (
     <div
@@ -38,4 +34,4 @@ export function SmartHelmet({
   );
 }
 
-SmartHelmet.displayName = "SmartHelmet";
+export const SmartHelmet = injectApiInfo(SmartHelmetMain);

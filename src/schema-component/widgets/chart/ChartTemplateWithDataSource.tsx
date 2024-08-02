@@ -19,13 +19,13 @@ import chartLightTheme from "@/dashboard-themes/global-theme/chart-theme/light";
 export function ChartTemplateWithDataSource({
   chartId,
   apiInfo,
-  query,
+  queryKeys,
 }: ChartTemplateProps) {
   const { token } = useToken();
   const { data: chartDataRes, isLoading: isChartDataLoading } =
     useFetchChartConfig(chartId);
   const chartDataTemplate = get(chartDataRes, "data.data.template");
-  const queryParams = useQueryToBusParams(query);
+  const queryParams = useQueryToBusParams(queryKeys);
   const { data: busDataRes, isLoading: isBusDataLoading } = useDataBindFetch(
     apiInfo,
     queryParams

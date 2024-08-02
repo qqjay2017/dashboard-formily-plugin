@@ -12,16 +12,15 @@ import {
 } from "@/schema-component/hooks";
 import type { SchemComponentWithDataSourceProps } from "@/types";
 import { EmptyKit } from "@/dashboard-themes/style-components";
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 
-export function EmploymentCreditMng({
-  apiInfo,
-  query,
+function EmploymentCreditMngMain({
+  busDataRes,
+  isBusDataLoading,
 }: SchemComponentWithDataSourceProps) {
-  const busParams = useQueryToBusParams(query);
-  const { data, isLoading } = useDataBindFetch(apiInfo, busParams);
   const { headStyle, bodyStyle } = useFrameSizeStyle();
   const [tabValue, setTabValue] = useState<string>("1");
-  const list: EmploymentType[] = get(data, "data.data", []) || [];
+  const list: EmploymentType[] = get(busDataRes, "data.data", []) || [];
 
   const curWorkList = list.filter((w) => {
     if (tabValue === "1") {
@@ -50,7 +49,7 @@ export function EmploymentCreditMng({
           overflow: hidden auto;
         `}
       >
-        <EmptyKit loading={isLoading} empty={!curWorkList.length}>
+        <EmptyKit loading={isBusDataLoading} empty={!curWorkList.length}>
           <div
             className={css`
               width: 100%;
@@ -66,3 +65,5 @@ export function EmploymentCreditMng({
     </>
   );
 }
+
+export const EmploymentCreditMng = injectApiInfo(EmploymentCreditMngMain);
