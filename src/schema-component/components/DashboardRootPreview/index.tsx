@@ -51,7 +51,7 @@ function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
     width,
     isPc,
   });
-  console.log(blockItems, "blockItems");
+
   const RenderBlockItems = useMemo(() => {
     return (
       <>
@@ -82,7 +82,11 @@ function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
     ? (lastBlockItem.y + lastBlockItem.h + 0.5) * rowHeight
     : "2000";
   const dheight = isPc || !lastBlockItem ? "100%" : `${totalHeight}px`;
-  console.log(width, "width");
+
+  if (!breakpoint) {
+    return null;
+  }
+
   return (
     <DesignPageConext.Provider
       value={{

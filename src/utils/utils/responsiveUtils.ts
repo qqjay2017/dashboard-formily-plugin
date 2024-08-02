@@ -14,7 +14,7 @@ export function getBreakpointFromWidth(
   width: number,
 ): BreakpointKey {
   if (!width) {
-    return 'desktop'
+    return '' as BreakpointKey
   }
   const sorted = sortBreakpoints(breakpoints)
   let matching = sorted[0] as BreakpointKey

@@ -21,7 +21,7 @@ export function useBreakpoints(
     ({ width = 0, height = 0 }: { width?: number, height?: number }) => {
       setWidth(width)
       setHeight(height)
-      setBreakpoint(getBreakpointFromWidth(breakpoints, width) || 'desktop')
+      setBreakpoint(getBreakpointFromWidth(breakpoints, width))
     },
     [breakpoints],
   )
