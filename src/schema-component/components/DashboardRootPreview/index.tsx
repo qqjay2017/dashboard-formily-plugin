@@ -165,7 +165,7 @@ function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
                         width: 100%;
                         height: ${dheight};
                         position: relative;
-                        min-height: 100vh;
+                        /* min-height: 100vh; */
                       `,
                       rootStyle.styles,
                       className,
