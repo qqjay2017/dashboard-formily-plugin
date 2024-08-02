@@ -12,7 +12,8 @@
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=3000  NODE_ENV=production    webpack --config build/webpack.prod.js --mode production",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "build:lib": "cross-env   NODE_ENV=production tsup  --format esm,cjs   --dts --treeshake"
+    "build:lib": "cross-env   NODE_ENV=production tsup  --format esm,cjs   --dts --treeshake",
+    "release": "yarn build:lib && release-it"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
@@ -106,6 +107,7 @@
     "prettier-eslint": "^16.3.0",
     "react-hot-loader": "^4.13.1",
     "react-refresh": "^0.14.2",
+    "release-it": "^16.3.0",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
     "tsup": "^8.2.3",
