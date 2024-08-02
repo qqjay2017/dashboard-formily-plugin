@@ -125,16 +125,16 @@ function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
           >
             <div
               className={cn(css`
-                width: 100vw;
-                height: 100vh;
+                width: 100%;
+                height: 100%;
               `)}
             >
               {/* 移动端滚动容器 */}
               <div
                 className={cx(
                   css`
-                    width: 100vw;
-                    height: 100vh;
+                    width: 100%;
+                    height: 100%;
                     position: relative;
                     background-size: cover;
                     overflow-x: hidden;

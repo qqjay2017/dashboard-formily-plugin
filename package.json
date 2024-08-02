@@ -4,8 +4,8 @@
   "files": [
     "lib"
   ],
-  "module": "dist/preview-sdk.js",
-  "types": "dist/preview-sdk.d.ts",
+  "module": "lib/preview-sdk.js",
+  "types": "lib/preview-sdk.d.ts",
   "scripts": {
     "dev": "cross-env NODE_ENV=development  webpack-dev-server --config build/webpack.prod.js --mode development",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=3000  NODE_ENV=production    webpack --config build/webpack.prod.js --mode production",
