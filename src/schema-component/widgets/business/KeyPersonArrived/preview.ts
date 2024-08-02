@@ -11,7 +11,7 @@ FormilyKeyPersonArrived.Resource = createResource({
   title: '关键人员今日到岗',
 
   icon: rs(
-    '/assets/schema-component/KeyPersonArrived/WX20240721-143856@2x.png',
+    '/dashboard-assets/schema-component/KeyPersonArrived/WX20240721-143856@2x.png',
   ),
   elements: [
     {

@@ -12,7 +12,7 @@ FormilyEmploymentCreditMng.Resource = createResource({
   title: '用工信用管理',
 
   icon: rs(
-    '/assets/schema-component/EmploymentCreditMng/WX20240721-162339@2x.png',
+    '/dashboard-assets/schema-component/EmploymentCreditMng/WX20240721-162339@2x.png',
   ),
   elements: [
     {

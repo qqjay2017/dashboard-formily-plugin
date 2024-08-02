@@ -6,7 +6,7 @@ export const useClassicFrameStyle = createStyles(
     const { themeProvider, isDarkTheme } = token
 
     const url = rs(
-      `/assets/schema-component/ClassicFrame/${themeProvider}-${isDarkTheme ? 'dark' : 'light'}/bg1.png`,
+      `/dashboard-assets/schema-component/ClassicFrame/${themeProvider}-${isDarkTheme ? 'dark' : 'light'}/bg1.png`,
     )
     return css`
       &.nodeContentRenderer {

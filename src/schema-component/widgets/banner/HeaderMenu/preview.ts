@@ -9,7 +9,7 @@ export const FormilyHeaderMenu: DnFC<any> = connect(HeaderMenu)
 
 FormilyHeaderMenu.Resource = createResource({
   title: '头部下拉菜单',
-  icon: rs('/assets/header-menu/WX20240722-153218.png'),
+  icon: rs('/dashboard-assets/header-menu/WX20240722-153218.png'),
   elements: [
     {
       componentName: 'Field',

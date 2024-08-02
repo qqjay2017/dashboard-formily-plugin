@@ -12,7 +12,7 @@ export const FormilyProjectAttendanceAnaTable: DnFC<any> = connect(
 FormilyProjectAttendanceAnaTable.Resource = createResource({
   title: '项目出勤情况分析',
 
-  icon: rs('/assets/personInfoMng/WX20240702-225508@2x.png'),
+  icon: rs('/dashboard-assets/personInfoMng/WX20240702-225508@2x.png'),
 
   elements: [
     {

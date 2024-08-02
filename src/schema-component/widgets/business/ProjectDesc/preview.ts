@@ -11,7 +11,7 @@ export const FormilyProjectDesc: DnFC<any> = connect(ProjectDesc, mapGlobalProps
 FormilyProjectDesc.Resource = createResource({
   title: '项目简介',
 
-  icon: rs('/assets/schema-component/ProjectDesc/WX20240723-152828.png'),
+  icon: rs('/dashboard-assets/schema-component/ProjectDesc/WX20240723-152828.png'),
   elements: [
     {
       componentName: 'Field',

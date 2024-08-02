@@ -10,7 +10,7 @@ export const FormilyQuarterSelect: DnFC<any> = connect(QuarterSelect)
 FormilyQuarterSelect.Resource = createResource({
   title: '季度查询',
 
-  icon: rs('/assets/query/WX20240703-230554@2x.png'),
+  icon: rs('/dashboard-assets/query/WX20240703-230554@2x.png'),
   elements: [
     {
       componentName: 'Field',

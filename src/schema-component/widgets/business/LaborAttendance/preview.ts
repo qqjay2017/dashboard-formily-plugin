@@ -9,7 +9,7 @@ export const FormilyLaborAttendance: DnFC<any> = connect(LaborAttendance)
 
 FormilyLaborAttendance.Resource = createResource({
   title: '劳务出勤情况',
-  icon: rs('/assets/schema-component/LaborAttendance/WX20240723-235828@2x.png'),
+  icon: rs('/dashboard-assets/schema-component/LaborAttendance/WX20240723-235828@2x.png'),
   elements: [
     {
       componentName: 'Field',

@@ -9,7 +9,7 @@ export const FormilyClassicFrame5: DnFC<any> = connect(ClassicFrame5)
 
 FormilyClassicFrame5.Resource = createResource({
   title: '边框5',
-  icon: rs('/assets/schema-component/ClassicFrame5/Frame321315077.png'),
+  icon: rs('/dashboard-assets/schema-component/ClassicFrame5/Frame321315077.png'),
 
   elements: [
     {

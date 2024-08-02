@@ -12,7 +12,7 @@ export const FormilyUnprocessedWarningList: DnFC<any> = connect(
 FormilyUnprocessedWarningList.Resource = createResource({
   title: '未处理预警列表',
   icon: rs(
-    '/assets/schema-component/UnprocessedWarningList/WX20240721-143705@2x.png',
+    '/dashboard-assets/schema-component/UnprocessedWarningList/WX20240721-143705@2x.png',
   ),
   elements: [
     {

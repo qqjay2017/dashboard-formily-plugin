@@ -5,7 +5,7 @@ export const useClassicFrame5Style = createStyles(
   ({ css, token }, { hasTitle }: { hasTitle?: boolean }) => {
     const { themeProvider, isDarkTheme } = token
     const headerBgUrl = rs(
-      `/assets/schema-component/ClassicFrame5/${token.themeAssetsPath}/bg1.png`,
+      `/dashboard-assets/schema-component/ClassicFrame5/${token.themeAssetsPath}/bg1.png`,
     )
 
     return css`

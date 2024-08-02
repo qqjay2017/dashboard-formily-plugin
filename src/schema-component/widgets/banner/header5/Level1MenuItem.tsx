@@ -3,7 +3,9 @@ import type { HeaderMenuItemType } from "../HeaderMenu/types";
 import { cx, rs } from "@/utils";
 import { useReportShare } from "@/application/hooks";
 
-const activeBg = rs("/assets/schema-component/header5/activeMenuBg.png");
+const activeBg = rs(
+  "/dashboard-assets/schema-component/header5/activeMenuBg.png"
+);
 
 const activeStyle = css`
   color: #64e3ff;

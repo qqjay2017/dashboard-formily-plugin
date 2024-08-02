@@ -36,7 +36,7 @@ export function Header5(props: Header5Props) {
   const { token } = useToken();
 
   const bgSrc = rs(
-    `/assets/schema-component/header5/${token.themeAssetsPath}/bg.png`
+    `/dashboard-assets/schema-component/header5/${token.themeAssetsPath}/bg.png`
   );
   const titleStr = useStrHandlebars(title);
   const subTitleStr = useStrHandlebars(subTitle);

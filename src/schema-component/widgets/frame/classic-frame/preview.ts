@@ -10,7 +10,7 @@ export const FormilyClassicFrame: DnFC<any> = connect(ClassicFrame)
 FormilyClassicFrame.Resource = createResource({
   title: '基础边框',
 
-  icon: rs('/assets/schema-component/ClassicFrame/WX20240720-173009@2x.png'),
+  icon: rs('/dashboard-assets/schema-component/ClassicFrame/WX20240720-173009@2x.png'),
   elements: [
     {
       componentName: 'Field',

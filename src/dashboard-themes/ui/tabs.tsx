@@ -1,10 +1,10 @@
-import * as React from 'react'
-import * as TabsPrimitive from '@radix-ui/react-tabs'
+import * as React from "react";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-import { css } from '@emotion/css'
-import { cx, rs } from '@/utils'
+import { css } from "@emotion/css";
+import { cx, rs } from "@/utils";
 
-const Tabs = TabsPrimitive.Root
+const Tabs = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -20,12 +20,12 @@ const TabsList = React.forwardRef<
         align-items: center;
       `,
 
-      className,
+      className
     )}
     {...props}
   />
-))
-TabsList.displayName = TabsPrimitive.List.displayName
+));
+TabsList.displayName = TabsPrimitive.List.displayName;
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -59,12 +59,12 @@ const TabsTrigger = React.forwardRef<
           background-color: rgb(9, 9, 11);
         }
       `,
-      className,
+      className
     )}
     {...props}
   />
-))
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
+));
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
@@ -75,11 +75,13 @@ const TabsContent = React.forwardRef<
     className={cx(css``, className)}
     {...props}
   />
-))
-TabsContent.displayName = TabsPrimitive.Content.displayName
+));
+TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-const TabsTrigger2Img = rs('/assets/ui/tabs/nodeCardTitleBg2.png')
-const ActiveTabsTrigger2Img = rs('/assets/ui/tabs/nodeCardTitleBg3.png')
+const TabsTrigger2Img = rs("/dashboard-assets/ui/tabs/nodeCardTitleBg2.png");
+const ActiveTabsTrigger2Img = rs(
+  "/dashboard-assets/ui/tabs/nodeCardTitleBg3.png"
+);
 
 const TabsTrigger2 = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -119,10 +121,10 @@ const TabsTrigger2 = React.forwardRef<
           background-image: url(${ActiveTabsTrigger2Img});
         }
       `,
-      className,
+      className
     )}
     {...props}
   />
-))
+));
 
-export { Tabs, TabsList, TabsTrigger, TabsContent, TabsTrigger2 }
+export { Tabs, TabsList, TabsTrigger, TabsContent, TabsTrigger2 };

@@ -10,7 +10,7 @@ export const FormilyProjectBudget: DnFC<any> = connect(ProjectBudget)
 FormilyProjectBudget.Resource = createResource({
   title: '项目预算',
 
-  icon: rs('/assets/project-budget/WX20240627-233711@2x.png'),
+  icon: rs('/dashboard-assets/project-budget/WX20240627-233711@2x.png'),
 
   elements: [
     {

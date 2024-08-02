@@ -10,7 +10,7 @@ export const FormilyAiotMonitorBlock: DnFC<any> = connect(AiotMonitorBlock)
 FormilyAiotMonitorBlock.Resource = createResource({
   title: 'AIOT监控',
 
-  icon: rs('/assets/schema-component/AiotMonitorBlock/WX20240724-165947.png'),
+  icon: rs('/dashboard-assets/schema-component/AiotMonitorBlock/WX20240724-165947.png'),
   elements: [
     {
       componentName: 'Field',

@@ -10,7 +10,7 @@ export const FormilySmartHelmet: DnFC<any> = connect(SmartHelmet)
 FormilySmartHelmet.Resource = createResource({
   title: '智能安全帽',
 
-  icon: rs('/assets/schema-component/SmartHelmet/WX20240721-150257@2x.png'),
+  icon: rs('/dashboard-assets/schema-component/SmartHelmet/WX20240721-150257@2x.png'),
 
   elements: [
     {

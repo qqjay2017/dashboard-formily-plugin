@@ -13,7 +13,7 @@ export const FormilyProjectSelect: DnFC<any> = connect((props) => {
 FormilyProjectSelect.Resource = createResource({
   title: "项目选择",
 
-  icon: rs("/assets/query/WX20240720-091304@2x.png"),
+  icon: rs("/dashboard-assets/query/WX20240720-091304@2x.png"),
 
   elements: [
     {

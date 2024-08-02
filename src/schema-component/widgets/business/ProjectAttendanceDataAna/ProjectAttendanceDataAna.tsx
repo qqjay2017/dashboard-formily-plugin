@@ -58,7 +58,7 @@ function ProjectAttendanceDataAnaMain({
             background-position: center bottom;
           `}
           style={{
-            backgroundImage: `url( ${rs("/assets/personInfoMng/zjxms.png")} )`,
+            backgroundImage: `url( ${rs("/dashboard-assets/personInfoMng/zjxms.png")} )`,
           }}
         >
           <div

@@ -9,7 +9,7 @@ export const FormilyHeader1: DnFC<any> = connect(Header1)
 
 FormilyHeader1.Resource = createResource({
   title: '头部1',
-  icon: rs('/assets/schema-component/Header1/WX20240728-001724@2x.png'),
+  icon: rs('/dashboard-assets/schema-component/Header1/WX20240728-001724@2x.png'),
   elements: [
     {
       componentName: 'Field',

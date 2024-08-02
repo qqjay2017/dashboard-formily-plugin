@@ -11,7 +11,7 @@ import { createBehavior, createResource } from "@/designable/core";
 
 const useHeader1Styles = createStyles(({ css, token }) => {
   const { themeAssetsPath } = token;
-  const url = rs(`/assets/header1/${themeAssetsPath}/bg.png`);
+  const url = rs(`/dashboard-assets/header1/${themeAssetsPath}/bg.png`);
   return css`
     background-image: url(${url});
   `;
