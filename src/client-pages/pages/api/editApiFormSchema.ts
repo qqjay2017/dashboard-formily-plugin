@@ -7,7 +7,7 @@ export const editApiFormSchema: ISchema = {
       'type': 'void',
       'x-component': 'Card',
       'x-component-props': {
-        title: '配置信息',
+
       },
       'properties': {
         name: {
