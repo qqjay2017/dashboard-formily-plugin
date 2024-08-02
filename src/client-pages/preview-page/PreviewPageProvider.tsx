@@ -34,7 +34,7 @@ function PreviewPageProvider({
       designable: false,
       effects: () => {},
     });
-  }, []);
+  }, [breakpoint]);
 
   const isPc = breakpoint === "desktop" || breakpoint === "showroom";
   const rowHeight = isPc ? sizeFormat(height / rows) : 80;
