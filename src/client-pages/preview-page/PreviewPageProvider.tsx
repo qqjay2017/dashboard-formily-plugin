@@ -48,7 +48,7 @@ function PreviewPageProvider({
     thumbColor: customThemeToken.token.thumbColor,
   });
   return (
-    <FormProvider form={form}>
+    <FormProvider form={form} key={breakpoint}>
       <PreviewSchemaComponent
         scope={{
           dashboardDt: {},
