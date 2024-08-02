@@ -1,14 +1,13 @@
 import { useMemo } from "react";
 import { FormProvider } from "@formily/react";
 
-import { FormDialog } from "@formily/antd-v5";
 import { createForm } from "@formily/core";
 
 import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 
 import { editApiFormSchema } from "./editApiFormSchema";
-import { ApiTest } from "./ApiTest";
+
 import { openApiTestDialog } from "./openApiTestDialog";
 import { useEditId } from "@/application/hooks";
 import { useAPIClient, useRequest } from "@/api-client";
@@ -18,7 +17,6 @@ import { apiBase } from "@/utils";
 import PageContainer from "@/client-pages/components/PageContainer";
 import InternalFormLayout from "@/client-pages/components/InternalFormLayout";
 import Submit from "@/client-pages/components/Submit";
-import { getModalDialog } from "@/schema-component/antd";
 
 /**
  * 汇聚出表单页面规范

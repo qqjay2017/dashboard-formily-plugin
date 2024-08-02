@@ -5,8 +5,10 @@ import {
   type SchemaReactComponents,
 } from "@formily/react";
 import { memo, useMemo } from "react";
+import { setValidateLanguage } from "@formily/core";
 import { useSchemaOptionsContext } from "@/schema-component/hooks";
 
+setValidateLanguage("zh-CN");
 export interface ISchemaComponentOptionsProps {
   scope?: any;
   components?: SchemaReactComponents;
