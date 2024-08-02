@@ -27,6 +27,13 @@ export default function injectApiInfo(WrapComponent) {
         />
       );
     }
-    return <WrapComponent {...props} />;
+    return (
+      <WrapComponent
+        {...props}
+        queryParams={queryParams}
+        apiInfo={apiInfo}
+        queryKeys={queryKeys}
+      />
+    );
   };
 }
