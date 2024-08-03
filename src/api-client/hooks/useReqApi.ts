@@ -1,3 +1,4 @@
+import type { AxiosRequestConfig } from "axios";
 import { useAPIClient } from "./useAPIClient";
 import { apiBase } from "@/utils";
 
@@ -8,13 +9,18 @@ export function useReqApiProxy() {
     data = {},
     headers = {},
     formValues,
+    dataPath,
+    ...rest
   }: {
     apiId: string;
     data?: any;
     headers?: any;
     formValues?: any;
+    dataPath?: string;
+    transformResponse?: AxiosRequestConfig["transformResponse"];
   }) => {
     return apiClient?.request({
+      dataPath,
       method: "post",
       url: apiId
         ? `${apiBase}/api-proxy/proxy`
@@ -26,6 +32,8 @@ export function useReqApiProxy() {
         origin: location.origin,
         headers,
       },
+
+      ...rest,
     });
   };
   return {

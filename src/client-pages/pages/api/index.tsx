@@ -20,7 +20,7 @@ function ApiIndex() {
   const { typeParam } = useTypeParam();
   const navigate = useNavigate();
   const { data, refetch } = useApiManageAll(
-    typeParam === "all" ? undefined : typeParam
+    !typeParam || typeParam === "all" ? undefined : typeParam
   );
   const { data: groupList, refetch: refetchGroupList } = useGroupList();
 
@@ -42,7 +42,7 @@ function ApiIndex() {
       <InternalTable
         scroll={{
           ...tableDefaultScroll,
-          x: undefined,
+          x: 1920,
         }}
         dataSource={dataSource}
         columns={[
@@ -121,7 +121,7 @@ function ApiIndex() {
                 <Space>
                   <a
                     onClick={() => {
-                      openApiTestDialog(record.id, {});
+                      openApiTestDialog(record.id, record.type);
                     }}
                   >
                     连接

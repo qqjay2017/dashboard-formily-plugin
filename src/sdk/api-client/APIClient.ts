@@ -2,7 +2,12 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 
 import qs from "qs";
+import { get } from "lodash-es";
 import type { APIClientOptions } from "./types";
+
+interface InternalAxiosRequestConfig<D> extends AxiosRequestConfig<D> {
+  dataPath?: string;
+}
 
 class APIClientSdk {
   axios: AxiosInstance;
@@ -39,13 +44,17 @@ class APIClientSdk {
   }
 
   request<T = any, R = any, D = any>(
-    config: AxiosRequestConfig<D>
+    config: InternalAxiosRequestConfig<D>
   ): Promise<R> {
     if (!config.method || config.method.toLowerCase() === "get") {
-      return this.axios.get<T, R, D>(config.url, config);
+      return this.axios.get<T, R, D>(config.url, {
+        ...config,
+      });
     }
 
-    return this.axios.request<T, R, D>(config);
+    return this.axios.request<T, R, D>({
+      ...config,
+    });
   }
 }
 

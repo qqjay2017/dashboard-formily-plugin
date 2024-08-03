@@ -205,3 +205,14 @@ async function onTest(values) {
   } catch (error) {}
 }
 ```
+
+## 修改取数路径
+
+传入dataPath属性
+
+```ts
+const apiClient = useAPIClient();
+apiClient?.request({
+  dataPath: "data",
+});
+```

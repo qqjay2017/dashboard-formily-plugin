@@ -73,8 +73,13 @@ export class APIClient extends APIClientSdk {
             })
           );
         }
+        const configDataPath = (res.config as any).dataPath;
 
-        return this.dataPath ? get(res, this.dataPath) : res;
+        return configDataPath !== undefined
+          ? get(res, configDataPath, res)
+          : this.dataPath !== undefined
+            ? get(res, this.dataPath, res)
+            : res.data?.data;
       },
       (error) => {
         handleErrorMessage(error, this.notification);

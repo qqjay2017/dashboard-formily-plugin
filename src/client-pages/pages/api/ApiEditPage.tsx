@@ -85,7 +85,7 @@ function ApiEditPage() {
   const onTest = async (values) => {
     const res = await handleSunmit(values);
     const resId = res.id;
-    openApiTestDialog(resId);
+    openApiTestDialog(resId, typeParam);
   };
 
   return (

@@ -1,11 +1,11 @@
 import type { PropsWithChildren } from "react";
-import React from "react";
+
 import { get } from "lodash-es";
 import { css } from "@emotion/css";
 
 import { Tabs } from "antd";
-import type { AxiosHeaders } from "axios";
-import type { IApiManageItem } from "./types";
+
+import type { IApiManageItem, IApiType } from "./types";
 import { useQuery, useReqApiProxy } from "@/api-client";
 import MonacoEditor from "@/schema-component/components/MonacoEditor";
 import { compileApiJs } from "@/utils";
@@ -34,27 +34,17 @@ const jsonEditProps: any = {
   readOnly: true,
 };
 
-export function ApiTest({
-  apiId,
-  formValues,
-}: {
-  apiId?: string;
-  formValues?: any;
-}) {
+export function ApiTest({ apiId, type }: { apiId?: string; type?: IApiType }) {
   const { request } = useReqApiProxy();
-  const { data, refetch, error, isError, isLoading } = useQuery<IApiManageItem>(
-    {
-      queryKey: ["apiTest", apiId, ...Object.keys(formValues || {})],
-      queryFn: () =>
-        request({
-          formValues,
-          apiId,
-          headers: {},
-        }),
-    }
-  );
-
-  const resData = get(data, "data", {});
+  const { data, refetch, error, isError, isLoading } = useQuery<any>({
+    queryKey: ["apiTest", apiId],
+    queryFn: () =>
+      request({
+        dataPath: "data",
+        apiId,
+        headers: {},
+      }),
+  });
 
   // const headers: AxiosHeaders = data?.headers as any as AxiosHeaders;
   if (!data || isLoading) {
@@ -78,16 +68,22 @@ export function ApiTest({
             label: "Body",
             children: (
               <ApiTestItemWrap>
-                {data.type === "js" ? (
+                {type === "http" ? (
+                  <MonacoEditor
+                    {...jsonEditProps}
+                    language="json"
+                    defaultValue={JSON.stringify(data)}
+                  />
+                ) : type === "js" ? (
                   <MonacoEditor
                     {...jsonEditProps}
                     language="javascript"
-                    value={JSON.stringify(compileApiJs(data.data))}
+                    defaultValue={JSON.stringify(compileApiJs(data))}
                   />
                 ) : (
                   <MonacoEditor
                     {...jsonEditProps}
-                    value={JSON.stringify(resData)}
+                    defaultValue={JSON.stringify(data)}
                   />
                 )}
               </ApiTestItemWrap>
