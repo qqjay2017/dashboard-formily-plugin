@@ -12,6 +12,7 @@ import { defaultChartTemplate } from "./consts";
 import { chartMockData, chartMockDataOptions } from "./chartMockData";
 import { ChartEditRight } from "./ChartEditRight";
 
+import { useEditChartApi } from "./useEditChartApi";
 import { useAPIClient } from "@/api-client";
 import {
   apiBase,
@@ -33,6 +34,7 @@ function ChartEditPage() {
   const { token: antdToken } = useToken();
   const chartOptionEditorRef = useRef<MonacoEditorHandles>(null);
   const app = useApp();
+  const editChartApi = useEditChartApi();
   const apiClient = useAPIClient();
   const { id } = useParams();
   const [spinning, setSpinning] = useState(false);
@@ -119,15 +121,16 @@ function ChartEditPage() {
           element: "ChartViewCore",
         });
 
-        await apiClient.request({
-          url: `${apiBase}/chart`,
-          method: "put",
-          data: {
+        await editChartApi({
+          isCreate: false,
+          chartId: id,
+          values: {
             id,
             coverThumbnail: imgSrc?.fileSrcUrl || undefined,
             content: newTemp,
           },
         });
+
         setSpinning(false);
         message.success("保存成功");
       } catch (error) {
