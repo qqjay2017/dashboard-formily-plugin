@@ -6,7 +6,7 @@ import { createForm } from "@formily/core";
 import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 
-import { editApiFormSchema } from "./editApiFormSchema";
+import { editApiFormSchema, editJsonApiFormSchema } from "./editApiFormSchema";
 
 import { openApiTestDialog } from "./openApiTestDialog";
 import { useEditId } from "@/application/hooks";
@@ -17,22 +17,23 @@ import { apiBase } from "@/utils";
 import PageContainer from "@/client-pages/components/PageContainer";
 import InternalFormLayout from "@/client-pages/components/InternalFormLayout";
 import Submit from "@/client-pages/components/Submit";
+import { useTypeParam } from "@/client-pages/hooks";
 
 /**
  * 汇聚出表单页面规范
  * @returns
  */
 function ApiEditPage() {
+  const { typeParam } = useTypeParam();
   const id = useEditId();
   const apiClient = useAPIClient();
 
   const navigate = useNavigate();
 
-  const { data } = useRequest(`${apiBase}/api-manage/${id}`, {
+  const { data: dtData } = useRequest(`${apiBase}/api-manage/${id}`, {
     enabled: !!id,
     method: "GET",
   });
-  const dtData = get(data, "data.data", {});
 
   const form: any = useMemo(() => {
     if (!id) {
@@ -43,8 +44,7 @@ function ApiEditPage() {
     return createForm({
       initialValues: {
         ...dtData,
-        headers: JSON.parse(dtData?.headers || "[]"),
-        mockJson: dtData?.mockJson || "{}",
+        headers: JSON.parse(dtData?.headers || "{}"),
       },
     });
   }, [dtData, id]);
@@ -52,24 +52,23 @@ function ApiEditPage() {
   const onSubmit = async (values) => {
     const res = await apiClient.request({
       method: id ? "put" : "post",
-      url: id
-        ? `${apiBase}/api-manage/edit/${id}`
-        : `${apiBase}/api-manage/create`,
+      url: id ? `${apiBase}/api-manage` : `${apiBase}/api-manage`,
       data: {
         ...values,
-        headers: JSON.stringify(values.headers || []),
+        id,
+        type: typeParam,
+        headers: JSON.stringify(values.headers || {}),
         url: (values.url || "").trim(),
-
-        mockJson: values.mockJson || "{}",
       },
     });
-    const resId = get(res, "data.data.id", "");
+    const resId = res.id;
     if (resId) {
       navigate(-1);
     }
   };
 
   const onTest = async (values) => {
+    await onSubmit(values);
     openApiTestDialog(id, values);
   };
 
@@ -79,14 +78,18 @@ function ApiEditPage() {
         title={id ? "编辑数据配置" : "新建数据配置"}
         footer={[
           <Submit key="test" onSubmit={onTest}>
-            连接
+            测试
           </Submit>,
           <Submit key="submit" type="primary" onSubmit={onSubmit}>
             提交
           </Submit>,
         ]}
       >
-        <InternalFormLayout schema={editApiFormSchema} />
+        <InternalFormLayout
+          schema={
+            typeParam === "json" ? editJsonApiFormSchema : editApiFormSchema
+          }
+        />
       </PageContainer>
     </FormProvider>
   );

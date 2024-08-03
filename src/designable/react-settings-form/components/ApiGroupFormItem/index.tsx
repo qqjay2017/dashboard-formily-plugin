@@ -36,7 +36,7 @@ export function ApiGroupFormItem({
 
   const { data, refetch } = useGroupList();
 
-  const options = (get(data, "data.data", []) || []).map((item) => {
+  const options = (data || []).map((item) => {
     return {
       ...item,
       label: item.name,
@@ -83,14 +83,14 @@ export function ApiGroupFormItem({
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `${apiBase}/api-manage/group`,
+                  url: `${apiBase}/api-group`,
                   method: "POST",
                   data: {
                     name: (name || "").trim(),
                   },
                 });
 
-                const id = get(res, "data.data.id");
+                const id = get(res, "id");
                 if (id) {
                   refetch();
                   return next(payload);

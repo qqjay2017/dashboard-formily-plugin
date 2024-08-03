@@ -39,7 +39,7 @@ class APIClientSdk {
     });
   }
 
-  request<T = any, R = AxiosResponse<T>, D = any>(
+  request<T = any, R = any, D = any>(
     config: AxiosRequestConfig<D>
   ): Promise<R> {
     if (!config.method || config.method.toLowerCase() === "get") {

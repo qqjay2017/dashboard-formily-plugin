@@ -29,6 +29,7 @@ export default antfu({
     "./src/ui/*",
   ],
   rules: {
+    "ts/no-use-before-define": "warn",
     "ts/no-duplicate-enum-values": "off",
     "react/no-create-ref": "off",
     "ts/ban-ts-comment": "off",

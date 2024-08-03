@@ -1,34 +1,26 @@
-import { get } from "lodash-es";
 import { Button, Space, Tag, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
-
-import dayjs from "dayjs";
-
-import { useMemo } from "react";
 
 import { CreateApiBtn } from "./CreateApiBtn";
 
 import { openApiTestDialog } from "./openApiTestDialog";
+import { typeConfig } from "./consts";
 import { shortUid } from "@/utils/shortUid";
-import { apiBase, copyTextToClipboard } from "@/utils";
-import { useApp, useGroupList } from "@/application/hooks";
-
-import { useRequest } from "@/api-client";
+import { copyTextToClipboard, tableDefaultScroll } from "@/utils";
+import { useGroupList } from "@/application/hooks";
 
 import PageContainer from "@/client-pages/components/PageContainer";
 
 import InternalTable from "@/client-pages/components/InternalTable";
+import { useApiManageAll, useTypeParam } from "@/client-pages/hooks";
 
 function ApiIndex() {
-  const app = useApp();
-  app.getComposeProviders;
+  const { typeParam } = useTypeParam();
   const navigate = useNavigate();
-  const { data } = useRequest(`${apiBase}/api-manage/list`, {
-    method: "GET",
-  });
+  const { data } = useApiManageAll(typeParam === "all" ? undefined : typeParam);
   const { data: groupList, refetch: refetchGroupList } = useGroupList();
-  const Providers = useMemo(() => app.getComposeProviders(), [app]);
-  const groupFilterOptions = get(groupList, "data.data", []).map((item) => {
+
+  const groupFilterOptions = (groupList || []).map((item) => {
     return {
       ...item,
       label: item.name,
@@ -36,7 +28,7 @@ function ApiIndex() {
       value: item.name,
     };
   });
-  const dataSource = get(data, "data.data", []) || [];
+  const dataSource = data || [];
 
   return (
     <PageContainer
@@ -44,6 +36,10 @@ function ApiIndex() {
       extra={[<CreateApiBtn key="CreateApiBtn" />]}
     >
       <InternalTable
+        scroll={{
+          ...tableDefaultScroll,
+          x: undefined,
+        }}
         dataSource={dataSource}
         columns={[
           {
@@ -71,24 +67,26 @@ function ApiIndex() {
           {
             title: "名称",
             dataIndex: "name",
-            width: 200,
+            ellipsis: true,
+            width: 140,
+          },
+          {
+            title: "类型",
+            dataIndex: "type",
+            width: 100,
             render: (_, record) => {
-              return (
-                <Space>
-                  <div>{record.name}</div>
-                  {record.isMock ? <Tag color="green">MOCK</Tag> : null}
-                </Space>
-              );
+              const typeName = typeConfig[record.type]?.title;
+              return <Space>{typeName ? <Tag>{typeName}</Tag> : null}</Space>;
             },
           },
           {
             title: "分组",
 
-            dataIndex: "group",
+            dataIndex: "groupName",
             filters: groupFilterOptions,
 
             onFilter: (value, record) => {
-              return record?.group === value;
+              return record?.groupName === value;
             },
           },
           {
@@ -108,20 +106,7 @@ function ApiIndex() {
             dataIndex: "method",
             width: 100,
           },
-          {
-            title: "创建时间",
-            dataIndex: "createdAt",
-            render: (_, record) => {
-              return dayjs(record.createdAt).format("YYYY-MM-DD HH:mm:ss");
-            },
-          },
-          {
-            title: "修改时间",
-            dataIndex: "updateAt",
-            render: (_, record) => {
-              return dayjs(record.updateAt).format("YYYY-MM-DD HH:mm:ss");
-            },
-          },
+
           {
             title: "操作",
             dataIndex: "options",
@@ -140,7 +125,7 @@ function ApiIndex() {
 
                   <a
                     onClick={() => {
-                      navigate(`/dapi-edit?id=${row.id}`);
+                      navigate(`/dapi-edit?id=${row.id}&type=${row.type}`);
                     }}
                   >
                     编辑

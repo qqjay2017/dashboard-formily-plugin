@@ -53,7 +53,7 @@ const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
       value,
       onChange,
       language = "javascript",
-
+      theme: _theme,
       readOnly = false,
       height = "100%",
       width = "100%",
@@ -147,7 +147,11 @@ const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
           <Editor
             className="monaco-editor"
             onMount={onMountHandler}
-            theme={theme === "dark" ? "monokai" : "chrome-devtools"}
+            theme={
+              theme === "dark" || _theme?.includes("dark")
+                ? "monokai"
+                : "chrome-devtools"
+            }
             language={language}
             height={height}
             defaultValue={defaultValue}
