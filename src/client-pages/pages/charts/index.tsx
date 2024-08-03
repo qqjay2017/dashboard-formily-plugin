@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 
 import { get } from "lodash-es";
 
@@ -11,10 +11,11 @@ import type { IChartItem } from "./types";
 import type { APiWrap } from "@/api-client";
 import { useAPIClient, useRequest } from "@/api-client";
 import { apiBase } from "@/utils";
-import { getFormDialog } from "@/schema-component/antd";
+import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
 import PageContainer from "@/client-pages/components/PageContainer";
 import CardList from "@/client-pages/components/CardList";
 import { useTypeParam } from "@/client-pages/hooks";
+import { useFetchChartAll } from "@/schema-component/widgets";
 
 function ChartsIndex() {
   const { typeParam } = useTypeParam("all");
@@ -22,17 +23,10 @@ function ChartsIndex() {
 
   const chartType = !typeParam || typeParam === "all" ? undefined : typeParam;
 
-  const { data, refetch } = useRequest(`${apiBase}/chart`, {
-    method: "GET",
-    params: {
-      type: chartType,
-    },
-
-    refreshDeps: [chartType],
-  });
+  const { data, refetch } = useFetchChartAll(chartType);
 
   const editChart = (
-    { id: chartId = "", name, type, description }: Partial<IChartItem>,
+    { id: chartId, name, type, description }: Partial<IChartItem>,
     {
       isCreate,
     }: {
@@ -59,22 +53,24 @@ function ChartsIndex() {
       .forConfirm(async (payload, next) => {
         const values = payload.values;
         const res = await apiClient.request<any, APiWrap<{ id: number }>>({
-          url: `${apiBase}/chart/${chartId}`,
+          url: `${apiBase}/chart`,
           method: isCreate ? "POST" : "PUT",
           data: {
             ...values,
-            template: isCreate ? defaultChartTemplate : values.template,
+            id: chartId,
+            content: isCreate ? defaultChartTemplate : values.content,
           },
         });
-        const id = get(res, "data.data.id");
+        const id = get(res, "id");
         if (id) {
           refetch();
+          message.success("提交成功");
         }
         next(payload);
       })
       .open({});
   };
-  const chartList: IChartItem[] = get(data, "data.data", []) || [];
+  const chartList: IChartItem[] = data || [];
 
   return (
     <PageContainer
@@ -108,6 +104,20 @@ function ChartsIndex() {
                 editChart(item, {
                   isCreate: false,
                 });
+              }}
+              onRemoveClick={async () => {
+                try {
+                  await showConfirmPromisify({});
+                  await await apiClient.request<any, APiWrap<{ id: number }>>({
+                    url: `${apiBase}/chart/${item.id}`,
+                    method: "DELETE",
+                    data: {
+                      ...item,
+                    },
+                  });
+                  await refetch();
+                  message.success("删除成功");
+                } catch (error) {}
               }}
             />
           );

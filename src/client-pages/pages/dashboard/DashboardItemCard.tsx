@@ -51,7 +51,7 @@ export default function DashboardItemCard({
         className={css`
           width: 100%;
           height: 151px;
-          background: #f5f5f5;
+          background: #081c3d;
           background-image: url(${dashboard.coverThumbnail});
           background-size: contain;
           background-repeat: no-repeat;

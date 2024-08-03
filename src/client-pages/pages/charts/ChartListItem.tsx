@@ -1,11 +1,27 @@
 import { css } from "@emotion/css";
 import { useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
+import { IoTrashOutline } from "react-icons/io5";
 import type { IChartItem } from "./types";
+import { cx } from "@/utils";
 
 interface IChartListItemProps extends IChartItem {
   onEditClick?: Function;
+  onRemoveClick?: Function;
 }
+
+const handleIconStyle = css`
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  right: 0px;
+  margin-top: -20px;
+  padding: 12px;
+  cursor: pointer;
+  &:hover {
+    color: var(--dn-brand-color);
+  }
+`;
 
 export function ChartListItem({
   name,
@@ -13,6 +29,7 @@ export function ChartListItem({
   coverThumbnail,
   description,
   onEditClick,
+  onRemoveClick,
 }: IChartListItemProps) {
   const navigate = useNavigate();
   return (
@@ -63,20 +80,30 @@ export function ChartListItem({
           `}
         >
           <div
-            className={css`
-              position: absolute;
-              z-index: 10;
-              top: 50%;
-              right: 0;
-              margin-top: -20px;
-              padding: 12px;
-              cursor: pointer;
-            `}
+            className={cx(
+              handleIconStyle,
+              css`
+                right: 28px;
+              `
+            )}
             onClick={() => {
               onEditClick && onEditClick();
             }}
           >
             <FaRegEdit />
+          </div>
+          <div
+            className={cx(
+              handleIconStyle,
+              css`
+                right: 0px;
+              `
+            )}
+            onClick={() => {
+              onRemoveClick && onRemoveClick();
+            }}
+          >
+            <IoTrashOutline />
           </div>
           <div
             className={css`
