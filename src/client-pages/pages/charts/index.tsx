@@ -2,14 +2,13 @@ import { Button, message } from "antd";
 
 import { get } from "lodash-es";
 
-import { defaultChartTemplate } from "./consts";
-
 import { createChartSchema } from "./createChartSchema";
 import { ChartListItem } from "./ChartListItem";
 import type { IChartItem } from "./types";
 
+import { useEditChartApi } from "./useEditChartApi";
 import type { APiWrap } from "@/api-client";
-import { useAPIClient, useRequest } from "@/api-client";
+import { useAPIClient } from "@/api-client";
 import { apiBase } from "@/utils";
 import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
 import PageContainer from "@/client-pages/components/PageContainer";
@@ -20,6 +19,7 @@ import { useFetchChartAll } from "@/schema-component/widgets";
 function ChartsIndex() {
   const { typeParam } = useTypeParam("all");
   const apiClient = useAPIClient();
+  const editChartApi = useEditChartApi();
 
   const chartType = !typeParam || typeParam === "all" ? undefined : typeParam;
 
@@ -52,14 +52,10 @@ function ChartsIndex() {
       })
       .forConfirm(async (payload, next) => {
         const values = payload.values;
-        const res = await apiClient.request<any, APiWrap<{ id: number }>>({
-          url: `${apiBase}/chart`,
-          method: isCreate ? "POST" : "PUT",
-          data: {
-            ...values,
-            id: chartId,
-            content: isCreate ? defaultChartTemplate : values.content,
-          },
+        const res = await editChartApi({
+          isCreate,
+          chartId,
+          values,
         });
         const id = get(res, "id");
         if (id) {

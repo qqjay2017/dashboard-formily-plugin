@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Select, Spin, Switch, message } from "antd";
 import Handlebars from "handlebars";
 import * as echarts from "echarts";
-import html2canvas from "html2canvas";
 import Decimal from "decimal.js";
 
 import { defaultChartTemplate } from "./consts";
@@ -40,20 +39,20 @@ function ChartEditPage() {
   const [chartMockDataType, setChartMockDataType] = useState("standard");
   const [themeProvider, setThemeName] = useState("technologyBlue");
   const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [template, setTemplate] = useState("");
+  const [content, setTemplate] = useState("");
   const [chartOption, setChartOption] = useState(null);
   const [chartOptionStr, setChartOptionStr] = useState("");
   const { token: customThemeToken } = useCustomThemeToken({
     isDarkTheme,
     themeProvider,
   });
-  const handleCompileTemplate = (template = "", mockDataType = "") => {
-    if (!template) {
+  const handleCompileTemplate = (content = "", mockDataType = "") => {
+    if (!content) {
       app.message.warning("图表模版内容为空,请输入");
       return false;
     }
     try {
-      const handlebarsTemplate = Handlebars.compile(template);
+      const handlebarsTemplate = Handlebars.compile(content);
       const { chartListData, totalNum } = chartListDataFormat(
         chartMockData[mockDataType || chartMockDataType] || []
       );
@@ -98,7 +97,7 @@ function ChartEditPage() {
       setTimeout(() => {
         chartOptionEditorRef.current?.formatDocument();
       }, 200);
-      return template;
+      return content;
     } catch (error) {
       console.error(error);
       app.message.error("代码执行失败");
@@ -121,11 +120,12 @@ function ChartEditPage() {
         });
 
         await apiClient.request({
-          url: `${apiBase}/chart/${id}`,
+          url: `${apiBase}/chart`,
           method: "put",
           data: {
+            id,
             coverThumbnail: imgSrc?.fileSrcUrl || undefined,
-            template: newTemp,
+            content: newTemp,
           },
         });
         setSpinning(false);
@@ -142,20 +142,20 @@ function ChartEditPage() {
         url: `${apiBase}/chart/${id}`,
       })
       .then((res) => {
-        const chartDt = get(res, "data.data", {}) || {};
+        const chartDt = res || {};
         const type = chartDt.type;
         const isPie = type === "pie";
         if (isPie) {
           setChartMockDataType("pieData");
         }
 
-        const template = chartDt.template || defaultChartTemplate;
-        setTemplate(template);
-        handleCompileTemplate(template, isPie ? "pieData" : "");
+        const content = chartDt.content || defaultChartTemplate;
+        setTemplate(content);
+        handleCompileTemplate(content, isPie ? "pieData" : "");
       });
   }, [id]);
 
-  if (!template) {
+  if (!content) {
     return null;
   }
   return (
@@ -231,14 +231,14 @@ function ChartEditPage() {
             />
             <RunBtn
               onClick={() => {
-                handleSaveTemplate(template);
+                handleSaveTemplate(content);
               }}
             >
               保存
             </RunBtn>
             <RunBtn
               onClick={() => {
-                handleCompileTemplate(template);
+                handleCompileTemplate(content);
               }}
             >
               运行
@@ -253,7 +253,7 @@ function ChartEditPage() {
             <MonacoEditor
               // language="handlebars"
               language="javascript"
-              value={template}
+              value={content}
               onChange={setTemplate}
               height="100%"
               wordWrap="on"
