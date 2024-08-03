@@ -6,7 +6,12 @@ import { createForm } from "@formily/core";
 import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 
-import { editApiFormSchema, editJsonApiFormSchema } from "./editApiFormSchema";
+import { message } from "antd";
+import {
+  editApiFormSchema,
+  editJsApiFormSchema,
+  editJsonApiFormSchema,
+} from "./editApiFormSchema";
 
 import { openApiTestDialog } from "./openApiTestDialog";
 import { useEditId } from "@/application/hooks";
@@ -49,8 +54,8 @@ function ApiEditPage() {
     });
   }, [dtData, id]);
 
-  const onSubmit = async (values) => {
-    const res = await apiClient.request({
+  const handleSunmit = async (values) => {
+    return await apiClient.request({
       method: id ? "put" : "post",
       url: id ? `${apiBase}/api-manage` : `${apiBase}/api-manage`,
       data: {
@@ -59,17 +64,26 @@ function ApiEditPage() {
         type: typeParam,
         headers: JSON.stringify(values.headers || {}),
         url: (values.url || "").trim(),
+        content:
+          typeParam === "json"
+            ? JSON.stringify(JSON.parse(values.content || "{}"))
+            : values.content,
       },
     });
+  };
+  const onSubmit = async (values) => {
+    const res = await handleSunmit(values);
     const resId = res.id;
     if (resId) {
+      message.success("提交成功");
       navigate(-1);
     }
   };
 
   const onTest = async (values) => {
-    await onSubmit(values);
-    openApiTestDialog(id, values);
+    const res = await handleSunmit(values);
+    const resId = res.id;
+    openApiTestDialog(resId);
   };
 
   return (
@@ -87,7 +101,11 @@ function ApiEditPage() {
       >
         <InternalFormLayout
           schema={
-            typeParam === "json" ? editJsonApiFormSchema : editApiFormSchema
+            typeParam === "json"
+              ? editJsonApiFormSchema
+              : typeParam === "js"
+                ? editJsApiFormSchema
+                : editApiFormSchema
           }
         />
       </PageContainer>

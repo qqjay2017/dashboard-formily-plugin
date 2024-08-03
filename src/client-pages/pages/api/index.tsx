@@ -5,6 +5,7 @@ import { CreateApiBtn } from "./CreateApiBtn";
 
 import { openApiTestDialog } from "./openApiTestDialog";
 import { typeConfig } from "./consts";
+import { useRemoveAppManage } from "./useRemoveAppManage";
 import { shortUid } from "@/utils/shortUid";
 import { copyTextToClipboard, tableDefaultScroll } from "@/utils";
 import { useGroupList } from "@/application/hooks";
@@ -13,11 +14,14 @@ import PageContainer from "@/client-pages/components/PageContainer";
 
 import InternalTable from "@/client-pages/components/InternalTable";
 import { useApiManageAll, useTypeParam } from "@/client-pages/hooks";
+import { showConfirmPromisify } from "@/schema-component/antd";
 
 function ApiIndex() {
   const { typeParam } = useTypeParam();
   const navigate = useNavigate();
-  const { data } = useApiManageAll(typeParam === "all" ? undefined : typeParam);
+  const { data, refetch } = useApiManageAll(
+    typeParam === "all" ? undefined : typeParam
+  );
   const { data: groupList, refetch: refetchGroupList } = useGroupList();
 
   const groupFilterOptions = (groupList || []).map((item) => {
@@ -29,7 +33,7 @@ function ApiIndex() {
     };
   });
   const dataSource = data || [];
-
+  const removeAppManage = useRemoveAppManage();
   return (
     <PageContainer
       title="数据工厂"
@@ -111,13 +115,13 @@ function ApiIndex() {
             title: "操作",
             dataIndex: "options",
             fixed: "right",
-            width: 150,
-            render: (_, row) => {
+            width: 165,
+            render: (_, record) => {
               return (
                 <Space>
                   <a
                     onClick={() => {
-                      openApiTestDialog(row.id, {});
+                      openApiTestDialog(record.id, {});
                     }}
                   >
                     连接
@@ -125,10 +129,23 @@ function ApiIndex() {
 
                   <a
                     onClick={() => {
-                      navigate(`/dapi-edit?id=${row.id}&type=${row.type}`);
+                      navigate(
+                        `/dapi-edit?id=${record.id}&type=${record.type}`
+                      );
                     }}
                   >
                     编辑
+                  </a>
+                  <a
+                    onClick={async () => {
+                      try {
+                        await showConfirmPromisify({});
+                        await removeAppManage(record);
+                        await refetch();
+                      } catch (error) {}
+                    }}
+                  >
+                    删除
                   </a>
                 </Space>
               );

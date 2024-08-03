@@ -212,3 +212,32 @@ export const editJsonApiFormSchema: ISchema = {
     },
   },
 };
+
+export const editJsApiFormSchema: ISchema = {
+  type: "object",
+  properties: {
+    card: {
+      type: "void",
+      "x-component": "Card",
+      "x-component-props": {},
+      properties: {
+        name,
+        description,
+        groupName,
+
+        content: {
+          type: "string",
+          title: "JS脚本",
+          required: true,
+          "x-decorator": "FormItem",
+          "x-component": "MonacoEditor",
+          "x-component-props": {
+            height: "500px",
+            theme: "dark",
+            language: "javascript",
+          },
+        },
+      },
+    },
+  },
+};

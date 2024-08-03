@@ -5,8 +5,10 @@ import { css } from "@emotion/css";
 
 import { Tabs } from "antd";
 import type { AxiosHeaders } from "axios";
+import type { IApiManageItem } from "./types";
 import { useQuery, useReqApiProxy } from "@/api-client";
 import MonacoEditor from "@/schema-component/components/MonacoEditor";
+import { compileApiJs } from "@/utils";
 
 function ApiTestItemWrap({ children }: PropsWithChildren) {
   return (
@@ -40,20 +42,23 @@ export function ApiTest({
   formValues?: any;
 }) {
   const { request } = useReqApiProxy();
-  const { data, refetch, error, isError, isLoading } = useQuery({
-    queryKey: ["apiTest", apiId, ...Object.keys(formValues || {})],
-    queryFn: () =>
-      request({
-        formValues,
-        apiId,
-        headers: {},
-      }),
-  });
+  const { data, refetch, error, isError, isLoading } = useQuery<IApiManageItem>(
+    {
+      queryKey: ["apiTest", apiId, ...Object.keys(formValues || {})],
+      queryFn: () =>
+        request({
+          formValues,
+          apiId,
+          headers: {},
+        }),
+    }
+  );
+  console.log(data, "data");
 
   const resData = get(data, "data", {});
 
-  const headers: AxiosHeaders = data?.headers as any as AxiosHeaders;
-  if (isLoading) {
+  // const headers: AxiosHeaders = data?.headers as any as AxiosHeaders;
+  if (!data || isLoading) {
     return null;
   }
   return (
@@ -74,46 +79,53 @@ export function ApiTest({
             label: "Body",
             children: (
               <ApiTestItemWrap>
-                <MonacoEditor
-                  {...jsonEditProps}
-                  defaultValue={JSON.stringify(resData)}
-                />
+                {data.type === "js" ? (
+                  <MonacoEditor
+                    {...jsonEditProps}
+                    defaultValue={JSON.stringify(compileApiJs(data.data))}
+                  />
+                ) : (
+                  <MonacoEditor
+                    {...jsonEditProps}
+                    defaultValue={JSON.stringify(resData)}
+                  />
+                )}
               </ApiTestItemWrap>
             ),
           },
-          {
-            key: "headers",
-            tabKey: "headers",
-            label: "Headers",
-            children: (
-              <ApiTestItemWrap>
-                <MonacoEditor
-                  {...jsonEditProps}
-                  defaultValue={JSON.stringify(
-                    headers && headers.toJSON
-                      ? JSON.parse(JSON.stringify(headers.toJSON()))
-                      : {}
-                  )}
-                />
-              </ApiTestItemWrap>
-            ),
-          },
-          {
-            key: "status",
-            tabKey: "status",
-            label: "Status",
-            children: (
-              <ApiTestItemWrap>
-                <MonacoEditor
-                  {...jsonEditProps}
-                  defaultValue={JSON.stringify({
-                    status: data?.status,
-                    statusText: data?.statusText,
-                  })}
-                />
-              </ApiTestItemWrap>
-            ),
-          },
+          // {
+          //   key: "headers",
+          //   tabKey: "headers",
+          //   label: "Headers",
+          //   children: (
+          //     <ApiTestItemWrap>
+          //       <MonacoEditor
+          //         {...jsonEditProps}
+          //         defaultValue={JSON.stringify(
+          //           headers && headers.toJSON
+          //             ? JSON.parse(JSON.stringify(headers.toJSON()))
+          //             : {}
+          //         )}
+          //       />
+          //     </ApiTestItemWrap>
+          //   ),
+          // },
+          // {
+          //   key: "status",
+          //   tabKey: "status",
+          //   label: "Status",
+          //   children: (
+          //     <ApiTestItemWrap>
+          //       <MonacoEditor
+          //         {...jsonEditProps}
+          //         defaultValue={JSON.stringify({
+          //           status: data?.status,
+          //           statusText: data?.statusText,
+          //         })}
+          //       />
+          //     </ApiTestItemWrap>
+          //   ),
+          // },
         ]}
       />
     </div>

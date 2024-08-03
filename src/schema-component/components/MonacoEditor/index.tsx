@@ -165,8 +165,7 @@ const MonacoEditor = forwardRef<MonacoEditorHandles, MonacoEditorProps>(
               ...props.options,
               tabSize: 2,
               smoothScrolling: true,
-              formatOnType: true,
-              formatOnPaste: true,
+
               automaticLayout: true,
               wordWrap,
               readOnly,

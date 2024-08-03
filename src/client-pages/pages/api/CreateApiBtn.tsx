@@ -74,25 +74,31 @@ function ApiTypeItem({
 function ApiTypeSelect({
   type,
   setType,
+  onTypeClick,
 }: {
   type: string;
   setType: (t: IApiType) => void;
+  onTypeClick: (t: IApiType) => void;
 }) {
   return (
     <Row>
       <ApiTypeItem
-        onClickType={setType}
+        onClickType={onTypeClick}
         isActive={type === "json"}
         type="json"
       />
-      <ApiTypeItem onClickType={setType} isActive={type === "js"} type="js" />
       <ApiTypeItem
-        onClickType={setType}
+        onClickType={onTypeClick}
+        isActive={type === "js"}
+        type="js"
+      />
+      <ApiTypeItem
+        onClickType={onTypeClick}
         isActive={type === "http"}
         type="http"
       />
       <ApiTypeItem
-        onClickType={setType}
+        onClickType={onTypeClick}
         isActive={type === "magic"}
         type="magic"
       />
@@ -137,7 +143,14 @@ export function CreateApiBtn() {
           setOpen(false);
         }}
       >
-        <ApiTypeSelect type={type} setType={setType} />
+        <ApiTypeSelect
+          type={type}
+          setType={setType}
+          onTypeClick={(type) => {
+            navigate(`/dapi-edit?type=${type}`);
+            setOpen(false);
+          }}
+        />
       </Modal>
     </>
   );

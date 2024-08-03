@@ -37,10 +37,13 @@ export class APIClient extends APIClientSdk {
   /** 该值会在 AntdAppProvider 中被重新赋值 */
   notification: any = notification;
   message: any = message;
-  // constructor(options?: any) {
-  //     super()
-
-  // }
+  dataPath = "data.data";
+  constructor(options?: { dataPath?: string }) {
+    super();
+    if (options && options.dataPath !== undefined) {
+      this.dataPath = options.dataPath;
+    }
+  }
 
   interceptors() {
     // 基础拦截
@@ -71,7 +74,7 @@ export class APIClient extends APIClientSdk {
           );
         }
 
-        return get(res, "data.data");
+        return this.dataPath ? get(res, this.dataPath) : res;
       },
       (error) => {
         handleErrorMessage(error, this.notification);

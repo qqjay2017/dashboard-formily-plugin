@@ -86,7 +86,7 @@ class Application {
     this.apiClient =
       options.apiClient instanceof APIClient
         ? options.apiClient
-        : new APIClient(options.apiClient);
+        : new APIClient();
     this.apiClient.app = this;
     this.router = new RouterManager(options.router, this);
 

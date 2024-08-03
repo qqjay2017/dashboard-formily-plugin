@@ -51,6 +51,7 @@ import {
   ValueInput,
 } from "./components";
 import DataSourceBind from "./components/DataSourceBind";
+import MonacoEditor from "@/schema-component/components/MonacoEditor";
 
 const SchemaField2: FC<any> = createSchemaField({
   components: {
@@ -93,6 +94,7 @@ const SchemaField2: FC<any> = createSchemaField({
     ColorTypeSelect2,
     PositionDecoratorFormItem,
     JsonInput,
+    MonacoEditor,
     DepFieldSetFormItem,
     DecoratorPaddingFormItem,
     ApiBaseNameFormItem,
