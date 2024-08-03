@@ -29,7 +29,6 @@ class APIClientSdk {
         );
       }
       config.paramsSerializer = (params) => {
-        console.log(params, "params");
         return qs.stringify(params, {
           strictNullHandling: true,
           arrayFormat: "brackets",

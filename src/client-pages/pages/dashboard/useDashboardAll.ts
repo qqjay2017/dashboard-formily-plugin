@@ -6,7 +6,7 @@ import { apiBase } from "@/utils";
 
 export function useDashboardAll() {
   const { typeParam } = useTypeParam();
-  console.log(typeParam, "typeParam");
+
   return useRequest<APiWrap<DashboardItem[]>>(`${apiBase}/designer`, {
     method: "GET",
     refreshDeps: [typeParam],

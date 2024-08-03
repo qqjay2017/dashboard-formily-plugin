@@ -49,7 +49,6 @@ function ApiEditPage() {
     return createForm({
       initialValues: {
         ...dtData,
-        headers: JSON.parse(dtData?.headers || "{}"),
       },
     });
   }, [dtData, id]);
@@ -62,10 +61,13 @@ function ApiEditPage() {
         ...values,
         id,
         type: typeParam,
-        headers: JSON.stringify(values.headers || {}),
+        headers: values.headers
+          ? JSON.stringify(JSON.parse(values.headers || "{}"))
+          : "{}",
         url: (values.url || "").trim(),
-        content:
-          typeParam === "json"
+        content: !values.content
+          ? ""
+          : typeParam === "json"
             ? JSON.stringify(JSON.parse(values.content || "{}"))
             : values.content,
       },

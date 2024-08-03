@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Button, Select } from "antd";
+import { Button, Select, message } from "antd";
 import { get } from "lodash-es";
 import type { ISchema } from "@formily/react";
 import type { APiWrap } from "@/api-client";
@@ -39,16 +39,16 @@ export function ApiOriginFormItem({
     queryKey: ["getApiOrigin"],
     queryFn: () =>
       apiClient.request({
-        url: `${apiBase}/api-manage/origin/list`,
+        url: `${apiBase}/api-origin`,
         method: "get",
       }),
   });
 
-  const options = (get(data, "data.data", []) || []).map((item) => {
+  const options = (data || []).map((item) => {
     return {
       ...item,
-      label: item.origin,
-      value: item.origin,
+      label: item.name,
+      value: item.name,
     };
   });
 
@@ -91,16 +91,17 @@ export function ApiOriginFormItem({
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `${apiBase}/api-manage/origin`,
+                  url: `${apiBase}/api-origin`,
                   method: "POST",
                   data: {
-                    origin: (origin || "").trim(),
+                    name: (origin || "").trim(),
                   },
                 });
 
-                const id = get(res, "data.data.id");
+                const id = get(res, "id");
                 if (id) {
                   refetch();
+                  message.success("新增成功");
                   return next(payload);
                 } else {
                   return Promise.reject();

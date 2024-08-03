@@ -31,28 +31,10 @@ export const editApiFormSchema: ISchema = {
       "x-component": "Card",
       "x-component-props": {},
       properties: {
-        name: {
-          type: "string",
-          title: "API标题",
-          required: true,
-          "x-decorator": "FormItem",
-          "x-component": "Input",
-        },
-        description: {
-          type: "string",
-          title: "API说明",
-          required: false,
-          "x-decorator": "FormItem",
-          "x-component": "Input.TextArea",
-        },
-        group: {
-          type: "string",
-          title: "API分组",
-          required: false,
-          "x-decorator": "FormItem",
-          "x-component": "ApiGroupFormItem",
-        },
-        origin: {
+        name,
+        description,
+        groupName,
+        originName: {
           type: "string",
           title: "API域名",
           required: false,
@@ -104,77 +86,9 @@ export const editApiFormSchema: ISchema = {
           ],
         },
         headers: {
-          type: "array",
+          type: "string",
           title: "自定义请求头",
           required: false,
-          "x-decorator": "FormItem",
-          "x-component": "ApiHeadersFormItem",
-          "x-validator": {
-            type: "array",
-            validator: (value: any) => {
-              if (value.find((v) => !v.headerKey || !v.headerKey)) {
-                return Promise.reject("请输入字段名和值");
-              }
-            },
-          },
-        },
-        isMock: {
-          type: "boolean",
-          title: "mock模式",
-          required: false,
-          "x-decorator": "FormItem",
-          "x-component": "Switch",
-          "x-reactions": [
-            {
-              target: "mockJson",
-              fulfill: {
-                state: {
-                  visible: "{{$self.value === true}}",
-                },
-              },
-            },
-            // {
-            //     "target": "url",
-            //     "fulfill": {
-            //         "state": {
-            //             "visible": "{{$self.value !== true}}"
-            //         }
-            //     }
-
-            // },
-            // {
-            //     "target": "method",
-            //     "fulfill": {
-            //         "state": {
-            //             "visible": "{{$self.value !== true}}"
-            //         }
-            //     }
-
-            // },
-            // {
-            //     "target": "baseNameId",
-            //     "fulfill": {
-            //         "state": {
-            //             "visible": "{{$self.value !== true}}"
-            //         }
-            //     }
-
-            // },
-            // {
-            //     "target": "originId",
-            //     "fulfill": {
-            //         "state": {
-            //             "visible": "{{$self.value !== true}}"
-            //         }
-            //     }
-
-            // },
-          ],
-        },
-        mockJson: {
-          type: "string",
-          title: "mock数据",
-          required: true,
           "x-decorator": "FormItem",
           "x-component": "JsonInput",
           "x-component-props": {

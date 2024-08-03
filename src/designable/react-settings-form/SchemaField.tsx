@@ -23,7 +23,6 @@ import ReactionsSetter from "../setters/ReactionsSetter";
 import {
   ApiBaseNameFormItem,
   ApiGroupFormItem,
-  ApiHeadersFormItem,
   ApiOriginFormItem,
   BackgroundImageInput,
   BackgroundStyleSetter,
@@ -99,7 +98,7 @@ const SchemaField2: FC<any> = createSchemaField({
     DecoratorPaddingFormItem,
     ApiBaseNameFormItem,
     ApiGroupFormItem,
-    ApiHeadersFormItem,
+
     ApiOriginFormItem,
 
     DataSourceBind,

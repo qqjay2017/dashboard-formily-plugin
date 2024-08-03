@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 
-import { Button, Select } from "antd";
+import { Button, Select, message } from "antd";
 
 import type { ISchema } from "@formily/react";
 import { get } from "lodash-es";
@@ -93,6 +93,7 @@ export function ApiGroupFormItem({
                 const id = get(res, "id");
                 if (id) {
                   refetch();
+                  message.success("新建成功");
                   return next(payload);
                 } else {
                   return Promise.reject();

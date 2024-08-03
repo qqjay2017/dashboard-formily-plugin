@@ -7,7 +7,7 @@ export function useRemoveAppManage() {
   const apiClient = useAPIClient();
   return (dto?: Partial<IApiManageItem>) => {
     return apiClient.request<IApiManageItem, APiWrap<{ id: number }>>({
-      url: `${apiBase}/app-manage/${dto?.id}`,
+      url: `${apiBase}/api-manage/${dto?.id}`,
       method: "delete",
       data: dto,
     });

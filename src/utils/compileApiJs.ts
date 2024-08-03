@@ -3,11 +3,14 @@ export function compileApiJs(handlebarsStr = "") {
     return null;
   }
   // eslint-disable-next-line no-new-func
-  const funCode = new Function(`option=null;${handlebarsStr};return option`);
+  const funCode = new Function(`${handlebarsStr};return option`);
   try {
-    return funCode();
+    const jsArr = funCode();
+
+    return jsArr;
   } catch (error) {
     // 编译接口js报错了
+    console.error(error, "编译接口js报错了");
     return null;
   }
 }

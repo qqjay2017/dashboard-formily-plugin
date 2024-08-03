@@ -31,7 +31,7 @@ const jsonEditProps: any = {
   height: "490px",
   theme: "vs-dark",
   language: "json",
-  readOnly: false,
+  readOnly: true,
 };
 
 export function ApiTest({
@@ -53,7 +53,6 @@ export function ApiTest({
         }),
     }
   );
-  console.log(data, "data");
 
   const resData = get(data, "data", {});
 
@@ -82,12 +81,13 @@ export function ApiTest({
                 {data.type === "js" ? (
                   <MonacoEditor
                     {...jsonEditProps}
-                    defaultValue={JSON.stringify(compileApiJs(data.data))}
+                    language="javascript"
+                    value={JSON.stringify(compileApiJs(data.data))}
                   />
                 ) : (
                   <MonacoEditor
                     {...jsonEditProps}
-                    defaultValue={JSON.stringify(resData)}
+                    value={JSON.stringify(resData)}
                   />
                 )}
               </ApiTestItemWrap>

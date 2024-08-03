@@ -127,7 +127,6 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
   const [innerVisible, setInnerVisible] = useState(false);
   const prefix = usePrefix("reactions-setter");
   const form = useMemo(() => {
-    console.log(clone(props.value), " clone(props.value),");
     return createForm({
       values: {
         queryKeys: clone(props.value),

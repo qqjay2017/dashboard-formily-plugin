@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Button, Select } from "antd";
+import { Button, Select, message } from "antd";
 import { get } from "lodash-es";
 import type { ISchema } from "@formily/react";
 import type { APiWrap } from "@/api-client";
@@ -39,16 +39,16 @@ export function ApiBaseNameFormItem({
     queryKey: ["getApiBaseName"],
     queryFn: () =>
       apiClient.request({
-        url: `${apiBase}/api-manage/baseName/list`,
+        url: `${apiBase}/api-base`,
         method: "get",
       }),
   });
 
-  const options = (get(data, "data.data", []) || []).map((item) => {
+  const options = (data || []).map((item) => {
     return {
       ...item,
-      label: item.baseName,
-      value: item.baseName,
+      label: item.name,
+      value: item.name,
     };
   });
 
@@ -91,16 +91,17 @@ export function ApiBaseNameFormItem({
                   any,
                   APiWrap<{ id: number }>
                 >({
-                  url: `${apiBase}/api-manage/baseName`,
+                  url: `${apiBase}/api-base`,
                   method: "POST",
                   data: {
-                    baseName: (baseName || "").trim(),
+                    name: (baseName || "").trim(),
                   },
                 });
 
-                const id = get(res, "data.data.id");
+                const id = get(res, "id");
                 if (id) {
                   refetch();
+                  message.success("新增成功");
                   return next(payload);
                 } else {
                   return Promise.reject();

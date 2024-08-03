@@ -18,7 +18,6 @@ const cache: { prettier: Promise<IPrettierModule> } = {
 };
 
 export async function format(language: string, source: string) {
-  console.log(language, "language");
   cache.prettier =
     cache.prettier ||
     // eslint-disable-next-line no-new-func

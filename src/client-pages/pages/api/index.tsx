@@ -1,4 +1,4 @@
-import { Button, Space, Tag, Tooltip } from "antd";
+import { Button, Space, Tag, Tooltip, message } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import { CreateApiBtn } from "./CreateApiBtn";
@@ -142,6 +142,7 @@ function ApiIndex() {
                         await showConfirmPromisify({});
                         await removeAppManage(record);
                         await refetch();
+                        message.success("删除成功");
                       } catch (error) {}
                     }}
                   >
