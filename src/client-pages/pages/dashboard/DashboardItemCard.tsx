@@ -124,6 +124,7 @@ export default function DashboardItemCard({
                     method: "delete",
                   });
                   refetch && refetch();
+                  message.success("删除成功");
                   return;
                 } catch (error) {
                   refetch && refetch();

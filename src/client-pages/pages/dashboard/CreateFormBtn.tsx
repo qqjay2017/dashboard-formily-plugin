@@ -6,9 +6,11 @@ import { useUpdateDesignerApi } from "./useUpdateDesignerApi";
 import { useCreateEffcts } from "./useCreateEffcts";
 import { getDesignSize } from "@/utils";
 import { getFormDialog } from "@/schema-component/antd";
+import { useTypeParam } from "@/client-pages/hooks";
 
 export function CreateFormBtn({ refetch }: { refetch: Function }) {
   const createEffcts = useCreateEffcts();
+  const { typeParam } = useTypeParam();
   const updateDesignerApi = useUpdateDesignerApi();
   return (
     <Button
@@ -24,6 +26,9 @@ export function CreateFormBtn({ refetch }: { refetch: Function }) {
           .forOpen((payload, next) => {
             next({
               effects: createEffcts,
+              initialValues: {
+                appGroupId: !typeParam || typeParam === "all" ? "" : typeParam,
+              },
             });
           })
           .forConfirm(async (payload, next) => {

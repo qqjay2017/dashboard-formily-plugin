@@ -6,14 +6,15 @@ import APIClientSdk from "../sdk/api-client/APIClient";
 import type Application from "@/application/Application";
 
 function handleErrorMessage(error, notification) {
-  return notify(
-    "error",
-    [
-      get(error, "response.data.error", ""),
-      get(error, "response.data.message", ""),
-    ].filter(Boolean),
-    notification
-  );
+  const msgArr = get(error, "response.data.message", "");
+  const notifyMsgArr = [get(error, "response.data.error", "")];
+  if (Array.isArray(msgArr)) {
+    notifyMsgArr.push(...msgArr);
+  } else {
+    notifyMsgArr.push(msgArr);
+  }
+
+  return notify("error", notifyMsgArr.filter(Boolean), notification);
 }
 
 function notify(type, messages, instance) {

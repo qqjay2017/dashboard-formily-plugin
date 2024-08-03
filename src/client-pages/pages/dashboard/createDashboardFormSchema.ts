@@ -13,7 +13,7 @@ export const createDashboardFormSchema: ISchema = {
     appGroupId: {
       type: "string",
       title: "应用分组",
-      required: true,
+      required: false,
 
       "x-decorator": "FormItem",
       "x-component": "Select",
@@ -79,7 +79,7 @@ export const updateDashboardFormSchema: ISchema = {
     appGroupId: {
       type: "string",
       title: "应用分组",
-      required: true,
+      required: false,
 
       "x-decorator": "FormItem",
       "x-component": "Select",

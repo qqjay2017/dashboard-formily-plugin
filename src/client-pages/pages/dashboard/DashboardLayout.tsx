@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import { BiSolidCategory } from "react-icons/bi";
+import { css } from "@emotion/css";
 import PageLayout from "../../components/PageLayout";
 import { useTypeParam } from "../../hooks";
 
@@ -24,10 +25,21 @@ function DashboardLayout() {
             key: "all",
             icon: <BiSolidCategory />,
           },
-          ...data.map((d) => {
+          ...data.map((item) => {
             return {
-              label: d.name,
-              key: d.id,
+              label: item.name,
+              key: item.id,
+              icon: item.icon ? (
+                <img
+                  src={item.icon}
+                  className={css`
+                    width: 14px;
+                    height: 14px;
+                    max-width: 14px;
+                    max-height: 14px;
+                  `}
+                />
+              ) : null,
             };
           }),
         ]}

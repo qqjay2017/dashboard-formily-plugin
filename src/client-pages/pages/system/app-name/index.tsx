@@ -10,6 +10,7 @@ import PageContainer from "@/client-pages/components/PageContainer";
 import InternalTable from "@/client-pages/components/InternalTable";
 import { tableDefaultScroll } from "@/utils";
 import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
+import { iconColumnRender } from "@/client-pages/components/InternalTable/render/iconColumnRender";
 
 export default function SystemAppName() {
   const updateAppGroupApi = useUpdateAppGroupApi();
@@ -85,6 +86,7 @@ export default function SystemAppName() {
           {
             title: "图标",
             dataIndex: "icon",
+            render: iconColumnRender,
           },
           {
             title: "排序码",
