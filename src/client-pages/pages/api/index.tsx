@@ -126,7 +126,7 @@ function ApiIndex() {
             title: "操作",
             dataIndex: "options",
             fixed: "right",
-            width: 120,
+            width: 150,
             render: (_, row) => {
               return (
                 <Space>

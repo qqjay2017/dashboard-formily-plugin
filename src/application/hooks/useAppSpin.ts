@@ -1,10 +1,14 @@
-import { Spin } from 'antd'
-import React from 'react'
-import { useApp } from './useApp'
+import { Spin } from "antd";
+import React from "react";
+import { useApp } from "./useApp";
 
 export function useAppSpin() {
-  const app = useApp()
+  const app = useApp();
+
   return {
-    render: () => (app?.renderComponent ? app?.renderComponent?.('AppSpin') : React.createElement(Spin)),
-  }
+    render: () =>
+      app?.renderComponent
+        ? app?.renderComponent?.("AppSpin")
+        : React.createElement(Spin),
+  };
 }

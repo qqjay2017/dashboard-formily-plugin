@@ -1,20 +1,61 @@
-import { Button } from "antd";
+import { Button, Space, message } from "antd";
+import { get } from "lodash-es";
+import dayjs from "dayjs";
+import { useAppGroupAll } from "./useAppGroupAll";
+import { createAppGroupSchema } from "./createAppGroupSchema";
+import { useUpdateAppGroupApi } from "./useUpdateAppGroupApi";
+import { useRemoveAppGroupApi } from "./useRemoveAppGroupApi";
 import PageContainer from "@/client-pages/components/PageContainer";
-import CardList from "@/client-pages/components/CardList";
+
+import InternalTable from "@/client-pages/components/InternalTable";
+import { tableDefaultScroll } from "@/utils";
+import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
 
 export default function SystemAppName() {
-  const editFilter = (initValue, { isCreate }: { isCreate?: boolean }) => {};
+  const updateAppGroupApi = useUpdateAppGroupApi();
+  const removeAppGroupApi = useRemoveAppGroupApi();
+  const { data, isLoading, refetch } = useAppGroupAll();
+  const editAppGroup = (initValue, { isCreate }: { isCreate?: boolean }) => {
+    const dialog = getFormDialog(
+      {
+        title: isCreate ? "新建" : "编辑",
+      },
+      createAppGroupSchema
+    );
+
+    dialog
+      .forOpen((payload, next) => {
+        next({
+          initialValues: isCreate
+            ? {
+                sortNum:
+                  !data || !data.length
+                    ? 1
+                    : get(data, `[${data.length - 1}].sortNum`, 1) + 1,
+              }
+            : initValue,
+        });
+      })
+      .forConfirm(async (payload, next) => {
+        const values = payload.values;
+        await updateAppGroupApi({
+          ...values,
+        });
+        refetch();
+        next(payload);
+      })
+      .open({});
+  };
   return (
     <PageContainer
+      loading={isLoading}
       title="应用分类管理"
       extra={[
         <Button
           type="primary"
           onClick={() =>
-            editFilter(
-              {
-                type: "",
-              },
+            editAppGroup(
+              {},
               {
                 isCreate: true,
               }
@@ -26,11 +67,74 @@ export default function SystemAppName() {
         </Button>,
       ]}
     >
-      <CardList
-        list={[{ id: "123" }]}
-        itemRender={(item) => {
-          return <div>建设中</div>;
+      <InternalTable
+        scroll={{
+          ...tableDefaultScroll,
+          x: undefined,
         }}
+        dataSource={data}
+        columns={[
+          {
+            title: "名称",
+            dataIndex: "name",
+          },
+          {
+            title: "描述",
+            dataIndex: "description",
+          },
+          {
+            title: "图标",
+            dataIndex: "icon",
+          },
+          {
+            title: "排序码",
+            dataIndex: "sortNum",
+          },
+
+          {
+            title: "修改时间",
+            dataIndex: "updateAt",
+            render: (_, record) => {
+              return dayjs(record.updateAt).format("YYYY-MM-DD HH:mm:ss");
+            },
+          },
+          {
+            title: "操作",
+            fixed: "right",
+            width: 150,
+            dataIndex: "options",
+            render: (_, record) => {
+              return (
+                <Space>
+                  <a
+                    onClick={() => {
+                      editAppGroup(
+                        { ...record },
+                        {
+                          isCreate: false,
+                        }
+                      );
+                    }}
+                  >
+                    编辑
+                  </a>
+                  <a
+                    onClick={async () => {
+                      try {
+                        await showConfirmPromisify({});
+                        await removeAppGroupApi(record);
+                        await refetch();
+                        message.success("删除成功");
+                      } catch (error) {}
+                    }}
+                  >
+                    删除
+                  </a>
+                </Space>
+              );
+            },
+          },
+        ]}
       />
     </PageContainer>
   );

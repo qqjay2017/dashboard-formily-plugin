@@ -36,6 +36,8 @@ function AntdAppProvider({ children }: { children: React.ReactNode }) {
     <App
       style={{
         height: "100%",
+        width: "100%",
+        background: "rgba(0 ,0 ,0, 0.4)",
       }}
     >
       <AppInner>{children}</AppInner>

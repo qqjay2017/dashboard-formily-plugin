@@ -17,7 +17,7 @@ export function Logo() {
     <Space>
       <div
         onClick={(e) => {
-          navigate("/dashboard/all");
+          navigate("/designer/all");
         }}
         className={cx(
           logoStyle,

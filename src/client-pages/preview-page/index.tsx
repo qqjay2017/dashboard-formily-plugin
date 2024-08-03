@@ -22,7 +22,7 @@ function PreviewPage() {
   const { render } = useAppSpin();
 
   const { data, isLoading } = useRequest<APiWrap<DashboardItem>>(
-    `${apiBase}/dashboard/preview/${shareURL}`,
+    `${apiBase}/designer/${shareURL}`,
     {
       method: "GET",
       refreshDeps: [shareURL],

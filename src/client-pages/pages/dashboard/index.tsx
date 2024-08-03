@@ -1,33 +1,31 @@
-import { get } from "lodash-es";
-
-import type { DashboardItem } from "./types";
-
 import { CreateFormBtn } from "./CreateFormBtn";
 import DashboardItemCard from "./DashboardItemCard";
 
-import { apiBase } from "@/utils";
-import { useRequest } from "@/api-client/hooks";
-import type { APiWrap } from "@/api-client/hooks";
+import { useDashboardAll } from "./useDashboardAll";
 
+import { useCreateEffcts } from "./useCreateEffcts";
 import PageContainer from "@/client-pages/components/PageContainer";
 import CardList from "@/client-pages/components/CardList";
 
 function DashboardIndex() {
-  const { data, refetch } = useRequest<APiWrap<DashboardItem[]>>(
-    `${apiBase}/dashboard`,
-    {
-      method: "GET",
-    }
-  );
-
-  const list = get(data, "data.data", []) || [];
-
+  const { data, refetch, isLoading } = useDashboardAll();
+  const createEffcts = useCreateEffcts();
   return (
-    <PageContainer title="仪表盘" extra={<CreateFormBtn />}>
+    <PageContainer
+      title="仪表盘"
+      extra={<CreateFormBtn refetch={refetch} />}
+      loading={isLoading}
+    >
       <CardList
-        list={list}
+        list={data || []}
         itemRender={(item) => {
-          return <DashboardItemCard dashboard={item} refetch={refetch} />;
+          return (
+            <DashboardItemCard
+              dashboard={item}
+              refetch={refetch}
+              createEffcts={createEffcts}
+            />
+          );
         }}
       />
     </PageContainer>

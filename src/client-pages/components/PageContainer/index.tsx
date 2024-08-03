@@ -3,11 +3,15 @@ import {
   type PropsWithChildren,
   type ReactNode,
   useContext,
+  useMemo,
 } from "react";
 import { css, cx } from "@emotion/css";
+import type { SpinProps } from "antd";
+import React from "react";
 import type { IPageLayoutContextProps } from "../PageLayout/context";
 import { PageLayoutContext } from "../PageLayout/context";
 import { usePageLayoutContext } from "../PageLayout/usePageLayoutContext";
+import PageLoading from "../PageLoading";
 import type { FooterToolbarProps } from "./FooterToolbar";
 import { FooterToolbar } from "./FooterToolbar";
 import type { PageHeaderProps } from "./PageHeader";
@@ -30,10 +34,20 @@ export type IPageContainerProps = {
   children?: ReactNode | undefined;
   hashId?: string;
   withFormDialog?: boolean;
+  loading?: boolean | SpinProps | React.ReactNode;
 } & Omit<
   PageHeaderProps,
   "title" | "footer" | "breadcrumbRender" | "breadcrumb"
 >;
+
+function getLoading(spinProps: boolean | SpinProps) {
+  if (typeof spinProps === "object") {
+    return spinProps;
+  }
+  return {
+    spinning: spinProps,
+  };
+}
 
 function renderPageHeader(
   content: React.ReactNode,
@@ -83,6 +97,7 @@ function memoRenderPageHeader(
     hashId,
     value,
     pageHeaderRender,
+
     ...restProps
   } = props;
 
@@ -152,7 +167,7 @@ function PageContainer(props: IPageContainerProps) {
     footerToolBarProps,
     children,
     hashId = "",
-
+    loading = false,
     withFormDialog = false,
     ...restProps
   } = props;
@@ -169,7 +184,36 @@ function PageContainer(props: IPageContainerProps) {
     value,
   });
 
+  const loadingDom = useMemo(() => {
+    // 自定义loading
+    if (React.isValidElement(loading)) {
+      return loading;
+    }
+    // 手动传递false
+    if (typeof loading === "boolean" && !loading) {
+      return null;
+    }
+    const spinProps = getLoading(loading as boolean | SpinProps);
+    return spinProps?.spinning ? <PageLoading {...spinProps} /> : null;
+  }, [loading]);
+
   const Wrap = withFormDialog ? FormDialogPortal : Fragment;
+
+  const content = useMemo(() => {
+    return (
+      <div
+        className={css`
+          padding: 0 24px ${hasFooterToolbar ? "89px" : "32px"} 24px;
+        `}
+      >
+        {children}
+      </div>
+    );
+  }, [children, hasFooterToolbar]);
+  const renderContentDom = useMemo(() => {
+    const dom = loadingDom || content;
+    return dom;
+  }, [loadingDom, content]);
 
   return (
     <Wrap>
@@ -178,13 +222,7 @@ function PageContainer(props: IPageContainerProps) {
         className={cx("pageContainerDomWrap", containerClassName)}
       >
         {pageHeaderDom}
-        <div
-          className={css`
-            padding: 0 24px ${hasFooterToolbar ? "89px" : "32px"} 24px;
-          `}
-        >
-          {children}
-        </div>
+        {renderContentDom}
       </div>
       {footer && (
         <FooterToolbar {...footerToolBarProps}>{footer}</FooterToolbar>

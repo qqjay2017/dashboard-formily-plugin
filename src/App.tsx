@@ -44,11 +44,11 @@ const application = new Application({
       },
 
       dashboard: {
-        path: "/dashboard",
+        path: "/designer",
         Component: DashboardLayout,
       },
       "dashboard.all": {
-        path: "/dashboard/all",
+        path: "/designer/all",
         Component: DashboardIndex,
       },
 

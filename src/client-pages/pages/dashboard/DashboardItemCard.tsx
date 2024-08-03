@@ -14,9 +14,11 @@ import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
 export default function DashboardItemCard({
   dashboard,
   refetch,
+  createEffcts,
 }: {
   dashboard: DashboardItem;
   refetch: Function;
+  createEffcts: () => void;
 }) {
   const navigate = useNavigate();
   const apiClient = useAPIClient();
@@ -84,7 +86,7 @@ export default function DashboardItemCard({
           menu={{
             onClick: async ({ key }) => {
               if (key === "share") {
-                const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL}`;
+                const url = `${window.location.origin}/dashboard-report/${dashboard.shareURL || dashboard.id}`;
                 const dialog = FormDialog(
                   {
                     title: "分享链接",
@@ -118,15 +120,17 @@ export default function DashboardItemCard({
                 try {
                   await showConfirmPromisify({});
                   await apiClient.request({
-                    url: `${apiBase}/dashboard/${dashboard.id}`,
+                    url: `${apiBase}/designer/${dashboard.id}`,
                     method: "delete",
                   });
                   refetch && refetch();
                   return;
-                } catch (error) {}
+                } catch (error) {
+                  refetch && refetch();
+                }
               }
               if (key === "preview") {
-                return reportShare(dashboard.shareURL, {
+                return reportShare(dashboard.shareURL || dashboard.id, {
                   isHref: false,
                 });
               }
@@ -138,9 +142,13 @@ export default function DashboardItemCard({
                   updateDashboardFormSchema
                 );
                 dialog
+
                   .forOpen((payload, next) => {
                     next({
+                      effects: createEffcts,
                       initialValues: {
+                        appGroupId: dashboard.appGroupId,
+                        appGroupName: dashboard.appGroupName,
                         name: dashboard.name,
                         description: dashboard.description,
                       },
@@ -149,9 +157,11 @@ export default function DashboardItemCard({
                   .forConfirm(async (payload, next) => {
                     const { name, description } = payload.values;
                     await app.apiClient.request<any, APiWrap<{ id: number }>>({
-                      url: `${apiBase}/dashboard/${dashboard.id}`,
+                      url: `${apiBase}/designer`,
                       method: "PUT",
                       data: {
+                        ...payload.values,
+                        id: dashboard.id,
                         name,
                         description,
                       },

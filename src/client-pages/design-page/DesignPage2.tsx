@@ -1,10 +1,10 @@
 import { get } from "lodash-es";
 
-import { FormProvider, SchemaOptionsContext } from "@formily/react";
+import { FormProvider } from "@formily/react";
 
 import { useMemo } from "react";
 import { createForm } from "@formily/core";
-import { useDashboardDt } from "./useDashboardDt";
+import { useDashboardDt } from "../pages/dashboard/useDashboardDt";
 import { DesignEngine } from "./DesignEngine";
 
 import { useAppSpin } from "@/application/hooks";
@@ -21,7 +21,7 @@ function DesignPage2() {
   const { data: chartAllRes, isLoading: isChartAllLoading } =
     useFetchChartAll();
   const schema = get(data, "data.data.content", "");
-  const shareURL = get(data, "data.data.shareURL", "");
+  const shareURL = get(data, "data.data.id", "");
   const chartAll: any[] = get(chartAllRes, "data.data");
 
   const { render } = useAppSpin();

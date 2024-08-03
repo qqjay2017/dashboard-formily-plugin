@@ -14,7 +14,7 @@ const menuItems: MenuItem[] = [
   },
   {
     label: "仪表盘",
-    key: "/dashboard/all",
+    key: "/designer/all",
   },
   {
     label: "组件",

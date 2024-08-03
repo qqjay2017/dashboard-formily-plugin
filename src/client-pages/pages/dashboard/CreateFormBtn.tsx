@@ -1,17 +1,15 @@
 import { Button } from "antd";
-import { useNavigate } from "react-router-dom";
-import { get } from "lodash-es";
 
 import { createDashboardFormSchema } from "./createDashboardFormSchema";
-import { type APiWrap, useAPIClient } from "@/api-client";
+import { useUpdateDesignerApi } from "./useUpdateDesignerApi";
 
-import { apiBase, getDesignSize } from "@/utils";
+import { useCreateEffcts } from "./useCreateEffcts";
+import { getDesignSize } from "@/utils";
 import { getFormDialog } from "@/schema-component/antd";
 
-export function CreateFormBtn() {
-  const navigate = useNavigate();
-  const apiClient = useAPIClient();
-
+export function CreateFormBtn({ refetch }: { refetch: Function }) {
+  const createEffcts = useCreateEffcts();
+  const updateDesignerApi = useUpdateDesignerApi();
   return (
     <Button
       type="primary"
@@ -23,6 +21,11 @@ export function CreateFormBtn() {
           createDashboardFormSchema
         );
         dialog
+          .forOpen((payload, next) => {
+            next({
+              effects: createEffcts,
+            });
+          })
           .forConfirm(async (payload, next) => {
             const {
               name,
@@ -34,42 +37,43 @@ export function CreateFormBtn() {
 
             const { designWidth, designHeight } =
               getDesignSize(designWidthEnum);
-            const res = await apiClient.request<any, APiWrap<{ id: number }>>({
-              url: `${apiBase}/dashboard`,
-              method: "POST",
-              data: {
-                userId: "123",
-                name,
-                description,
-                designWidthEnum,
-                content: JSON.stringify({
-                  root: {
-                    designWidthEnum,
-                    cols: 12,
-                    rows: 12,
-                    rowheight: 80,
-                    designWidth,
-                    designHeight,
-                    breakpoints: {
-                      showroom: 2600,
-                      desktop: 1300,
-                      tablet: 500,
-                      mobile: 0,
-                    },
-                    themeProvider,
-                    isDarkTheme,
+            await updateDesignerApi({
+              ...payload.values,
+              name,
+              description,
+
+              content: JSON.stringify({
+                root: {
+                  customBg: "",
+                  showBg: true,
+                  mobileAutoFit: true,
+                  designWidthEnum,
+                  cols: 12,
+                  rows: 12,
+                  rowheight: 80,
+                  designWidth,
+                  designHeight,
+                  breakpoints: {
+                    showroom: 2600,
+                    desktop: 1300,
+                    tablet: 500,
+                    mobile: 0,
                   },
-                  schema: {
-                    type: "object",
-                    properties: {},
-                  },
-                }),
-              },
+                  themeProvider,
+                  isDarkTheme,
+                },
+                schema: {
+                  type: "object",
+                  properties: {},
+                },
+              }),
             });
-            const id = get(res, "data.data.id");
-            if (id) {
-              navigate(`/dashboard-design/${id}`);
-            }
+            refetch();
+
+            // const id = res?.id;
+            // if (id) {
+            //   navigate(`/dashboard-design/${id}`);
+            // }
             next(payload);
           })
           .open({});
