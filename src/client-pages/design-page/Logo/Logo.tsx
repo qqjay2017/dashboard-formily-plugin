@@ -11,7 +11,7 @@ const logoStyle = css`
   font-weight: 600;
   color: var(--dn-composite-panel-tabs-header-color);
 `;
-export function Logo() {
+export function Logo({ name }: { name?: string }) {
   const navigate = useNavigate();
   return (
     <Space>
@@ -31,7 +31,7 @@ export function Logo() {
       >
         <IoIosArrowBack />
       </div>
-      <div className={logoStyle}>大屏可视化设计器</div>
+      <div className={logoStyle}>{name || "大屏可视化设计器"}</div>
     </Space>
   );
 }

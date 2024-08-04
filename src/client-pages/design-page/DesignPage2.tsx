@@ -22,6 +22,7 @@ function DesignPage2() {
     useFetchChartAll();
   const schema = get(data, "content", "");
   const shareURL = get(data, "id", "");
+  const name = get(data, "name", "");
   const chartAll: any[] = chartAllRes;
 
   const { render } = useAppSpin();
@@ -56,7 +57,12 @@ function DesignPage2() {
           }, {}),
         }}
       >
-        <DesignEngine schema={schema} shareURL={shareURL} chartAll={chartAll} />
+        <DesignEngine
+          schema={schema}
+          name={name}
+          shareURL={shareURL}
+          chartAll={chartAll}
+        />
       </SchemaComponentOptions>
     </FormProvider>
   );

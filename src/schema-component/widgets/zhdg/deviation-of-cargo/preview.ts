@@ -12,9 +12,7 @@ export const FormilyDeviationOfCargo: DnFC<any> = connect(DeviationOfCargo);
 FormilyDeviationOfCargo.Resource = createResource({
   title: "地磅-各货物偏差情况",
 
-  icon: rs(
-    "/dashboard-assets/schema-component/deviation-of-cargo/WX20240720-173009@2x.png"
-  ),
+  icon: rs("/dashboard-assets/schema-component/deviation-of-cargo/preview.png"),
   elements: [
     {
       componentName: "Field",

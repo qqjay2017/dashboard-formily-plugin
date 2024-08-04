@@ -58,8 +58,10 @@ import ViewToolsWidget from "@/designable/react/widgets/ViewToolsWidget";
 export function DesignEngine({
   schema,
   shareURL,
+  name,
   chartAll = [],
 }: {
+  name?: string;
   schema?: any;
   shareURL?: string;
   chartAll?: any[];
@@ -81,7 +83,10 @@ export function DesignEngine({
   return (
     <Designer engine={engine}>
       <Workbench>
-        <StudioPanel logo={<Logo />} actions={<Actions shareURL={shareURL} />}>
+        <StudioPanel
+          logo={<Logo name={name} />}
+          actions={<Actions shareURL={shareURL} />}
+        >
           <CompositePanel>
             <CompositePanel.Item title="组件" icon="Component">
               <ResourceWidget

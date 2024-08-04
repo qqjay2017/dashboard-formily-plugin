@@ -11,9 +11,7 @@ export const FormilyWeighbridge: DnFC<any> = connect(Weighbridge);
 FormilyWeighbridge.Resource = createResource({
   title: "地磅-过磅记录",
 
-  icon: rs(
-    "/dashboard-assets/schema-component/ClassicFrame/WX20240720-173009@2x.png"
-  ),
+  icon: rs("/dashboard-assets/schema-component/weighbridge/preview.png"),
   elements: [
     {
       componentName: "Field",
