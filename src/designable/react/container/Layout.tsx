@@ -7,6 +7,7 @@ import { DesignerLayoutContext } from "../context";
 import type { IDesignerLayoutProps } from "../types";
 
 import { cx, globalFormConfig } from "@/utils";
+import { designScrollBarStyle } from "@/designable/styles";
 
 injectGlobal` 
   :root {
@@ -210,7 +211,12 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
           props.className,
 
           // scrollBarStyle.styles,
-          _theme === "light" ? lightStyle : darkStyle
+          _theme === "light" ? lightStyle : darkStyle,
+          css`
+            .ant-table-body {
+              ${designScrollBarStyle}
+            }
+          `
         )}
       >
         <DesignerLayoutContext.Provider
