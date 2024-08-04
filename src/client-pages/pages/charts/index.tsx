@@ -1,7 +1,7 @@
-import { Button, message } from "antd";
+import { Button, Pagination, message } from "antd";
 
-import { get } from "lodash-es";
-
+import { useState } from "react";
+import { css } from "@emotion/css";
 import { createChartSchema } from "./createChartSchema";
 import { ChartListItem } from "./ChartListItem";
 import type { IChartItem } from "./types";
@@ -13,18 +13,24 @@ import { apiBase } from "@/utils";
 import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
 import PageContainer from "@/client-pages/components/PageContainer";
 import CardList from "@/client-pages/components/CardList";
-import { useTypeParam } from "@/client-pages/hooks";
-import { useFetchChartAll } from "@/schema-component/widgets";
+import { usePaginationProps, useTypeParam } from "@/client-pages/hooks";
+import { useFetchChartAllList } from "@/schema-component/widgets";
 import { defaultMessage } from "@/utils/defaultMessage";
+import InternalPagination from "@/client-pages/components/InternalPagination";
 
 function ChartsIndex() {
   const { typeParam } = useTypeParam("all");
+  const { pageNum, pageSize, paginationProps } = usePaginationProps();
   const apiClient = useAPIClient();
   const editChartApi = useEditChartApi();
 
   const chartType = !typeParam || typeParam === "all" ? undefined : typeParam;
 
-  const { data, refetch } = useFetchChartAll(chartType);
+  const { data, refetch } = useFetchChartAllList({
+    type: chartType,
+    pageNum,
+    pageSize,
+  });
 
   const editChart = (
     { id: chartId, name, type, description }: Partial<IChartItem>,
@@ -64,7 +70,7 @@ function ChartsIndex() {
       })
       .open({});
   };
-  const chartList: IChartItem[] = data || [];
+  const chartList: IChartItem[] = data?.rows || [];
 
   return (
     <PageContainer
@@ -117,6 +123,7 @@ function ChartsIndex() {
           );
         }}
       />
+      <InternalPagination {...paginationProps} total={data?.total} />
     </PageContainer>
   );
 }

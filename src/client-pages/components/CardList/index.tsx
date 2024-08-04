@@ -29,7 +29,12 @@ function CardList<T = any>({
     );
   }
   return (
-    <Row>
+    <Row
+      className={css`
+        background-color: #fff;
+        padding: 16px 16px 16px 16px;
+      `}
+    >
       {list.map((item) => {
         return (
           <Col

@@ -17,7 +17,8 @@ function AdminLayoutContainer(props: PropsWithChildren) {
           logo={<HomeMenu />}
           className={css`
             font-size: 14px;
-            background: linear-gradient(#ffffff, #f5f5f5 28%);
+            /* background: linear-gradient(#ffffff, #f5f5f5 28%); */
+            background-color: rgb(240, 242, 245);
           `}
         >
           {props.children}

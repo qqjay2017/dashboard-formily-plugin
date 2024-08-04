@@ -15,3 +15,20 @@ export function useDashboardAll() {
     },
   });
 }
+
+export function useDashboardList() {
+  const { typeParam, pageNum, pageSize } = useTypeParam();
+
+  return useRequest<{
+    rows: DashboardItem[];
+    total: number;
+  }>(`${apiBase}/designer/list`, {
+    method: "GET",
+    refreshDeps: [typeParam, pageNum, pageSize],
+    params: {
+      appGroupId: !typeParam || typeParam === "all" ? undefined : typeParam,
+      pageNum,
+      pageSize,
+    },
+  });
+}
