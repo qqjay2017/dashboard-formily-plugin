@@ -20,6 +20,8 @@ import {
   FormilySmartHelmet as SmartHelmet,
   FormilyUnprocessedWarningList as UnprocessedWarningList,
 } from "@/schema-component/widgets";
+
+import { WeighbridgeTemplate as Weighbridge } from "@/schema-component/widgets/zhdg/weighbridge/preview";
 import {
   ComponentTreeWidget,
   CompositePanel,
@@ -124,6 +126,11 @@ export function DesignEngine({
               />
               <ResourceWidget
                 defaultExpand={false}
+                title="智慧工地"
+                sources={[Weighbridge]}
+              />
+              <ResourceWidget
+                defaultExpand={false}
                 title="业务-人员信息"
                 sources={[
                   LaborAttendance,
@@ -184,6 +191,7 @@ export function DesignEngine({
                       ChartTemplate,
                       UnprocessedWarningList,
                       PositionDecorator,
+                      Weighbridge,
                     }}
                   />
                 )}

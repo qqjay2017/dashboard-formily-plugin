@@ -216,3 +216,14 @@ apiClient?.request({
   dataPath: "data",
 });
 ```
+
+## 内置属性
+
+移动端自适应时候,不加头部高度
+
+```
+   "x-decorator-props": {
+          disOffsetHeaderSize: true,
+
+        },
+```

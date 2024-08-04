@@ -33,7 +33,6 @@ function ApiInfoSelect({
           selectedRowKeys:
             value && value.dataSourceId ? [value.dataSourceId] : [],
           onSelect: (e) => {
-            console.log(e, "e");
             onChange &&
               onChange({
                 dataSourceId: e.id,

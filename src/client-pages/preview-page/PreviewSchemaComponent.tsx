@@ -1,5 +1,3 @@
-import type { PropsWithChildren } from "react";
-import React from "react";
 import type { ISchemaComponentOptionsProps } from "@/schema-component/components/SchemaComponentOptions";
 import SchemaComponentOptions from "@/schema-component/components/SchemaComponentOptions";
 
@@ -25,6 +23,7 @@ import {
 } from "@/schema-component/widgets";
 import DashboardRootPreview from "@/schema-component/components/DashboardRootPreview";
 import PositionDecoratorPreview from "@/schema-component/components/PositionDecorator";
+import Weighbridge from "@/schema-component/widgets/zhdg/weighbridge";
 
 interface IPreviewSchemaComponentProps extends ISchemaComponentOptionsProps {}
 
@@ -63,6 +62,7 @@ export default function PreviewSchemaComponent({
         DashboardRootPreview,
         PositionDecorator: PositionDecoratorPreview,
         PositionDecoratorPreview,
+        Weighbridge,
         ...components,
       }}
     >

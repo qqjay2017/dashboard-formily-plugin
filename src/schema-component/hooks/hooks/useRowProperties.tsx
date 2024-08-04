@@ -140,14 +140,26 @@ export function useRowProperties(props?: {
         const h = itemDecoratorProps.h || 0;
         const w = itemDecoratorProps.w || 0;
         const children = blockFrameIndexMap?.[item.name]?.children;
-        const multipleNum = children?.length
-          ? children?.length
-          : w > 8
-            ? 3
-            : w > 4
-              ? 2
-              : 1;
-        const newH = h * multipleNum || 0;
+
+        // const multipleNum = children?.length
+        //   ? children?.length
+        //   : w > 8
+        //     ? 3
+        //     : w > 4
+        //       ? 2
+        //       : 1;
+        // TODO
+        // const newH = h * multipleNum || 0;
+        // 有子集的情况,应该把子集的都加起来再加头部高度
+        const newH =
+          children.reduce((memo, cur) => {
+            const decorator = cur["x-decorator-props"];
+            const hasSetMobileH = decorator?.mobileH !== undefined;
+            if (hasSetMobileH) {
+              return memo + (decorator.mobileH || 0);
+            }
+            return memo + (decorator.h || 0);
+          }, 0) + 0.5111;
 
         item["x-decorator-props"] = {
           ...itemDecoratorProps,
@@ -162,6 +174,7 @@ export function useRowProperties(props?: {
           let childrenStartY = startY;
           children.forEach((child, index) => {
             const childecoratorProps = child["x-decorator-props"];
+            const hasSetMobileH = childecoratorProps?.mobileH !== undefined;
             const disOffsetHeaderSize = childecoratorProps.disOffsetHeaderSize;
             const newY = sizeFormat(
               childrenStartY + (disOffsetHeaderSize ? 0 : 0.5111),
@@ -169,6 +182,9 @@ export function useRowProperties(props?: {
             );
             child["x-decorator-props"] = {
               ...childecoratorProps,
+              h: hasSetMobileH
+                ? childecoratorProps.mobileH || 0
+                : childecoratorProps.h,
               x: 0.5,
               w: 11,
               y: newY,

@@ -28,7 +28,7 @@ function PreviewPage() {
       refreshDeps: [shareURL],
     }
   );
-  console.log(data, "data");
+
   const name = get(data, "name");
   const description = get(data, "description");
   const schema = get(data, "content", "{}") || "{}";
