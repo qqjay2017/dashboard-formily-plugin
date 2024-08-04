@@ -24,6 +24,7 @@ import {
 import DashboardRootPreview from "@/schema-component/components/DashboardRootPreview";
 import PositionDecoratorPreview from "@/schema-component/components/PositionDecorator";
 import Weighbridge from "@/schema-component/widgets/zhdg/weighbridge";
+import DeviationOfCargo from "@/schema-component/widgets/zhdg/deviation-of-cargo";
 
 interface IPreviewSchemaComponentProps extends ISchemaComponentOptionsProps {}
 
@@ -63,6 +64,7 @@ export default function PreviewSchemaComponent({
         PositionDecorator: PositionDecoratorPreview,
         PositionDecoratorPreview,
         Weighbridge,
+        DeviationOfCargo,
         ...components,
       }}
     >

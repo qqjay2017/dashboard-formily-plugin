@@ -1,18 +1,19 @@
 import { connect } from "@formily/react";
-import Weighbridge from ".";
+
+import DeviationOfCargo from ".";
 import type { DnFC } from "@/designable/react";
 import { createBehavior, createResource } from "@/designable/core";
 import { getAllQueryKeys } from "@/schema-component/shared";
 import { createFieldSchema } from "@/designable/Field";
 import { rs } from "@/utils";
 
-export const FormilyWeighbridge: DnFC<any> = connect(Weighbridge);
+export const FormilyDeviationOfCargo: DnFC<any> = connect(DeviationOfCargo);
 
-FormilyWeighbridge.Resource = createResource({
-  title: "地磅-过磅记录",
+FormilyDeviationOfCargo.Resource = createResource({
+  title: "地磅-各货物偏差情况",
 
   icon: rs(
-    "/dashboard-assets/schema-component/ClassicFrame/WX20240720-173009@2x.png"
+    "/dashboard-assets/schema-component/deviation-of-cargo/WX20240720-173009@2x.png"
   ),
   elements: [
     {
@@ -20,7 +21,7 @@ FormilyWeighbridge.Resource = createResource({
 
       props: {
         type: "void",
-        "x-component": "Weighbridge",
+        "x-component": "DeviationOfCargo",
         "x-component-props": {
           queryKeys: getAllQueryKeys(),
         },
@@ -28,21 +29,20 @@ FormilyWeighbridge.Resource = createResource({
         "x-decorator-props": {
           padding: "0px 0px 0px 0px",
           w: 3,
-          h: 5,
-          mobileH: 8.2,
+          h: 3,
         },
       },
     },
   ],
 });
 
-FormilyWeighbridge.Behavior = createBehavior({
-  name: "Weighbridge",
+FormilyDeviationOfCargo.Behavior = createBehavior({
+  name: "DeviationOfCargo",
   selector: (node) =>
     node.componentName === "Field" &&
-    node.props["x-component"] === "Weighbridge",
+    node.props["x-component"] === "DeviationOfCargo",
   designerProps: {
-    title: "地磅-过磅记录",
+    title: "地磅-各货物偏差情况",
     draggable: true,
     droppable: false,
     resizable: {},

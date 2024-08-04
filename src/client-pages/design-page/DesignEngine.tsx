@@ -21,7 +21,11 @@ import {
   FormilyUnprocessedWarningList as UnprocessedWarningList,
 } from "@/schema-component/widgets";
 
-import { WeighbridgeTemplate as Weighbridge } from "@/schema-component/widgets/zhdg/weighbridge/preview";
+import {
+  FormilyDeviationOfCargo as DeviationOfCargo,
+  FormilyWeighbridge as Weighbridge,
+} from "@/schema-component/widgets/zhdg";
+
 import {
   ComponentTreeWidget,
   CompositePanel,
@@ -127,7 +131,7 @@ export function DesignEngine({
               <ResourceWidget
                 defaultExpand={false}
                 title="智慧工地"
-                sources={[Weighbridge]}
+                sources={[Weighbridge, DeviationOfCargo]}
               />
               <ResourceWidget
                 defaultExpand={false}
@@ -192,6 +196,7 @@ export function DesignEngine({
                       UnprocessedWarningList,
                       PositionDecorator,
                       Weighbridge,
+                      DeviationOfCargo,
                     }}
                   />
                 )}
