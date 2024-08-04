@@ -11,6 +11,7 @@ import { apiBase } from "@/utils";
 import type { FormItemComponentProps } from "@/types";
 import { useGroupList } from "@/application/hooks";
 import { getFormDialog } from "@/schema-component/antd";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 const createApiGroupSchema: ISchema = {
   type: "object",
@@ -93,7 +94,7 @@ export function ApiGroupFormItem({
                 const id = get(res, "id");
                 if (id) {
                   refetch();
-                  message.success("新建成功");
+                  message.success(defaultMessage.submit);
                   return next(payload);
                 } else {
                   return Promise.reject();

@@ -16,6 +16,7 @@ import PageContainer from "@/client-pages/components/PageContainer";
 import InternalTable from "@/client-pages/components/InternalTable";
 import { useApiManageAll, useTypeParam } from "@/client-pages/hooks";
 import { showConfirmPromisify } from "@/schema-component/antd";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 function ApiIndex() {
   const { typeParam } = useTypeParam();
@@ -113,7 +114,7 @@ function ApiIndex() {
                         await showConfirmPromisify({});
                         await removeAppManage(record);
                         await refetch();
-                        message.success("删除成功");
+                        message.success(defaultMessage.delete);
                       } catch (error) {}
                     }}
                   >

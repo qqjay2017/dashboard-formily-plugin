@@ -23,6 +23,7 @@ import PageContainer from "@/client-pages/components/PageContainer";
 import InternalFormLayout from "@/client-pages/components/InternalFormLayout";
 import Submit from "@/client-pages/components/Submit";
 import { useTypeParam } from "@/client-pages/hooks";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 /**
  * 汇聚出表单页面规范
@@ -56,7 +57,7 @@ function ApiEditPage() {
   const handleSunmit = async (values) => {
     return await apiClient.request({
       method: id ? "put" : "post",
-      url: id ? `${apiBase}/api-manage` : `${apiBase}/api-manage`,
+      url: id ? `${apiBase}/api-manage/${id}` : `${apiBase}/api-manage`,
       data: {
         ...values,
         id,
@@ -74,12 +75,9 @@ function ApiEditPage() {
     });
   };
   const onSubmit = async (values) => {
-    const res = await handleSunmit(values);
-    const resId = res.id;
-    if (resId) {
-      message.success("提交成功");
-      navigate(-1);
-    }
+    await handleSunmit(values);
+    message.success(defaultMessage.submit);
+    navigate(-1);
   };
 
   const onTest = async (values) => {

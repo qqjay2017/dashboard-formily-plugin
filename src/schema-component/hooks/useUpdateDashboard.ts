@@ -4,18 +4,16 @@ import { apiBase } from "@/utils";
 
 export function useUpdateDashboard() {
   const apiClient = useAPIClient();
+
   const { id } = useParams();
 
   return {
     id,
-    updateDashboard: (data) =>
+    updateDashboard: (data, _id?: string) =>
       apiClient.request({
-        url: `${apiBase}/designer`,
+        url: `${apiBase}/designer/${_id || id}`,
         method: "put",
-        data: {
-          ...data,
-          id,
-        },
+        data,
       }),
   };
 }

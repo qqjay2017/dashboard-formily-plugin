@@ -15,7 +15,7 @@ export function useEditChartApi() {
     chartId?: any;
   }) => {
     return apiClient.request<any, APiWrap<{ id: number }>>({
-      url: `${apiBase}/chart`,
+      url: isCreate ? `${apiBase}/chart` : `${apiBase}/chart/${chartId}`,
       method: isCreate ? "POST" : "PUT",
       data: {
         ...values,

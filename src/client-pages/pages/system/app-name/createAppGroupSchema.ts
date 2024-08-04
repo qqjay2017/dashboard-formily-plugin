@@ -27,7 +27,7 @@ export const createAppGroupSchema: ISchema = {
     description: {
       type: "string",
       title: "描述",
-      required: true,
+      required: false,
       "x-decorator": "FormItem",
       "x-component": "Input.TextArea",
     },

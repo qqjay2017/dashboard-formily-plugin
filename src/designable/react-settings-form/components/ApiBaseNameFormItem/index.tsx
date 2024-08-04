@@ -8,6 +8,7 @@ import { useAPIClient, useQuery } from "@/api-client";
 import type { FormItemComponentProps } from "@/types";
 import { apiBase } from "@/utils";
 import { getFormDialog } from "@/schema-component/antd";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 const createApiBaseNameSchema: ISchema = {
   type: "object",
@@ -101,7 +102,7 @@ export function ApiBaseNameFormItem({
                 const id = get(res, "id");
                 if (id) {
                   refetch();
-                  message.success("新增成功");
+                  message.success(defaultMessage.submit);
                   return next(payload);
                 } else {
                   return Promise.reject();

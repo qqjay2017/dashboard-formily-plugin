@@ -10,6 +10,8 @@ import { useAPIClient } from "@/api-client";
 import { useApp, useReportShare } from "@/application/hooks";
 import { apiBase, copyTextToClipboard } from "@/utils";
 import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
+import { useUpdateDashboard } from "@/schema-component/hooks";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 export default function DashboardItemCard({
   dashboard,
@@ -24,7 +26,7 @@ export default function DashboardItemCard({
   const apiClient = useAPIClient();
   const app = useApp();
   const { reportShare } = useReportShare();
-
+  const { updateDashboard } = useUpdateDashboard();
   return (
     <div
       className={css`
@@ -124,7 +126,7 @@ export default function DashboardItemCard({
                     method: "delete",
                   });
                   refetch && refetch();
-                  message.success("删除成功");
+                  message.success(defaultMessage.delete);
                   return;
                 } catch (error) {
                   refetch && refetch();
@@ -157,17 +159,17 @@ export default function DashboardItemCard({
                   })
                   .forConfirm(async (payload, next) => {
                     const { name, description } = payload.values;
-                    await app.apiClient.request<any, APiWrap<{ id: number }>>({
-                      url: `${apiBase}/designer`,
-                      method: "PUT",
-                      data: {
+                    await updateDashboard(
+                      {
                         ...payload.values,
                         id: dashboard.id,
                         name,
                         description,
                       },
-                    });
-                    message.success("修改成功");
+                      dashboard.id
+                    );
+
+                    message.success(defaultMessage.submit);
                     refetch && refetch();
                     next(payload);
                   })

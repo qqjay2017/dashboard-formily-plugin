@@ -29,6 +29,7 @@ import { useToken } from "@/schema-component/antd/style";
 import { htmlImgUtil } from "@/utils/htmlImgUtil";
 import type { MonacoEditorHandles } from "@/schema-component/components/MonacoEditor";
 import MonacoEditor from "@/schema-component/components/MonacoEditor";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 function ChartEditPage() {
   const { token: antdToken } = useToken();
@@ -132,7 +133,7 @@ function ChartEditPage() {
         });
 
         setSpinning(false);
-        message.success("保存成功");
+        message.success(defaultMessage.submit);
       } catch (error) {
         setSpinning(false);
       }

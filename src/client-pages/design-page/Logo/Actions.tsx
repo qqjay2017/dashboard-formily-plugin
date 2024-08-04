@@ -6,6 +6,7 @@ import { transformToSchema } from "@/designable/Field";
 import { useReportShare } from "@/application/hooks";
 import { useUpdateDashboard } from "@/schema-component/hooks";
 import { htmlImgUtil } from "@/utils/htmlImgUtil";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
   const designer = useDesigner();
@@ -19,7 +20,7 @@ export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
     await updateDashboard({
       content: JSON.stringify(schema),
     });
-    message.success("保存成功");
+    message.success(defaultMessage.submit);
   };
 
   const pubSchema = async () => {
@@ -33,7 +34,7 @@ export const Actions = observer(({ shareURL }: { shareURL?: string }) => {
       content: JSON.stringify(schema),
       coverThumbnail: imgSrc?.fileSrcUrl || undefined,
     });
-    message.success("发布成功");
+    message.success(defaultMessage.publish);
   };
 
   const previewSchema = () => {

@@ -11,6 +11,7 @@ import InternalTable from "@/client-pages/components/InternalTable";
 import { tableDefaultScroll } from "@/utils";
 import { getFormDialog, showConfirmPromisify } from "@/schema-component/antd";
 import { iconColumnRender } from "@/client-pages/components/InternalTable/render/iconColumnRender";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 export default function SystemAppName() {
   const updateAppGroupApi = useUpdateAppGroupApi();
@@ -42,7 +43,8 @@ export default function SystemAppName() {
         await updateAppGroupApi({
           ...values,
         });
-        refetch();
+        await refetch();
+        message.success(defaultMessage.submit);
         next(payload);
       })
       .open({});
@@ -126,7 +128,7 @@ export default function SystemAppName() {
                         await showConfirmPromisify({});
                         await removeAppGroupApi(record);
                         await refetch();
-                        message.success("删除成功");
+                        message.success(defaultMessage.delete);
                       } catch (error) {}
                     }}
                   >

@@ -7,7 +7,7 @@ export function useUpdateAppGroupApi() {
   const apiClient = useAPIClient();
   return (dto?: Partial<AppGroupItem>) => {
     return apiClient.request<AppGroupItem, APiWrap<{ id: number }>>({
-      url: `${apiBase}/app-group`,
+      url: dto?.id ? `${apiBase}/app-group/${dto?.id}` : `${apiBase}/app-group`,
       method: dto?.id ? "PUT" : "POST",
       data: dto,
     });

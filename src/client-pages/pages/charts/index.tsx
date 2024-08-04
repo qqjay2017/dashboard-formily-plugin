@@ -15,6 +15,7 @@ import PageContainer from "@/client-pages/components/PageContainer";
 import CardList from "@/client-pages/components/CardList";
 import { useTypeParam } from "@/client-pages/hooks";
 import { useFetchChartAll } from "@/schema-component/widgets";
+import { defaultMessage } from "@/utils/defaultMessage";
 
 function ChartsIndex() {
   const { typeParam } = useTypeParam("all");
@@ -57,11 +58,8 @@ function ChartsIndex() {
           chartId,
           values,
         });
-        const id = get(res, "id");
-        if (id) {
-          refetch();
-          message.success("提交成功");
-        }
+        refetch();
+        message.success(defaultMessage.submit);
         next(payload);
       })
       .open({});
@@ -112,7 +110,7 @@ function ChartsIndex() {
                     },
                   });
                   await refetch();
-                  message.success("删除成功");
+                  message.success(defaultMessage.delete);
                 } catch (error) {}
               }}
             />
