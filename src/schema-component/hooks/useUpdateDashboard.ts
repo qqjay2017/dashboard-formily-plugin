@@ -10,9 +10,12 @@ export function useUpdateDashboard() {
     id,
     updateDashboard: (data) =>
       apiClient.request({
-        url: `${apiBase}/designer/${id}`,
+        url: `${apiBase}/designer`,
         method: "put",
-        data,
+        data: {
+          ...data,
+          id,
+        },
       }),
   };
 }

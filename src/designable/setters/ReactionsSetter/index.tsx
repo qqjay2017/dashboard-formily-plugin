@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { clone } from "@formily/shared";
 import { createForm } from "@formily/core";
 import { createSchemaField } from "@formily/react";
@@ -8,9 +8,7 @@ import { Button, Modal, Tag, Tooltip } from "antd";
 
 import type { IReaction } from "./types";
 
-import { TextWidget, usePrefix } from "@/designable/react";
-
-import { requestIdle } from "@/designable/shared";
+import { TextWidget, useInnerVisible, usePrefix } from "@/designable/react";
 
 import "./styles.less";
 
@@ -123,8 +121,15 @@ const FieldStateValueTypes = {
 };
 
 const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [innerVisible, setInnerVisible] = useState(false);
+  const {
+    modalVisible,
+
+    innerVisible,
+
+    closeModal,
+    openModal,
+  } = useInnerVisible();
+
   const prefix = usePrefix("reactions-setter");
   const form = useMemo(() => {
     return createForm({
@@ -133,25 +138,6 @@ const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
       },
     });
   }, [modalVisible, props.value]);
-
-  const openModal = () => setModalVisible(true);
-  const closeModal = () => setModalVisible(false);
-  useEffect(() => {
-    if (modalVisible) {
-      requestIdle(
-        () => {
-          Promise.resolve().then(() => {
-            setInnerVisible(true);
-          });
-        },
-        {
-          timeout: 400,
-        }
-      );
-    } else {
-      setInnerVisible(false);
-    }
-  }, [modalVisible]);
 
   return (
     <>

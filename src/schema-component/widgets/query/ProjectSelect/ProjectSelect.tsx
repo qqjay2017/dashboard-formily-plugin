@@ -25,7 +25,7 @@ function ProjectSelectMain(props: FormItemComponentProps) {
     staleTime: true,
   });
 
-  const projectList = get(data, "data.data.table.rows", []) || [];
+  const projectList = get(data, "table.rows", []) || [];
   const { setProject, project } = useJfGlobalProjectStore();
   const value = project;
   const onChange = setProject;

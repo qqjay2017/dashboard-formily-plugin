@@ -1,8 +1,6 @@
 import { css } from "@emotion/css";
 
 import { type PropsWithChildren, useMemo } from "react";
-import { get } from "lodash-es";
-import useResizeObserver from "use-resize-observer";
 
 import { GradientTitle } from "../header1/GradientTitle";
 import type { HeaderMenuItemType } from "../HeaderMenu/types";
@@ -15,20 +13,22 @@ import { useToken } from "@/schema-component/antd/style";
 import { rs } from "@/utils";
 import {
   useDashboardRoot,
-  useDataBindFetch,
   useReportId,
   useStrHandlebars,
 } from "@/schema-component/hooks";
-import type { DataSourceBindType } from "@/schema-component/types";
 
-interface Header5Props extends PropsWithChildren {
+import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
+import type { SchemComponentWithDataSourceProps } from "@/types";
+
+interface Header5Props
+  extends PropsWithChildren,
+    SchemComponentWithDataSourceProps {
   title?: string;
   subTitle?: string;
-  apiInfo?: DataSourceBindType;
 }
 
-export function Header5(props: Header5Props) {
-  const { title, apiInfo, subTitle } = props;
+function Header5Main(props: Header5Props) {
+  const { title, apiInfo, subTitle, busData } = props;
 
   const { reportId } = useReportId();
   const { isPc } = useDashboardRoot();
@@ -40,9 +40,8 @@ export function Header5(props: Header5Props) {
   );
   const titleStr = useStrHandlebars(title);
   const subTitleStr = useStrHandlebars(subTitle);
-  const { data, isLoading } = useDataBindFetch(apiInfo);
-  const menuList: HeaderMenuItemType[] = get(data, "data.data", []) || [];
-  const { ref, width = 0 } = useResizeObserver<HTMLDivElement>();
+
+  const menuList: HeaderMenuItemType[] = busData || [];
 
   const subMenuList = useMemo(() => {
     if (!menuList.length) {
@@ -132,7 +131,6 @@ export function Header5(props: Header5Props) {
 
         {/* 一级菜单区域 */}
         <div
-          ref={ref}
           className={
             isPc
               ? css`
@@ -206,3 +204,5 @@ export function Header5(props: Header5Props) {
     </div>
   );
 }
+
+export const Header5 = injectApiInfo(Header5Main);

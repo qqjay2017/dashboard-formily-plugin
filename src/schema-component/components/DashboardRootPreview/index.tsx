@@ -1,21 +1,18 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import { ConfigProvider } from "antd";
-import { RecursionField, useFieldSchema } from "@formily/react";
+import { RecursionField } from "@formily/react";
 import { css } from "@emotion/css";
 
-import { useBreakpoints, useRowProperties } from "../../hooks/hooks";
+import { useRowProperties } from "../../hooks/hooks";
 import { DashboardRootContext, DesignPageConext } from "../context";
 import { defaultBreakpoints, flexible } from "@/utils/utils";
 
 import { fontStyle } from "@/dashboard-themes/global-theme/font-style";
 import { useCustomThemeToken } from "@/dashboard-themes";
 
-import { cn, cx, sizeFormat } from "@/utils";
+import { cn } from "@/utils";
 import { ThemeCSSVariableProvider } from "@/dashboard-themes/css-variable";
-import {
-  useDashboardRootStyle,
-  useScrollBarStyle,
-} from "@/schema-component/hooks";
+import { useDashboardRootStyle } from "@/schema-component/hooks";
 import type { DashboardRootProps } from "@/schema-component/types";
 
 function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
@@ -115,7 +112,7 @@ function DashboardRootPreview({ children, ...props }: DashboardRootProps) {
                 width: 100%;
                 height: ${dheight};
                 position: relative;
-                /* min-height: 100vh; */
+                min-height: 100%;
               `,
               rootStyle.styles,
               className,

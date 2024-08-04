@@ -12,9 +12,10 @@ export default function injectApiInfo(WrapComponent) {
       apiInfo,
       queryParams
     );
+
     const firstApiInfo = takeFirstApiInfo(apiInfo);
     if (firstApiInfo && firstApiInfo.dataSourceId) {
-      const busData = get(busDataRes, "data.data");
+      const busData = get(busDataRes, "data");
       return (
         <WrapComponent
           {...props}

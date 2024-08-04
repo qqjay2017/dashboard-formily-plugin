@@ -122,6 +122,10 @@ export function useRowProperties(props?: {
         allArr.push(item);
       });
       frameArr = frameArr.sort((a, b) => {
+        if (a["x-decorator-props"]?.zIndex && b["x-decorator-props"]?.zIndex) {
+          return a["x-decorator-props"].zIndex - b["x-decorator-props"].zIndex;
+        }
+
         const aDecoratorProps = a["x-decorator-props"];
         const bDecoratorProps = b["x-decorator-props"];
 

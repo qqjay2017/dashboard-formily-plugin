@@ -6,6 +6,7 @@ import { CreateApiBtn } from "./CreateApiBtn";
 import { openApiTestDialog } from "./openApiTestDialog";
 import { typeConfig } from "./consts";
 import { useRemoveAppManage } from "./useRemoveAppManage";
+import { apiInfoColumns, typeColumns } from "./apiTableColumns";
 import { shortUid } from "@/utils/shortUid";
 import { copyTextToClipboard, tableDefaultScroll } from "@/utils";
 import { useGroupList } from "@/application/hooks";
@@ -68,21 +69,7 @@ function ApiIndex() {
               );
             },
           },
-          {
-            title: "名称",
-            dataIndex: "name",
-            ellipsis: true,
-            width: 140,
-          },
-          {
-            title: "类型",
-            dataIndex: "type",
-            width: 100,
-            render: (_, record) => {
-              const typeName = typeConfig[record.type]?.title;
-              return <Space>{typeName ? <Tag>{typeName}</Tag> : null}</Space>;
-            },
-          },
+          ...typeColumns,
           {
             title: "分组",
 
@@ -93,23 +80,7 @@ function ApiIndex() {
               return record?.groupName === value;
             },
           },
-          {
-            title: "域名",
-            dataIndex: "origin",
-          },
-          {
-            title: "前缀",
-            dataIndex: "baseName",
-          },
-          {
-            title: "url",
-            dataIndex: "url",
-          },
-          {
-            title: "请求方式",
-            dataIndex: "method",
-            width: 100,
-          },
+          ...apiInfoColumns,
 
           {
             title: "操作",

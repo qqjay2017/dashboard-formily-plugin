@@ -28,9 +28,10 @@ function PreviewPage() {
       refreshDeps: [shareURL],
     }
   );
-  const name = get(data, "data.data.name");
-  const description = get(data, "data.data.description");
-  const schema = get(data, "data.data.content", "{}") || "{}";
+  console.log(data, "data");
+  const name = get(data, "name");
+  const description = get(data, "description");
+  const schema = get(data, "content", "{}") || "{}";
 
   const { breakpoint } = useBreakpoints(undefined, 200, document.body);
 

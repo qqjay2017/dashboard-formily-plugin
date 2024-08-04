@@ -5,4 +5,5 @@ export interface IApiManageItem {
   id: string;
   type: IApiType;
   data?: any;
+  content?: any;
 }

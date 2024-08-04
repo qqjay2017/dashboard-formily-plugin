@@ -15,8 +15,7 @@ import injectApiInfo from "@/schema-component/hoc/injectApiInfo";
 function ProjectDescMain({ queryParams }: SchemComponentWithDataSourceProps) {
   const projectId = queryParams?.projectId;
 
-  const { data, isLoading } = useFetchProjectDt(projectId);
-  const projectDt = get(data, "data.data");
+  const { data: projectDt, isLoading } = useFetchProjectDt(projectId);
 
   const projectPicSrc = get(projectDt, "projectPics[0].fileSrcUrl");
   const remark = get(projectDt, "remark");

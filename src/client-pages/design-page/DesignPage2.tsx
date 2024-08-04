@@ -20,9 +20,9 @@ function DesignPage2() {
   const { data, isLoading, id } = useDashboardDt();
   const { data: chartAllRes, isLoading: isChartAllLoading } =
     useFetchChartAll();
-  const schema = get(data, "data.data.content", "");
-  const shareURL = get(data, "data.data.id", "");
-  const chartAll: any[] = get(chartAllRes, "data.data");
+  const schema = get(data, "content", "");
+  const shareURL = get(data, "id", "");
+  const chartAll: any[] = chartAllRes;
 
   const { render } = useAppSpin();
   const projectSelectScope = useProjectSelectScope();
@@ -47,7 +47,7 @@ function DesignPage2() {
           PositionDecorator,
         }}
         scope={{
-          dashboardDt: get(data, "data.data", {}) || {},
+          dashboardDt: data || {},
           chartIdMap: (chartAll || []).reduce((memo, cur) => {
             memo[cur.id] = {
               ...cur,

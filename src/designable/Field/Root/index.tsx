@@ -43,9 +43,9 @@ export const Root: DnFC<IRootProps> = observer(
       isDarkTheme,
       ...otherProps
     } = props;
-    const viewport = useViewport();
+
     const { designWidth = 1920, designHeight = 1080 } = useTreeRootProps();
-    const [designZoom, setDesignZoom] = useState(1);
+
     const breakpoint = "desktop";
     const width = 1920;
     const height = 1080;
@@ -206,11 +206,25 @@ Root.Behavior = createBehavior({
           "x-component": "ColorTypeSelect2",
         },
         isDarkTheme: {
-          type: "boolearn",
+          type: "boolean",
           title: "主题风格",
           required: true,
           "x-decorator": "FormItem",
           "x-component": "IsDarkThemeSelect",
+        },
+        mobileAutoFit: {
+          type: "boolean",
+          title: "开启H5自适应",
+          default: true,
+          "x-decorator": "FormItem",
+          "x-component": "Switch",
+        },
+        showBg: {
+          type: "boolean",
+          title: "展示背景图片",
+          default: true,
+          "x-decorator": "FormItem",
+          "x-component": "Switch",
         },
       },
     },

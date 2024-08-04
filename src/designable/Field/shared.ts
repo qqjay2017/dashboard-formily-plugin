@@ -1,50 +1,50 @@
-import type { ISchema } from '@formily/react'
-import { clone } from '@formily/shared'
+import type { ISchema } from "@formily/react";
+import { clone } from "@formily/shared";
 
-import type { IFormilySchema, ITransformerOptions, ITreeNode } from '../core'
-import { positionDecoratorPropsSchema } from './positionDecoratorPropsSchema'
+import type { IFormilySchema, ITransformerOptions, ITreeNode } from "../core";
+import { positionDecoratorPropsSchema } from "./positionDecoratorPropsSchema";
 
 const CSSStyle: ISchema = {
-  type: 'void',
+  type: "void",
   properties: {
-    'style.width': {
-      'type': 'string',
-      'x-decorator': 'FormItem',
-      'x-component': 'SizeInput',
+    "style.width": {
+      type: "string",
+      "x-decorator": "FormItem",
+      "x-component": "SizeInput",
     },
-    'style.height': {
-      'type': 'string',
-      'x-decorator': 'FormItem',
-      'x-component': 'SizeInput',
+    "style.height": {
+      type: "string",
+      "x-decorator": "FormItem",
+      "x-component": "SizeInput",
     },
-    'style.display': {
-      'x-component': 'DisplayStyleSetter',
+    "style.display": {
+      "x-component": "DisplayStyleSetter",
     },
-    'style.background': {
-      'x-component': 'BackgroundStyleSetter',
+    "style.background": {
+      "x-component": "BackgroundStyleSetter",
     },
-    'style.boxShadow': {
-      'x-component': 'BoxShadowStyleSetter',
+    "style.boxShadow": {
+      "x-component": "BoxShadowStyleSetter",
     },
-    'style.font': {
-      'x-component': 'FontStyleSetter',
+    "style.font": {
+      "x-component": "FontStyleSetter",
     },
-    'style.margin': {
-      'x-component': 'BoxStyleSetter',
+    "style.margin": {
+      "x-component": "BoxStyleSetter",
     },
-    'style.padding': {
-      'x-component': 'BoxStyleSetter',
+    "style.padding": {
+      "x-component": "BoxStyleSetter",
     },
-    'style.borderRadius': {
-      'x-component': 'BorderRadiusStyleSetter',
+    "style.borderRadius": {
+      "x-component": "BorderRadiusStyleSetter",
     },
-    'style.border': {
-      'x-component': 'BorderStyleSetter',
+    "style.border": {
+      "x-component": "BorderStyleSetter",
     },
-    'style.opacity': {
-      'x-decorator': 'FormItem',
-      'x-component': 'Slider',
-      'x-component-props': {
+    "style.opacity": {
+      "x-decorator": "FormItem",
+      "x-component": "Slider",
+      "x-component-props": {
         defaultValue: 1,
         min: 0,
         max: 1,
@@ -52,167 +52,159 @@ const CSSStyle: ISchema = {
       },
     },
   },
-}
+};
 
 function createComponentSchema(
-  component: ISchema['properties'],
-  decorator: ISchema,
+  component: ISchema["properties"],
+  decorator: ISchema
 ) {
   return {
-    'component-group': component && {
-      'title': '组件属性',
-      'type': 'void',
-      'x-component': 'CollapseItem',
-      'x-reactions': {
+    "component-group": component && {
+      title: "组件属性",
+      type: "void",
+      "x-component": "CollapseItem",
+      "x-reactions": {
         fulfill: {
           state: {
             visible: '{{!!$form.values["x-component"]}}',
           },
         },
       },
-      'properties': {
-        'x-component-props': {
-          type: 'object',
+      properties: {
+        "x-component-props": {
+          type: "object",
           properties: {
             queryKeys: {
-              'type': 'array',
-              'x-decorator': 'FormItem',
-              'x-component': 'ReactionsSetter',
+              type: "array",
+              "x-decorator": "FormItem",
+              "x-component": "ReactionsSetter",
             },
             apiInfo: {
-              'type': 'object',
-              'x-decorator': 'FormItem',
-              'x-component': 'DataSourceBind',
+              type: "object",
+              "x-decorator": "FormItem",
+              "x-component": "DataSourceBind",
             },
             ...(component as any),
           },
         },
       },
     },
-    'decorator-group': decorator && {
-      'title': '容器属性',
-      'type': 'void',
-      'x-component': 'CollapseItem',
-      'x-component-props': { defaultExpand: true },
-      'x-reactions': {
+    "decorator-group": decorator && {
+      title: "容器属性",
+      type: "void",
+      "x-component": "CollapseItem",
+      "x-component-props": { defaultExpand: true },
+      "x-reactions": {
         fulfill: {
           state: {
             visible: '{{!!$form.values["x-decorator"]}}',
           },
         },
       },
-      'properties': {
-        'x-decorator-props': decorator,
+      properties: {
+        "x-decorator-props": decorator,
       },
     },
-  }
+  };
 }
 
 export function createFieldSchema(
-  component?: ISchema['properties'],
+  component?: ISchema["properties"],
   decorator: ISchema = positionDecoratorPropsSchema,
-  field: ISchema['properties'] = {},
+  field: ISchema["properties"] = {}
 ): ISchema {
   return {
-    type: 'object',
+    type: "object",
     properties: {
-      // 'field-group': {
-      //   'title': '字段属性',
-      //   'type': 'void',
-      //   'x-component': 'CollapseItem',
-      //   'properties': {
-      //     'x-reactions': {
-      //       'x-decorator': 'FormItem',
-      //       'x-component': 'ReactionsSetter',
+      // "field-group": {
+      //   title: "字段属性",
+      //   type: "void",
+      //   "x-component": "CollapseItem",
+      //   properties: {
+      //     "x-reactions": {
+      //       "x-decorator": "FormItem",
+      //       "x-component": "ReactionsSetter",
       //     },
       //     ...(field as any),
       //   },
       // },
       ...createComponentSchema(component, decorator),
     },
-  }
+  };
 }
 function createOptions(options: ITransformerOptions): ITransformerOptions {
   return {
-    designableFieldName: 'Field',
-    designableFormName: 'Root',
+    designableFieldName: "Field",
+    designableFormName: "Root",
     ...options,
-  }
+  };
 }
 
 function findNode(node: ITreeNode, finder?: (node: ITreeNode) => boolean) {
-  if (!node)
-    return
-  if (finder(node))
-    return node
-  if (!node.children)
-    return
+  if (!node) return;
+  if (finder(node)) return node;
+  if (!node.children) return;
   for (let i = 0; i < node.children.length; i++) {
-    if (findNode(node.children[i]))
-      return node.children[i]
+    if (findNode(node.children[i])) return node.children[i];
   }
 }
 
 export function transformToSchema(
   node: ITreeNode,
-  options?: ITransformerOptions,
+  options?: ITransformerOptions
 ): IFormilySchema {
-  const realOptions = createOptions(options)
+  const realOptions = createOptions(options);
   const root = findNode(node, (child) => {
-    return child.componentName === realOptions.designableFormName
-  })
+    return child.componentName === realOptions.designableFormName;
+  });
   const schema = {
-    type: 'object',
+    type: "object",
     properties: {},
-  }
-  if (!root)
-    return { schema }
+  };
+  if (!root) return { schema };
   const createSchema = (node: ITreeNode, schema: ISchema = {}) => {
     if (node !== root) {
-      Object.assign(schema, clone(node.props))
+      Object.assign(schema, clone(node.props));
     }
-    schema['x-designable-id'] = node.id
-    if (schema['x-component-props']?.query) {
-      schema['x-component-props'].query = undefined
+    schema["x-designable-id"] = node.id;
+    if (schema["x-component-props"]?.query) {
+      schema["x-component-props"].query = undefined;
     }
-    if (schema['x-component-props']?.componentType) {
-      schema['x-component-props'].componentType = undefined
+    if (schema["x-component-props"]?.componentType) {
+      schema["x-component-props"].componentType = undefined;
     }
-    if (schema['x-component-props']?.componentAddress) {
-      schema['x-component-props'].componentAddress = undefined
+    if (schema["x-component-props"]?.componentAddress) {
+      schema["x-component-props"].componentAddress = undefined;
     }
-    if (schema['x-component-props']?.formId) {
-      schema['x-component-props'].formId = undefined
+    if (schema["x-component-props"]?.formId) {
+      schema["x-component-props"].formId = undefined;
     }
-    if (schema.type === 'array') {
+    if (schema.type === "array") {
       if (node.children[0]) {
         if (
           node.children[0].componentName === realOptions.designableFieldName
         ) {
-          schema.items = createSchema(node.children[0])
-          schema['x-index'] = 0
+          schema.items = createSchema(node.children[0]);
+          schema["x-index"] = 0;
         }
       }
       node.children.slice(1).forEach((child, index) => {
-        if (child.componentName !== realOptions.designableFieldName)
-          return
-        const key = child.props.name || child.id
-        schema.properties = schema.properties || {}
-        schema.properties[key] = createSchema(child)
-        schema.properties[key]['x-index'] = index
-      })
-    }
-    else {
+        if (child.componentName !== realOptions.designableFieldName) return;
+        const key = child.props.name || child.id;
+        schema.properties = schema.properties || {};
+        schema.properties[key] = createSchema(child);
+        schema.properties[key]["x-index"] = index;
+      });
+    } else {
       node.children.forEach((child, index) => {
-        if (child.componentName !== realOptions.designableFieldName)
-          return
-        const key = child.props.name || child.id
-        schema.properties = schema.properties || {}
-        schema.properties[key] = createSchema(child)
-        schema.properties[key]['x-index'] = index
-      })
+        if (child.componentName !== realOptions.designableFieldName) return;
+        const key = child.props.name || child.id;
+        schema.properties = schema.properties || {};
+        schema.properties[key] = createSchema(child);
+        schema.properties[key]["x-index"] = index;
+      });
     }
-    return schema
-  }
-  return { root: clone(root.props), schema: createSchema(root, schema) }
+    return schema;
+  };
+  return { root: clone(root.props), schema: createSchema(root, schema) };
 }
